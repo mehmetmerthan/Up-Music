@@ -1,23 +1,10 @@
-import { View, Text, Image, TouchableOpacity,ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/SearchMusicianPostStyle";
 import { Feather } from "@expo/vector-icons";
+import postData from "../../../data/groupPostData";
 const SearchGroupScreen = () => {
   const [isIconChanged, setIconChanged] = useState(false);
-  const postData = [
-    {
-      username: "Amelie",
-      contentText: "First post",
-      musicStyles: ["Rock", "Pop"],
-      musiciansNeeded: ["Guitarist", "Pianist"],
-      musiciansExisting: [
-        { username: "Amelie", role: "Guitarist" },
-        { username: "Amelie", role: "Guitarist" },
-      ],
-      userAvatar:
-        "https://cdn.cliqueinc.com/posts/298233/clean-girl-beauty-looks-298233-1646073847519-image.600x0c.jpg?interlace=true&quality=70",
-    },
-  ];
 
   return (
     <ScrollView>
@@ -57,7 +44,7 @@ const SearchGroupScreen = () => {
               <View style={styles.hStackItemWrap} key={musicianIndex}>
                 <Image
                   style={styles.userAvatarExisting}
-                  source={{ uri: post.userAvatar }}
+                  source={{ uri: musician.musicianAvatar }}
                 />
                 <Text>{musician.username}</Text>
                 <Text>{musician.role}</Text>

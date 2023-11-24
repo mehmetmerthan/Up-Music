@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "../../Styles/Create/CreateStyle";
 import { useNavigation } from "@react-navigation/native";
@@ -12,25 +12,19 @@ const CreateScreen = () => {
           style={styles.column}
           onPress={() => navigation.navigate("CreatePostScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/create-post.png")} // Resim yolunu düzgün bir şekilde ayarlayın
             style={styles.icon}
           />
-          <Text style={styles.text}>Create Post</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
           onPress={() => navigation.navigate("CreateEventScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/create-event.png")} // Resim yolunu düzgün bir şekilde ayarlayın
             style={styles.icon}
           />
-          <Text style={styles.text}>Create Event</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
@@ -38,25 +32,19 @@ const CreateScreen = () => {
           style={styles.column}
           onPress={() => navigation.navigate("CreateGroupScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/group-search-notice.png")} 
             style={styles.icon}
           />
-          <Text style={styles.text}>Group search notice</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
           onPress={() => navigation.navigate("CreateMusicianScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/musician-search-notice.png")} 
             style={styles.icon}
           />
-          <Text style={styles.text}>Musician search notice</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
@@ -64,25 +52,19 @@ const CreateScreen = () => {
           style={styles.column}
           onPress={() => navigation.navigate("CreateStageScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/create-stage.png")} 
             style={styles.icon}
           />
-          <Text style={styles.text}>Create Stage</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
           onPress={() => navigation.navigate("CreateJobScreen")}
         >
-          <MaterialIcons
-            name="event"
-            color="#ccc"
-            size={72}
+          <Image
+            source={require("../../../assets/create-job-notice.png")} 
             style={styles.icon}
           />
-          <Text style={styles.text}>Create job search notice</Text>
         </TouchableOpacity>
       </View>
     </View>

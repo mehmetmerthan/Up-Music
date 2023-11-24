@@ -2,22 +2,9 @@ import { ScrollView,View, Text, Image, TouchableOpacity } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/EventPostStyle";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import postData from "../../../data/eventPostData";
 const EventScreen = () => {
   const [isIconChanged, setIconChanged] = useState(false);
-  const postData = [
-    {
-      username: "Amelie",
-      contentText: "First post",
-      contentImage:
-        "https://images.saymedia-content.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTkyMzA2Njc5NjQyMDcyMzAw/do-you-need-a-teacher-to-learn-guitar.jpg",
-      location: "London",
-      musicStyles: ["Rock", "Pop"],
-      userAvatar:
-        "https://cdn.cliqueinc.com/posts/298233/clean-girl-beauty-looks-298233-1646073847519-image.600x0c.jpg?interlace=true&quality=70",
-      partipicantCount: 3,
-      partipicants: [{ username: "Amelie" }, { username: "Farah" }],
-    },
-  ];
 
   return (
     <ScrollView>
@@ -62,7 +49,7 @@ const EventScreen = () => {
               <View style={styles.hStackItemWrap} key={partipicantIndex}>
                 <Image
                   style={styles.userAvatarExisting}
-                  source={{ uri: post.userAvatar }}
+                  source={{ uri: partipicant.partipicantsAvatar }}
                 />
                 <Text>{partipicant.username}</Text>
               </View>

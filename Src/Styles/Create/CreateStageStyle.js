@@ -10,6 +10,16 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     alignSelf: "center",
   },
+  priceInput: {
+    height: 40,
+    width: "50%",
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    alignSelf: "center",
+  },
   header: {
     fontSize: 20,
     margin: 12,

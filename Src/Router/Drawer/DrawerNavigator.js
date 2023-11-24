@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   Ionicons,
@@ -25,10 +26,9 @@ const DrawerNavigator = () => {
         component={HomeStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <Ionicons
-              name="ios-home"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/home.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Home",
@@ -36,11 +36,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -48,10 +48,9 @@ const DrawerNavigator = () => {
         component={EventStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <MaterialIcons
-              name="event"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/event.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Events",
@@ -59,11 +58,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -71,10 +70,9 @@ const DrawerNavigator = () => {
         component={SearchMusicianStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <MaterialCommunityIcons
-              name="account-music-outline"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/seacrh-musician.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Search Musician",
@@ -82,11 +80,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -94,10 +92,9 @@ const DrawerNavigator = () => {
         component={SearchGroupStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <FontAwesome
-              name="group"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/seach_group.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Search Group",
@@ -105,11 +102,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -117,10 +114,9 @@ const DrawerNavigator = () => {
         component={SearchStageStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <MaterialIcons
-              name="place"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/seacrh_stage.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Search Stage",
@@ -128,11 +124,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -140,10 +136,9 @@ const DrawerNavigator = () => {
         component={SearchJobStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
-            <FontAwesome5
-              name="search-dollar"
-              color={focused ? color : "#ccc"}
-              size={size}
+            <Image
+              source={require("../../../assets/search-job.png")}
+              style={{ width: 30, height: 30 }}
             />
           ),
           title: "Search Job",
@@ -151,11 +146,11 @@ const DrawerNavigator = () => {
             borderBottomWidth: 1,
             borderRadius: 0,
             borderBottomColor: "#ccc",
-            marginBottom:20
+            marginBottom: 20,
           },
-          drawerLabelStyle:{
-            fontSize:18
-          }
+          drawerLabelStyle: {
+            fontSize: 18,
+          },
         }}
       />
       <Drawer.Screen
@@ -191,9 +186,9 @@ const DrawerNavigator = () => {
             borderRadius: 0,
             borderBottomColor: "#FF5733",
           },
-          drawerLabelStyle:{
-            color:"#FF5733"
-          }
+          drawerLabelStyle: {
+            color: "#FF5733",
+          },
         }}
       />
     </Drawer.Navigator>

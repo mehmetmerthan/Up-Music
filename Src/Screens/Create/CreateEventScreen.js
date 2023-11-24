@@ -1,23 +1,15 @@
-import {
-  TextInput,
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  ScrollView,
-  Button,
-} from "react-native";
+import { TextInput, Text, View, ScrollView } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
 import UITag from "../../Components/tag";
 import MediaPicker from "../../Components/MediaPicker";
 import { Ionicons } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Modal, Dialog, PanningProvider } from "react-native-ui-lib";
+import { Dialog, Divider, Button } from "@rneui/themed";
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [isVisible, setVisible] = useState(true);
+  const [isVisible, setVisible] = useState(false);
   const [location, setLocation] = useState("");
   function submitPost() {
     setLoading(!isLoading);
@@ -27,7 +19,7 @@ export default function CreateEventScreen() {
   }
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View>
         <MediaPicker />
         <TextInput
           style={styles.input}
@@ -35,19 +27,31 @@ export default function CreateEventScreen() {
           placeholder="Write something"
           value={text}
         />
-        <TouchableOpacity onPress={visible}>
-          <View style={styles.containerTouchable}>
-            <Ionicons name="location-outline" size={24} color="black" />
-            <Text style={styles.TextTouchable}>Select event location</Text>
-          </View>
-        </TouchableOpacity>
+        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+        <Button
+          title="Select location"
+          buttonStyle={{
+            borderColor: "#ccc",
+            borderWidth: 1,
+            borderRadius: 10,
+          }}
+          type="outline"
+          titleStyle={{ color: "black" }}
+          containerStyle={{
+            marginHorizontal: 70,
+            marginVertical: 10,
+          }}
+          icon={<Ionicons name="location-outline" size={24} color="black" />}
+          onPress={visible}
+        />
+        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Dialog
-          visible={isVisible}
+          isVisible={isVisible}
+          onBackdropPress={() => setVisible(!isVisible)}
           onDismiss={() => setVisible(!isVisible)}
-          panDirection={PanningProvider.Directions.DOWN}
         >
           <View style={styles.locationContainer}>
-            <Text style={styles.locationText}>Search Location</Text>
+            <Dialog.Title title="Search Location" />
             <GooglePlacesAutocomplete
               styles={{ textInput: styles.locationInput }}
               placeholder="Hard Rock Cafe, London"
@@ -64,15 +68,26 @@ export default function CreateEventScreen() {
             />
           </View>
         </Dialog>
-        <View style={styles.divider} />
+
+        <Text style={styles.header}>Select Categories</Text>
+        <Divider inset={true} insetType="middle" orientation="vertical" />
         <UITag />
-        <TouchableOpacity style={styles.button} onPress={submitPost}>
-          {isLoading ? (
-            <ActivityIndicator size="small" color="white" />
-          ) : (
-            <Text style={styles.text}>Share</Text>
-          )}
-        </TouchableOpacity>
+        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+        <Button
+          title="Share"
+          loading={false}
+          buttonStyle={{
+            borderColor: "#ccc",
+            borderWidth: 1,
+            borderRadius: 10,
+          }}
+          titleStyle={{ color: "white" }}
+          containerStyle={{
+            marginHorizontal: 70,
+            marginVertical: 10,
+          }}
+          onPress={submitPost}
+        />
       </View>
     </ScrollView>
   );

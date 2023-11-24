@@ -1,31 +1,37 @@
-import React from "react";
-import { View, ScrollView, Image, Text, Pressable } from "react-native";
+import { React } from "react";
+import { View, ScrollView, Text, Pressable } from "react-native";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
-import Post from "../../Components/PostComponents/Post";
+import Post from "../../Components/PostComponents/UserPost";
+import { Avatar } from '@rneui/themed';
+import { useNavigation } from "@react-navigation/native";
 const UserProfile = () => {
+  const aboutText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut debitis enim eos facilis, impedit labore mollitia placeat praesentium quos sit suscipit totam veritatis. Deleniti incidunt necessitatibus omnis porro unde!";
+  const musicStyles = ["Rock", "Pop", "Jazz", "Hip Hop"];
+  const instruments = ["Guitar", "Piano", "Drums", "Bass"];
+  const navigation = useNavigation();
+  function editProfile() {
+    navigation.navigate("EditProfileScreen");
+  }
   return (
     <View style={styles.flexA}>
       <ScrollView contentContainerStyle={styles.base}>
         <View style={styles.userProfile}>
           <View style={styles.userProfileTop}>
-            <Image
+            <Avatar
               style={styles.userProfileTopBg}
               source={{
-                uri: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
+                uri: "https://source.unsplash.com/800x600/?",
               }}
-            />
+            >
+            </Avatar>
             <View style={styles.userProfileTopOverlay} />
-            <View style={styles.avatar}>
-              <View style={styles.avatarContainer}>
-                <Image
-                  style={styles.avatarImg}
-                  source={{
-                    uri: "https://images.unsplash.com/photo-1620508115467-aa36a8dcf82d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80",
-                  }}
-                />
-              </View>
-            </View>
+            <Avatar
+              size={150}
+              rounded
+              source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
+            >
+            </Avatar>
             <View style={styles.userProfileInfo}>
               <Text style={styles.userProfileInfoName}>Amelie Stevens</Text>
               <View style={styles.userProfileInfoLocation}>
@@ -55,14 +61,9 @@ const UserProfile = () => {
           </View>
           <View style={styles.userProfileBody}>
             <View style={styles.flexB}>
-              <Pressable style={styles.btnA} activeOpacity={0.8}>
-                <Text style={styles.btnTextA} numberOfLines={1}>
-                  Follow
-                </Text>
-              </Pressable>
-              <Pressable style={styles.btnB} activeOpacity={0.8}>
+              <Pressable style={styles.btnB} activeOpacity={0.8} onPress={editProfile}>
                 <Text style={styles.btnTextB} numberOfLines={1}>
-                  Message
+                  Edit Profile
                 </Text>
               </Pressable>
             </View>
@@ -83,11 +84,7 @@ const UserProfile = () => {
                     </View>
                     <View style={styles.sectionContent}>
                       <Text style={styles.typography}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. At aut debitis enim eos facilis, impedit labore
-                        mollitia placeat praesentium quos sit suscipit totam
-                        veritatis. Deleniti incidunt necessitatibus omnis porro
-                        unde!
+                        {aboutText}
                       </Text>
                     </View>
                   </View>
@@ -108,20 +105,15 @@ const UserProfile = () => {
                     <View style={styles.sectionContent}>
                       <View style={styles.hStack}>
                         <View style={styles.hStackContent}>
-                          <View style={styles.hStackItemWrap}>
-                            <View style={styles.tag}>
-                              <Text style={styles.tagText} numberOfLines={1}>
-                                Rock
-                              </Text>
+                          {musicStyles.map((tag, index) => (
+                            <View style={styles.hStackItemWrap} key={index}>
+                              <View style={styles.tag}>
+                                <Text style={styles.tagText} numberOfLines={1}>
+                                  {tag}
+                                </Text>
+                              </View>
                             </View>
-                          </View>
-                          <View style={styles.hStackItemWrap}>
-                            <View style={styles.tag}>
-                              <Text style={styles.tagText} numberOfLines={1}>
-                                Pop
-                              </Text>
-                            </View>
-                          </View>
+                          ))}
                         </View>
                       </View>
                     </View>
@@ -143,20 +135,15 @@ const UserProfile = () => {
                     <View style={styles.sectionContent}>
                       <View style={styles.hStack}>
                         <View style={styles.hStackContent}>
-                          <View style={styles.hStackItemWrap}>
-                            <View style={styles.tag}>
-                              <Text style={styles.tagText} numberOfLines={1}>
-                                Guitar
-                              </Text>
+                          {instruments.map((tag, index) => (
+                            <View style={styles.hStackItemWrap} key={index}>
+                              <View style={styles.tag}>
+                                <Text style={styles.tagText} numberOfLines={1}>
+                                  {tag}
+                                </Text>
+                              </View>
                             </View>
-                          </View>
-                          <View style={styles.hStackItemWrap}>
-                            <View style={styles.tag}>
-                              <Text style={styles.tagText} numberOfLines={1}>
-                                Piano
-                              </Text>
-                            </View>
-                          </View>
+                          ))}
                         </View>
                       </View>
                     </View>
@@ -173,5 +160,5 @@ const UserProfile = () => {
     </View>
   );
 };
-
 export default UserProfile;
+

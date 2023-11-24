@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     },
     column: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      // justifyContent: 'center',
+      // alignItems: 'center',
       borderWidth: 1, 
       borderColor: '#ccc',
       shadowColor: '#007BFF', 
@@ -23,13 +23,20 @@ const styles = StyleSheet.create({
       },
     },
     icon: {
-      justifyContent: 'center',
-      alignItems: 'center',
+      // justifyContent: 'center',
+      //alignItems: 'center',
+      alignSelf: 'center',
+      width: 200,
+      height: 180,
+      //position: 'absolute',
+      //backgroundColor: 'red',
+      marginTop: 40,
+      marginRight: 45,
     },
     text: {
-      marginTop: 10, 
+      //marginTop: 10, 
       fontSize: 16,
-      padding: 10,
+      //padding: 10,
     },
   });
 
