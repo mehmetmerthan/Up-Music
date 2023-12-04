@@ -1,12 +1,8 @@
-import React from "react";
+import { ReactComponentElement, useState } from "react";
 import { Image } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   Ionicons,
-  MaterialIcons,
-  MaterialCommunityIcons,
-  FontAwesome,
-  FontAwesome5,
   Octicons,
 } from "@expo/vector-icons";
 import HomeStack from "../StackScreen/HomeStack";
@@ -15,12 +11,11 @@ import SearchMusicianStack from "../StackScreen/SearchMusicianStack";
 import SearchGroupStack from "../StackScreen/SearchGroupStack";
 import SearchStageStack from "../StackScreen/SearchStageStack";
 import SettingsStack from "../StackScreen/SettingsStack";
-import SearchJobStack from "../StackScreen/SearchJobStack";
+import SearchProfStack from "../StackScreen/SearchProfStack";
 const Drawer = createDrawerNavigator();
-
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator >
       <Drawer.Screen
         name="HomeStack"
         component={HomeStack}
@@ -132,8 +127,8 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="SearchJobStack"
-        component={SearchJobStack}
+        name="SearchProfStack"
+        component={SearchProfStack}
         options={{
           drawerIcon: ({ focused, size, color }) => (
             <Image
@@ -141,7 +136,7 @@ const DrawerNavigator = () => {
               style={{ width: 30, height: 30 }}
             />
           ),
-          title: "Search Job",
+          title: "Search Prof",
           drawerItemStyle: {
             borderBottomWidth: 1,
             borderRadius: 0,
@@ -197,4 +192,4 @@ const DrawerNavigator = () => {
 
 export default DrawerNavigator;
 
-function SignOut() {}
+function SignOut() { }

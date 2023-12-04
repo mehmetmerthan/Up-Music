@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import ExpoloreStackScreen from "../StackScreen/ExploreStack";
+import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
 import NotificationStackScreen from "../StackScreen/NotificationStack";
 import ProfileStackScreen from "../StackScreen/ProfileStack";
@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 const BottomTab = () => (
   <Tab.Navigator>
     <Tab.Screen
-      name="DrawerNavigator"
+      name="Home"
       component={DrawerNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (
@@ -21,16 +21,16 @@ const BottomTab = () => (
       }}
     />
     <Tab.Screen
-      name="Explore"
-      component={ExpoloreStackScreen}
+      name="Message"
+      component={MessageStack}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <MaterialIcons name="explore" color={color} size={size} />
+          <MaterialIcons name="message" color={color} size={size} />
         ),
         headerShown: false,
+        tabBarBadge: 3,
       }}
     />
-
     <Tab.Screen
       name="Create"
       component={CreateStackScreen}
@@ -53,6 +53,7 @@ const BottomTab = () => (
           />
         ),
         headerShown: false,
+        tabBarBadge: 5,
       }}
     />
     <Tab.Screen

@@ -1,22 +1,26 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/SearchMusicianPostStyle";
+import styles from "../../Styles/Post/SearchMusicianPostStyle";
 import { Feather } from "@expo/vector-icons";
 import postData from "../../../data/groupPostData";
+import { useNavigation } from "@react-navigation/native";
 const SearchGroupScreen = () => {
   const [isIconChanged, setIconChanged] = useState(false);
-
+  const navigation = useNavigation();
+  function navigateToUserDetail() {
+    navigation.navigate("UserDetailScreen");
+  }
   return (
     <ScrollView>
       {postData.map((post, index) => (
         <View style={styles.container} key={index}>
-          <View style={styles.userInfo}>
+          <TouchableOpacity style={styles.userInfo} onPress={navigateToUserDetail}>
             <Image
               style={styles.userAvatar}
               source={{ uri: post.userAvatar }}
             />
             <Text style={styles.username}>{post.username}</Text>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.contentText}>{post.contentText}</Text>
           <Text style={styles.sectionHeadingText}>Music Styles</Text>
           <View style={styles.hStackContent}>

@@ -1,22 +1,26 @@
-import { ScrollView,View, Text, Image, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/EventPostStyle";
+import styles from "../../Styles/Post/EventPostStyle";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import postData from "../../../data/eventPostData";
+import { useNavigation } from "@react-navigation/native";
 const EventScreen = () => {
   const [isIconChanged, setIconChanged] = useState(false);
-
+  const navigation = useNavigation();
+  function navigateToUserDetail() {
+    navigation.navigate("UserDetailScreen");
+  }
   return (
     <ScrollView>
       {postData.map((post, index) => (
         <View style={styles.container} key={index}>
-          <View style={styles.userInfo}>
+          <TouchableOpacity style={styles.userInfo} onPress={navigateToUserDetail}>
             <Image
               style={styles.userAvatar}
               source={{ uri: post.userAvatar }}
             />
             <Text style={styles.username}>{post.username}</Text>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.contentText}>{post.contentText}</Text>
           <Ionicons
             name="location-outline"

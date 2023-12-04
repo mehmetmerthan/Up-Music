@@ -1,23 +1,25 @@
-import { View, Text, Image, TouchableOpacity,ScrollView } from "react-native";
-import { React, useState } from "react";
-import styles from "../../Styles/EventPostStyle";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { View, Text, Image, ScrollView,TouchableOpacity } from "react-native";
+import { React } from "react";
+import styles from "../../Styles/Post/EventPostStyle";
+import { Ionicons } from "@expo/vector-icons";
 import postData from "../../../data/jobPostData";
-const SearchJobScreen = () => {
-  const [isIconChanged, setIconChanged] = useState(false);
-
-
+import { useNavigation } from "@react-navigation/native";
+const SearchProfScreen = () => {
+  const navigation = useNavigation();
+  function navigateToUserDetail() {
+    navigation.navigate("UserDetailScreen");
+  }
   return (
     <ScrollView>
       {postData.map((post, index) => (
         <View style={styles.container} key={index}>
-          <View style={styles.userInfo}>
+          <TouchableOpacity style={styles.userInfo} onPress={navigateToUserDetail}>
             <Image
               style={styles.userAvatar}
               source={{ uri: post.userAvatar }}
             />
             <Text style={styles.username}>{post.username}</Text>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.contentText}>{post.contentText}</Text>
           <Ionicons
             name="location-outline"
@@ -43,22 +45,10 @@ const SearchJobScreen = () => {
               </View>
             ))}
           </View>
-          
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setIconChanged(!isIconChanged)}
-          >
-            {isIconChanged ? (
-              <Feather name="check-circle" size={24} color="green" />
-            ) : (
-              <Feather name="plus-circle" size={24} color="black" />
-            )}
-            <Text>Send a request</Text>
-          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
   );
 };
 
-export default SearchJobScreen;
+export default SearchProfScreen;

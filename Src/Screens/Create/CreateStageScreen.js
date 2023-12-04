@@ -1,25 +1,22 @@
 import { TextInput, Text, View, ScrollView } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateStageStyle";
-import UITag from "../../Components/tag";
-import MediaPicker from "../../Components/MediaPicker";
-import { Ionicons } from "@expo/vector-icons";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Dialog, Divider, Button } from "@rneui/themed";
+import StyleTag from "../../Components/TagComponents/StyleTag";
+import useMedia from "../../Components/PickerComponents/useMedia";
+import { Divider, Button } from "@rneui/themed";
+import { useLocation } from "../../Components/PickerComponents/useLocation";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isVisible, setVisible] = useState(false);
-  const [location, setLocation] = useState("");
+  const { MediaPicker, image } = useMedia();
+  const { LocationPicker, location } = useLocation();
   function submitPost() {
     setLoading(!isLoading);
   }
-  function visible() {
-    setVisible(!isVisible);
-  }
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <View>
         <MediaPicker />
         <TextInput
@@ -38,50 +35,10 @@ export default function CreateStageScreen() {
           value={price}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Button
-          title="Select location"
-          buttonStyle={{
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
-          type="outline"
-          titleStyle={{ color: "black" }}
-          containerStyle={{
-            marginHorizontal: 70,
-            marginVertical: 10,
-          }}
-          icon={<Ionicons name="location-outline" size={24} color="black" />}
-          onPress={visible}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Dialog
-          isVisible={isVisible}
-          onBackdropPress={() => setVisible(!isVisible)}
-          onDismiss={() => setVisible(!isVisible)}
-        >
-          <View style={styles.locationContainer}>
-            <Dialog.Title title="Search Location" />
-            <GooglePlacesAutocomplete
-              styles={{ textInput: styles.locationInput }}
-              placeholder="Hard Rock Cafe, London"
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(data, details);
-                setLocation(data.description);
-                setVisible(!isVisible);
-              }}
-              query={{
-                key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
-                language: "en",
-              }}
-            />
-          </View>
-        </Dialog>
-
+        <LocationPicker />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <UITag />
+        <StyleTag />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
           title="Share"

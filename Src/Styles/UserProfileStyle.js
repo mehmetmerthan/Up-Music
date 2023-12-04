@@ -1,14 +1,5 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
-  flexA: {
-    flex: 1,
-  },
-  base: {
-    flexGrow: 1,
-  },
-  userProfile: {
-    flex: 1,
-  },
   userProfileTop: {
     alignItems: "center",
     justifyContent: "center",
@@ -34,36 +25,6 @@ const styles = StyleSheet.create({
     height: null,
     backgroundColor: "#000000",
     opacity: 0.2,
-  },
-  avatar: {
-    flexShrink: 0,
-    width: 128,
-    height: 128,
-  },
-  avatarContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 3,
-    borderStyle: "solid",
-    borderColor: "#ffffff",
-    borderRadius: 64,
-    backgroundColor: "#a8bac1",
-    overflow: "hidden",
-  },
-  avatarImg: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-  },
-  userProfileInfo: {
-    paddingHorizontal: 24,
   },
   userProfileInfoName: {
     marginTop: 16,
@@ -168,49 +129,26 @@ const styles = StyleSheet.create({
     minWidth: 130,
     maxWidth: "100%",
     paddingHorizontal: 24,
-    backgroundColor: "#ffffff00",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#032535",
-    overflow: "hidden",
-  },
-  btnTextB: {
-    color: "#032535",
-    fontSize: 20,
-  },
-  btnBSave: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 46,
-    minWidth: 130,
-    maxWidth: "100%",
-    paddingHorizontal: 24,
     backgroundColor: "#008000",
     borderRadius: 8,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#032535",
+    borderColor: "#ffffff00",
     overflow: "hidden",
   },
-  btnTextBSave: {
-    color: "#FFFFFF",
+  btnTextB: {
+    color: "#ffffffff",
     fontSize: 20,
   },
   typography: {
     fontSize: 16,
   },
-  section: {},
   sectionHeading: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     minHeight: 30,
     paddingHorizontal: 24,
-  },
-  sectionHeadingMain: {
-    flexShrink: 1,
   },
   sectionHeadingText: {
     fontSize: 26,
@@ -219,81 +157,6 @@ const styles = StyleSheet.create({
   sectionContent: {
     paddingHorizontal: 24,
     paddingVertical: 8,
-  },
-  hStack: {
-    overflow: "hidden",
-  },
-  hStackContent: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginVertical: -4,
-    marginHorizontal: -4,
-  },
-  hStackItemWrap: {
-    paddingVertical: 4,
-    paddingHorizontal: 4,
-    minWidth: 0,
-    flexShrink: 0,
-  },
-  tag: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: 28,
-    maxWidth: 140,
-    paddingLeft: 8,
-    paddingRight: 8,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#a8bac1",
-    borderRadius: 14,
-    overflow: "hidden",
-  },
-  tagAdd: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: 28,
-    maxWidth: 140,
-    paddingLeft: 8,
-    paddingRight: 8,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#a8bac1",
-    borderRadius: 14,
-    overflow: "hidden",
-    backgroundColor: "#008000",
-    opacity: 0.5,
-  },
-  tagText: {
-    fontSize: 16,
-    color: "#1c1c1c",
-    flexShrink: 1,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-  tagTextAdd: {
-    fontSize: 16,
-    color: "#1c1c1c",
-    flexShrink: 1,
-    textAlign: "center",
-    textAlignVertical: "center",
-    color: "#ccc",
-  },
-  grid: {
-    overflow: "hidden",
-    flexShrink: 0,
-  },
-  gridContent: {
-    flexShrink: 0,
-    flexWrap: "nowrap",
-    marginVertical: -8,
-  },
-  gridItem: {
-    paddingVertical: 8,
-    minWidth: 0,
-    minHeight: 0,
-    flexShrink: 0,
   },
   divider: {
     borderBottomWidth: 1,
@@ -319,21 +182,25 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 16,
   },
-  tagIcon: {
-    flexShrink: 0,
-    width: 16,
-    height: 16,
-    marginLeft: 10,
-    tintColor: '#000000',
-    alignContent: 'center',
-    justifyContent: 'center',
+  btnEdit: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 46,
+    minWidth: 130,
+    maxWidth: "100%",
+    paddingHorizontal: 24,
+    backgroundColor: "#ffffff00",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#032535",
+    overflow: "hidden",
   },
-  tagIconAdd:{
-    marginLeft: 5,
-    alignContent: 'center',
-    justifyContent: 'center',
-
-  }
+  btnTextEdit : {
+    color: "#032535",
+    fontSize: 20,
+  },
 });
 
 export default styles;

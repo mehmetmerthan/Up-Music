@@ -6,29 +6,19 @@ import {
 } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
-import UITag from "../../Components/tag";
-import { Ionicons } from "@expo/vector-icons";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MusicianTag from "../../Components/MusicianTag";
-import { Dialog, Divider, Button } from "@rneui/themed";
+import StyleTag from "../../Components/TagComponents/StyleTag";
+import MusicianTag from "../../Components/TagComponents/MusicianTag";
+import { Divider, Button } from "@rneui/themed";
+import { useLocation } from "../../Components/PickerComponents/useLocation";
 export default function CreateMusicianScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [isLocationDialogVisible, setLocationDialogVisible] = useState(false);
-  const [isPartipicantsDialogVisible, setPartipicantsDialogVisible] =
-    useState(false);
-  const [location, setLocation] = useState("");
+  const { LocationPicker, location } = useLocation();
   function submitPost() {
     setLoading(!isLoading);
   }
-  function locationDialogVisible() {
-    setLocationDialogVisible(!isLocationDialogVisible);
-  }
-  function partipicantsDialogVisible() {
-    setPartipicantsDialogVisible(!isPartipicantsDialogVisible);
-  }
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <View>
         <Text style={styles.header}>Tell about yourself</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
@@ -38,58 +28,16 @@ export default function CreateMusicianScreen() {
           placeholder="I am a musician..."
           value={text}
         />
-        <Divider orientation="vertical" style={{borderWidth:0.5}}/>
-        <Text style={styles.header}>Select your location</Text>
+        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <Button
-          title="Select location"
-          buttonStyle={{
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
-          type="outline"
-          titleStyle={{ color: "black" }}
-          containerStyle={{
-            marginHorizontal: 70,
-            marginVertical: 10,
-          }}
-          icon={<Ionicons name="location-outline" size={24} color="black" />}
-          onPress={locationDialogVisible}
-        />
-        <Divider orientation="vertical" style={{borderWidth:0.5}}/>
-        <Dialog
-          isVisible={isLocationDialogVisible}
-          onBackdropPress={() =>
-            setLocationDialogVisible(!isLocationDialogVisible)
-          }
-          onDismiss={() => setLocationDialogVisible(!isLocationDialogVisible)}
-        >
-          <View style={styles.locationContainer}>
-            <Dialog.Title title="Search Location" />
-            <GooglePlacesAutocomplete
-              styles={{ textInput: styles.locationInput }}
-              placeholder="Hard Rock Cafe, London"
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(data, details);
-                setLocation(data.description);
-                setVisible(!isVisible);
-              }}
-              query={{
-                key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
-                language: "en",
-              }}
-            />
-          </View>
-        </Dialog>
+        <LocationPicker />
         <Text style={styles.header}>What kind of musician are you ?</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         <MusicianTag />
-        <Divider orientation="vertical" style={{borderWidth:0.5}} />
+        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select music styles</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <UITag />
+        <StyleTag />
         <Divider orientation="vertical" />
         <Button
           title="Share"

@@ -1,18 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import SearchStageScreen from "../../Screens/Home/SearchStageScreen";
+import SearchProfcreen from "../../Screens/Home/SearchProfScreen";
 import UserDetailScreen from "../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../Screens/Message/MessageDetailScreen";
-const MySearchStageStack = createStackNavigator();
+const MySearchProfStack = createStackNavigator();
 
-const SearchStageStack = () => (
-  <MySearchStageStack.Navigator>
-    <MySearchStageStack.Screen
-      name="SearchStageScreen"
-      component={SearchStageScreen}
+const SearchProfStack = () => (
+  <MySearchProfStack.Navigator>
+    <MySearchProfStack.Screen
+      name="SearchProfScreen"
+      component={SearchProfcreen}
       options={{ headerShown: false }}
     />
-    <MySearchStageStack.Screen
+    <MySearchProfStack.Screen
       name="UserDetailScreen"
       component={UserDetailScreen}
       options={{
@@ -21,7 +21,7 @@ const SearchStageStack = () => (
         headerTintColor: "white",
       }}
     />
-    <MySearchStageStack.Screen
+    <MySearchProfStack.Screen
       name="MessageDetailScreen"
       component={MessageDetailScreen}
       options={{
@@ -30,7 +30,7 @@ const SearchStageStack = () => (
         headerTintColor: "white",
       }}
     />
-  </MySearchStageStack.Navigator>
+  </MySearchProfStack.Navigator>
 );
 
-export default SearchStageStack;
+export default SearchProfStack;

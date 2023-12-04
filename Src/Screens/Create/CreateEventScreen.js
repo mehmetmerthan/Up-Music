@@ -1,35 +1,70 @@
-import { TextInput, Text, View, ScrollView } from "react-native";
+import { TextInput, Text, View, ScrollView, StyleSheet, Image } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/Create/CreatePostStyle";
-import UITag from "../../Components/tag";
-import MediaPicker from "../../Components/MediaPicker";
-import { Ionicons } from "@expo/vector-icons";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Dialog, Divider, Button } from "@rneui/themed";
+import styles from "../../Styles/Create/CreateEventStyle";
+import StyleTag from "../../Components/TagComponents/StyleTag";
+import { Divider, Button, Dialog } from "@rneui/themed";
+import { useLocation } from "../../Components/PickerComponents/useLocation";
+import { Feather } from "@expo/vector-icons";
+import DropDownPicker from "react-native-dropdown-picker";
+import useMedia from "../../Components/PickerComponents/useMedia";
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [isVisible, setVisible] = useState(false);
-  const [location, setLocation] = useState("");
+  const [isVisibleUser, setVisibleUser] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {
+      label: "John Doe",
+      value: "1",
+      icon: () => (
+        <Image
+          source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
+          style={dropdownStyles.iconStyle}
+        />
+      ),
+    },
+    {
+      label: "mr watson",
+      value: "2",
+      icon: () => (
+        <Image
+          source={{ uri: "https://randomuser.me/api/portraits/men/35.jpg" }}
+          style={dropdownStyles.iconStyle}
+        />
+      ),
+    },
+  ]);
+  const { MediaPicker, image } = useMedia();
+  const { LocationPicker, location } = useLocation();
   function submitPost() {
     setLoading(!isLoading);
+    console.log({ location });
   }
-  function visible() {
-    setVisible(!isVisible);
-  }
+
+  const dropdownStyles = StyleSheet.create({
+    iconStyle: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+    },
+  });
   return (
-    <ScrollView>
+
+    <ScrollView keyboardShouldPersistTaps="handled">
+      <MediaPicker />
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        placeholder="Write something"
+        value={text}
+      />
+      <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+      <LocationPicker />
+      <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
       <View>
-        <MediaPicker />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="Write something"
-          value={text}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
-          title="Select location"
+          title="Invite friends"
           buttonStyle={{
             borderColor: "#ccc",
             borderWidth: 1,
@@ -41,54 +76,57 @@ export default function CreateEventScreen() {
             marginHorizontal: 70,
             marginVertical: 10,
           }}
-          icon={<Ionicons name="location-outline" size={24} color="black" />}
-          onPress={visible}
+          icon={<Feather name="send" size={24} color="black" />}
+          onPress={() => setVisibleUser(true)}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Dialog
-          isVisible={isVisible}
-          onBackdropPress={() => setVisible(!isVisible)}
-          onDismiss={() => setVisible(!isVisible)}
+          isVisible={isVisibleUser}
+          onBackdropPress={() => setVisibleUser(false)}
         >
           <View style={styles.locationContainer}>
-            <Dialog.Title title="Search Location" />
-            <GooglePlacesAutocomplete
-              styles={{ textInput: styles.locationInput }}
-              placeholder="Hard Rock Cafe, London"
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(data, details);
-                setLocation(data.description);
-                setVisible(!isVisible);
+            <Text style={styles.locationText}>Add partipicants</Text>
+            <View
+              style={{
+                flex: 1,
+                paddingHorizontal: 15,
               }}
-              query={{
-                key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
-                language: "en",
-              }}
-            />
+            >
+              <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                multiple={true}
+                mode="SIMPLE"
+                searchable={true}
+              />
+            </View>
           </View>
         </Dialog>
-
-        <Text style={styles.header}>Select Categories</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <UITag />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Button
-          title="Share"
-          loading={false}
-          buttonStyle={{
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
-          titleStyle={{ color: "white" }}
-          containerStyle={{
-            marginHorizontal: 70,
-            marginVertical: 10,
-          }}
-          onPress={submitPost}
-        />
       </View>
+      <Text style={styles.header}>Select Categories</Text>
+      <Divider inset={true} insetType="middle" orientation="vertical" />
+      <StyleTag />
+      <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+      <Button
+        title="Share"
+        loading={false}
+        buttonStyle={{
+          borderColor: "#ccc",
+          borderWidth: 1,
+          borderRadius: 10,
+        }}
+        titleStyle={{ color: "white" }}
+        containerStyle={{
+          marginHorizontal: 70,
+          marginVertical: 10,
+        }}
+        onPress={submitPost}
+      />
     </ScrollView>
+
   );
 }

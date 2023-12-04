@@ -1,32 +1,31 @@
-import { TextInput, Text, View, ScrollView, Image } from "react-native";
+import { TextInput, Text, View, ScrollView } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/Create/CreatePostStyle";
-import StyleTag from "../../Components/TagComponents/StyleTag";
-import useMedia from "../../Components/PickerComponents/useMedia";
+import styles from "../../Styles/Create/CreateProfStyle";
+import ProfTag from "../../Components/TagComponents/ProfTag";
 import { Divider, Button } from "@rneui/themed";
-export default function CreatePostScreen() {
+import { useLocation } from "../../Components/PickerComponents/useLocation";
+export default function CreateProfScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { MediaPicker, image } = useMedia();
+  const { LocationPicker, location } = useLocation();
   function submitPost() {
     setLoading(!isLoading);
   }
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <View>
-        <MediaPicker />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
           placeholder="Write something"
           value={text}
         />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+        <Divider orientation="vertical" />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <StyleTag />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+        <LocationPicker />
+        <ProfTag />
+        <Divider orientation="vertical" />
         <Button
           title="Share"
           loading={false}

@@ -59,7 +59,7 @@ const CreateScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("CreateJobScreen")}
+          onPress={() => navigation.navigate("CreateProfScreen")}
         >
           <Image
             source={require("../../../assets/create-job-notice.png")} 

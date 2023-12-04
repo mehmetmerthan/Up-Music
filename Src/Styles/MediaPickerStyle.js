@@ -14,6 +14,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#ccc",
   },
+  image: {
+    width: 300,
+    height: 300,
+    alignSelf: "center",
+    marginBottom: 20,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    padding: 100,
+    resizeMode: "cover",
+  },
 });
 
 export default styles;
