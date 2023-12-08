@@ -1,9 +1,9 @@
 import { API, graphqlOperation } from 'aws-amplify';
-import { listTodos } from './graphql/queries';
+//import { listTodos } from './graphql/queries';
 import { Image, StyleSheet } from 'react-native';
 
 export default async function getPartipicantsList() {
-    const item = await API.graphql(graphqlOperation(listTodos));
+    const item = await API.graphql(graphqlOperation());
     const userList = item.data.listTodos.items;
     const partipicantsList = userList.map((user) => {
         return {
