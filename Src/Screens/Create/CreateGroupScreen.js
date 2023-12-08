@@ -3,63 +3,50 @@ import {
   Text,
   View,
   ScrollView,
-  Image,
-  StyleSheet,
 } from "react-native";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
-import StyleTag from "../../Components/TagComponents/StyleTag";
+import Tag from "../../Components/TagComponents/Tag";
+import TagMusician from "../../Components/TagComponents/TagMusician";
 import { Ionicons } from "@expo/vector-icons";
-import MusicianTag from "../../Components/TagComponents/MusicianTag";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Dialog, Divider, Button } from "@rneui/themed";
 import { useLocation } from "../../Components/PickerComponents/useLocation";
-const dropdownStyles = StyleSheet.create({
-  iconStyle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
-});
+import UploadPost from "../../Utils/Uploads/uploadPost";
+import getPartipicantsList from "../../Utils/getPartipicantsList";
+
 export default function CreateGroupScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-
-  const [isPartipicantsDialogVisible, setPartipicantsDialogVisible] =
-    useState(false);
-
+  const [isPartipicantsDialogVisible, setPartipicantsDialogVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
-  const [items, setItems] = useState([
-    {
-      label: "John Doe",
-      value: "1",
-      icon: () => (
-        <Image
-          source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
-          style={dropdownStyles.iconStyle}
-        />
-      ),
-    },
-    {
-      label: "mr watson",
-      value: "2",
-      icon: () => (
-        <Image
-          source={{ uri: "https://randomuser.me/api/portraits/men/35.jpg" }}
-          style={dropdownStyles.iconStyle}
-        />
-      ),
-    },
-  ]);
-
-  function submitPost() {
-    setLoading(!isLoading);
-  }
-  function partipicantsDialogVisible() {
-    setPartipicantsDialogVisible(!isPartipicantsDialogVisible);
-  }
+  const [items, setItems] = useState([]);
+  const { TagComponent, selectedTags } = Tag({});
   const { LocationPicker, location } = useLocation();
+  const { MusicianTagComponent, selectedMusicianTags } = TagMusician({});
+  function submitPost() {
+    const participantsList = value.map((item) => item.value);
+    const musicianList = selectedMusicianTags.map((item) => item.value);
+    setLoading(true)
+    UploadPost({
+      content: text,
+      tag_all: selectedTags,
+      type: "group_post",
+      location: location,
+      partipicants: participantsList,
+      musician_needed: musicianList
+    });
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    async function getPartipicants() {
+      const { partipicantsList } = await getPartipicantsList();
+      setItems(partipicantsList);
+    }
+    getPartipicants();
+  }, []);
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
       <View>
@@ -92,16 +79,16 @@ export default function CreateGroupScreen() {
             marginVertical: 10,
           }}
           icon={<Ionicons name="person-add-outline" size={24} color="black" />}
-          onPress={partipicantsDialogVisible}
+          onPress={() => setPartipicantsDialogVisible(!isPartipicantsDialogVisible)}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select the musicians needed</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <MusicianTag />
+        <MusicianTagComponent />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select music styles</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <StyleTag />
+        <TagComponent />
         <Divider orientation="vertical" />
 
         <Dialog
@@ -141,7 +128,7 @@ export default function CreateGroupScreen() {
         <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
         <Button
           title="Create group"
-          loading={false}
+          loading={isLoading}
           buttonStyle={{
             borderColor: "#ccc",
             borderWidth: 1,

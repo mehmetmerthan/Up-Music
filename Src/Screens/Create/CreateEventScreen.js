@@ -1,54 +1,47 @@
-import { TextInput, Text, View, ScrollView, StyleSheet, Image } from "react-native";
-import { React, useState } from "react";
+import { TextInput, Text, View, ScrollView } from "react-native";
+import { React, useState, useEffect } from "react";
 import styles from "../../Styles/Create/CreateEventStyle";
-import StyleTag from "../../Components/TagComponents/StyleTag";
+import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button, Dialog } from "@rneui/themed";
 import { useLocation } from "../../Components/PickerComponents/useLocation";
 import { Feather } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import useMedia from "../../Components/PickerComponents/useMedia";
+import UploadPost from "../../Utils/Uploads/uploadPost";
+import getPartipicantsList from "../../Utils/getPartipicantsList";
+
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isVisibleUser, setVisibleUser] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {
-      label: "John Doe",
-      value: "1",
-      icon: () => (
-        <Image
-          source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
-          style={dropdownStyles.iconStyle}
-        />
-      ),
-    },
-    {
-      label: "mr watson",
-      value: "2",
-      icon: () => (
-        <Image
-          source={{ uri: "https://randomuser.me/api/portraits/men/35.jpg" }}
-          style={dropdownStyles.iconStyle}
-        />
-      ),
-    },
-  ]);
+  const [items, setItems] = useState([]);
+  const { TagComponent, selectedTags } = Tag({});
   const { MediaPicker, image } = useMedia();
   const { LocationPicker, location } = useLocation();
-  function submitPost() {
-    setLoading(!isLoading);
-    console.log({ location });
+
+  async function submitPost() {
+    const selectedPartipicants = value.map((item) => item.value);
+    setLoading(true);
+    await UploadPost({
+      content: text,
+      media: image,
+      tag_all: selectedTags,
+      type: "main_post",
+      location: location,
+      partipicants: selectedPartipicants,
+    });
+    setLoading(false);
   }
 
-  const dropdownStyles = StyleSheet.create({
-    iconStyle: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-    },
-  });
+  useEffect(() => {
+    async function getPartipicants() {
+      const { partipicantsList } = await getPartipicantsList();
+      setItems(partipicantsList);
+    }
+    getPartipicants();
+  }, []);
   return (
 
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -109,11 +102,11 @@ export default function CreateEventScreen() {
       </View>
       <Text style={styles.header}>Select Categories</Text>
       <Divider inset={true} insetType="middle" orientation="vertical" />
-      <StyleTag />
+      <TagComponent />
       <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
       <Button
         title="Share"
-        loading={false}
+        loading={isLoading}
         buttonStyle={{
           borderColor: "#ccc",
           borderWidth: 1,

@@ -1,19 +1,28 @@
 import { TextInput, Text, View, ScrollView } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateStageStyle";
-import StyleTag from "../../Components/TagComponents/StyleTag";
+import Tag from "../../Components/TagComponents/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
 import { useLocation } from "../../Components/PickerComponents/useLocation";
+import UploadPost from "../../Utils/Uploads/uploadPost";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [isVisible, setVisible] = useState(false);
   const { MediaPicker, image } = useMedia();
   const { LocationPicker, location } = useLocation();
+  const { TagComponent, selectedTags } = Tag({});
   function submitPost() {
-    setLoading(!isLoading);
+    setLoading(true);
+    UploadPost({
+      content: text,
+      media: image,
+      tag_all: selectedTags,
+      type: "stage_post",
+      location: location,
+      price: price,
+    });
   }
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -38,11 +47,11 @@ export default function CreateStageScreen() {
         <LocationPicker />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <StyleTag />
+        <TagComponent />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
           title="Share"
-          loading={false}
+          loading={isLoading}
           buttonStyle={{
             borderColor: "#ccc",
             borderWidth: 1,

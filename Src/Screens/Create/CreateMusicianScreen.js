@@ -6,16 +6,24 @@ import {
 } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
-import StyleTag from "../../Components/TagComponents/StyleTag";
-import MusicianTag from "../../Components/TagComponents/MusicianTag";
+import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { useLocation } from "../../Components/PickerComponents/useLocation";
+import UploadPost from "../../Utils/Uploads/uploadPost";
+
 export default function CreateMusicianScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { LocationPicker, location } = useLocation();
+  const { TagComponent, selectedTags } = Tag({});
   function submitPost() {
-    setLoading(!isLoading);
+    setLoading(true);
+    UploadPost({
+      content: text,
+      tag_all: selectedTags,
+      type: "musician_post",
+      location: location,
+    });
   }
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -33,15 +41,15 @@ export default function CreateMusicianScreen() {
         <LocationPicker />
         <Text style={styles.header}>What kind of musician are you ?</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <MusicianTag />
+        <TagComponent />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select music styles</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <StyleTag />
+        <Tag />
         <Divider orientation="vertical" />
         <Button
           title="Share"
-          loading={false}
+          loading={isLoading}
           buttonStyle={{
             borderColor: "#ccc",
             borderWidth: 1,

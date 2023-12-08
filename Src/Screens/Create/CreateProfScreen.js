@@ -1,15 +1,23 @@
 import { TextInput, Text, View, ScrollView } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateProfStyle";
-import ProfTag from "../../Components/TagComponents/ProfTag";
+import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { useLocation } from "../../Components/PickerComponents/useLocation";
+import UploadPost from "../../Utils/Uploads/uploadPost";
 export default function CreateProfScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { LocationPicker, location } = useLocation();
+  const { TagComponent, selectedTags } = Tag({});
   function submitPost() {
-    setLoading(!isLoading);
+    setLoading(true);
+    UploadPost({
+      content: text,
+      tag_all: selectedTags,
+      type: "prof_post",
+      location: location,
+    });
   }
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -24,11 +32,11 @@ export default function CreateProfScreen() {
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         <LocationPicker />
-        <ProfTag />
+        <TagComponent />
         <Divider orientation="vertical" />
         <Button
           title="Share"
-          loading={false}
+          loading={isLoading}
           buttonStyle={{
             borderColor: "#ccc",
             borderWidth: 1,

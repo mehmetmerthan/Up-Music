@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-upmusic-dev-22106-authRole",
+      "UnauthRoleArn": "arn:aws:iam::607219595660:role/amplify-upmusic-dev-22106-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::607219595660:role/amplify-upmusic-dev-22106-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-upmusic-dev-22106-deployment",
+      "UnauthRoleName": "amplify-upmusic-dev-22106-unauthRole",
+      "StackName": "amplify-upmusic-dev-22106",
+      "StackId": "arn:aws:cloudformation:eu-west-1:607219595660:stack/amplify-upmusic-dev-22106/f904f9b0-93c4-11ee-815b-0606c4478c67",
+      "AmplifyAppId": "d38fxuerk7kv9g"
+    },
+    "categories": {
+      "api": {
+        "upmusic": {}
+      }
+    }
+  }
+}
