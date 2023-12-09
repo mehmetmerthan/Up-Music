@@ -1,7 +1,7 @@
 import { React } from "react";
 import { View, Text } from "react-native";
 import { ListItem, Avatar, Icon } from '@rneui/themed';
-const Comment = () => {
+const Comment = ({commentData}) => {
   const data = [
     {
       name: "John Doe",
@@ -31,16 +31,16 @@ const Comment = () => {
   ]
   return (
     <View >
-      {data.map((item, index) => (
+      {commentData.map((item, index) => (
         <ListItem bottomDivider onLongPress={() => console.log("pressed long")} key={index} containerStyle={{backgroundColor:"#cccccc00"}} >
           <Avatar
             rounded
-            source={{ uri: item.profilPhoto }}
+            source={{ uri: "item.profilPhoto" }}
             size={26}
           />
           <ListItem.Content>
-            <ListItem.Title >{item.name}</ListItem.Title>
-            <ListItem.Subtitle>{item.Comment}</ListItem.Subtitle>
+            <ListItem.Title >{item.owner.name}</ListItem.Title>
+            <ListItem.Subtitle>{item.content}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))}

@@ -23,6 +23,7 @@ export default function CreateStageScreen() {
       location: location,
       price: price,
     });
+    setLoading(false);
   }
   return (
     <ScrollView keyboardShouldPersistTaps="handled">

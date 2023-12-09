@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Pressable,
     SafeAreaView,
+    Button
 } from "react-native";
 import { React, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
@@ -12,9 +13,9 @@ import styles from "../../../Styles/Post/PostStyle";
 import CommentForm from "../CommentForm";
 import Comment from "../Comment";
 import { useNavigation } from "@react-navigation/native";
-const MainPost = ({ post }) => {
-    const [likes, setLikes] = useState(Array(postData.length).fill(false));
-    const [commentVisibility, setCommentVisibility] = useState(Array(postData.length).fill(false));
+const MainPost = ({ post, index }) => {
+    const [likes, setLikes] = useState(Array(post.length).fill(false));
+    const [commentVisibility, setCommentVisibility] = useState(Array(post.length).fill(false));
     const toggleLike = (index) => {
         const newLikes = [...likes];
         newLikes[index] = !newLikes[index];
@@ -37,18 +38,18 @@ const MainPost = ({ post }) => {
                     <Image
                         style={styles.userAvatar}
                         source={{
-                            uri: post.userAvatar,
+                            uri: "post.userAvatar",
                         }}
                     />
-                    <Text style={styles.username}>{post.userName}</Text>
+                    <Text style={styles.username}>{"post.owner.name"}</Text>
                 </TouchableOpacity>
                 <Image
                     style={styles.contentImage}
                     source={{
-                        uri: post.contentImage,
+                        uri: " post.contentImage",
                     }}
                 />
-                <Text style={styles.contentText}>{post.contentText}</Text>
+                <Text style={styles.contentText}>{post.content}</Text>
 
                 <View style={styles.actionContainer}>
                     <TouchableOpacity onPress={() => toggleLike(index)} style={styles.likeContainer}>
@@ -63,7 +64,7 @@ const MainPost = ({ post }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={[styles.likeCount, { flexDirection: "column" }]}>{post.likeCount}</Text>
+                    <Text style={[styles.likeCount, { flexDirection: "column" }]}>{post.likes.items.length}</Text>
                     <Pressable onPress={() => x(index)} style={{ flexDirection: "column" }}>
                         <Text style={styles.likeText}>Liked</Text>
                     </Pressable>
@@ -72,11 +73,12 @@ const MainPost = ({ post }) => {
 
                 {commentVisibility[index] && (
                     <View>
-                        <Comment />
+                        <Comment commentData={post.comments.items}/>
                         <CommentForm />
                     </View>
                 )}
             </View>
+            <Button title="x" onPress={()=>console.log(post)}/>
         </SafeAreaView>
     );
 };

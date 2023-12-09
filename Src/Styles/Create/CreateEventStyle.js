@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
 const styles = StyleSheet.create({
+//   iconStyle: {
+//     width: 30,
+//     height: 30,
+//     borderRadius: 15,
+// },
   input: {
     height: 40,
     width: "80%",

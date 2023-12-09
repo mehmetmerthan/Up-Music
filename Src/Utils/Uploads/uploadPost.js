@@ -3,7 +3,7 @@ import uploadLocation from './uploadLocation';
 import UploadTag from './uploadTag';
 import getUserId from '../getUserId';
 import uploadMedia from './uploadMedia';
-
+import * as mutations from '../../graphql/mutations';
 async function UploadPost(props) {
     const {
         content = "",
@@ -20,7 +20,7 @@ async function UploadPost(props) {
     } = props;
 
     const { userID } = await getUserId();
-    const { mediaKey } = await uploadMedia(media);
+    const { mediaKey } = await uploadMedia({ media: media });
     const { locationId } = await uploadLocation({
         content,
         city,
@@ -43,7 +43,7 @@ async function UploadPost(props) {
         musician_needed: musician_needed,
     };
     await API.graphql({
-        query: mutations.createMainPost,
+        query: mutations.createPost,
         variables: { input: postDetails },
     });
 }

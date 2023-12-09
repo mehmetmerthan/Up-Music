@@ -18,6 +18,7 @@ export default function CreateProfScreen() {
       type: "prof_post",
       location: location,
     });
+    setLoading(false);
   }
   return (
     <ScrollView keyboardShouldPersistTaps="handled">

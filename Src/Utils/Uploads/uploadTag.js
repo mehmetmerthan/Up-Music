@@ -1,6 +1,6 @@
 import React from 'react'
 import { API } from 'aws-amplify';
-
+import * as mutations from '../../graphql/mutations';
 async function UploadTag(props) {
     const {
         tag_styles = [],
@@ -17,10 +17,10 @@ async function UploadTag(props) {
             tag_all: tag_all,
         };
         const newTag = await API.graphql({
-            query: mutations.createMainPost,
+            query: mutations.createTag,
             variables: { input: tagDetails },
         });
-        const tagId = newTag.id;
+        const tagId = newTag.data.createTag.id;
         return { tagId };
     }
 }

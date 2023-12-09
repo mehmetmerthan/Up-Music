@@ -11,19 +11,6 @@ export const createUser = /* GraphQL */ `
       name
       about
       posts {
-        items {
-          id
-          type
-          content
-          price
-          key_media
-          createdAt
-          updatedAt
-          userPostsId
-          postLocationId
-          postTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -49,67 +36,18 @@ export const createUser = /* GraphQL */ `
         __typename
       }
       followings {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       followers {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -135,19 +73,6 @@ export const updateUser = /* GraphQL */ `
       name
       about
       posts {
-        items {
-          id
-          type
-          content
-          price
-          key_media
-          createdAt
-          updatedAt
-          userPostsId
-          postLocationId
-          postTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -173,67 +98,18 @@ export const updateUser = /* GraphQL */ `
         __typename
       }
       followings {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       followers {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -259,19 +135,6 @@ export const deleteUser = /* GraphQL */ `
       name
       about
       posts {
-        items {
-          id
-          type
-          content
-          price
-          key_media
-          createdAt
-          updatedAt
-          userPostsId
-          postLocationId
-          postTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -297,67 +160,18 @@ export const deleteUser = /* GraphQL */ `
         __typename
       }
       followings {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       followers {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -404,42 +218,10 @@ export const createPost = /* GraphQL */ `
         __typename
       }
       participants {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       musician_needed {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -447,47 +229,8 @@ export const createPost = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -499,27 +242,10 @@ export const createPost = /* GraphQL */ `
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -563,42 +289,10 @@ export const updatePost = /* GraphQL */ `
         __typename
       }
       participants {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       musician_needed {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -606,47 +300,8 @@ export const updatePost = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -658,27 +313,10 @@ export const updatePost = /* GraphQL */ `
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -722,42 +360,10 @@ export const deletePost = /* GraphQL */ `
         __typename
       }
       participants {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
       musician_needed {
-        items {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -765,47 +371,8 @@ export const deletePost = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -817,27 +384,10 @@ export const deletePost = /* GraphQL */ `
         __typename
       }
       likes {
-        items {
-          id
-          createdAt
-          updatedAt
-          userLikesId
-          postLikesId
-          __typename
-        }
         nextToken
         __typename
       }
       comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          __typename
-        }
         nextToken
         __typename
       }
@@ -864,57 +414,6 @@ export const createComment = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -926,47 +425,8 @@ export const createComment = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -999,57 +459,6 @@ export const updateComment = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -1061,47 +470,8 @@ export const updateComment = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -1134,57 +504,6 @@ export const deleteComment = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -1196,47 +515,8 @@ export const deleteComment = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -1268,57 +548,6 @@ export const createLike = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -1330,47 +559,8 @@ export const createLike = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -1402,57 +592,6 @@ export const updateLike = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -1464,47 +603,8 @@ export const updateLike = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId
@@ -1536,57 +636,6 @@ export const deleteLike = /* GraphQL */ `
         content
         price
         key_media
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        participants {
-          nextToken
-          __typename
-        }
-        musician_needed {
-          nextToken
-          __typename
-        }
-        owner {
-          id
-          name
-          about
-          key_pp
-          key_back
-          createdAt
-          updatedAt
-          userFollowingsId
-          userFollowersId
-          postParticipantsId
-          postMusician_neededId
-          userLocationId
-          userTagId
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userPostsId
@@ -1598,47 +647,8 @@ export const deleteLike = /* GraphQL */ `
         id
         name
         about
-        posts {
-          nextToken
-          __typename
-        }
         key_pp
         key_back
-        location {
-          id
-          content
-          city
-          country
-          place
-          createdAt
-          updatedAt
-          __typename
-        }
-        tag {
-          id
-          tag_styles
-          tag_roles
-          tag_all
-          createdAt
-          updatedAt
-          __typename
-        }
-        followings {
-          nextToken
-          __typename
-        }
-        followers {
-          nextToken
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        likes {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         userFollowingsId

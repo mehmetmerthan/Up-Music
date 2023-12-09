@@ -1,4 +1,5 @@
 import { API } from 'aws-amplify';
+import * as mutations from '../../graphql/mutations';
 async function uploadLocation(props) {
     const {
         content = "",
@@ -17,10 +18,10 @@ async function uploadLocation(props) {
             place: place,
         };
         const newLocation = await API.graphql({
-            query: mutations.createMainPost,
+            query: mutations.createLocation,
             variables: { input: locationDetails },
         });
-        const locationId = newLocation.id;
+        const locationId = newLocation.data.createLocation.id;
         return { locationId };
     }
 }
