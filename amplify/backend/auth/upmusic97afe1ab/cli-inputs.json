@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "testAuthIdentityPool",
+    "identityPoolName": "upmusic97afe1ab_identitypool_97afe1ab",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "upmusif04d9ea5",
-    "userPoolName": "upMusic",
+    "resourceNameTruncated": "upmusi97afe1ab",
+    "userPoolName": "upmusic97afe1ab_userpool_97afe1ab",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -14,37 +14,34 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Verification code: {####}",
-    "emailVerificationMessage": "Verification code: {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [
-      "Requires Lowercase",
-      "Requires Numbers",
-      "Requires Symbols",
-      "Requires Uppercase"
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email"
     ],
-    "requiredAttributes": [],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [],
-    "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "upMusif04d9ea5_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "upmusi97afe1ab_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "f04d9ea5",
-    "resourceName": "upMusic",
+    "sharedId": "97afe1ab",
+    "resourceName": "upmusic97afe1ab",
     "authSelections": "identityPoolAndUserPool",
-    "serviceName": "Cognito",
+    "useDefault": "default",
     "usernameAttributes": [
       "email"
     ],
-    "useDefault": "manual",
-    "userPoolGroups": false,
     "userPoolGroupList": [],
-    "adminQueries": false,
-    "thirdPartyAuth": false,
-    "authProviders": [],
+    "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {

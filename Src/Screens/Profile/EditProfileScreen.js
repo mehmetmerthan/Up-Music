@@ -6,6 +6,7 @@ import Post from "../../Components/PostComponents/UserPost";
 import { Avatar, Dialog, Button, Chip } from '@rneui/themed';
 import { useNavigation } from "@react-navigation/native";
 import DropDownPicker from 'react-native-dropdown-picker';
+import useMedia from "../../Components/PickerComponents/useMedia";
 const EditPorfileScreen = () => {
     const allInstruments = ["Guitar", "Piano", "Drums", "Bass", "Violin", "Cello", "Saxophone", "Trumpet", "Flute", "Clarinet", "Trombone", "French Horn", "Oboe", "Viola", "Banjo", "Harp", "Mandolin", "Ukulele", "Accordion", "Bagpipes", "Bassoon", "Cajon", "Castanets", "Cymbals", "Didgeridoo", "Djembe", "Glockenspiel", "Harmonica", "Maracas", "Marimba", "Ocarina", "Organ", "Pan Flute", "Piccolo", "Recorder", "Steel Drums", "Triangle", "Tuba", "Xylophone", "Zither", "Vocals", "Other"];
     const allMusicStyles = ["Rock", "Pop", "Jazz", "Hip Hop", "Classical", "Country", "Folk", "Electronic", "R&B", "Blues", "Metal", "Punk", "Reggae", "Latin", "World", "New Age", "Other"];
@@ -70,6 +71,10 @@ const EditPorfileScreen = () => {
         }
 
     }
+    const { MediaPickerImage, image } = useMedia();
+    async function UploadMediaToDb() {
+        await MediaPickerImage();
+    }
     return (
 
         <ScrollView >
@@ -93,7 +98,7 @@ const EditPorfileScreen = () => {
                     rounded
                     source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
                 >
-                    <Avatar.Accessory size={50} />
+                    <Avatar.Accessory size={50} onPress={UploadMediaToDb} />
                 </Avatar>
 
                 <Text style={styles.userProfileInfoName}>Amelie Stevens</Text>

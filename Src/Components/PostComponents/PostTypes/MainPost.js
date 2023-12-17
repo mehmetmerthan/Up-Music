@@ -41,7 +41,7 @@ const MainPost = ({ post, index }) => {
                             uri: "post.userAvatar",
                         }}
                     />
-                    <Text style={styles.username}>{"post.owner.name"}</Text>
+                    <Text style={styles.username}>{post.owner.name}</Text>
                 </TouchableOpacity>
                 <Image
                     style={styles.contentImage}

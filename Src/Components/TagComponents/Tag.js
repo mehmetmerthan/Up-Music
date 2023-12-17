@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { ScrollView, View, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from "react-native";
+import { ScrollView, View, StyleSheet, TextInput } from "react-native";
 import { Chip } from '@rneui/themed';
-const Tag = ({ tagData }) => {
-  const [selectedTags, setSelectedTags] = useState([]);
+const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
   const [unselectedTags, setUnselectedTags] = useState(tagData);
   const [text, onChangeText] = useState("");
-  const filteredData = tagData.filter(tag =>
-    tag.toLowerCase().includes(text.toLowerCase())
-  );
+  const maxDisplayedItems = 10;
+  const filteredData = tagData
+    .filter(tag => tag.toLowerCase().includes(text.toLowerCase()))
+    .sort((a, b) => {
+      const indexOfA = a.toLowerCase().indexOf(text.toLowerCase());
+      const indexOfB = b.toLowerCase().indexOf(text.toLowerCase());
+      return indexOfA - indexOfB;
+    })
+    .slice(0, maxDisplayedItems);
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
@@ -17,48 +22,40 @@ const Tag = ({ tagData }) => {
       setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
     }
   };
-  const handleButtonClick = () => {
-    console.log("Selected Tags:", selectedTags);
-    console.log("Unselected Tags:", unselectedTags);
-  };
-  function TagComponent() {
-    return (
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => {
-            onChangeText(text);
-          }}
-          placeholder="Search ..."
-          value={text}
-        />
-        <View style={styles.searchArea}>
-          <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-            {filteredData.map((item, index) => (
-              <Chip
-                key={index}
-                title={item}
-                titleStyle={{
-                  color: selectedTags.includes(item) ? "#e3e3e3" : "#464646",
-                }}
-                buttonStyle={{ borderColor: "#464646" }}
-                onPress={() => toggleTag(item)}
-                type="outline"
-                containerStyle={{
-                  backgroundColor: selectedTags.includes(item) ? "green" : "#cccccc00",
-                  marginVertical: 5,
-                  marginHorizontal: 5
-                }}
-              />
-            ))}
-          </ScrollView>
+  return (
+    <View>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => {
+          onChangeText(text);
+        }}
+        placeholder="Search ..."
+        value={text}
+      />
+      <View style={styles.searchArea}>
+        <View style={styles.contentContainerStyle}>
+          {filteredData.map((item, index) => (
+            <Chip
+              key={index}
+              title={item}
+              titleStyle={{
+                color: selectedTags.includes(item) ? "#e3e3e3" : "#464646",
+              }}
+              buttonStyle={{ borderColor: "#464646" }}
+              onPress={() => toggleTag(item)}
+              type="outline"
+              containerStyle={{
+                backgroundColor: selectedTags.includes(item) ? "green" : "#cccccc00",
+                marginVertical: 5,
+                marginHorizontal: 5
+              }}
+            />
+          ))}
         </View>
       </View>
-    );
-  }
-  return { TagComponent, selectedTags };
-};
-
+    </View>
+  );
+}
 export default Tag;
 
 const styles = StyleSheet.create({

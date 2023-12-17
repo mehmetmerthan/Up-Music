@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Dialog, Button } from "@rneui/themed";
 import styles from "../../Styles/Picker/LocatipnPickerStyle";
-const useLocation = () => {
+export default function useLocation() {
   const [location, setLocation] = useState("");
   const [isVisible, setVisible] = useState(false);
   function visible() {
@@ -29,7 +29,7 @@ const useLocation = () => {
         />
         <Dialog
           isVisible={isVisible}
-        onBackdropPress={() => setVisible(!isVisible)}
+          onBackdropPress={() => setVisible(!isVisible)}
         >
           <View style={styles.locationContainer}>
             <Dialog.Title title="Search Location" />
@@ -51,4 +51,3 @@ const useLocation = () => {
   return { LocationPicker, location };
 };
 
-export { useLocation };

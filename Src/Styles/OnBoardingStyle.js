@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
     },
+    subText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 16,
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+
     pageViewContainer: {
         flexDirection: 'row',
         marginBottom: 26,

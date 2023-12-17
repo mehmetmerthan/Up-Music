@@ -1,7 +1,7 @@
 import { API } from 'aws-amplify';
 import uploadLocation from './uploadLocation';
 import UploadTag from './uploadTag';
-import getUserId from '../getUserId';
+import {getUserId} from '../getUser';
 import uploadMedia from './uploadMedia';
 import * as mutations from '../../graphql/mutations';
 async function UploadPost(props) {

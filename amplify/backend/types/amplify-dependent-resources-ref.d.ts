@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "auth": {
-    "upMusic": {
+    "upmusic97afe1ab": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -18,7 +18,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "s3upmusicstorages3": {
+    "upmusicstorage": {
       "BucketName": "string",
       "Region": "string"
     }

@@ -6,7 +6,7 @@ import { Divider } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";
 export default function useMedia() {
   const [image, setImage] = useState(null);
-  async function picker() {
+  async function MediaPicker() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -18,7 +18,7 @@ export default function useMedia() {
       setImage(result.assets[0].uri);
     }
   }
-  async function myImagepicker() {
+  async function MediaPickerImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -30,12 +30,12 @@ export default function useMedia() {
       setImage(result.assets[0].uri);
     }
   }
-  function MyImagePicker() {
+  function MediaPickerImageComponent() {
     return (
       <SafeAreaView>
         <Text style={styles.header}>Choose an image</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TouchableOpacity style={styles.mediaButton} onPress={myImagepicker}>
+        <TouchableOpacity style={styles.mediaButton} onPress={ImagePicker}>
           <MaterialCommunityIcons
             name="file-image-plus-outline"
             size={100}
@@ -45,12 +45,12 @@ export default function useMedia() {
       </SafeAreaView>
     );
   }
-  function MediaPicker() {
+  function MediaPickerComponent() {
     return (
       <SafeAreaView>
         <Text style={styles.header}>Choose an image or Video</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TouchableOpacity style={styles.mediaButton} onPress={picker}>
+        <TouchableOpacity style={styles.mediaButton} onPress={MediaPicker}>
           <MaterialCommunityIcons
             name="file-image-plus-outline"
             size={100}
@@ -61,5 +61,5 @@ export default function useMedia() {
       </SafeAreaView>
     );
   }
-  return { MediaPicker, MyImagePicker, image };
+  return { MediaPicker, MediaPickerImageComponent, image, MediaPickerImage, MediaPickerComponent };
 }

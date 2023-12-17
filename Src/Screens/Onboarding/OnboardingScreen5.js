@@ -4,14 +4,23 @@ import { useNavigation } from '@react-navigation/native';
 import styles from '../../Styles/OnBoardingStyle';
 import useMedia from '../../Components/PickerComponents/useMedia';
 import { Avatar } from '@rneui/themed';
-const OnboardingScreen5 = () => {
+const OnboardingScreen5 = ({ route }) => {
+  const { selectedStyleTags = [], selectedRoleTags = [], about = "", location = "", gender = "" } = route?.params || {};
   const navigation = useNavigation();
-  const { MyImagePicker, image } = useMedia();
-
+  const { MediaPickerImageComponent, image } = useMedia();
+  function navigateToNextScreen() {
+    navigation.navigate('SignUpScreen', {
+      selectedStyleTags,
+      selectedRoleTags,
+      about,
+      location,
+      gender,
+      image,
+    });
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Select a profile picture</Text>
-      <MyImagePicker />
       {image !== null ? (
         <Avatar
           size={150}
@@ -27,6 +36,7 @@ const OnboardingScreen5 = () => {
           containerStyle={{ backgroundColor: '#595959', alignSelf: 'center' }}
         />
       )}
+      <MediaPickerImageComponent />
       <View style={styles.pageViewContainer}>
         <View style={styles.pageViewEmpty} />
         <View style={styles.pageViewEmpty} />
@@ -43,7 +53,7 @@ const OnboardingScreen5 = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonRight}
-          onPress={() => navigation.navigate('HomeScreen')}
+          onPress={navigateToNextScreen}
         >
           <Text style={styles.buttonText}>Finish</Text>
         </TouchableOpacity>

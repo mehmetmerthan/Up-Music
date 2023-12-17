@@ -7,6 +7,7 @@ export const getUser = /* GraphQL */ `
       id
       name
       about
+      gender
       posts {
         nextToken
         __typename
@@ -71,6 +72,7 @@ export const listUsers = /* GraphQL */ `
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -127,6 +129,7 @@ export const getPost = /* GraphQL */ `
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -152,6 +155,7 @@ export const getPost = /* GraphQL */ `
       userPostsId
       postLocationId
       postTagId
+      postOwnerId
       __typename
     }
   }
@@ -174,6 +178,7 @@ export const listPosts = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       nextToken
@@ -197,12 +202,14 @@ export const getComment = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -219,6 +226,8 @@ export const getComment = /* GraphQL */ `
       updatedAt
       userCommentsId
       postCommentsId
+      commentPostId
+      commentOwnerId
       __typename
     }
   }
@@ -237,6 +246,8 @@ export const listComments = /* GraphQL */ `
         updatedAt
         userCommentsId
         postCommentsId
+        commentPostId
+        commentOwnerId
         __typename
       }
       nextToken
@@ -259,12 +270,14 @@ export const getLike = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -281,6 +294,8 @@ export const getLike = /* GraphQL */ `
       updatedAt
       userLikesId
       postLikesId
+      likePostId
+      likeOwnerId
       __typename
     }
   }
@@ -298,6 +313,8 @@ export const listLikes = /* GraphQL */ `
         updatedAt
         userLikesId
         postLikesId
+        likePostId
+        likeOwnerId
         __typename
       }
       nextToken

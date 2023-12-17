@@ -18,7 +18,7 @@
     }
   },
   "auth": {
-    "upMusic": {
+    "upmusic97afe1ab": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -27,15 +27,12 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
-          ],
+          "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"
@@ -49,7 +46,7 @@
     }
   },
   "storage": {
-    "s3upmusicstorages3": {
+    "upmusicstorage": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

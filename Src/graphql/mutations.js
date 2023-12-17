@@ -10,6 +10,7 @@ export const createUser = /* GraphQL */ `
       id
       name
       about
+      gender
       posts {
         nextToken
         __typename
@@ -72,6 +73,7 @@ export const updateUser = /* GraphQL */ `
       id
       name
       about
+      gender
       posts {
         nextToken
         __typename
@@ -134,6 +136,7 @@ export const deleteUser = /* GraphQL */ `
       id
       name
       about
+      gender
       posts {
         nextToken
         __typename
@@ -229,6 +232,7 @@ export const createPost = /* GraphQL */ `
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -254,6 +258,7 @@ export const createPost = /* GraphQL */ `
       userPostsId
       postLocationId
       postTagId
+      postOwnerId
       __typename
     }
   }
@@ -300,6 +305,7 @@ export const updatePost = /* GraphQL */ `
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -325,6 +331,7 @@ export const updatePost = /* GraphQL */ `
       userPostsId
       postLocationId
       postTagId
+      postOwnerId
       __typename
     }
   }
@@ -371,6 +378,7 @@ export const deletePost = /* GraphQL */ `
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -396,6 +404,7 @@ export const deletePost = /* GraphQL */ `
       userPostsId
       postLocationId
       postTagId
+      postOwnerId
       __typename
     }
   }
@@ -419,12 +428,14 @@ export const createComment = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -441,6 +452,8 @@ export const createComment = /* GraphQL */ `
       updatedAt
       userCommentsId
       postCommentsId
+      commentPostId
+      commentOwnerId
       __typename
     }
   }
@@ -464,12 +477,14 @@ export const updateComment = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -486,6 +501,8 @@ export const updateComment = /* GraphQL */ `
       updatedAt
       userCommentsId
       postCommentsId
+      commentPostId
+      commentOwnerId
       __typename
     }
   }
@@ -509,12 +526,14 @@ export const deleteComment = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -531,6 +550,8 @@ export const deleteComment = /* GraphQL */ `
       updatedAt
       userCommentsId
       postCommentsId
+      commentPostId
+      commentOwnerId
       __typename
     }
   }
@@ -553,12 +574,14 @@ export const createLike = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -575,6 +598,8 @@ export const createLike = /* GraphQL */ `
       updatedAt
       userLikesId
       postLikesId
+      likePostId
+      likeOwnerId
       __typename
     }
   }
@@ -597,12 +622,14 @@ export const updateLike = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -619,6 +646,8 @@ export const updateLike = /* GraphQL */ `
       updatedAt
       userLikesId
       postLikesId
+      likePostId
+      likeOwnerId
       __typename
     }
   }
@@ -641,12 +670,14 @@ export const deleteLike = /* GraphQL */ `
         userPostsId
         postLocationId
         postTagId
+        postOwnerId
         __typename
       }
       owner {
         id
         name
         about
+        gender
         key_pp
         key_back
         createdAt
@@ -663,6 +694,8 @@ export const deleteLike = /* GraphQL */ `
       updatedAt
       userLikesId
       postLikesId
+      likePostId
+      likeOwnerId
       __typename
     }
   }

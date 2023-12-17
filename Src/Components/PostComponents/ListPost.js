@@ -16,6 +16,7 @@ export default function ListPost() {
         } catch (e) {
             console.log(e);
         }
+        console.log(postData);
     };
     return (
         <FlatList

@@ -1,16 +1,23 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Tag from '../../Components/TagComponents/Tag';
 import { roleData } from '../../../data/TagData';
 import styles from '../../Styles/OnBoardingStyle';
-const OnboardingScreen3 = () => {
+const OnboardingScreen3 = ({ route }) => {
+  const { selectedStyleTags = [] } = route?.params || {};
   const navigation = useNavigation();
-
+  const [selectedTags, setSelectedTags] = useState([]);
+  function navigateToNextScreen() {
+    navigation.navigate('OnboardingScreen4', {
+      selectedStyleTags,
+      selectedRoleTags: selectedTags,
+    });
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Select you roles</Text>
-      <Tag tagData={roleData} />
+      <Tag tagData={roleData} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
       <View style={styles.pageViewContainer}>
         <View style={styles.pageViewEmpty} />
         <View style={styles.pageViewEmpty} />
@@ -27,7 +34,7 @@ const OnboardingScreen3 = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonRight}
-          onPress={() => navigation.navigate('OnboardingScreen4')}
+          onPress={navigateToNextScreen}
         >
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
