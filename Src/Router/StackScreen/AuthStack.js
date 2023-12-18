@@ -13,6 +13,7 @@ import OnboardingScreen3 from '../../Screens/Onboarding/OnboardingScreen3';
 import OnboardingScreen4 from '../../Screens/Onboarding/OnboardingScreen4';
 import OnboardingScreen5 from '../../Screens/Onboarding/OnboardingScreen5';
 import BottomTab from "../BottomTab/BottomTab";
+import Ex from "../../ex";
 export default function AuthStack() {
     const AuthStack = createStackNavigator();
     return (
@@ -95,6 +96,7 @@ export default function AuthStack() {
             <AuthStack.Screen name="OnboardingScreen4" component={OnboardingScreen4} options={{ headerShown: false, title: "" }} />
             <AuthStack.Screen name="OnboardingScreen5" component={OnboardingScreen5} options={{ headerShown: false, title: "" }} />
             <AuthStack.Screen name="BottomTab" component={BottomTab} options={{ headerShown: false, title: "" }} />
+            <AuthStack.Screen name="Ex" component={Ex} options={{ headerShown: false, title: "" }} />
         </AuthStack.Navigator>
     );
 

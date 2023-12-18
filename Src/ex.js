@@ -1,94 +1,69 @@
-import { styleTagData } from '../data/TagData';
-import React, { useState } from "react";
-import { ScrollView, View, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from "react-native";
-import { Chip } from '@rneui/themed';
+import React, { useState, useEffect } from "react";
+import { View, Text, Button } from "react-native";
+import { Hub, Auth } from 'aws-amplify';
 const Ex = () => {
-    const tagData = styleTagData;
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [unselectedTags, setUnselectedTags] = useState(tagData);
-    const [text, onChangeText] = useState("");
-    const maxDisplayedItems = 10;
-    const filteredData = tagData
-        .filter(tag => tag.toLowerCase().includes(text.toLowerCase()))
-        .sort((a, b) => {
-            // Sıralama: Aranan kelimeye daha yakın olan öğeler önce gelir.
-            const indexOfA = a.toLowerCase().indexOf(text.toLowerCase());
-            const indexOfB = b.toLowerCase().indexOf(text.toLowerCase());
-            return indexOfA - indexOfB;
-        })
-        .slice(0, maxDisplayedItems);
-    const toggleTag = (tag) => {
-        if (selectedTags.includes(tag)) {
-            setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-            setUnselectedTags((prevTags) => [...prevTags, tag]);
-        } else {
-            setSelectedTags((prevTags) => [...prevTags, tag]);
-            setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
+    const [redirect, setRedirect] = useState(null);
+    // async function listenToAutoSignInEvent() {
+    //     try {
+    //         const user = await Auth.currentAuthenticatedUser();
+    //         const { attributes } = user;
+    //         const verify = attributes.email_verified;
+    //         console.log(verify);
+    //     } catch (error) {
+    //         console.error('verify error:', error);
+    //     }
+    // }
+    // useEffect(() => {
+    //     listenToAutoSignInEvent();
+    // }, []);
+    async function listen() {
+        try {
+            const user = await Auth.currentUserInfo();
+            //const { attributes } = user;
+            //const verify = attributes.email_verified;
+            console.log(user);
+        } catch (error) {
+            console.error('verify error:', error);
         }
-    };
-    const handleButtonClick = () => {
-        console.log("Selected Tags:", selectedTags);
-        console.log("Unselected Tags:", unselectedTags);
-    };
-
+    }
+    async function x() {
+        try {
+            await Auth.signOut();
+            console.log('signed out');
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
+    async function signUp() {
+        const username = "mehmetmerthan@hotmail.com"
+        const password = "Mert1234"
+        try {
+            await Auth.signUp({
+                username,
+                password,
+                attributes: {
+                    email: username,
+                },
+                autoSignIn: {
+                    enabled: true
+                }
+            });
+            console.log("user signed up");
+           
+        } catch (error) {
+            console.log('error signing up:', error);
+           
+        }
+    }
     return (
         <View>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => {
-                    onChangeText(text);
-                }}
-                placeholder="Search ..."
-                value={text}
-            />
-            <View style={styles.searchArea}>
-                <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-                    {filteredData.map((item, index) => (
-                        <Chip
-                            key={index}
-                            title={item}
-                            titleStyle={{
-                                color: selectedTags.includes(item) ? "#e3e3e3" : "#464646",
-                            }}
-                            buttonStyle={{ borderColor: "#464646" }}
-                            onPress={() => toggleTag(item)}
-                            type="outline"
-                            containerStyle={{
-                                backgroundColor: selectedTags.includes(item) ? "green" : "#cccccc00",
-                                marginVertical: 5,
-                                marginHorizontal: 5
-                            }}
-                        />
-                    ))}
-                </ScrollView>
-            </View>
+            <Text>x</Text>
+            <Text>x</Text>
+            <Text>x</Text>
+            <Button title='x' onPress={signUp} />
         </View>
     );
 
 };
 
 export default Ex;
-
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        width: "80%",
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 10,
-        borderColor: "#ccc",
-        alignSelf: "center",
-    },
-    contentContainerStyle: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginHorizontal: 10,
-        marginVertical: 10,
-    },
-    searchArea: {
-        alignItems: "center",
-        justifyContent: "center",
-        height: 300,
-    },
-});

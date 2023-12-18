@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
-import UploadUser from '../../Utils/Uploads/uploadUser';
 import { Button } from '@rneui/themed';
 import signUp from '../../Utils/Auth/SignUp';
 const validationSchema = yup.object().shape({
@@ -31,6 +30,7 @@ const SignUpScreen = ({ route }) => {
         setLoading2(true);
         navigation.navigate('SignInScreen');
         setLoading2(false);
+
     }
     const handleRegistration = async (values) => {
         setLoading(true);
@@ -39,9 +39,23 @@ const SignUpScreen = ({ route }) => {
             console.log(error);
             setLoading(false);
             setError(error);
+            if (error.code === "UsernameExistsException") {
+                navigation.navigate('VerifyEmailScreen', {
+                    email: values.email,
+                    name: values.fistname + ' ' + values.lastname,
+                    about: about,
+                    urlPP: image,
+                    location: location,
+                    tagStyle: selectedStyleTags,
+                    tagRole: selectedRoleTags,
+                    gender: gender,
+                });
+            }
         }
         else {
-            await UploadUser({
+            setLoading(false);
+            navigation.navigate('VerifyEmailScreen', {
+                email: values.email,
                 name: values.fistname + ' ' + values.lastname,
                 about: about,
                 urlPP: image,
@@ -50,8 +64,6 @@ const SignUpScreen = ({ route }) => {
                 tagRole: selectedRoleTags,
                 gender: gender,
             });
-            setLoading(false);
-            navigation.navigate('VerifyEmailScreen', { email: values.email });
         }
     };
     return (

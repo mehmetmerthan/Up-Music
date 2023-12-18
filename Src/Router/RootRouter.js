@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomTab from "./BottomTab/BottomTab";
 import AuthStack from "./StackScreen/AuthStack";
-import { Amplify, Hub } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import Ex from "../ex";
 export default function Router() {
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(null);
   Amplify.configure(awsconfig);
-  function listenToAutoSignInEvent() {
-    Hub.listen('auth', ({ payload }) => {
-      const { event } = payload;
-      if (event === 'autoSignIn') {
-        setRedirect(true);
-      } else if (event === 'autoSignIn_failure') {
-        setRedirect(false);
-      }
-    });
+  async function listenToAutoSignInEvent() {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const { attributes } = user;
+      const email_verified = attributes.email_verified;
+      setRedirect(email_verified);
+    } catch (error) {
+      setRedirect(false);
+    }
   }
   useEffect(() => {
     listenToAutoSignInEvent();
@@ -24,7 +24,9 @@ export default function Router() {
   return (
     <NavigationContainer>
       {/* <Ex /> */}
-      {redirect ? <BottomTab /> : <AuthStack />}
+      {redirect === true ? <BottomTab /> : redirect === false ? <AuthStack /> : null}
+
+      {/* <AuthStack /> */}
     </NavigationContainer>
   );
 }

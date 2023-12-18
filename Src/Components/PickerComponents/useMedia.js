@@ -35,7 +35,7 @@ export default function useMedia() {
       <SafeAreaView>
         <Text style={styles.header}>Choose an image</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TouchableOpacity style={styles.mediaButton} onPress={ImagePicker}>
+        <TouchableOpacity style={styles.mediaButton} onPress={MediaPickerImage}>
           <MaterialCommunityIcons
             name="file-image-plus-outline"
             size={100}
