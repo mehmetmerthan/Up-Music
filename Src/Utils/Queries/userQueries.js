@@ -5,7 +5,6 @@ export const getUser = /* GraphQL */ `
       name
       about
       key_pp
-      key_back
       location {
         id
         content

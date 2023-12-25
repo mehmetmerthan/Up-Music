@@ -4,7 +4,7 @@ import styles from "../../Styles/Create/CreateStageStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
-import { useLocation } from "../../Components/PickerComponents/useLocation";
+import { useLocation } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");

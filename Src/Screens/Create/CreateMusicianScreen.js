@@ -8,7 +8,7 @@ import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { useLocation } from "../../Components/PickerComponents/useLocation";
+import { useLocation } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 
 export default function CreateMusicianScreen() {

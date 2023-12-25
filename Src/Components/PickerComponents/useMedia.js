@@ -5,30 +5,32 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Divider } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";
 export default function useMedia() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+  const [mediatype, setMediaType] = useState("");
   async function MediaPicker() {
+    setImage("");
+    setMediaType("");
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
+    setImage(result.assets[0].uri);
+    setMediaType(result.assets[0].type);
   }
+
   async function MediaPickerImage() {
+    setImage("");
+    setMediaType("");
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
+    setImage(result.assets[0].uri);
+    setMediaType("image");
   }
   function MediaPickerImageComponent() {
     return (
@@ -61,5 +63,12 @@ export default function useMedia() {
       </SafeAreaView>
     );
   }
-  return { MediaPicker, MediaPickerImageComponent, image, MediaPickerImage, MediaPickerComponent };
+  return {
+    MediaPicker,
+    MediaPickerImageComponent,
+    image,
+    MediaPickerImage,
+    MediaPickerComponent,
+    mediatype,
+  };
 }

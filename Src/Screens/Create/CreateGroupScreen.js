@@ -11,7 +11,7 @@ import TagMusician from "../../Components/TagComponents/TagMusician";
 import { Ionicons } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Dialog, Divider, Button } from "@rneui/themed";
-import { useLocation } from "../../Components/PickerComponents/useLocation";
+import { useLocation } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import getPartipicantsList from "../../Utils/getPartipicantsList";
 

@@ -1,0 +1,20 @@
+TODO: location scrollview içerisinde gözükmüyor bunun için bunun için bir konumlandırılma gerekli 
+tüm compenentleri yeniden oluştutup sayfaları buna göre tasarla
+edit profile back butonu ekle 
+music styles daki add butonunun üzerindeki garipliği gider
+update user da birşeyi güncellemek gerekiyorsa ilk önce güncellenecek şeyin linkini mi değiştirmek lazım yoksa direkt grafhql ile iç içe güncelleme yapılabilir mi kontrol et 
+media neden silindi araştır
+bakground ve resim için varsayılan resimler koy
+başarılı bir şekilde oluşturma ve güncelleme oluyor mu kontrol et
+post oluşturma sayfası için gerekli kodları düzenle 
+post oluşturmayı test et ve herşey yolunda mı kontrol et
+postları filtreleme özelliği ekle
+postları silme ve raporlama butonu ekle 
+beğenme ve yorum için backend ayarla
+insanların birbirini takip etmesini sağla ve userdetailse gitmesini sağla
+mesajlaşma için gerekli kodları yaz ve test et
+mesaj bildirimi ve post bildirimi  için gerekli kodları yaz ve test et
+stres testi yap
+son olarak da herşeyi kontrol et ve düzelt
+son ui değişikliklerini yap
+apk build al ve test et

@@ -1,7 +1,7 @@
 import { Storage } from 'aws-amplify';
 
 export default async function uploadMedia(props) {
-    const { media } = props;
+    const { media, mediaType } = props;
     if (media === "") {
         return { mediaKey: "" };
     }
@@ -10,7 +10,9 @@ export default async function uploadMedia(props) {
             const response = await fetch(media);
             const blob = await response.blob();
             const key = `Post/media/${Date.now()}`;
-            await Storage.put(key, blob);
+            await Storage.put(key, blob, {
+                contentType: mediaType
+            });
             return { mediaKey: key };
         } catch (err) {
             console.log('Error uploading file:', err);

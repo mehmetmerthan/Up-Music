@@ -3,7 +3,7 @@
   import styles from "../../Styles/Create/CreateEventStyle";
   import Tag from "../../Components/TagComponents/Tag";
   import { Divider, Button, Dialog } from "@rneui/themed";
-  import { useLocation } from "../../Components/PickerComponents/useLocation";
+  import { useLocation } from "../../Components/PickerComponents/LocationPicker";
   import { Feather } from "@expo/vector-icons";
   import DropDownPicker from "react-native-dropdown-picker";
   import useMedia from "../../Components/PickerComponents/useMedia";

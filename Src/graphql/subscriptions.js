@@ -8,12 +8,12 @@ export const onCreateUser = /* GraphQL */ `
       name
       about
       gender
+      age
       posts {
         nextToken
         __typename
       }
       key_pp
-      key_back
       location {
         id
         content
@@ -68,12 +68,12 @@ export const onUpdateUser = /* GraphQL */ `
       name
       about
       gender
+      age
       posts {
         nextToken
         __typename
       }
       key_pp
-      key_back
       location {
         id
         content
@@ -128,12 +128,12 @@ export const onDeleteUser = /* GraphQL */ `
       name
       about
       gender
+      age
       posts {
         nextToken
         __typename
       }
       key_pp
-      key_back
       location {
         id
         content
@@ -221,8 +221,8 @@ export const onCreatePost = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -291,8 +291,8 @@ export const onUpdatePost = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -361,8 +361,8 @@ export const onDeletePost = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -415,8 +415,8 @@ export const onCreateComment = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -461,8 +461,8 @@ export const onUpdateComment = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -507,8 +507,8 @@ export const onDeleteComment = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -552,8 +552,8 @@ export const onCreateLike = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -597,8 +597,8 @@ export const onUpdateLike = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -642,8 +642,8 @@ export const onDeleteLike = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId

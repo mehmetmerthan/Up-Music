@@ -20,6 +20,7 @@ const VerifyEmailScreen = ({ route }) => {
     urlPP = '',
     name,
     email,
+    mediaType = '',
   } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
@@ -44,6 +45,7 @@ const VerifyEmailScreen = ({ route }) => {
         tagStyle: tagStyle,
         tagRole: tagRole,
         gender: gender,
+        mediaType: mediaType,
       });
       setLoading(false);
       navigation.navigate('SignInScreen');

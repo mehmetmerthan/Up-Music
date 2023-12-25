@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 200,
+    height: "auto",
     width: "90%",
     margin: 12,
     borderWidth: 1,
@@ -181,6 +181,43 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     alignSelf: "center",
     fontSize: 16,
+  },
+  inputAge: {
+    height: "auto",
+    width: "30%",
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    alignSelf: "flex-start",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  inputInfo: {
+    height: "auto",
+    width: "90%",
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    alignSelf: "center",
+    fontSize: 16,
+  },
+  subHeader: {
+    fontSize: 15,
+    fontWeight: "300",
+    color: "#1c1c1c",
+    alignSelf: "auto",
+    marginBottom: 0,
+  },
+  baseText: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: "#7b7b7bff",
+    alignSelf: "center",
+    marginBottom: 10,
   },
   btnEdit: {
     flexDirection: "row",
@@ -197,9 +234,16 @@ const styles = StyleSheet.create({
     borderColor: "#032535",
     overflow: "hidden",
   },
-  btnTextEdit : {
+  btnTextEdit: {
     color: "#032535",
     fontSize: 20,
+  },
+  button: {
+    borderRadius: 10,
+    alignSelf: "center",
+    width: "50%",
+    marginBottom: 20,
+    //alignSelf: "flex-start",
   },
 });
 

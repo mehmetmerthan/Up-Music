@@ -1,21 +1,28 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from '../../Styles/OnBoardingStyle';
-import useMedia from '../../Components/PickerComponents/useMedia';
-import { Avatar } from '@rneui/themed';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import styles from "../../Styles/OnBoardingStyle";
+import useMedia from "../../Components/PickerComponents/useMedia";
+import { Avatar } from "@rneui/themed";
 const OnboardingScreen5 = ({ route }) => {
-  const { selectedStyleTags = [], selectedRoleTags = [], about = "", location = "", gender = "" } = route?.params || {};
+  const {
+    selectedStyleTags = [],
+    selectedRoleTags = [],
+    about = "",
+    location = "",
+    gender = "",
+  } = route?.params || {};
   const navigation = useNavigation();
-  const { MediaPickerImageComponent, image } = useMedia();
+  const { MediaPickerImageComponent, image, mediatype } = useMedia();
   function navigateToNextScreen() {
-    navigation.navigate('SignUpScreen', {
+    navigation.navigate("SignUpScreen", {
       selectedStyleTags,
       selectedRoleTags,
       about,
       location,
       gender,
       image,
+      mediatype,
     });
   }
   return (
@@ -26,14 +33,14 @@ const OnboardingScreen5 = ({ route }) => {
           size={150}
           rounded
           source={{ uri: image }}
-          containerStyle={{ alignSelf: 'center' }}
+          containerStyle={{ alignSelf: "center" }}
         />
       ) : (
         <Avatar
           size={150}
           rounded
-          icon={{ name: 'user', type: 'font-awesome' }}
-          containerStyle={{ backgroundColor: '#595959', alignSelf: 'center' }}
+          icon={{ name: "user", type: "font-awesome" }}
+          containerStyle={{ backgroundColor: "#595959", alignSelf: "center" }}
         />
       )}
       <MediaPickerImageComponent />
@@ -63,5 +70,3 @@ const OnboardingScreen5 = ({ route }) => {
 };
 
 export default OnboardingScreen5;
-
-

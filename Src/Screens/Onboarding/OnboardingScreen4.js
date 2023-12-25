@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../../Styles/OnBoardingStyle';
-import useLocation from '../../Components/PickerComponents/useLocation';
+import useLocation from '../../Components/PickerComponents/LocationPicker';
 import DropDownPicker from "react-native-dropdown-picker";
 const OnboardingScreen4 = ({ route }) => {
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
@@ -34,7 +34,7 @@ const OnboardingScreen4 = ({ route }) => {
         placeholder="I am a .."
         value={text}
       />
-      <Text style={styles.subText}>What is yoor gender</Text>
+      <Text style={styles.subText}>What is your gender</Text>
       <DropDownPicker
         open={open}
         value={value}

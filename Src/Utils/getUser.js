@@ -10,7 +10,7 @@ async function getUserAttributes() {
     const userId = await getUserId();
     const item = await API.graphql({ query: getUser, variables: { id: userId } });
     const userItem = item.data.getUser;
-    return (userItem)
+    return { userItem }
 }
 
 export { getUserId, getUserAttributes }

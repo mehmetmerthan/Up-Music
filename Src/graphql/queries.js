@@ -8,12 +8,12 @@ export const getUser = /* GraphQL */ `
       name
       about
       gender
+      age
       posts {
         nextToken
         __typename
       }
       key_pp
-      key_back
       location {
         id
         content
@@ -73,8 +73,8 @@ export const listUsers = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -130,8 +130,8 @@ export const getPost = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -210,8 +210,8 @@ export const getComment = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId
@@ -278,8 +278,8 @@ export const getLike = /* GraphQL */ `
         name
         about
         gender
+        age
         key_pp
-        key_back
         createdAt
         updatedAt
         userFollowingsId

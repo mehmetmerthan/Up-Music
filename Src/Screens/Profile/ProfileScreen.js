@@ -1,46 +1,35 @@
 import { React, useEffect, useState } from "react";
-import { View, ScrollView, Text, Pressable } from "react-native";
+import { View, ScrollView, Text, Pressable,Image } from "react-native";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
 import Post from "../../Components/PostComponents/UserPost";
-import { Avatar, Chip } from '@rneui/themed';
+import { Chip } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { getUserAttributes } from "../../Utils/getUser";
+import { S3ImageAvatar } from "../../Components/S3Media";
 const ProfileScreen = () => {
-  const aboutText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut debitis enim eos facilis, impedit labore mollitia placeat praesentium quos sit suscipit totam veritatis. Deleniti incidunt necessitatibus omnis porro unde!";
-  const musicStyles = ["Rock", "Pop", "Jazz", "Hip Hop"];
-  const instruments = ["Guitar", "Piano", "Drums", "Bass"];
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   async function getUser() {
-    const userAtt = await getUserAttributes();
-    setUserData(userAtt);
+    const { userItem } = await getUserAttributes();
+    setUserData(userItem);
   }
   useEffect(() => {
     getUser();
-  }, [])
-
+  }, []);
   const navigation = useNavigation();
   function editProfile() {
-    navigation.navigate("EditProfileScreen");
+    navigation.navigate("EditProfileScreen", { userData });
   }
   return (
-    <ScrollView >
+    <ScrollView>
       <View style={styles.userProfileTop}>
-        <Avatar
+        <Image
+          source={{ uri: "https://picsum.photos/800/800" }}
           style={styles.userProfileTopBg}
-          source={{
-            uri: "https://source.unsplash.com/800x600/?",
-          }}
-        >
-        </Avatar>
+        />
         <View style={styles.userProfileTopOverlay} />
-        <Avatar
-          size={150}
-          rounded
-          source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
-        >
-        </Avatar>
-        <Text style={styles.userProfileInfoName}>Amelie Stevens</Text>
+        <S3ImageAvatar imageKey={userData.key_pp} size={150} />
+        <Text style={styles.userProfileInfoName}>{userData.name}</Text>
         <View style={styles.userProfileInfoLocation}>
           <EvilIcons
             name="location"
@@ -48,12 +37,10 @@ const ProfileScreen = () => {
             color="rgba(255, 255, 255, 0.5)"
           />
           <Text style={styles.userProfileInfoLocationText}>
-            New York, USA
+            {userData.location?.city}, {userData.location?.country}
           </Text>
         </View>
-        <Text style={styles.userProfileInfoJobTitle}>
-          Guitarist, Singer
-        </Text>
+        <Text style={styles.userProfileInfoJobTitle}>Male, 25</Text>
         <View style={[styles.userProfileWidget, styles.widget]}>
           <View style={styles.widgetItem}>
             <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
@@ -67,7 +54,11 @@ const ProfileScreen = () => {
       </View>
       <View style={styles.userProfileBody}>
         <View style={styles.flexB}>
-          <Pressable style={styles.btnEdit} activeOpacity={0.8} onPress={editProfile}>
+          <Pressable
+            style={styles.btnEdit}
+            activeOpacity={0.8}
+            onPress={editProfile}
+          >
             <Text style={styles.btnTextEdit} numberOfLines={1}>
               Edit Profile
             </Text>
@@ -75,29 +66,30 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.divider} />
         <View style={styles.sectionHeading}>
-          <Text
-            style={styles.sectionHeadingText}
-            numberOfLines={1}
-          >
+          <Text style={styles.sectionHeadingText} numberOfLines={1}>
             About
           </Text>
         </View>
         <View style={styles.sectionContent}>
           <Text style={styles.typography}>
-            {userData.name}
+            {userData.about ? userData.about : "No description"}
           </Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.sectionHeading}>
-          <Text
-            style={styles.sectionHeadingText}
-            numberOfLines={1}
-          >
+          <Text style={styles.sectionHeadingText} numberOfLines={1}>
             Music Styles
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-          {musicStyles.map((item, index) => (
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginHorizontal: 10,
+            marginTop: 5,
+          }}
+        >
+          {userData.tag?.tag_styles?.map((item, index) => (
             <Chip
               key={index}
               title={item}
@@ -106,21 +98,24 @@ const ProfileScreen = () => {
               type="outline"
               containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
               style={{ backgroundColor: "#ccc" }}
-
             />
           ))}
         </View>
         <View style={styles.divider} />
         <View style={styles.sectionHeading}>
-          <Text
-            style={styles.sectionHeadingText}
-            numberOfLines={1}
-          >
+          <Text style={styles.sectionHeadingText} numberOfLines={1}>
             Instruments Played
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-          {instruments.map((item, index) => (
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginHorizontal: 10,
+            marginTop: 5,
+          }}
+        >
+          {userData.tag?.tag_roles?.map((item, index) => (
             <Chip
               key={index}
               title={item}
@@ -129,7 +124,6 @@ const ProfileScreen = () => {
               type="outline"
               containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
               style={{ backgroundColor: "#ccc" }}
-
             />
           ))}
         </View>
@@ -138,8 +132,6 @@ const ProfileScreen = () => {
         <Post />
       </View>
     </ScrollView>
-
   );
 };
 export default ProfileScreen;
-
