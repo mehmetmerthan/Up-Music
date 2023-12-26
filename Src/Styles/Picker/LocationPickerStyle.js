@@ -16,11 +16,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
   },
-  buttonStyle: {
-    borderRadius: 10,
+  buttonContainer: {
+    flexDirection: "row",
     alignSelf: "center",
-    width: "50%",
-    marginBottom: 50,
+    marginTop: 20,
+  },
+  buttonPropertySave: {
+    flexDirection: "row",
+    borderRadius: 10,
+    backgroundColor: "#008000",
+  },
+  buttonPropertyCancel: {
+    flexDirection: "row",
+    borderRadius: 10,
+    backgroundColor: "#ff0000",
+    marginLeft: 20,
+  },
+  baseText: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: "#7b7b7bff",
+    alignSelf: "center",
+    marginBottom: 10,
   },
 });
 

@@ -103,8 +103,8 @@ export const getUser = /* GraphQL */ `
       # userFollowersId
       # postParticipantsId
       # postMusician_neededId
-      # userLocationId
-      # userTagId
+      userLocationId
+      userTagId
       __typename
     }
   }

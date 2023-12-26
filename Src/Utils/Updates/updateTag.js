@@ -22,11 +22,11 @@ async function updateTag(props) {
         tag_roles: tag_roles,
         tag_all: tag_all,
       };
-      const newTag = await API.graphql({
+      await API.graphql({
         query: mutations.updateTag,
         variables: { input: tagDetails },
       });
-      const tagId = newTag.data.createTag.id;
+      const tagId = "";
       return { tagId };
     } else {
       const tagDetails = {

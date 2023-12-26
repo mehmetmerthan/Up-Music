@@ -1,9 +1,9 @@
 TODO: location scrollview içerisinde gözükmüyor bunun için bunun için bir konumlandırılma gerekli 
-tüm compenentleri yeniden oluştutup sayfaları buna göre tasarla
-edit profile back butonu ekle 
-music styles daki add butonunun üzerindeki garipliği gider
+TODO: tüm compenentleri yeniden oluştutup sayfaları buna göre tasarla
+TODO: location picker sayfasını diğer sayfalara göm
 update user da birşeyi güncellemek gerekiyorsa ilk önce güncellenecek şeyin linkini mi değiştirmek lazım yoksa direkt grafhql ile iç içe güncelleme yapılabilir mi kontrol et 
 media neden silindi araştır
+music styles daki add butonunun üzerindeki garipliği gider
 bakground ve resim için varsayılan resimler koy
 başarılı bir şekilde oluşturma ve güncelleme oluyor mu kontrol et
 post oluşturma sayfası için gerekli kodları düzenle 

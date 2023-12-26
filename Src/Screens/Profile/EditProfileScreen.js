@@ -1,13 +1,6 @@
 import { React, useState } from "react";
-import {
-  View,
-  ScrollView,
-  TextInput,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, TextInput, Text, Image } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "../../Styles/UserProfileStyle";
@@ -20,6 +13,7 @@ import UpdateUser from "../../Utils/Updates/updateUser";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import { styleTagData, roleData } from "../../../data/TagData";
 import Tag from "../../Components/TagComponents/Tag";
+import LocationPicker from "../../Components/PickerComponents/LocationPicker";
 const validationSchema = yup.object().shape({
   age: yup
     .number()
@@ -53,32 +47,30 @@ const EditPorfileScreen = () => {
   const [visibleStyleTag, setVisibleStyleTag] = useState(false);
   const [visibleRoleTag, setVisibleRoleTag] = useState(false);
   const [visibleGender, setVisibleGender] = useState(false);
+  const [visibleLocation, setVisibleLocation] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState({});
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
-
   const { MediaPickerImage: MediaPickerImagePP, image: imagePP } = useMedia();
   async function OpenGalleryPP() {
     await MediaPickerImagePP();
   }
   const navigation = useNavigation();
   async function saveProfile() {
-    console.log(userData.location);
-    //console.log("save profile", locationData);
-    // await UpdateUser({
-    //   name: name === userData?.name ? "" : name,
-    //   about: text === userData?.about ? "" : text,
-    //   urlPP: imagePP,
-    //   urlBack: imageBack,
-    //   age: age === userData?.age ? "" : age,
-    //   // location: location === userData?.location ? "" : location,
-    //   tagStyle: musicStyles === userMusicStyles ? "" : musicStyles,
-    //   tagRole: role === userRoles ? "" : role,
-    //   mediaType: "image/jpeg",
-    //   userData: userData,
-    //   gender: genderValue === userGender ? "" : genderValue,
-    // });
-    //navigation.navigate("ProfileScreen");
+    await UpdateUser({
+      name: name === userData?.name ? "" : name,
+      about: text === userData?.about ? "" : text,
+      urlPP: imagePP,
+      age: age === userData?.age ? "" : age,
+      location: location === userData?.location ? "" : location,
+      tagStyle: musicStyles === userMusicStyles ? "" : musicStyles,
+      tagRole: role === userRoles ? "" : role,
+      mediaType: "image/jpeg",
+      userData: userData,
+      gender: selectedGender === userGender ? "" : selectedGender,
+    });
+    navigation.navigate("ProfileScreen");
   }
   const formik = useFormik({
     initialValues: {
@@ -137,14 +129,13 @@ const EditPorfileScreen = () => {
       }
     }
   }
-  function navigateToLocation() {
-    navigation.navigate("LocationPicker", { userData });
-  }
-
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="always">
       <View style={styles.userProfileTop}>
-        <Image source={{ uri: "https://picsum.photos/800/800" }} style={styles.userProfileTopBg} />
+        <Image
+          source={{ uri: "https://picsum.photos/800/800" }}
+          style={styles.userProfileTopBg}
+        />
         <View style={styles.userProfileTopOverlay} />
         <S3ImageAvatar
           imageKey={userPP}
@@ -183,7 +174,7 @@ const EditPorfileScreen = () => {
       </View>
       <View style={styles.userProfileBody}>
         <View style={styles.flexB}>
-          <Pressable
+          {/* <Pressable
             style={styles.btnB}
             activeOpacity={0.8}
             onPress={saveProfile}
@@ -191,7 +182,12 @@ const EditPorfileScreen = () => {
             <Text style={styles.btnTextB} numberOfLines={1}>
               Save
             </Text>
-          </Pressable>
+          </Pressable> */}
+          <Button
+            buttonStyle={styles.buttonSave}
+            onPress={saveProfile}
+            title="Save"
+          />
         </View>
 
         <View style={styles.divider} />
@@ -229,7 +225,10 @@ const EditPorfileScreen = () => {
                     style={styles.inputAge}
                     keyboardType="numeric"
                     onChangeText={formik.handleChange("age")}
-                    onBlur={formik.handleBlur("age")}
+                    onBlur={() => {
+                      formik.handleBlur("age");
+                      formik.handleSubmit();
+                    }}
                     value={formik.values.age}
                     placeholder="Age"
                     onSubmitEditing={formik.handleSubmit}
@@ -304,14 +303,22 @@ const EditPorfileScreen = () => {
                   )}
                   <Text style={styles.subHeader}>Location</Text>
                   <Text style={styles.baseText}>
-                    {userData.location?.city} {userData.location?.city && ","}{" "}
-                    {userData.location?.country}
+                    {selectedLocation?.city} {selectedLocation?.city && ","}{" "}
+                    {selectedLocation?.country}
                   </Text>
-                  <Button
-                    buttonStyle={styles.button}
-                    title={"Chancge location"}
-                    onPress={navigateToLocation}
-                  />
+                  {!visibleLocation && (
+                    <Button
+                      buttonStyle={styles.button}
+                      title={"Chancge location"}
+                      onPress={() => setVisibleLocation(true)}
+                    />
+                  )}
+                  {visibleLocation && (
+                    <LocationPicker
+                      setSelectedLocation={setSelectedLocation}
+                      setVisibleLocation={setVisibleLocation}
+                    />
+                  )}
                 </View>
               </View>
             </View>

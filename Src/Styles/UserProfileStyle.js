@@ -1,5 +1,8 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   userProfileTop: {
     alignItems: "center",
     justifyContent: "center",
@@ -243,7 +246,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "50%",
     marginBottom: 20,
-    //alignSelf: "flex-start",
+  },
+  buttonSave: {
+    backgroundColor: "#008000",
+    borderRadius: 10,
+    width: "80%",
   },
 });
 

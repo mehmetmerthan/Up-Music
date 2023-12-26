@@ -19,11 +19,11 @@ async function updateLocation(props) {
         country: country,
         place: place,
       };
-      const newLocation = await API.graphql({
+      await API.graphql({
         query: mutations.updateLocation,
         variables: { input: locationDetails },
       });
-      const locationId = newLocation.data.createLocation.id;
+      const locationId = "";
       return { locationId };
     } else {
       const locationDetails = {

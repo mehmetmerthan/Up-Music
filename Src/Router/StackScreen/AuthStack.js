@@ -14,13 +14,13 @@ import OnboardingScreen4 from "../../Screens/Onboarding/OnboardingScreen4";
 import OnboardingScreen5 from "../../Screens/Onboarding/OnboardingScreen5";
 import BottomTab from "../BottomTab/BottomTab";
 import Ex from "../../ex";
-import LocationPicker from "../../Components/PickerComponents/LocationPicker";
+//import {LocationPicker} from "../../Components/PickerComponents/LocationPicker";
 import Tag from "../../Components/TagComponents/Tag";
 export default function AuthStack() {
   const AuthStack = createStackNavigator();
   return (
     <AuthStack.Navigator
-      initialRouteName="LocationPicker"
+      initialRouteName="OnboardingScreen1"
       screenOptions={{
         cardStyleInterpolator: ({ current, layouts }) => {
           return {
@@ -92,13 +92,13 @@ export default function AuthStack() {
           title: "Reset Password",
         }}
       />
-      <AuthStack.Screen
+      {/* <AuthStack.Screen
         name="LocationPicker"
         component={LocationPicker}
         options={{
           title: "Select Location",
         }}
-      />
+      /> */}
       <AuthStack.Screen
         name="OnboardingScreen1"
         component={OnboardingScreen1}

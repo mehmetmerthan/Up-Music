@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../Screens/Profile/ProfileScreen";
 import EditPorfileScreen from "../../Screens/Profile/EditProfileScreen";
 import UserProfile from "../../Components/UserComponents/UserProfile";
-import LocationPicker from "../../Components/PickerComponents/LocationPicker";
+//import {LocationPicker} from "../../Components/PickerComponents/LocationPicker";
 import Tag from "../../Components/TagComponents/Tag";
 const MyProfileStack = createStackNavigator();
 
@@ -23,13 +23,13 @@ const ProfileStack = () => (
         title: "Edit Profile",
       }}
     />
-    <MyProfileStack.Screen
+    {/* <MyProfileStack.Screen
       name="LocationPicker"
       component={LocationPicker}
       options={{
         title: "Select Location",
       }}
-    />
+    /> */}
     <MyProfileStack.Screen
       name="Tag"
       component={Tag}
