@@ -22,6 +22,15 @@ async function updateTag(props) {
         tag_roles: tag_roles,
         tag_all: tag_all,
       };
+      if (tag_styles.length === 0) {
+        delete tagDetails.tag_styles;
+      }
+      if (tag_roles.length === 0) {
+        delete tagDetails.tag_roles;
+      }
+      if (tag_all.length === 0) {
+        delete tagDetails.tag_all;
+      }
       await API.graphql({
         query: mutations.updateTag,
         variables: { input: tagDetails },
@@ -34,6 +43,15 @@ async function updateTag(props) {
         tag_roles: tag_roles,
         tag_all: tag_all,
       };
+      if (tag_styles.length === 0) {
+        delete tagDetails.tag_styles;
+      }
+      if (tag_roles.length === 0) {
+        delete tagDetails.tag_roles;
+      }
+      if (tag_all.length === 0) {
+        delete tagDetails.tag_all;
+      }
       const newTag = await API.graphql({
         query: mutations.createTag,
         variables: { input: tagDetails },

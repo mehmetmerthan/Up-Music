@@ -6,8 +6,8 @@ async function updateLocation(props) {
     const locationId = "";
     return { locationId };
   } else {
-    const city = location.structured_formatting.main_text;
-    const country = location.structured_formatting.secondary_text;
+    const city = location.city;
+    const country = location.country;
     const place = "";
     const content = "";
 

@@ -1,24 +1,27 @@
 import { React, useEffect, useState } from "react";
-import { View, ScrollView, Text, Pressable,Image } from "react-native";
+import { View, ScrollView, Text, Image } from "react-native";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
 import Post from "../../Components/PostComponents/UserPost";
-import { Chip } from "@rneui/themed";
+import { Chip, Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { getUserAttributes } from "../../Utils/getUser";
 import { S3ImageAvatar } from "../../Components/S3Media";
 const ProfileScreen = () => {
   const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(false);
   async function getUser() {
     const { userItem } = await getUserAttributes();
     setUserData(userItem);
   }
   useEffect(() => {
     getUser();
-  }, []);
+  }, [userData]);
   const navigation = useNavigation();
   function editProfile() {
+    setLoading(true);
     navigation.navigate("EditProfileScreen", { userData });
+    setLoading(false);
   }
   return (
     <ScrollView>
@@ -28,7 +31,7 @@ const ProfileScreen = () => {
           style={styles.userProfileTopBg}
         />
         <View style={styles.userProfileTopOverlay} />
-        <S3ImageAvatar imageKey={userData.key_pp} size={150} />
+        <S3ImageAvatar imageKey={userData?.key_pp} size={150} />
         <Text style={styles.userProfileInfoName}>{userData.name}</Text>
         <View style={styles.userProfileInfoLocation}>
           <EvilIcons
@@ -40,7 +43,10 @@ const ProfileScreen = () => {
             {userData.location?.city}, {userData.location?.country}
           </Text>
         </View>
-        <Text style={styles.userProfileInfoJobTitle}>Male, 25</Text>
+        <Text style={styles.userProfileInfoJobTitle}>
+          {userData?.gender}
+          {userData?.gender && userData?.age && ","} {userData?.age}
+        </Text>
         <View style={[styles.userProfileWidget, styles.widget]}>
           <View style={styles.widgetItem}>
             <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
@@ -54,15 +60,14 @@ const ProfileScreen = () => {
       </View>
       <View style={styles.userProfileBody}>
         <View style={styles.flexB}>
-          <Pressable
-            style={styles.btnEdit}
-            activeOpacity={0.8}
+          <Button
+            title="Edit Profile"
+            titleStyle={styles.buttonTextEdit}
             onPress={editProfile}
-          >
-            <Text style={styles.btnTextEdit} numberOfLines={1}>
-              Edit Profile
-            </Text>
-          </Pressable>
+            type="outline"
+            buttonStyle={styles.buttonEdit}
+            loading={loading}
+          />
         </View>
         <View style={styles.divider} />
         <View style={styles.sectionHeading}>

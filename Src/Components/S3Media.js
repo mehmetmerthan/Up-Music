@@ -2,6 +2,9 @@ import { View, Image, StyleSheet } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Avatar } from "@rneui/themed";
 import { Storage } from "aws-amplify";
+import { Skeleton } from "@rneui/themed";
+import { LinearGradient } from "expo-linear-gradient";
+import { Fontisto } from "@expo/vector-icons";
 export function S3PostMedia(props) {
   const { mediaType, key } = props;
   const [mediaUrl, setMediaUrl] = useState("");
@@ -38,33 +41,44 @@ function S3Video({ mediaUrl }) {
 }
 
 export function S3ImageAvatar(props) {
-  const { imageKey = "", size, accessory, url = "" } = props;
+  const { imageKey = "", size, accessory,url="" } = props;
   const [mediaUrl, setMediaUrl] = useState("");
   useEffect(() => {
     async function getMediaUrl() {
-      if (imageKey !== "" && url === "") {
-        try {
+      try {
+        if (imageKey !== ""&& url === "") {
           const result = await Storage.get(imageKey, {
             validateObjectExistence: true,
           });
           setMediaUrl(result);
-        } catch (error) {
-          setMediaUrl("");
+        }else if(url !== ""){
+          setMediaUrl(url)
         }
-      } else {
-        setMediaUrl(url);
+      } catch (error) {
+        setMediaUrl("");
       }
     }
     getMediaUrl();
-  }, [imageKey, url]);
+  }, [imageKey,url]);
   return (
     <Avatar
       rounded
       size={size}
-      source={{
-        uri: mediaUrl != "" ? mediaUrl : "https://picsum.photos/200/400",
+      source={mediaUrl !== "" ? { uri: mediaUrl } : {}}
+      containerStyle={{
+        backgroundColor: "transparent",
       }}
     >
+      <LinearGradient
+        colors={["#ff7e5f", "#feb47b"]}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          position: "absolute",
+          zIndex: -1,
+        }}
+      />
       {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
     </Avatar>
   );

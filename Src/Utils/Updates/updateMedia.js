@@ -15,7 +15,7 @@ export default async function updateMedia(props) {
     try {
       const response = await fetch(media);
       const blob = await response.blob();
-      const key = `Post/media/${Date.now()}`;
+      const key = `media/${Date.now()}`;
       await Storage.put(key, blob, {
         contentType: mediaType,
       });

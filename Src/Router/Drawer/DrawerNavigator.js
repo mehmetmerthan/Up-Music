@@ -1,10 +1,6 @@
-import { ReactComponentElement, useState } from "react";
 import { Image } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import {
-  Ionicons,
-  Octicons,
-} from "@expo/vector-icons";
+import { Ionicons, Octicons } from "@expo/vector-icons";
 import HomeStack from "../StackScreen/HomeStack";
 import EventStack from "../StackScreen/EventStack";
 import SearchMusicianStack from "../StackScreen/SearchMusicianStack";
@@ -12,10 +8,11 @@ import SearchGroupStack from "../StackScreen/SearchGroupStack";
 import SearchStageStack from "../StackScreen/SearchStageStack";
 import SettingsStack from "../StackScreen/SettingsStack";
 import SearchProfStack from "../StackScreen/SearchProfStack";
+import SettingsScreen from "../../Screens/Settings/SettingsScreen";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator >
+    <Drawer.Navigator>
       <Drawer.Screen
         name="HomeStack"
         component={HomeStack}
@@ -149,8 +146,8 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="SettingsStack"
-        component={SettingsStack}
+        name="SettingsScreen"
+        component={SettingsScreen}
         options={{
           drawerIcon: ({ focused, size, color }) => (
             <Ionicons
@@ -168,28 +165,8 @@ const DrawerNavigator = () => {
           },
         }}
       />
-      <Drawer.Screen
-        name="SignOut"
-        component={SignOut}
-        options={{
-          drawerIcon: ({ size }) => (
-            <Octicons name="sign-out" color="#FF5733" size={size} />
-          ),
-          title: "Sign Out",
-          drawerItemStyle: {
-            borderBottomWidth: 1,
-            borderRadius: 0,
-            borderBottomColor: "#FF5733",
-          },
-          drawerLabelStyle: {
-            color: "#FF5733",
-          },
-        }}
-      />
     </Drawer.Navigator>
   );
 };
 
 export default DrawerNavigator;
-
-function SignOut() { }

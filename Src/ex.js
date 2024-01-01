@@ -1,13 +1,18 @@
 import React from "react";
 import { View, TextInput, Text, Button, StyleSheet } from "react-native";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import LocationPicker from "./Components/PickerComponents/LocationPicker";
+import { Skeleton } from "@rneui/themed";
+import { LinearGradient } from 'expo-linear-gradient';
 const Ex = () => {
-  function x() {
-    console.log("");
-  }
-  return <LocationPicker />;
+
+  return (
+    <Skeleton
+      circle
+      width={40}
+      height={40}
+      LinearGradientComponent={LinearGradient}
+      animation="wave"
+    />
+  );
 };
 
 export default Ex;

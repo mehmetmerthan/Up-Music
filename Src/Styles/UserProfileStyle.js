@@ -3,6 +3,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop: 6,
+    textAlign: "center",
+  },
+  
   userProfileTop: {
     alignItems: "center",
     justifyContent: "center",
@@ -222,25 +231,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 10,
   },
-  btnEdit: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 46,
-    minWidth: 130,
-    maxWidth: "100%",
-    paddingHorizontal: 24,
-    backgroundColor: "#ffffff00",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#032535",
-    overflow: "hidden",
-  },
-  btnTextEdit: {
-    color: "#032535",
-    fontSize: 20,
-  },
   button: {
     borderRadius: 10,
     alignSelf: "center",
@@ -251,6 +241,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#008000",
     borderRadius: 10,
     width: "80%",
+  },
+  buttonEdit: {
+    borderWidth: 1,
+    borderColor: "#032535",
+    borderRadius: 10,
+    width: "80%",
+  },
+  buttonTextEdit: {
+    color: "#032535",
   },
 });
 

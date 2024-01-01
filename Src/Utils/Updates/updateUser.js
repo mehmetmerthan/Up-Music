@@ -22,7 +22,6 @@ async function UpdateUser(props) {
     mediaType: mediaType,
     oldKey: userData?.key_pp,
   });
-
   const { locationId } = await updateLocation({
     location: location,
     oldLocationId: userData?.userLocationId,
@@ -66,14 +65,14 @@ async function UpdateUser(props) {
     delete userDetails.userLocationId;
   }
   console.log(userDetails);
-  // try {
-  //   await API.graphql({
-  //     query: mutations.updateUser,
-  //     variables: { input: userDetails },
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    await API.graphql({
+      query: mutations.updateUser,
+      variables: { input: userDetails },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default UpdateUser;

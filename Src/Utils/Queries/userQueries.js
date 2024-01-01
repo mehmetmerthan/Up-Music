@@ -5,6 +5,8 @@ export const getUser = /* GraphQL */ `
       name
       about
       key_pp
+      gender
+      age
       location {
         id
         content
