@@ -8,11 +8,12 @@ import Post from "../../Components/PostComponents/UserPost";
 import { Button, Chip } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
-import UpdateUser from "../../Utils/Updates/updateUser";
+import UploadUser from "../../Utils/Uploads/uploadUser";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import { styleTagData, roleData } from "../../../data/TagData";
 import Tag from "../../Components/TagComponents/Tag";
-import LocationPicker from "../../Components/PickerComponents/LocationPicker";
+import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import GenderPicker from "../../Components/PickerComponents/GenderPicker";
 const validationSchema = yup.object().shape({
   age: yup
     .number()
@@ -29,35 +30,29 @@ const validationSchema = yup.object().shape({
     .max(1000, "About must be less than 1000")
     .required("About is required"),
 });
+
 const EditPorfileScreen = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
-  const userMusicStyles = userData?.tag?.tag_styles;
-  const userRoles = userData?.tag?.tag_roles;
-  const userAbout = userData?.about;
-  const userPP = userData?.key_pp;
-  const userAge = userData?.age;
-  const userGender = userData?.gender;
-  const filteredRoleData = roleData?.filter(
-    (role) => !userRoles?.includes(role)
+  const withoutUserRoleData = roleData?.filter(
+    (role) => !userData?.tag_roles?.includes(role)
   );
-  const filteredStyleData = styleTagData?.filter(
-    (style) => !userMusicStyles?.includes(style)
+  const withoutUserStyleData = styleTagData?.filter(
+    (style) => !userData?.tag_styles?.includes(style)
   );
-  const [age, setAge] = useState(userAge);
-  const [text, onChangeText] = useState(userAbout);
-  const [name, onChangeName] = useState(userData?.name);
-  const [musicStyles, setMusicStyles] = useState(userMusicStyles);
-  const [role, setRole] = useState(userRoles);
-  const [allMusicStyles, setAllMusicStyles] = useState(filteredStyleData);
-  const [allRoles, setAllRoles] = useState(filteredRoleData);
+  const [userMusicStyles, setUserMusicStyles] = useState(userData?.tag_styles);
+  const [userRoles, setUserRoles] = useState(userData?.tag_roles);
+  const [withoutMusicStyles, setWithoutMusicStyles] =
+    useState(withoutUserStyleData);
+  const [withoutRoles, setWithoutRoles] = useState(withoutUserRoleData);
   const [visibleStyleTag, setVisibleStyleTag] = useState(false);
   const [visibleRoleTag, setVisibleRoleTag] = useState(false);
-  const [visibleGender, setVisibleGender] = useState(false);
-  const [visibleLocation, setVisibleLocation] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState({});
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [age, setAge] = useState(userData?.age);
+  const [text, onChangeText] = useState(userData?.about);
+  const [name, onChangeName] = useState(userData?.name);
+  const [selectedLocation, setSelectedLocation] = useState({});
   const [selectedGender, setSelectedGender] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -68,19 +63,19 @@ const EditPorfileScreen = () => {
   const navigation = useNavigation();
   async function saveProfile() {
     setIsLoading(true);
-    if (musicStyles.length === 0) {
+    if (userMusicStyles.length === 0) {
       setError("Please select at least one music style");
       return;
     }
-    if (role.length === 0) {
+    if (userRoles.length === 0) {
       setError("Please select at least one role");
       return;
     }
     const locationTemplate = {
-      city: userData?.location?.city,
-      country: userData?.location?.country,
+      city: userData?.city,
+      country: userData?.country,
     };
-    await UpdateUser({
+    await UploadUser({
       name: name === userData?.name ? "" : name,
       about: text === userData?.about ? "" : text,
       urlPP: imagePP,
@@ -89,11 +84,12 @@ const EditPorfileScreen = () => {
         JSON.stringify(selectedLocation) === JSON.stringify(locationTemplate)
           ? ""
           : selectedLocation,
-      tagStyle: musicStyles === userMusicStyles ? "" : musicStyles,
-      tagRole: role === userRoles ? "" : role,
+      tagStyle: userData?.tag_styles === userMusicStyles ? "" : userMusicStyles,
+      tagRole: userData?.tag_roles === userRoles ? "" : userRoles,
       mediaType: "image/jpeg",
       userData: userData,
-      gender: selectedGender === userGender ? "" : selectedGender,
+      gender: selectedGender === userData?.gender ? "" : selectedGender,
+      operationType: "update",
     });
     navigation.navigate("ProfileScreen");
     setIsLoading(false);
@@ -111,55 +107,46 @@ const EditPorfileScreen = () => {
       onChangeText(values.about);
     },
   });
+
   function handleMusicStyleRemove(tag) {
-    const newMusicStyles = musicStyles.filter((t) => t !== tag);
-    setMusicStyles(newMusicStyles);
-    setAllMusicStyles((prevTags) => [...prevTags, tag]); /** */
+    const newMusicStyles = userMusicStyles?.filter((t) => t !== tag);
+    setUserMusicStyles(newMusicStyles);
+    const newWithoutMusicStyles = [...withoutMusicStyles, tag];
+    setWithoutMusicStyles(newWithoutMusicStyles);
   }
   function handleRoleRemove(tag) {
-    const newRole = role.filter((t) => t !== tag);
-    setRole(newRole);
-    setAllRoles((prevRoles) => [...prevRoles, tag]); /** */
-  }
-  function handleMusicStyleAdd(tag) {
-    const newMusicStyles = [...musicStyles, ...tag];
-    setMusicStyles(newMusicStyles);
-  }
-  function handleRoleAdd(tag) {
-    const newRole = [...role, ...tag];
-    setRole(newRole);
+    const newRole = userRoles.filter((t) => t !== tag);
+    setUserRoles(newRole);
+    const newWithoutRoles = [...withoutRoles, tag];
+    setWithoutRoles(newWithoutRoles);
   }
   function saveStyle() {
-    setSelectedStyleTags([]);
     setVisibleStyleTag(false);
     if (selectedStyleTags.length !== 0) {
-      const hasIntersection = selectedStyleTags.some((tag) =>
-        musicStyles.includes(tag)
+      const newMusicStyles = userMusicStyles
+        ? [...userMusicStyles, ...selectedStyleTags]
+        : selectedStyleTags;
+      setUserMusicStyles(newMusicStyles);
+      const newWithoutMusicStyles = withoutMusicStyles?.filter(
+        (style) => !selectedStyleTags?.includes(style)
       );
-      if (!hasIntersection) {
-        handleMusicStyleAdd(selectedStyleTags);
-        const newStyleData = allMusicStyles.filter(
-          (style) => !selectedStyleTags.includes(style)
-        );
-        setAllMusicStyles(newStyleData);
-      }
+      setWithoutMusicStyles(newWithoutMusicStyles);
     }
+    setSelectedStyleTags([]);
   }
   function saveRole() {
-    setSelectedRoleTags([]);
     setVisibleRoleTag(false);
     if (selectedRoleTags.length !== 0) {
-      const hasIntersection = selectedRoleTags.some((tag) =>
-        userRoles.includes(tag)
+      const newRole = userRoles
+        ? [...userRoles, ...selectedRoleTags]
+        : selectedRoleTags;
+      setUserRoles(newRole);
+      const newWithoutRoles = withoutRoles?.filter(
+        (role) => !selectedRoleTags?.includes(role)
       );
-      if (!hasIntersection) {
-        handleRoleAdd(selectedRoleTags);
-        const newRoleData = allRoles.filter(
-          (role) => !selectedRoleTags.includes(role)
-        );
-        setAllRoles(newRoleData);
-      }
+      setWithoutRoles(newWithoutRoles);
     }
+    setSelectedRoleTags([]);
   }
   function renderItem() {
     return (
@@ -171,14 +158,14 @@ const EditPorfileScreen = () => {
           />
           <View style={styles.userProfileTopOverlay} />
           <S3ImageAvatar
-            imageKey={userPP}
+            imageKey={userData?.key_pp}
             size={150}
             accessory={OpenGalleryPP}
             url={imagePP}
           />
           <Text style={styles.userProfileInfoName}>{userData.name}</Text>
           <View style={styles.userProfileInfoLocation}>
-            {userData.location?.city && (
+            {userData?.city && (
               <EvilIcons
                 name="location"
                 size={20}
@@ -186,12 +173,12 @@ const EditPorfileScreen = () => {
               />
             )}
             <Text style={styles.userProfileInfoLocationText}>
-              {userData.location?.city} {userData.location?.city && ","}{" "}
-              {userData.location?.country}
+              {userData?.city} {userData?.city && ","} {userData?.country}
             </Text>
           </View>
           <Text style={styles.userProfileInfoJobTitle}>
-            {userGender} {userGender && userAge && " ,"} {userAge}
+            {userData?.gender} {userData?.gender && userData?.age && " ,"}{" "}
+            {userData?.age}
           </Text>
 
           <View style={[styles.userProfileWidget, styles.widget]}>
@@ -215,7 +202,7 @@ const EditPorfileScreen = () => {
             />
             <Button
               buttonStyle={styles.buttonEdit}
-              onPress={() => navigation.navigate("ProfileScreen")}
+              //onPress={() => navigation.navigate("ProfileScreen")}
               title="Cancel"
               type="outline"
               titleStyle={styles.buttonTextEdit}
@@ -279,88 +266,12 @@ const EditPorfileScreen = () => {
                       <Text style={{ color: "red" }}>{formik.errors.age}</Text>
                     )}
                     <Text style={styles.subHeader}>Gender</Text>
-                    <Text style={styles.baseText}>{selectedGender}</Text>
-                    {visibleGender && (
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Chip
-                          title={"male"}
-                          titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                          buttonStyle={{ borderColor: "#000000" }}
-                          type="outline"
-                          containerStyle={{
-                            marginVertical: 5,
-                            marginHorizontal: 5,
-                          }}
-                          style={{ backgroundColor: "#ccc" }}
-                          onPress={() => {
-                            setVisibleGender(false);
-                            setSelectedGender("Male");
-                          }}
-                        />
-                        <Chip
-                          title={"female"}
-                          titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                          buttonStyle={{ borderColor: "#000000" }}
-                          type="outline"
-                          containerStyle={{
-                            marginVertical: 5,
-                            marginHorizontal: 5,
-                          }}
-                          style={{ backgroundColor: "#ccc" }}
-                          onPress={() => {
-                            setVisibleGender(false);
-                            setSelectedGender("Female");
-                          }}
-                        />
-                        <Chip
-                          title={"other"}
-                          titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                          buttonStyle={{ borderColor: "#000000" }}
-                          type="outline"
-                          containerStyle={{
-                            marginVertical: 5,
-                            marginHorizontal: 5,
-                          }}
-                          style={{ backgroundColor: "#ccc" }}
-                          onPress={() => {
-                            setVisibleGender(false);
-                            setSelectedGender("Other");
-                          }}
-                        />
-                      </View>
-                    )}
-
-                    {!visibleGender && (
-                      <Button
-                        buttonStyle={styles.button}
-                        onPress={() => setVisibleGender(true)}
-                        title="Change gender"
-                      />
-                    )}
+                    <GenderPicker
+                      selectedGender={selectedGender}
+                      setSelectedGender={setSelectedGender}
+                    />
                     <Text style={styles.subHeader}>Location</Text>
-                    <Text style={styles.baseText}>
-                      {selectedLocation?.city} {selectedLocation?.city && ","}{" "}
-                      {selectedLocation?.country}
-                    </Text>
-                    {!visibleLocation && (
-                      <Button
-                        buttonStyle={styles.button}
-                        title={"Chancge location"}
-                        onPress={() => setVisibleLocation(true)}
-                      />
-                    )}
-                    {visibleLocation && (
-                      <LocationPicker
-                        setSelectedLocation={setSelectedLocation}
-                        setVisibleLocation={setVisibleLocation}
-                      />
-                    )}
+                    <CityPicker setSelectedLocation={setSelectedLocation} />
                   </View>
                 </View>
               </View>
@@ -381,7 +292,7 @@ const EditPorfileScreen = () => {
                       marginTop: 5,
                     }}
                   >
-                    {musicStyles?.map((item, index) => (
+                    {userMusicStyles?.map((item, index) => (
                       <Chip
                         key={index}
                         title={item}
@@ -425,7 +336,7 @@ const EditPorfileScreen = () => {
                   </View>
                   {visibleStyleTag && (
                     <Tag
-                      tagData={allMusicStyles}
+                      tagData={withoutMusicStyles}
                       selectedTags={selectedStyleTags}
                       setSelectedTags={setSelectedStyleTags}
                     />
@@ -453,7 +364,7 @@ const EditPorfileScreen = () => {
                   marginTop: 5,
                 }}
               >
-                {role?.map((item, index) => (
+                {userRoles?.map((item, index) => (
                   <Chip
                     key={index}
                     title={item}
@@ -497,7 +408,7 @@ const EditPorfileScreen = () => {
               </View>
               {visibleRoleTag && (
                 <Tag
-                  tagData={allRoles}
+                  tagData={withoutRoles}
                   selectedTags={selectedRoleTags}
                   setSelectedTags={setSelectedRoleTags}
                 />

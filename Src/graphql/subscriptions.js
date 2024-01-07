@@ -9,28 +9,15 @@ export const onCreateUser = /* GraphQL */ `
       about
       gender
       age
+      key_pp
+      key_back
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       posts {
         nextToken
-        __typename
-      }
-      key_pp
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
         __typename
       }
       followings {
@@ -55,8 +42,6 @@ export const onCreateUser = /* GraphQL */ `
       userFollowersId
       postParticipantsId
       postMusician_neededId
-      userLocationId
-      userTagId
       __typename
     }
   }
@@ -69,28 +54,15 @@ export const onUpdateUser = /* GraphQL */ `
       about
       gender
       age
+      key_pp
+      key_back
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       posts {
         nextToken
-        __typename
-      }
-      key_pp
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
         __typename
       }
       followings {
@@ -115,8 +87,6 @@ export const onUpdateUser = /* GraphQL */ `
       userFollowersId
       postParticipantsId
       postMusician_neededId
-      userLocationId
-      userTagId
       __typename
     }
   }
@@ -129,28 +99,15 @@ export const onDeleteUser = /* GraphQL */ `
       about
       gender
       age
+      key_pp
+      key_back
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       posts {
         nextToken
-        __typename
-      }
-      key_pp
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
         __typename
       }
       followings {
@@ -175,8 +132,6 @@ export const onDeleteUser = /* GraphQL */ `
       userFollowersId
       postParticipantsId
       postMusician_neededId
-      userLocationId
-      userTagId
       __typename
     }
   }
@@ -189,25 +144,11 @@ export const onCreatePost = /* GraphQL */ `
       content
       price
       key_media
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       participants {
         nextToken
         __typename
@@ -223,14 +164,18 @@ export const onCreatePost = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       likes {
@@ -244,9 +189,6 @@ export const onCreatePost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
-      postLocationId
-      postTagId
-      postOwnerId
       __typename
     }
   }
@@ -259,25 +201,11 @@ export const onUpdatePost = /* GraphQL */ `
       content
       price
       key_media
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       participants {
         nextToken
         __typename
@@ -293,14 +221,18 @@ export const onUpdatePost = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       likes {
@@ -314,9 +246,6 @@ export const onUpdatePost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
-      postLocationId
-      postTagId
-      postOwnerId
       __typename
     }
   }
@@ -329,25 +258,11 @@ export const onDeletePost = /* GraphQL */ `
       content
       price
       key_media
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       participants {
         nextToken
         __typename
@@ -363,14 +278,18 @@ export const onDeletePost = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       likes {
@@ -384,9 +303,6 @@ export const onDeletePost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
-      postLocationId
-      postTagId
-      postOwnerId
       __typename
     }
   }
@@ -402,12 +318,14 @@ export const onCreateComment = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -417,22 +335,24 @@ export const onCreateComment = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
-      commentPostId
-      commentOwnerId
       __typename
     }
   }
@@ -448,12 +368,14 @@ export const onUpdateComment = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -463,22 +385,24 @@ export const onUpdateComment = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
-      commentPostId
-      commentOwnerId
       __typename
     }
   }
@@ -494,12 +418,14 @@ export const onDeleteComment = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -509,22 +435,24 @@ export const onDeleteComment = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
-      commentPostId
-      commentOwnerId
       __typename
     }
   }
@@ -539,12 +467,14 @@ export const onCreateLike = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -554,22 +484,24 @@ export const onCreateLike = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userLikesId
       postLikesId
-      likePostId
-      likeOwnerId
       __typename
     }
   }
@@ -584,12 +516,14 @@ export const onUpdateLike = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -599,22 +533,24 @@ export const onUpdateLike = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userLikesId
       postLikesId
-      likePostId
-      likeOwnerId
       __typename
     }
   }
@@ -629,12 +565,14 @@ export const onDeleteLike = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -644,103 +582,24 @@ export const onDeleteLike = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userLikesId
       postLikesId
-      likePostId
-      likeOwnerId
-      __typename
-    }
-  }
-`;
-export const onCreateTag = /* GraphQL */ `
-  subscription OnCreateTag($filter: ModelSubscriptionTagFilterInput) {
-    onCreateTag(filter: $filter) {
-      id
-      tag_styles
-      tag_roles
-      tag_all
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateTag = /* GraphQL */ `
-  subscription OnUpdateTag($filter: ModelSubscriptionTagFilterInput) {
-    onUpdateTag(filter: $filter) {
-      id
-      tag_styles
-      tag_roles
-      tag_all
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteTag = /* GraphQL */ `
-  subscription OnDeleteTag($filter: ModelSubscriptionTagFilterInput) {
-    onDeleteTag(filter: $filter) {
-      id
-      tag_styles
-      tag_roles
-      tag_all
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateLocation = /* GraphQL */ `
-  subscription OnCreateLocation($filter: ModelSubscriptionLocationFilterInput) {
-    onCreateLocation(filter: $filter) {
-      id
-      content
-      city
-      country
-      place
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateLocation = /* GraphQL */ `
-  subscription OnUpdateLocation($filter: ModelSubscriptionLocationFilterInput) {
-    onUpdateLocation(filter: $filter) {
-      id
-      content
-      city
-      country
-      place
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteLocation = /* GraphQL */ `
-  subscription OnDeleteLocation($filter: ModelSubscriptionLocationFilterInput) {
-    onDeleteLocation(filter: $filter) {
-      id
-      content
-      city
-      country
-      place
-      createdAt
-      updatedAt
       __typename
     }
   }

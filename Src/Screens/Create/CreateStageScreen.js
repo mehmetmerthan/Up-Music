@@ -1,34 +1,35 @@
-import { TextInput, Text, View, ScrollView } from "react-native";
+import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateStageStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
-import { useLocation } from "../../Components/PickerComponents/LocationPicker";
+import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
+import { styleTagData } from "../../../data/TagData";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { MediaPicker, image } = useMedia();
-  const { LocationPicker, location } = useLocation();
-  const { TagComponent, selectedTags } = Tag({});
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({});
+  const { MediaPickerComponent, image } = useMedia();
   function submitPost() {
     setLoading(true);
     UploadPost({
       content: text,
       media: image,
-      tag_all: selectedTags,
+      tag_styles: selectedTags,
       type: "stage_post",
-      location: location,
+      location: selectedLocation,
       price: price,
     });
     setLoading(false);
   }
-  return (
-    <ScrollView keyboardShouldPersistTaps="handled">
+  function renderItem() {
+    return (
       <View>
-        <MediaPicker />
+        <MediaPickerComponent />
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -45,10 +46,14 @@ export default function CreateStageScreen() {
           value={price}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <LocationPicker />
+        <CityPicker setSelectedLocation={setSelectedLocation} />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TagComponent />
+        <Tag
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+          tagData={styleTagData}
+        />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
           title="Share"
@@ -66,6 +71,16 @@ export default function CreateStageScreen() {
           onPress={submitPost}
         />
       </View>
-    </ScrollView>
+    );
+  }
+  return (
+    <View>
+      <FlatList
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        keyboardShouldPersistTaps="always"
+      />
+    </View>
   );
 }

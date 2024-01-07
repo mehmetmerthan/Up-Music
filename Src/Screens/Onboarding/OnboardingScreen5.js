@@ -1,10 +1,12 @@
-import React from "react";
+import { React, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../../Styles/OnBoardingStyle";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Avatar } from "@rneui/themed";
 const OnboardingScreen5 = ({ route }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     selectedStyleTags = [],
     selectedRoleTags = [],
@@ -15,6 +17,7 @@ const OnboardingScreen5 = ({ route }) => {
   const navigation = useNavigation();
   const { MediaPickerImageComponent, image, mediatype } = useMedia();
   function navigateToNextScreen() {
+    setIsLoading(true);
     navigation.navigate("SignUpScreen", {
       selectedStyleTags,
       selectedRoleTags,
@@ -24,11 +27,12 @@ const OnboardingScreen5 = ({ route }) => {
       image,
       mediatype,
     });
+    setIsLoading(false);
   }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Select a profile picture</Text>
-      {image !== null ? (
+      {image !== "" ? (
         <Avatar
           size={150}
           rounded
@@ -52,18 +56,18 @@ const OnboardingScreen5 = ({ route }) => {
         <View style={styles.pageViewFill} />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.buttonLeft}
+        <Button
+          title={"Back"}
+          buttonStyle={styles.buttonLeft}
           onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonRight}
+          type="outline"
+        />
+        <Button
+          title={"Next"}
+          buttonStyle={styles.buttonRight}
           onPress={navigateToNextScreen}
-        >
-          <Text style={styles.buttonText}>Finish</Text>
-        </TouchableOpacity>
+          loading={isLoading}
+        />
       </View>
     </View>
   );

@@ -15,11 +15,11 @@
       "auth": {
         "upmusic97afe1ab": {}
       },
-      "api": {
-        "upmusic": {}
-      },
       "storage": {
         "upmusicstorage": {}
+      },
+      "api": {
+        "upmusic": {}
       }
     }
   }

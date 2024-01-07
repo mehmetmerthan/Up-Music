@@ -6,6 +6,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: Constants.statusBarHeight,
   },
+  button: {
+    borderRadius: 10,
+    alignSelf: "center",
+    width: "50%",
+    marginBottom: 20,
+  },
   locationInput: {
     borderColor: "#ccc",
     borderWidth: 1,
@@ -38,6 +44,12 @@ const styles = StyleSheet.create({
     color: "#7b7b7bff",
     alignSelf: "center",
     marginBottom: 10,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 10,
   },
 });
 

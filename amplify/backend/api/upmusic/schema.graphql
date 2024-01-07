@@ -3,56 +3,50 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model {
   id: ID!
   name: String
   about: String
   gender: String
   age: String
-  posts: [Post] @hasMany
   key_pp: String
-  location: Location @hasOne
-  tag: Tag @hasOne
+  key_back: String
+  city: String
+  country: String
+  tag_styles: [String]
+  tag_roles: [String]
+  tag_all: [String]
+  posts: [Post] @hasMany
   followings: [User] @hasMany
   followers: [User] @hasMany
   comments: [Comment] @hasMany
   likes: [Like] @hasMany
 }
-type Post @model @auth(rules: [{ allow: public }]) {
+type Post @model {
   id: ID!
   type: String
   content: String
   price: String
   key_media: String
-  location: Location @hasOne
-  tag: Tag @hasOne
-  participants: [User] @hasMany
-  musician_needed: [User] @hasMany
-  owner: User @hasOne
-  likes: [Like] @hasMany
-  comments: [Comment] @hasMany
-}
-type Comment @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  content: String
-  post: Post @hasOne
-  owner: User @hasOne
-}
-type Like @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  post: Post @hasOne
-  owner: User @hasOne
-}
-type Tag @model @auth(rules: [{ allow: public }]) {
-  id: ID!
+  city: String
+  country: String
   tag_styles: [String]
   tag_roles: [String]
   tag_all: [String]
+  participants: [User] @hasMany
+  musician_needed: [User] @hasMany
+  owner: User @belongsTo
+  likes: [Like] @hasMany
+  comments: [Comment] @hasMany
 }
-type Location @model @auth(rules: [{ allow: public }]) {
+type Comment @model {
   id: ID!
   content: String
-  city: String
-  country: String
-  place: String
+  post: Post @belongsTo
+  owner: User @belongsTo
+}
+type Like @model {
+  id: ID!
+  post: Post @belongsTo
+  owner: User @belongsTo
 }

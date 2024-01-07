@@ -7,25 +7,11 @@ export const getUser = /* GraphQL */ `
       key_pp
       gender
       age
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       followings {
         nextToken
         __typename
@@ -51,14 +37,14 @@ export const getUser = /* GraphQL */ `
           content
           price
           key_media
+          city
+          country
+          tag_all
+          tag_roles
+          tag_styles
           createdAt
           updatedAt
           __typename
-          tag {
-            tag_all
-            tag_roles
-            tag_styles
-          }
           comments {
             items {
               content
@@ -77,12 +63,6 @@ export const getUser = /* GraphQL */ `
               }
             }
           }
-          location {
-            city
-            content
-            country
-            place
-          }
           musician_needed {
             items {
               id
@@ -99,14 +79,6 @@ export const getUser = /* GraphQL */ `
           }
         }
       }
-      # createdAt
-      # updatedAt
-      # userFollowingsId
-      # userFollowersId
-      # postParticipantsId
-      # postMusician_neededId
-      userLocationId
-      userTagId
       __typename
     }
   }

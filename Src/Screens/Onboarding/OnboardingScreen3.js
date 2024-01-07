@@ -1,23 +1,37 @@
-import { React, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Tag from '../../Components/TagComponents/Tag';
-import { roleData } from '../../../data/TagData';
-import styles from '../../Styles/OnBoardingStyle';
+import { React, useState } from "react";
+import { View, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Tag from "../../Components/TagComponents/Tag";
+import { roleData } from "../../../data/TagData";
+import styles from "../../Styles/OnBoardingStyle";
+import { Button } from "@rneui/themed";
 const OnboardingScreen3 = ({ route }) => {
   const { selectedStyleTags = [] } = route?.params || {};
   const navigation = useNavigation();
   const [selectedTags, setSelectedTags] = useState([]);
+  const [isLoadingLeft, setIsLoadingLeft] = useState(false);
+  const [isLoadingRight, setIsLoadingRight] = useState(false);
   function navigateToNextScreen() {
-    navigation.navigate('OnboardingScreen4', {
+    setIsLoadingRight(true);
+    navigation.navigate("OnboardingScreen4", {
       selectedStyleTags,
       selectedRoleTags: selectedTags,
     });
+    setIsLoadingRight(false);
+  }
+  function goBack() {
+    setIsLoadingLeft(true);
+    navigation.goBack();
+    setIsLoadingLeft(false);
   }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Select you roles</Text>
-      <Tag tagData={roleData} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+      <Tag
+        tagData={roleData}
+        selectedTags={selectedTags}
+        setSelectedTags={setSelectedTags}
+      />
       <View style={styles.pageViewContainer}>
         <View style={styles.pageViewEmpty} />
         <View style={styles.pageViewEmpty} />
@@ -26,23 +40,22 @@ const OnboardingScreen3 = ({ route }) => {
         <View style={styles.pageViewEmpty} />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.buttonLeft}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonRight}
+        <Button
+          title="Back"
+          onPress={goBack}
+          buttonStyle={styles.buttonLeft}
+          type="outline"
+          loading={isLoadingLeft}
+        />
+        <Button
+          title="Next"
           onPress={navigateToNextScreen}
-        >
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
+          buttonStyle={styles.buttonRight}
+          loading={isLoadingRight}
+        />
       </View>
     </View>
   );
 };
 
 export default OnboardingScreen3;
-
-

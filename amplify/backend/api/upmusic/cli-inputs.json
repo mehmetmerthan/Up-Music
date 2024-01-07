@@ -5,7 +5,9 @@
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 7
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2025-01-01T14:27:00.990Z",
+      "keyDescription": "upmusic-apikey"
     }
   }
 }

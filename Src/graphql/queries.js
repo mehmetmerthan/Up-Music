@@ -9,28 +9,15 @@ export const getUser = /* GraphQL */ `
       about
       gender
       age
+      key_pp
+      key_back
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       posts {
         nextToken
-        __typename
-      }
-      key_pp
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
         __typename
       }
       followings {
@@ -55,8 +42,6 @@ export const getUser = /* GraphQL */ `
       userFollowersId
       postParticipantsId
       postMusician_neededId
-      userLocationId
-      userTagId
       __typename
     }
   }
@@ -75,14 +60,18 @@ export const listUsers = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       nextToken
@@ -98,25 +87,11 @@ export const getPost = /* GraphQL */ `
       content
       price
       key_media
-      location {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
-        __typename
-      }
-      tag {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
+      city
+      country
+      tag_styles
+      tag_roles
+      tag_all
       participants {
         nextToken
         __typename
@@ -132,14 +107,18 @@ export const getPost = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       likes {
@@ -153,9 +132,6 @@ export const getPost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
-      postLocationId
-      postTagId
-      postOwnerId
       __typename
     }
   }
@@ -173,12 +149,14 @@ export const listPosts = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       nextToken
@@ -197,12 +175,14 @@ export const getComment = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -212,22 +192,24 @@ export const getComment = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
-      commentPostId
-      commentOwnerId
       __typename
     }
   }
@@ -246,8 +228,6 @@ export const listComments = /* GraphQL */ `
         updatedAt
         userCommentsId
         postCommentsId
-        commentPostId
-        commentOwnerId
         __typename
       }
       nextToken
@@ -265,12 +245,14 @@ export const getLike = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userPostsId
-        postLocationId
-        postTagId
-        postOwnerId
         __typename
       }
       owner {
@@ -280,22 +262,24 @@ export const getLike = /* GraphQL */ `
         gender
         age
         key_pp
+        key_back
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_all
         createdAt
         updatedAt
         userFollowingsId
         userFollowersId
         postParticipantsId
         postMusician_neededId
-        userLocationId
-        userTagId
         __typename
       }
       createdAt
       updatedAt
       userLikesId
       postLikesId
-      likePostId
-      likeOwnerId
       __typename
     }
   }
@@ -313,78 +297,6 @@ export const listLikes = /* GraphQL */ `
         updatedAt
         userLikesId
         postLikesId
-        likePostId
-        likeOwnerId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getTag = /* GraphQL */ `
-  query GetTag($id: ID!) {
-    getTag(id: $id) {
-      id
-      tag_styles
-      tag_roles
-      tag_all
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listTags = /* GraphQL */ `
-  query ListTags(
-    $filter: ModelTagFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getLocation = /* GraphQL */ `
-  query GetLocation($id: ID!) {
-    getLocation(id: $id) {
-      id
-      content
-      city
-      country
-      place
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listLocations = /* GraphQL */ `
-  query ListLocations(
-    $filter: ModelLocationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        content
-        city
-        country
-        place
-        createdAt
-        updatedAt
         __typename
       }
       nextToken

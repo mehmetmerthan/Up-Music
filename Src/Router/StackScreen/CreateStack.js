@@ -7,7 +7,7 @@ import CreateGroupScreen from "../../Screens/Create/CreateGroupScreen";
 import CreateProfScreen from "../../Screens/Create/CreateProfScreen";
 import CreateStageScreen from "../../Screens/Create/CreateStageScreen";
 import CreateMusicianScreen from "../../Screens/Create/CreateMusicianScreen";
-//import LocationPicker from "../../Components/PickerComponents/LocationPicker";
+//import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 const MyCreateStack = createStackNavigator();
 const CreateStack = () => (
   <MyCreateStack.Navigator>

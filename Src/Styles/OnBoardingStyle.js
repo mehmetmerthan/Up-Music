@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
         padding: 16,
         justifyContent: 'space-between',
     },
+    genderContainer: {
+        marginBottom: 150,
+    },
     headerText: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -52,34 +55,12 @@ const styles = StyleSheet.create({
         marginBottom: 26,
     },
     buttonLeft: {
-        backgroundColor: 'lightgray',
-        padding: 12,
         borderRadius: 8,
-        flex: 1,
-        marginHorizontal: 50,
-        alignItems: 'center',
+        marginLeft: 50,
     },
     buttonRight: {
-        backgroundColor: 'blue',
-        padding: 12,
         borderRadius: 8,
-        flex: 1,
-        marginHorizontal: 50,
-        alignItems: 'center',
-    },
-    buttonStart: {
-        backgroundColor: 'blue',
-        padding: 12,
-        borderRadius: 8,
-        flex: 1,
-        marginHorizontal: 120,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+        marginRight: 50,
     },
     image: {
         width: 300,

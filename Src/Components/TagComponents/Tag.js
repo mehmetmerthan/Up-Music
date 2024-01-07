@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { ScrollView, View, StyleSheet, TextInput } from "react-native";
-import { Chip } from '@rneui/themed';
+import { View, StyleSheet, TextInput } from "react-native";
+import { Chip } from "@rneui/themed";
 const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
-  const [unselectedTags, setUnselectedTags] = useState(tagData);
   const [text, onChangeText] = useState("");
   const maxDisplayedItems = 10;
   const filteredData = tagData
-    .filter(tag => tag.toLowerCase().includes(text.toLowerCase()))
+    .filter((tag) => tag.toLowerCase().includes(text.toLowerCase()))
     .sort((a, b) => {
       const indexOfA = a.toLowerCase().indexOf(text.toLowerCase());
       const indexOfB = b.toLowerCase().indexOf(text.toLowerCase());
@@ -16,10 +15,8 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-      setUnselectedTags((prevTags) => [...prevTags, tag]);
     } else {
       setSelectedTags((prevTags) => [...prevTags, tag]);
-      setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
     }
   };
   return (
@@ -45,9 +42,11 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
               onPress={() => toggleTag(item)}
               type="outline"
               containerStyle={{
-                backgroundColor: selectedTags.includes(item) ? "green" : "#cccccc00",
+                backgroundColor: selectedTags.includes(item)
+                  ? "green"
+                  : "#cccccc00",
                 marginVertical: 5,
-                marginHorizontal: 5
+                marginHorizontal: 5,
               }}
             />
           ))}
@@ -55,7 +54,7 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
       </View>
     </View>
   );
-}
+};
 export default Tag;
 
 const styles = StyleSheet.create({
@@ -70,8 +69,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   contentContainerStyle: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginHorizontal: 10,
     marginVertical: 10,
   },

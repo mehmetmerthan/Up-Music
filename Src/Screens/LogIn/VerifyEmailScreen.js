@@ -1,26 +1,27 @@
-import { React, useState, useEffect, useCallback } from 'react';
-import { View, TextInput, StyleSheet, Text } from 'react-native';
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useNavigation } from '@react-navigation/native';
-import { confirmSignUp, resendSignUp } from '../../Utils/Auth/confirmSignUp';
-import { Button } from '@rneui/themed';
-import UploadUser from '../../Utils/Uploads/uploadUser';
+import { React, useState, useEffect, useCallback } from "react";
+import { View, TextInput, StyleSheet, Text } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useNavigation } from "@react-navigation/native";
+import { confirmSignUp, resendSignUp } from "../../Utils/Auth/confirmSignUp";
+import { Button } from "@rneui/themed";
+import UploadUser from "../../Utils/Uploads/uploadUser";
 const validationSchema = yup.object().shape({
-  code: yup.string().required('code is required'),
+  code: yup.string().required("code is required"),
 });
 const VerifyEmailScreen = ({ route }) => {
   const {
     tagStyle = [],
     tagRole = [],
-    about = '',
-    location = '',
-    gender = '',
-    urlPP = '',
+    about = "",
+    location = "",
+    gender = "",
+    urlPP = "",
     name,
     email,
-    mediaType = '',
+    mediaType = "",
+    age = "",
   } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
@@ -35,8 +36,7 @@ const VerifyEmailScreen = ({ route }) => {
       console.log(error);
       setLoading(false);
       setError(error);
-    }
-    else {
+    } else {
       await UploadUser({
         name: name,
         about: about,
@@ -46,9 +46,11 @@ const VerifyEmailScreen = ({ route }) => {
         tagRole: tagRole,
         gender: gender,
         mediaType: mediaType,
+        age: age,
+        operationType: "create",
       });
       setLoading(false);
-      navigation.navigate('SignInScreen');
+      navigation.navigate("SignInScreen");
     }
   };
   const handleResend = () => {
@@ -57,17 +59,16 @@ const VerifyEmailScreen = ({ route }) => {
     if (error) {
       console.log(error);
       setError(error);
-    }
-    else {
+    } else {
       setCountdown(30);
       setButtonVisible(false);
       startCountdown();
       console.log("success resend");
     }
-  }
+  };
   const startCountdown = useCallback(() => {
     let timer = setInterval(() => {
-      setCountdown(prevCountdown => {
+      setCountdown((prevCountdown) => {
         if (prevCountdown === 0) {
           clearInterval(timer);
           setButtonVisible(true);
@@ -89,11 +90,18 @@ const VerifyEmailScreen = ({ route }) => {
     >
       <Text style={styles.headerText}>Register</Text>
       <Formik
-        initialValues={{ code: '' }}
+        initialValues={{ code: "" }}
         onSubmit={handleRegistration}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
           <View>
             <View style={styles.container}>
               <Text style={styles.subText}> verify code</Text>
@@ -101,11 +109,13 @@ const VerifyEmailScreen = ({ route }) => {
                 <TextInput
                   style={styles.input}
                   placeholder="code"
-                  onChangeText={handleChange('code')}
-                  onBlur={handleBlur('code')}
+                  onChangeText={handleChange("code")}
+                  onBlur={handleBlur("code")}
                   value={values.code}
                 />
-                {touched.code && errors.code && <Text style={styles.errorText}>{errors.code}</Text>}
+                {touched.code && errors.code && (
+                  <Text style={styles.errorText}>{errors.code}</Text>
+                )}
               </View>
             </View>
             {error && <Text style={styles.errorText}>{error.message}</Text>}
@@ -119,7 +129,9 @@ const VerifyEmailScreen = ({ route }) => {
             <Button
               buttonStyle={styles.buttonRe}
               onPress={handleResend}
-              title={buttonVisible ? "Resend code" : `Resend code (${countdown}s)`}
+              title={
+                buttonVisible ? "Resend code" : `Resend code (${countdown}s)`
+              }
               titleStyle={styles.buttonTextRe}
               disabled={!buttonVisible}
             />
@@ -136,13 +148,13 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 8,
   },
   errorText: {
-    color: '#ff0000c5',
+    color: "#ff0000c5",
     marginBottom: 8,
     marginLeft: 12,
   },
@@ -157,20 +169,20 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 100,
-    justifyContent: 'center',
-    textAlign: 'center',
+    justifyContent: "center",
+    textAlign: "center",
   },
   subText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 16,
   },
   containerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   button: {
     borderRadius: 8,
@@ -178,16 +190,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
   },
   buttonRe: {
     marginVertical: 15,
     borderRadius: 8,
-    alignSelf: 'center',
-    backgroundColor: '#1dff2489',
+    alignSelf: "center",
+    backgroundColor: "#1dff2489",
   },
   buttonTextRe: {
-    color: '#3e3e3eaa',
+    color: "#3e3e3eaa",
   },
 });
 

@@ -11,14 +11,15 @@ export const listPosts = /* GraphQL */ `
         content
         price
         key_media
+        city
+        country
+        content
+        tag_all
+        tag_roles
+        tag_styles
         createdAt
         updatedAt
         __typename
-        tag {
-          tag_all
-          tag_roles
-          tag_styles
-        }
         owner {
           name
           key_pp
@@ -41,12 +42,6 @@ export const listPosts = /* GraphQL */ `
               name
             }
           }
-        }
-        location {
-          city
-          content
-          country
-          place
         }
         musician_needed {
           items {

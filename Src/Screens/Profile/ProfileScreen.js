@@ -40,7 +40,7 @@ const ProfileScreen = () => {
             color="rgba(255, 255, 255, 0.5)"
           />
           <Text style={styles.userProfileInfoLocationText}>
-            {userData.location?.city}, {userData.location?.country}
+            {userData?.city}, {userData?.country}
           </Text>
         </View>
         <Text style={styles.userProfileInfoJobTitle}>
@@ -94,7 +94,7 @@ const ProfileScreen = () => {
             marginTop: 5,
           }}
         >
-          {userData.tag?.tag_styles?.map((item, index) => (
+          {userData?.tag_styles?.map((item, index) => (
             <Chip
               key={index}
               title={item}
@@ -120,7 +120,7 @@ const ProfileScreen = () => {
             marginTop: 5,
           }}
         >
-          {userData.tag?.tag_roles?.map((item, index) => (
+          {userData?.tag_roles?.map((item, index) => (
             <Chip
               key={index}
               title={item}

@@ -16,8 +16,6 @@ Project Description
 
 ### In Progress
 
-- [ ] onboarding düzenle  
-- [ ] post oluşturma sayfası için gerekli kodları düzenle  
 - [ ] post oluşturmayı test et ve herşey yolunda mı kontrol et  
 - [ ] postları filtreleme özelliği ekle  
 - [ ] postları silme ve raporlama butonu ekle  
@@ -25,6 +23,8 @@ Project Description
 
 ### Done ✓
 
+- [x] post oluşturma sayfası için gerekli kodları düzenle  
+- [x] onboarding düzenle  
 - [x] Yükleniyor ibarerleri yap  
 - [x] fotoğraflarda yüklenme skeleton koy ve bunu varsayalın fotoğraflardan ayrıştır  
 - [x] bakground ve resim için varsayılan resimler koy  

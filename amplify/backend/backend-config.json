@@ -7,7 +7,9 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2025-01-01T14:27:00.990Z",
+              "apiKeyExpirationDays": 365,
+              "description": "upmusic-apikey"
             },
             "authenticationType": "API_KEY"
           }

@@ -1,32 +1,29 @@
-import {
-  TextInput,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
+import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { useLocation } from "../../Components/PickerComponents/LocationPicker";
+import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-
+import { styleTagData, roleData } from "../../../data/TagData";
 export default function CreateMusicianScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { LocationPicker, location } = useLocation();
-  const { TagComponent, selectedTags } = Tag({});
+  const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [selectedStyleTags, setSelectedStyleTags] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({});
   function submitPost() {
     setLoading(true);
     UploadPost({
       content: text,
-      tag_all: selectedTags,
+      tag_roles: selectedRoleTags,
+      tag_styles: selectedStyleTags,
       type: "musician_post",
-      location: location,
+      location: selectedLocation,
     });
   }
-  return (
-    <ScrollView keyboardShouldPersistTaps="handled">
+  function renderItem() {
+    return (
       <View>
         <Text style={styles.header}>Tell about yourself</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
@@ -38,14 +35,22 @@ export default function CreateMusicianScreen() {
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <LocationPicker />
+        <CityPicker setSelectedLocation={setSelectedLocation} />
         <Text style={styles.header}>What kind of musician are you ?</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TagComponent />
+        <Tag
+          selectedTags={selectedRoleTags}
+          setSelectedTags={setSelectedRoleTags}
+          tagData={roleData}
+        />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select music styles</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <Tag />
+        <Tag
+          selectedTags={selectedStyleTags}
+          setSelectedTags={setSelectedStyleTags}
+          tagData={styleTagData}
+        />
         <Divider orientation="vertical" />
         <Button
           title="Share"
@@ -63,6 +68,14 @@ export default function CreateMusicianScreen() {
           onPress={submitPost}
         />
       </View>
-    </ScrollView>
+    );
+  }
+  return (
+    <FlatList
+      data={[1]}
+      renderItem={renderItem}
+      keyExtractor={(item) => item}
+      keyboardShouldPersistTaps="always"
+    />
   );
 }

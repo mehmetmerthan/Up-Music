@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../Screens/Profile/ProfileScreen";
 import EditPorfileScreen from "../../Screens/Profile/EditProfileScreen";
 import UserProfile from "../../Components/UserComponents/UserProfile";
-//import {LocationPicker} from "../../Components/PickerComponents/LocationPicker";
+//import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import Tag from "../../Components/TagComponents/Tag";
 const MyProfileStack = createStackNavigator();
 
