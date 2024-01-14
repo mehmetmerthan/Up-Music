@@ -4,32 +4,35 @@ import styles from "../../Styles/Create/CreateStageStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData } from "../../../data/TagData";
+import { useNavigation } from "@react-navigation/native";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  const { MediaPickerComponent, image } = useMedia();
-  function submitPost() {
+  const { MediaPickerImageComponent, image } = useMedia();
+  const navigation = useNavigation();
+  async function submitPost() {
     setLoading(true);
-    UploadPost({
+    await UploadPost({
       content: text,
       media: image,
       tag_styles: selectedTags,
-      type: "stage_post",
+      post_type: "stage_post",
       location: selectedLocation,
       price: price,
     });
     setLoading(false);
+    navigation.navigate("SearchStageStack");
   }
   function renderItem() {
     return (
       <View>
-        <MediaPickerComponent />
+        <MediaPickerImageComponent />
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -46,7 +49,7 @@ export default function CreateStageScreen() {
           value={price}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <CityPicker setSelectedLocation={setSelectedLocation} />
+        <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         <Tag

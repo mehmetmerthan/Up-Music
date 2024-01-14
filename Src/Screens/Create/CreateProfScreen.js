@@ -3,25 +3,28 @@ import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateProfStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData, roleData } from "../../../data/TagData";
+import { useNavigation } from "@react-navigation/native";
 export default function CreateProfScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  function submitPost() {
+  const navigation = useNavigation();
+  async function submitPost() {
     setLoading(true);
-    UploadPost({
+    await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
       tag_roles: selectedRoleTags,
-      type: "prof_post",
+      post_type: "prof_post",
       location: selectedLocation,
     });
     setLoading(false);
+    navigation.navigate("SearchProfStack");
   }
   function renderItem() {
     return (
@@ -35,7 +38,7 @@ export default function CreateProfScreen() {
         <Divider orientation="vertical" />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <CityPicker setSelectedLocation={setSelectedLocation} />
+        <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Tag
           selectedTags={selectedRoleTags}
           setSelectedTags={setSelectedRoleTags}

@@ -6,7 +6,6 @@ import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import Ex from "../ex";
 import EditPorfileScreen from "../Screens/Profile/EditProfileScreen";
-import PartipicantsPicker from "../Components/PickerComponents/PartipicantsPicker";
 export default function Router() {
   const [redirect, setRedirect] = useState(null);
   Amplify.configure(awsconfig);

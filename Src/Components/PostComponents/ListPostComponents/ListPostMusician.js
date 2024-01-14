@@ -8,19 +8,14 @@ import {
 } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../Utils/Queries/postQueries";
-import MainPost from "./PostTypes/MainPost";
-import EventPost from "./PostTypes/EventPost";
-import StagePost from "./PostTypes/StagePost";
-import GroupPost from "./PostTypes/GroupPost";
-import MusicianPost from "./PostTypes/MusicianPost";
-import ProfPost from "./PostTypes/ProfPost";
-import { styleTagData, roleData } from "../../../data/TagData";
+import { postsByDate } from "../../../Utils/Queries/postQueries";
+import MusicianPost from "../PostTypes/MusicianPost";
+import { styleTagData, roleData } from "../../../../data/TagData";
 import { Chip, Button } from "@rneui/themed";
-import { CityPicker, CountryPicker } from "../PickerComponents/LocationPicker";
-import Tag from "../TagComponents/Tag";
+import { CityPicker, CountryPicker } from "../../PickerComponents/LocationPicker";
+import Tag from "../../TagComponents/Tag";
 
-export default function ListPost({ post_type }) {
+export default function ListPostMusician({ post_type }) {
   const [visibleCountry, setVisibleCountry] = useState(false);
   const [visibleCity, setVisibleCity] = useState(false);
   const [visibleRole, setVisibleRole] = useState(false);
@@ -38,7 +33,6 @@ export default function ListPost({ post_type }) {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    console.log("fetching");
     try {
       const variables = {
         limit: 2,
@@ -69,35 +63,19 @@ export default function ListPost({ post_type }) {
   };
   useEffect(() => {
     fetchItems();
-  }, [refreshing, selectedCity, selectedCountry, styleTags, roleTags]);
+  }, [ selectedCity, selectedCountry, styleTags, roleTags]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken) {
       await fetchItems();
     }
   };
-  function renderItem({ item, index }) {
-    switch (post_type) {
-      case "main_post":
-        return <MainPost item={item} index={index} />;
-      case "event_post":
-        return <EventPost item={item} index={index} />;
-      case "stage_post":
-        return <StagePost item={item} index={index} />;
-      case "group_post":
-        return <GroupPost item={item} index={index} />;
-      case "musician_post":
-        return <MusicianPost item={item} index={index} />;
-      case "prof_post":
-        return <ProfPost item={item} index={index} />;
-      default:
-        return null;
-    }
-  }
   return (
     <FlatList
       data={items}
-      renderItem={({ item, index }) => renderItem({ item, index })}
+      renderItem={({ item, index }) => (
+        <MusicianPost item={item} index={index} />
+      )}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0}
@@ -106,8 +84,6 @@ export default function ListPost({ post_type }) {
         setRefreshing(true);
         setPostNextToken(null);
         fetchItems();
-        setLoading(false);
-        setRefreshing(false);
       }}
       refreshing={refreshing}
       ListHeaderComponent={FilterComponet}

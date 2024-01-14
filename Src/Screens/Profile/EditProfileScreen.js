@@ -53,6 +53,7 @@ const EditPorfileScreen = () => {
   const [text, onChangeText] = useState(userData?.about);
   const [name, onChangeName] = useState(userData?.name);
   const [selectedLocation, setSelectedLocation] = useState({});
+  const [visibleCity, setVisibleCity] = useState(false);
   const [selectedGender, setSelectedGender] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -86,7 +87,6 @@ const EditPorfileScreen = () => {
           : selectedLocation,
       tagStyle: userData?.tag_styles === userMusicStyles ? "" : userMusicStyles,
       tagRole: userData?.tag_roles === userRoles ? "" : userRoles,
-      mediaType: "image/jpeg",
       userData: userData,
       gender: selectedGender === userData?.gender ? "" : selectedGender,
       operationType: "update",
@@ -271,7 +271,18 @@ const EditPorfileScreen = () => {
                       setSelectedGender={setSelectedGender}
                     />
                     <Text style={styles.subHeader}>Location</Text>
-                    <CityPicker setSelectedLocation={setSelectedLocation} />
+                    {!visibleCity && (
+                      <Button
+                        title={"Select Location"}
+                        onPress={() => setVisibleCity(true)}
+                      />
+                    )}
+                    {visibleCity && (
+                      <CityPicker
+                        setSelectedLocation={setSelectedLocation}
+                        setVisibleCity={setVisibleCity}
+                      />
+                    )}
                   </View>
                 </View>
               </View>

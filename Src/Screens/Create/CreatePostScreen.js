@@ -6,20 +6,24 @@ import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData } from "../../../data/TagData";
+import { useNavigation } from "@react-navigation/native";
 export default function CreatePostScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const { MediaPickerComponent, image } = useMedia();
+  const { MediaPickerComponent, image, mediatype } = useMedia();
+  const navigation = useNavigation();
   async function submitPost() {
     setLoading(true);
     await UploadPost({
       content: text,
       media: image,
       tag_styles: selectedTags,
-      type: "main_post",
+      post_type: "main_post",
+      media_type: mediatype,
     });
     setLoading(false);
+    navigation.navigate("HomeStack");
   }
   function renderItem() {
     return (

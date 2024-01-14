@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: "bold",
   },
+  userAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
   contentText: {
     marginTop: 40,
     fontSize: 15,
@@ -72,11 +77,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginRight: 5,
-  },
-  userAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
   },
   lineSeparator: {
     borderBottomWidth: 1,

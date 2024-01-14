@@ -3,24 +3,28 @@ import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData, roleData } from "../../../data/TagData";
+import { useNavigation } from "@react-navigation/native";
 export default function CreateMusicianScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  function submitPost() {
+  const navigation = useNavigation();
+  async function submitPost() {
     setLoading(true);
-    UploadPost({
+    await UploadPost({
       content: text,
       tag_roles: selectedRoleTags,
       tag_styles: selectedStyleTags,
-      type: "musician_post",
+      post_type: "musician_post",
       location: selectedLocation,
     });
+    setLoading(false);
+    navigation.navigate("SearchMusicianStack");
   }
   function renderItem() {
     return (
@@ -35,7 +39,7 @@ export default function CreateMusicianScreen() {
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Divider inset={true} insetType="middle" orientation="vertical" />
-        <CityPicker setSelectedLocation={setSelectedLocation} />
+        <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Text style={styles.header}>What kind of musician are you ?</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         <Tag

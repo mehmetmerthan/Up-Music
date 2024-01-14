@@ -57,7 +57,7 @@ const CreateStack = () => (
       name="CreateMusicianScreen"
       component={CreateMusicianScreen}
       options={{
-        title: "Create Stage",
+        title: "Create Musician",
       }}
     />
   </MyCreateStack.Navigator>

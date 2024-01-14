@@ -12,13 +12,11 @@ async function UploadUser(props) {
     age = "",
     tagStyle = [],
     tagRole = [],
-    mediaType = "",
     userData = "",
     operationType = "",
   } = props;
   const { mediaKey: key_pp } = await uploadMedia({
     media: urlPP,
-    mediaType: mediaType,
     oldKey: userData?.key_pp || "",
   });
   const city = location?.city || "";

@@ -1,13 +1,25 @@
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
+export const postsByDate = /* GraphQL */ `
+  query PostsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
     $filter: ModelPostFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    postsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         type
+        post_type
+        media_type
         content
         price
         key_media
@@ -17,6 +29,7 @@ export const listPosts = /* GraphQL */ `
         tag_all
         tag_roles
         tag_styles
+        tag_roles_needed
         createdAt
         updatedAt
         __typename
@@ -41,13 +54,6 @@ export const listPosts = /* GraphQL */ `
               id
               name
             }
-          }
-        }
-        musician_needed {
-          items {
-            id
-            name
-            key_pp
           }
         }
         participants {

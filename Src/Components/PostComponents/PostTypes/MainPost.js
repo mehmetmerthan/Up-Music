@@ -13,21 +13,22 @@ import styles from "../../../Styles/Post/PostStyle";
 import CommentForm from "../CommentForm";
 import Comment from "../Comment";
 import { useNavigation } from "@react-navigation/native";
+import { S3ImageAvatar, S3PostMedia } from "../../S3Media";
 const MainPost = ({ item, index }) => {
-  const [likes, setLikes] = useState(Array(item?.length).fill(false));
-  const [commentVisibility, setCommentVisibility] = useState(
-    Array(item?.length).fill(false)
-  );
+  // const [likes, setLikes] = useState(Array(item?.length).fill(false));
+  // const [commentVisibility, setCommentVisibility] = useState(
+  //   Array(item?.length).fill(false)
+  // );
   const toggleLike = (index) => {
-    const newLikes = [...likes];
-    newLikes[index] = !newLikes[index];
-    setLikes(newLikes);
+    // const newLikes = [...likes];
+    // newLikes[index] = !newLikes[index];
+    // setLikes(newLikes);
   };
 
   const toggleComments = (index) => {
-    const newVisibility = [...commentVisibility];
-    newVisibility[index] = !newVisibility[index];
-    setCommentVisibility(newVisibility);
+    // const newVisibility = [...commentVisibility];
+    // newVisibility[index] = !newVisibility[index];
+    // setCommentVisibility(newVisibility);
   };
   const navigation = useNavigation();
   function navigateToUserDetail() {
@@ -40,37 +41,24 @@ const MainPost = ({ item, index }) => {
           style={styles.userInfo}
           onPress={navigateToUserDetail}
         >
-          <Image
-            style={styles.userAvatar}
-            source={{
-              uri: "item.userAvatar",
-            }}
-          />
-          <Text style={styles.username}>{item?.username}</Text>
+          <S3ImageAvatar imageKey={item?.owner?.key_pp} size={52} />
+          <Text style={styles.username}>{item?.owner?.name}</Text>
         </TouchableOpacity>
-        <Image
-          style={styles.contentImage}
-          source={{
-            uri: " item.contentImage",
-          }}
+        <S3PostMedia
+          mediaKey={item?.key_media}
+          mediaType={item?.media_type}
         />
         <Text style={styles.contentText}>{item?.content}</Text>
 
         <View style={styles.actionContainer}>
-          <TouchableOpacity
-            onPress={() => toggleLike(index)}
-            style={styles.likeContainer}
-          >
-            <FontAwesome
+          <TouchableOpacity onPress={{}} style={styles.likeContainer}>
+            {/* <FontAwesome
               name={likes[index] ? "heart" : "heart-o"}
               size={24}
               color={likes[index] ? "red" : "black"}
-            />
+            /> */}
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => toggleComments(index)}
-            style={styles.commentContainer}
-          >
+          <TouchableOpacity onPress={{}} style={styles.commentContainer}>
             <FontAwesome name="comment-o" size={24} color="black" />
           </TouchableOpacity>
         </View>
@@ -78,20 +66,17 @@ const MainPost = ({ item, index }) => {
           <Text style={[styles.likeCount, { flexDirection: "column" }]}>
             {item?.likes?.items?.length}
           </Text>
-          <Pressable
-            onPress={() => x(index)}
-            style={{ flexDirection: "column" }}
-          >
+          <Pressable onPress={{}} style={{ flexDirection: "column" }}>
             <Text style={styles.likeText}>Liked</Text>
           </Pressable>
         </View>
 
-        {commentVisibility[index] && (
+        {/* {commentVisibility[index] && (
           <View>
             <Comment commentData={item?.comments?.items} />
             <CommentForm />
           </View>
-        )}
+        )} */}
       </View>
     </SafeAreaView>
   );

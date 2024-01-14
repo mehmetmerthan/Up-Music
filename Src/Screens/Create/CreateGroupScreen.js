@@ -1,40 +1,33 @@
 import { TextInput, Text, View, FlatList } from "react-native";
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
 import Tag from "../../Components/TagComponents/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import getPartipicantsList from "../../Utils/getPartipicantsList";
-import PartipicantsPicker from "../../Components/PickerComponents/PartipicantsPicker";
 import { styleTagData, roleData } from "../../../data/TagData";
+import { useNavigation } from "@react-navigation/native";
 export default function CreateGroupScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  const [selectedPartipicants, setSelectedPartipicants] = useState([]);
-  function submitPost() {
+  const [selectedRoleExisting, setSelectedRoleExisting] = useState([]);
+  const navigation = useNavigation();
+  async function submitPost() {
     setLoading(true);
-    UploadPost({
+    await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      type: "group_post",
+      post_type: "group_post",
       location: selectedLocation,
-      partipicants: selectedPartipicants,
-      musician_needed: selectedRoleTags,
+      tag_roles_needed: selectedRoleTags,
+      tag_roles: selectedRoleExisting,
     });
     setLoading(false);
+    navigation.navigate("SearchGroupStack");
   }
-
-  useEffect(() => {
-    // async function getPartipicants() {
-    //   const { partipicantsList } = await getPartipicantsList();
-    //   setItems(partipicantsList);
-    // }
-    // getPartipicants();
-  }, []);
   function renderItem() {
     return (
       <View>
@@ -50,13 +43,14 @@ export default function CreateGroupScreen() {
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select group location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <CityPicker setSelectedLocation={setSelectedLocation} />
+          <LocationPicker setSelectedLocation={setSelectedLocation}/>
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select partipicants</Text>
+          <Text style={styles.header}>Select the musicians existing</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <PartipicantsPicker
-            selectedPartipicants={selectedPartipicants}
-            setSelectedPartipicants={setSelectedPartipicants}
+          <Tag
+            tagData={roleData}
+            selectedTags={selectedRoleExisting}
+            setSelectedTags={setSelectedRoleExisting}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians needed</Text>
@@ -98,7 +92,7 @@ export default function CreateGroupScreen() {
     <FlatList
       data={[1]}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.toString()}
       keyboardShouldPersistTaps="always"
     />
   );

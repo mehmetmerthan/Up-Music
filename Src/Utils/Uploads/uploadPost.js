@@ -5,44 +5,49 @@ import * as mutations from "../../graphql/mutations";
 async function UploadPost(props) {
   const {
     content = "",
-    type = "",
+    post_type = "",
     media = "",
+    mediaType = "",
     location = "",
     tag_styles = [],
     tag_roles = [],
     participants = [],
-    musician_needed = [],
+    tag_roles_needed = [],
   } = props;
-  const { userID } = await getUserId();
-  const { mediaKey } = await uploadMedia({ media: media });
+  const userID = await getUserId();
+  const { mediaKey } = await uploadMedia({
+    media: media,
+  });
   const city = location?.city || "";
   const country = location?.country || "";
   const postDetails = {
     content: content,
-    type: type,
+    type: "post",
+    post_type: post_type,
     city: city,
     country: country,
     key_media: mediaKey,
-    userPostId: userID,
+    media_type: mediaType,
+    userPostsId: userID,
     tag_styles: tag_styles,
     tag_roles: tag_roles,
     participants: participants,
-    musician_needed: musician_needed,
+    tag_roles_needed: tag_roles_needed,
   };
   if (participants.length === 0) {
     delete postDetails.participants;
   }
-  if (musician_needed.length === 0) {
-    delete postDetails.musician_needed;
+  if (tag_roles_needed.length === 0) {
+    delete postDetails.tag_roles_needed;
   }
   if (content === "") {
     delete postDetails.content;
   }
-  if (type === "") {
-    delete postDetails.type;
-  }
   if (mediaKey === "") {
     delete postDetails.key_media;
+  }
+  if (mediaType === "") {
+    delete postDetails.media_type;
   }
   if (city === "") {
     delete postDetails.city;

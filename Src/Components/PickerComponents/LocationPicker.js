@@ -33,10 +33,11 @@ export function LocationPicker({ setSelectedLocation }) {
             styles={{ textInput: styles.locationInput }}
             placeholder="Hard Rock Cafe, London"
             fetchDetails={true}
-            onPress={(data, details = null) => handleLocationSelect(data)}
+            onPress={(data = null) => handleLocationSelect(data)}
             query={{
               key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
               language: "en",
+              types: "(cities)",
             }}
           />
           {location && (

@@ -24,20 +24,28 @@ type User @model {
 }
 type Post @model {
   id: ID!
-  type: String
+  post_type: String
   content: String
   price: String
   key_media: String
+  media_type: String
   city: String
   country: String
   tag_styles: [String]
   tag_roles: [String]
+  tag_roles_needed: [String]
   tag_all: [String]
   participants: [User] @hasMany
-  musician_needed: [User] @hasMany
   owner: User @belongsTo
   likes: [Like] @hasMany
   comments: [Comment] @hasMany
+  type: String!
+    @index(
+      name: "postsByDate"
+      queryField: "postsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String!
 }
 type Comment @model {
   id: ID!

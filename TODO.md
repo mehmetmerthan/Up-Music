@@ -9,6 +9,7 @@ Project Description
 - [ ] insanların birbirini takip etmesini sağla ve userdetailse gitmesini sağla  
 - [ ] mesajlaşma için gerekli kodları yaz ve test et  
 - [ ] mesaj bildirimi ve post bildirimi  için gerekli kodları yaz ve test et  
+- [ ] push notifi ekle  
 - [ ] stres testi yap  
 - [ ] son olarak da herşeyi kontrol et ve düzelt  
 - [ ] son ui değişikliklerini yap  
@@ -17,12 +18,12 @@ Project Description
 ### In Progress
 
 - [ ] post oluşturmayı test et ve herşey yolunda mı kontrol et  
-- [ ] postları filtreleme özelliği ekle  
 - [ ] postları silme ve raporlama butonu ekle  
 - [ ] beğenme ve yorum için backend ayarla  
 
 ### Done ✓
 
+- [x] postları filtreleme özelliği ekle  
 - [x] post oluşturma sayfası için gerekli kodları düzenle  
 - [x] onboarding düzenle  
 - [x] Yükleniyor ibarerleri yap  

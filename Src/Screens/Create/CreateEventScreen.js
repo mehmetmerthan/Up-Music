@@ -1,41 +1,32 @@
 import { TextInput, Text, View, FlatList } from "react-native";
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateEventStyle";
 import Tag from "../../Components/TagComponents/Tag";
-import { Divider, Button, Dialog } from "@rneui/themed";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import { Divider, Button } from "@rneui/themed";
+import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import getPartipicantsList from "../../Utils/getPartipicantsList";
 import { styleTagData } from "../../../data/TagData";
-import PartipicantsPicker from "../../Components/PickerComponents/PartipicantsPicker";
+import { useNavigation } from "@react-navigation/native";
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  const [selectedPartipicants, setSelectedPartipicants] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const { MediaPickerComponent, image } = useMedia();
+  const navigation = useNavigation();
   async function submitPost() {
     setLoading(true);
     await UploadPost({
       content: text,
       media: image,
       tag_styles: selectedStyleTags,
-      type: "main_post",
+      post_type: "event_post",
       location: selectedLocation,
-      partipicants: selectedPartipicants,
     });
     setLoading(false);
+    navigation.navigate("EventStack");
   }
-
-  useEffect(() => {
-    async function getPartipicants() {
-      // const { partipicantsList } = await getPartipicantsList();
-      // setItems(partipicantsList);
-    }
-    getPartipicants();
-  }, []);
   function renderItem() {
     return (
       <View>
@@ -47,12 +38,8 @@ export default function CreateEventScreen() {
           value={text}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <CityPicker setSelectedLocation={setSelectedLocation} />
+        <LocationPicker setSelectedLocation={setSelectedLocation}/>
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <PartipicantsPicker
-          setSelectedPartipicants={setSelectedPartipicants}
-          selectedPartipicants={selectedPartipicants}
-        />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         <Tag

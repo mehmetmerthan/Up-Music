@@ -9,6 +9,7 @@ const OnboardingScreen4 = ({ route }) => {
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
   const [selectedGender, setSelectedGender] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({});
+  const [visibleCity, setVisibleCity] = useState(false);
   const [text, onChangeText] = useState("");
   const navigation = useNavigation();
   function navigateToNextScreen() {
@@ -32,10 +33,18 @@ const OnboardingScreen4 = ({ route }) => {
         />
         <View style={styles.container}>
           <Text style={styles.subText}>Where are you living?</Text>
-          <CityPicker
-            selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
-          />
+          {!visibleCity && (
+            <Button
+              title={"Select Location"}
+              onPress={() => setVisibleCity(true)}
+            />
+          )}
+          {visibleCity && (
+            <CityPicker
+              setSelectedLocation={setSelectedLocation}
+              setVisibleCity={setVisibleCity}
+            />
+          )}
           <View style={styles.genderContainer}>
             <Text style={styles.subText}>What is your gender</Text>
             <GenderPicker

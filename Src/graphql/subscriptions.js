@@ -41,7 +41,6 @@ export const onCreateUser = /* GraphQL */ `
       userFollowingsId
       userFollowersId
       postParticipantsId
-      postMusician_neededId
       __typename
     }
   }
@@ -86,7 +85,6 @@ export const onUpdateUser = /* GraphQL */ `
       userFollowingsId
       userFollowersId
       postParticipantsId
-      postMusician_neededId
       __typename
     }
   }
@@ -131,7 +129,6 @@ export const onDeleteUser = /* GraphQL */ `
       userFollowingsId
       userFollowersId
       postParticipantsId
-      postMusician_neededId
       __typename
     }
   }
@@ -140,20 +137,18 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
     onCreatePost(filter: $filter) {
       id
-      type
+      post_type
       content
       price
       key_media
+      media_type
       city
       country
       tag_styles
       tag_roles
+      tag_roles_needed
       tag_all
       participants {
-        nextToken
-        __typename
-      }
-      musician_needed {
         nextToken
         __typename
       }
@@ -175,7 +170,6 @@ export const onCreatePost = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       likes {
@@ -186,6 +180,7 @@ export const onCreatePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      type
       createdAt
       updatedAt
       userPostsId
@@ -197,20 +192,18 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
     onUpdatePost(filter: $filter) {
       id
-      type
+      post_type
       content
       price
       key_media
+      media_type
       city
       country
       tag_styles
       tag_roles
+      tag_roles_needed
       tag_all
       participants {
-        nextToken
-        __typename
-      }
-      musician_needed {
         nextToken
         __typename
       }
@@ -232,7 +225,6 @@ export const onUpdatePost = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       likes {
@@ -243,6 +235,7 @@ export const onUpdatePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      type
       createdAt
       updatedAt
       userPostsId
@@ -254,20 +247,18 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
     onDeletePost(filter: $filter) {
       id
-      type
+      post_type
       content
       price
       key_media
+      media_type
       city
       country
       tag_styles
       tag_roles
+      tag_roles_needed
       tag_all
       participants {
-        nextToken
-        __typename
-      }
-      musician_needed {
         nextToken
         __typename
       }
@@ -289,7 +280,6 @@ export const onDeletePost = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       likes {
@@ -300,6 +290,7 @@ export const onDeletePost = /* GraphQL */ `
         nextToken
         __typename
       }
+      type
       createdAt
       updatedAt
       userPostsId
@@ -314,15 +305,18 @@ export const onCreateComment = /* GraphQL */ `
       content
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -346,7 +340,6 @@ export const onCreateComment = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -364,15 +357,18 @@ export const onUpdateComment = /* GraphQL */ `
       content
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -396,7 +392,6 @@ export const onUpdateComment = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -414,15 +409,18 @@ export const onDeleteComment = /* GraphQL */ `
       content
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -446,7 +444,6 @@ export const onDeleteComment = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -463,15 +460,18 @@ export const onCreateLike = /* GraphQL */ `
       id
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -495,7 +495,6 @@ export const onCreateLike = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -512,15 +511,18 @@ export const onUpdateLike = /* GraphQL */ `
       id
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -544,7 +546,6 @@ export const onUpdateLike = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -561,15 +562,18 @@ export const onDeleteLike = /* GraphQL */ `
       id
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -593,7 +597,6 @@ export const onDeleteLike = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt

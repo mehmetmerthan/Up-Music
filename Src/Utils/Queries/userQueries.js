@@ -42,6 +42,7 @@ export const getUser = /* GraphQL */ `
           tag_all
           tag_roles
           tag_styles
+          tag_roles_needed
           createdAt
           updatedAt
           __typename
@@ -61,13 +62,6 @@ export const getUser = /* GraphQL */ `
                 id
                 name
               }
-            }
-          }
-          musician_needed {
-            items {
-              id
-              name
-              key_pp
             }
           }
           participants {

@@ -41,7 +41,6 @@ export const getUser = /* GraphQL */ `
       userFollowingsId
       userFollowersId
       postParticipantsId
-      postMusician_neededId
       __typename
     }
   }
@@ -71,7 +70,6 @@ export const listUsers = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       nextToken
@@ -83,20 +81,18 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
-      type
+      post_type
       content
       price
       key_media
+      media_type
       city
       country
       tag_styles
       tag_roles
+      tag_roles_needed
       tag_all
       participants {
-        nextToken
-        __typename
-      }
-      musician_needed {
         nextToken
         __typename
       }
@@ -118,7 +114,6 @@ export const getPost = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       likes {
@@ -129,6 +124,7 @@ export const getPost = /* GraphQL */ `
         nextToken
         __typename
       }
+      type
       createdAt
       updatedAt
       userPostsId
@@ -145,15 +141,18 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -171,15 +170,18 @@ export const getComment = /* GraphQL */ `
       content
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -203,7 +205,6 @@ export const getComment = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -241,15 +242,18 @@ export const getLike = /* GraphQL */ `
       id
       post {
         id
-        type
+        post_type
         content
         price
         key_media
+        media_type
         city
         country
         tag_styles
         tag_roles
+        tag_roles_needed
         tag_all
+        type
         createdAt
         updatedAt
         userPostsId
@@ -273,7 +277,6 @@ export const getLike = /* GraphQL */ `
         userFollowingsId
         userFollowersId
         postParticipantsId
-        postMusician_neededId
         __typename
       }
       createdAt
@@ -297,6 +300,47 @@ export const listLikes = /* GraphQL */ `
         updatedAt
         userLikesId
         postLikesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const postsByDate = /* GraphQL */ `
+  query PostsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    postsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        post_type
+        content
+        price
+        key_media
+        media_type
+        city
+        country
+        tag_styles
+        tag_roles
+        tag_roles_needed
+        tag_all
+        type
+        createdAt
+        updatedAt
+        userPostsId
         __typename
       }
       nextToken

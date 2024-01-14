@@ -14,10 +14,12 @@ export default function useMedia() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
     });
-    setImage(result.assets[0].uri);
-    setMediaType(result.assets[0].type);
+    if (!result.canceled) {
+      setImage(result?.assets[0]?.uri);
+      setMediaType(result?.assets[0]?.type);
+    }
   }
 
   async function MediaPickerImage() {
@@ -27,10 +29,12 @@ export default function useMedia() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
     });
-    setImage(result.assets[0].uri);
-    setMediaType("image");
+    if (!result.canceled) {
+      setImage(result?.assets[0]?.uri);
+      setMediaType("image");
+    }
   }
   function MediaPickerImageComponent() {
     return (
@@ -44,6 +48,7 @@ export default function useMedia() {
             color="black"
           />
         </TouchableOpacity>
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </SafeAreaView>
     );
   }
