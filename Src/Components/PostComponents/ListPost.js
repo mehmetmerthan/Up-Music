@@ -3,19 +3,18 @@ import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { postsByDate } from "../../Utils/Queries/postQueries";
 import Post from "./Post";
-import handleFilter from "./handleFilter";
-export default function ListPostMain({ post_type }) {
+import PostHeaderComponent from "./PostHeaderComponent";
+export default function ListPost() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [filter, setFilter] = useState({});
   const fetchItems = async () => {
     if (loading || refreshing) return;
     console.log("fetchItems running");
     setLoading(true);
     try {
-      const filter = {};
-      if (post_type) filter.post_type = { eq: post_type };
       const variables = {
         limit: 1,
         nextToken: postNextToken,
@@ -27,16 +26,14 @@ export default function ListPostMain({ post_type }) {
         query: postsByDate,
         variables: variables,
       });
-      const newItems = result.data.postsByDate.items;
-      const filteredItems = await handleFilter({ propItems: newItems });
-      const newNextToken = result.data.postsByDate.nextToken;
+      const newItems = result?.data?.postsByDate?.items;
+      const newNextToken = result?.data?.postsByDate?.nextToken;
       setItems((prevItems) =>
-        postNextToken ? [...prevItems, ...filteredItems] : filteredItems
+        postNextToken ? [...prevItems, ...newItems] : newItems
       );
-      console.log("newNextToken", newNextToken);
       setPostNextToken(newNextToken);
     } catch (error) {
-      console.error(error);
+      console.error("error fetching items", error);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -45,7 +42,7 @@ export default function ListPostMain({ post_type }) {
   useEffect(() => {
     console.log("useEffect running");
     fetchItems();
-  }, []);
+  }, [filter]);
 
   const handleLoadMore = async () => {
     console.log("handleLoadMore running");
@@ -70,7 +67,7 @@ export default function ListPostMain({ post_type }) {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={FilterComponet}
+      ListHeaderComponent={<PostHeaderComponent setFilter={setFilter} />}
       keyboardShouldPersistTaps="always"
     />
   );

@@ -27,7 +27,7 @@ export default function MessageDetailScreen() {
 
         >
           {
-            messages.map((message, index) => (
+            messages?.map((message, index) => (
               <View key={index} style={index % 2 === 0 ? styles.messageContainerFirst : styles.messageContainerSecond}>
                 <TouchableOpacity style={styles.avatarContainer} onPress={navigateToUserDetailScreen}>
                   <Text style={styles.username}>{message.name}</Text>

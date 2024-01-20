@@ -1,12 +1,13 @@
-import { Chip } from "@rneui/themed";
+import { Chip, Button } from "@rneui/themed";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-export default function FilterComponet() {
+import { useNavigation } from "@react-navigation/native";
+export default function PostHeaderComponent({ setFilter }) {
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
-          <Text>{selectedCountry}</Text>
           <Chip
             buttonStyle={styles.chip}
             title={"Country"}
@@ -16,7 +17,6 @@ export default function FilterComponet() {
               }
             }}
           />
-          <Text>{selectedCity}</Text>
           <Chip
             buttonStyle={styles.chip}
             title={"City"}
@@ -26,7 +26,6 @@ export default function FilterComponet() {
               }
             }}
           />
-          <Text>{roleTags}</Text>
           <Chip
             buttonStyle={styles.chip}
             title={"Role"}
@@ -36,7 +35,6 @@ export default function FilterComponet() {
               }
             }}
           />
-          <Text>{styleTags}</Text>
           <Chip
             containerStyle={styles.chip}
             title={"Style"}
@@ -58,7 +56,10 @@ export default function FilterComponet() {
           />
         </View>
       </ScrollView>
-      <FilterComponetChildren />
+      <Button
+        title={"Filter"}
+        onPress={() => navigation.navigate("FilterScreen", { setFilter })}
+      />
     </View>
   );
 }
@@ -75,16 +76,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     alignSelf: "center",
-  },
-  buttonPropertySave: {
-    flexDirection: "row",
-    borderRadius: 10,
-    backgroundColor: "#008000",
-  },
-  buttonPropertyCancel: {
-    flexDirection: "row",
-    borderRadius: 10,
-    backgroundColor: "#ff0000",
-    marginLeft: 20,
   },
 });

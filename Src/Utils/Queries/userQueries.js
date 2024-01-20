@@ -5,9 +5,18 @@ export const getUser = /* GraphQL */ `
       name
       about
       key_pp
-      experiences
-      location
-      tag
+      experiences {
+        about
+        tag_styles
+        tag_roles
+        song_name
+        song_artist
+        song_link
+      }
+      city
+      country
+      tag_styles
+      tag_roles
       price
       posts {
         nextToken
@@ -18,8 +27,11 @@ export const getUser = /* GraphQL */ `
           content
           price
           key_media
-          location
-          tag
+          city
+          country
+          tag_roles
+          tag_styles
+          tag_roles_needed
           createdAt
           updatedAt
           __typename

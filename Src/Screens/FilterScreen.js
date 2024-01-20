@@ -7,21 +7,41 @@ import {
   CountryPicker,
 } from "../Components/PickerComponents/LocationPicker";
 import { styleTagData } from "../../data/TagData";
-export default function FilterScreen({ setSelectedFilter }) {
+import { useNavigation } from "@react-navigation/native";
+export default function FilterScreen({ route }) {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const { setFilter } = route?.params || { setFilter: () => {} };
+  const navigation = useNavigation();
   async function submitFilter() {
     setLoading(true);
     const filter = {
-      city: selectedCity,
-      country: selectedCountry,
-      tags_styles: selectedStyleTags,
-      tags_roles: selectedRoleTags,
+      or: [],
     };
-    setSelectedFilter(filter);
+    if (selectedCity) {
+      filter.or.push({ city: { contains: selectedCity } });
+    }
+
+    if (selectedCountry) {
+      filter.or.push({ country: { contains: selectedCountry } });
+    }
+
+    if (selectedStyleTags.length > 0) {
+      filter.or.push({ tags_styles: { contains: selectedStyleTags } });
+    }
+
+    if (selectedRoleTags.length > 0) {
+      filter.or.push({ tags_roles: { contains: selectedRoleTags } });
+    }
+
+    if (filter.or.length > 0) {
+      setFilter(filter);
+    }
+    setFilter(filter);
+    navigation.goBack();
     setLoading(false);
   }
   function renderItem() {

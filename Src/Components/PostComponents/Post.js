@@ -4,7 +4,7 @@ import styles from "../../Styles/PostStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { S3ImageAvatar, S3PostMedia } from "../S3Media";
-const EventPost = ({ item }) => {
+const Post = ({ item }) => {
   const navigation = useNavigation();
   function navigateToUserDetail() {
     navigation.navigate("UserDetailScreen");
@@ -31,7 +31,7 @@ const EventPost = ({ item }) => {
         <Text style={styles.textPrice}>{item?.price}"$"</Text>
         <Text style={styles.sectionHeadingText}>Music Styles</Text>
         <View style={styles.hStackContent}>
-          {item?.tag_styles.map((style, styleIndex) => (
+          {item?.tag_styles?.map((style, styleIndex) => (
             <View style={styles.hStackItemWrap} key={styleIndex}>
               <View style={styles.tag}>
                 <Text style={styles.tagText}>{style}</Text>
@@ -61,7 +61,7 @@ const EventPost = ({ item }) => {
         </View>
         <Text style={styles.sectionHeadingText}>Instruments Played</Text>
         <View style={styles.hStackContent}>
-          {item.tag_roles.map((musician, musicianIndex) => (
+          {item?.tag_roles?.map((musician, musicianIndex) => (
             <View style={styles.hStackItemWrap} key={musicianIndex}>
               <View style={styles.tag}>
                 <Text style={styles.tagText}>{musician}</Text>
@@ -74,4 +74,4 @@ const EventPost = ({ item }) => {
   );
 };
 
-export default EventPost;
+export default Post;

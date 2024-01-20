@@ -23,13 +23,13 @@ export default function Router() {
     listenToAutoSignInEvent();
   }, []);
   return (
-    // <NavigationContainer>
-    //   {redirect === true ? (
-    //     <BottomTab />
-    //   ) : redirect === false ? (
-    //     <AuthStack />
-    //   ) : null}
-    // </NavigationContainer>
-    <Ex />
+    <NavigationContainer>
+      {redirect === true ? (
+        <BottomTab />
+      ) : redirect === false ? (
+        <AuthStack />
+      ) : null}
+    </NavigationContainer>
+    // <Ex />
   );
 }

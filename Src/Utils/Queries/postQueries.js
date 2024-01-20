@@ -26,7 +26,6 @@ export const postsByDate = /* GraphQL */ `
         city
         country
         content
-        tag_all
         tag_roles
         tag_styles
         tag_roles_needed
@@ -37,33 +36,6 @@ export const postsByDate = /* GraphQL */ `
           name
           key_pp
           id
-        }
-        comments {
-          items {
-            content
-            owner {
-              name
-              key_pp
-              id
-            }
-          }
-        }
-        likes {
-          items {
-            id
-            userLikesId
-            owner {
-              id
-              name
-            }
-          }
-        }
-        participants {
-          items {
-            id
-            key_pp
-            name
-          }
         }
       }
       nextToken

@@ -10,7 +10,7 @@ export function S3PostMedia(props) {
   useEffect(() => {
     async function getMediaUrl() {
       try {
-        if (mediaKey !== "") {
+        if (mediaKey !== "" && mediaKey !== undefined && mediaKey !== null) {
           const result = await Storage.get(mediaKey, {
             validateObjectExistence: true,
           });

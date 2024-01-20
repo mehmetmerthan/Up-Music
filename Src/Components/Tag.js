@@ -31,7 +31,7 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
       />
       <View style={styles.searchArea}>
         <View style={styles.contentContainerStyle}>
-          {filteredData.map((item, index) => (
+          {filteredData?.map((item, index) => (
             <Chip
               key={index}
               title={item}

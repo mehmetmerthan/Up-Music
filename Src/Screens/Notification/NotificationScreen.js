@@ -35,7 +35,7 @@ export default function NotificationScreen() {
 
   return (
     <ScrollView>
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <ListItem bottomDivider Component={TouchableHighlight} onLongPress={()=>console.log("pressed long")} key={index}>
           <Avatar
             rounded

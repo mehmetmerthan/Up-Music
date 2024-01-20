@@ -94,7 +94,7 @@ const UserDetailScreen = () => {
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-                    {musicStyles.map((item, index) => (
+                    {musicStyles?.map((item, index) => (
                         <Chip
                             key={index}
                             title={item}
@@ -117,7 +117,7 @@ const UserDetailScreen = () => {
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-                    {instruments.map((item, index) => (
+                    {instruments?.map((item, index) => (
                         <Chip
                             key={index}
                             title={item}
