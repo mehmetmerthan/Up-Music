@@ -11,16 +11,9 @@ import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import { styleTagData, roleData } from "../../../data/TagData";
-import Tag from "../../Components/TagComponents/Tag";
+import Tag from "../../Components/Tag";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
-import GenderPicker from "../../Components/PickerComponents/GenderPicker";
 const validationSchema = yup.object().shape({
-  age: yup
-    .number()
-    .integer("Age must be a whole number")
-    .min(18, "Age must be at least 18")
-    .max(100, "Age must be less than 100")
-    .required("Age is required"),
   name: yup
     .string()
     .max(50, "Name must be less than 50")
@@ -49,12 +42,10 @@ const EditPorfileScreen = () => {
   const [visibleRoleTag, setVisibleRoleTag] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
-  const [age, setAge] = useState(userData?.age);
   const [text, onChangeText] = useState(userData?.about);
   const [name, onChangeName] = useState(userData?.name);
   const [selectedLocation, setSelectedLocation] = useState({});
   const [visibleCity, setVisibleCity] = useState(false);
-  const [selectedGender, setSelectedGender] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { MediaPickerImage: MediaPickerImagePP, image: imagePP } = useMedia();
@@ -73,14 +64,13 @@ const EditPorfileScreen = () => {
       return;
     }
     const locationTemplate = {
-      city: userData?.city,
-      country: userData?.country,
+      city: userData?.location?.city,
+      country: userData?.location?.country,
     };
     await UploadUser({
       name: name === userData?.name ? "" : name,
       about: text === userData?.about ? "" : text,
       urlPP: imagePP,
-      age: age === userData?.age ? "" : age,
       location:
         JSON.stringify(selectedLocation) === JSON.stringify(locationTemplate)
           ? ""
@@ -88,7 +78,6 @@ const EditPorfileScreen = () => {
       tagStyle: userData?.tag_styles === userMusicStyles ? "" : userMusicStyles,
       tagRole: userData?.tag_roles === userRoles ? "" : userRoles,
       userData: userData,
-      gender: selectedGender === userData?.gender ? "" : selectedGender,
       operationType: "update",
     });
     navigation.navigate("ProfileScreen");
@@ -96,13 +85,11 @@ const EditPorfileScreen = () => {
   }
   const formik = useFormik({
     initialValues: {
-      age: age,
       name: name,
       about: text,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      setAge(values.age);
       onChangeName(values.name);
       onChangeText(values.about);
     },
@@ -165,7 +152,7 @@ const EditPorfileScreen = () => {
           />
           <Text style={styles.userProfileInfoName}>{userData.name}</Text>
           <View style={styles.userProfileInfoLocation}>
-            {userData?.city && (
+            {userData?.location?.city && (
               <EvilIcons
                 name="location"
                 size={20}
@@ -173,14 +160,9 @@ const EditPorfileScreen = () => {
               />
             )}
             <Text style={styles.userProfileInfoLocationText}>
-              {userData?.city} {userData?.city && ","} {userData?.country}
+              {userData?.location.city} {userData?.location?.city && ","} {userData?.location?.country}
             </Text>
           </View>
-          <Text style={styles.userProfileInfoJobTitle}>
-            {userData?.gender} {userData?.gender && userData?.age && " ,"}{" "}
-            {userData?.age}
-          </Text>
-
           <View style={[styles.userProfileWidget, styles.widget]}>
             <View style={styles.widgetItem}>
               <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
@@ -247,28 +229,6 @@ const EditPorfileScreen = () => {
                       maxLength={1000}
                       placeholder="Write something about yourself"
                       onSubmitEditing={formik.handleSubmit}
-                    />
-                    <Text style={styles.subHeader}>Age</Text>
-                    <Text style={styles.baseText}>{age}</Text>
-                    <TextInput
-                      style={styles.inputAge}
-                      keyboardType="numeric"
-                      onChangeText={formik.handleChange("age")}
-                      onBlur={() => {
-                        formik.handleBlur("age");
-                        formik.handleSubmit();
-                      }}
-                      value={formik.values.age}
-                      placeholder="Age"
-                      onSubmitEditing={formik.handleSubmit}
-                    />
-                    {formik.touched.age && formik.errors.age && (
-                      <Text style={{ color: "red" }}>{formik.errors.age}</Text>
-                    )}
-                    <Text style={styles.subHeader}>Gender</Text>
-                    <GenderPicker
-                      selectedGender={selectedGender}
-                      setSelectedGender={setSelectedGender}
                     />
                     <Text style={styles.subHeader}>Location</Text>
                     {!visibleCity && (

@@ -7,17 +7,16 @@ import ForgotPassScreen from "../../Screens/LogIn/ForgotPassScreen";
 import ForgotPassVerifyScreen from "../../Screens/LogIn/ForgotPassVerifyScreen";
 import ForgotPassNewPassScreen from "../../Screens/LogIn/ForgotPassNewPassScreen";
 import ResetPassScreen from "../../Screens/LogIn/ResetPassScreen";
+import WelcomeScreen from "../../Screens/Onboarding/WelcomeScreen";
 import OnboardingScreen1 from "../../Screens/Onboarding/OnboardingScreen1";
 import OnboardingScreen2 from "../../Screens/Onboarding/OnboardingScreen2";
 import OnboardingScreen3 from "../../Screens/Onboarding/OnboardingScreen3";
-import OnboardingScreen4 from "../../Screens/Onboarding/OnboardingScreen4";
-import OnboardingScreen5 from "../../Screens/Onboarding/OnboardingScreen5";
 import BottomTab from "../BottomTab/BottomTab";
 export default function AuthStack() {
   const AuthStack = createStackNavigator();
   return (
     <AuthStack.Navigator
-      initialRouteName="OnboardingScreen1"
+      initialRouteName="WelcomeScreen"
       screenOptions={{
         cardStyleInterpolator: ({ current, layouts }) => {
           return {
@@ -90,29 +89,24 @@ export default function AuthStack() {
         }}
       />
       <AuthStack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+        options={{ title: "Welcome !" }}
+      />
+      <AuthStack.Screen
         name="OnboardingScreen1"
         component={OnboardingScreen1}
-        options={{ headerShown: false, title: "" }}
+        options={{ title: "Something" }}
       />
       <AuthStack.Screen
         name="OnboardingScreen2"
         component={OnboardingScreen2}
-        options={{ headerShown: false, title: "" }}
+        options={{ title: "Tell about yourself" }}
       />
       <AuthStack.Screen
         name="OnboardingScreen3"
         component={OnboardingScreen3}
-        options={{ headerShown: false, title: "" }}
-      />
-      <AuthStack.Screen
-        name="OnboardingScreen4"
-        component={OnboardingScreen4}
-        options={{ headerShown: false, title: "" }}
-      />
-      <AuthStack.Screen
-        name="OnboardingScreen5"
-        component={OnboardingScreen5}
-        options={{ headerShown: false, title: "" }}
+        options={{ title: "Have an any eperience ?" }}
       />
       <AuthStack.Screen
         name="BottomTab"

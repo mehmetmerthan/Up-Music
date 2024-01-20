@@ -9,12 +9,6 @@ import signUp from "../../Utils/Auth/SignUp";
 const validationSchema = yup.object().shape({
   fistname: yup.string().required("Firstname is required"),
   lastname: yup.string().required("Lastname is required"),
-  age: yup
-    .number()
-    .required("Age is required")
-    .integer("Age must be a whole number")
-    .min(18, "Age must be at least 18")
-    .max(100, "Age must be less than 100"),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -36,9 +30,8 @@ const SignUpScreen = ({ route }) => {
     selectedRoleTags = [],
     about = "",
     location = "",
-    gender = "",
     image = "",
-    mediaType = "",
+    experiencesData = [],
   } = route?.params || {};
   const navigation = useNavigation();
   function navigateToSignIn() {
@@ -60,14 +53,12 @@ const SignUpScreen = ({ route }) => {
         navigation.navigate("VerifyEmailScreen", {
           email: values.email,
           name: values.fistname + " " + values.lastname,
-          age: values.age,
           about: about,
           urlPP: image,
           location: location,
           tagStyle: selectedStyleTags,
           tagRole: selectedRoleTags,
-          gender: gender,
-          mediaType: mediaType,
+          experiencesData: experiencesData,
         });
       }
     } else {
@@ -75,7 +66,6 @@ const SignUpScreen = ({ route }) => {
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,
         name: values.fistname + " " + values.lastname,
-        age: values.age,
         about: about,
         urlPP: image,
         location: location,
@@ -96,7 +86,6 @@ const SignUpScreen = ({ route }) => {
         initialValues={{
           fistname: "",
           lastname: "",
-          age: "",
           email: "",
           password: "",
           confirmPassword: "",
@@ -136,18 +125,7 @@ const SignUpScreen = ({ route }) => {
               {touched.lastname && errors.lastname && (
                 <Text style={styles.errorText}>{errors.lastname}</Text>
               )}
-              <Text style={styles.subText}> Age</Text>
-              <TextInput
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder="age"
-                onChangeText={handleChange("age")}
-                onBlur={handleBlur("age")}
-                value={values.age}
-              />
-              {touched.age && errors.age && (
-                <Text style={styles.errorText}>{errors.age}</Text>
-              )}
+
               <Text style={styles.subText}> Email</Text>
               <TextInput
                 style={styles.input}

@@ -83,6 +83,16 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     marginTop: 10,
   },
+  input: {
+    height: 40,
+    width: "90%",
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    alignSelf: "center",
+  },
 });
 
 export default styles;

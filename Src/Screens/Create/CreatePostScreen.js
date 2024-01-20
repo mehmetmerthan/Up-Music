@@ -1,7 +1,7 @@
 import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
-import Tag from "../../Components/TagComponents/Tag";
+import Tag from "../../Components/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
 import UploadPost from "../../Utils/Uploads/uploadPost";

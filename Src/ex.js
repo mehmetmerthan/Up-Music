@@ -1,22 +1,22 @@
-import { React, useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import useMedia from "./Components/PickerComponents/useMedia";
-import { Button } from "@rneui/themed";
-
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  TextInput,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { API } from "aws-amplify";
+import { getUser } from "./Utils/Queries/userQueries";
 export default function Ex() {
-  const { MediaPickerComponent, mediatype } = useMedia();
-  function x() {
-    console.log(mediatype);
+  async function get() {
+    const user = await API.graphql({
+      query: getUser,
+      variables: { id: "9edc95e4-f7b2-4cd3-bbdd-dc14b6edc424" },
+    });
+    console.log(user?.data?.getUser?.experience.items);
   }
-  return (
-    <View style={styles.container}>
-      <MediaPickerComponent />
-      <Button title={"x"} onPress={x} />
-    </View>
-  );
+  useEffect(() => {
+    get();
+  }, []);
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

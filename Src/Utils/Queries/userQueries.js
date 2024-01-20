@@ -5,29 +5,10 @@ export const getUser = /* GraphQL */ `
       name
       about
       key_pp
-      gender
-      age
-      city
-      country
-      tag_styles
-      tag_roles
-      tag_all
-      followings {
-        nextToken
-        __typename
-      }
-      followers {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
-        __typename
-      }
-      likes {
-        nextToken
-        __typename
-      }
+      experiences
+      location
+      tag
+      price
       posts {
         nextToken
         __typename
@@ -37,40 +18,11 @@ export const getUser = /* GraphQL */ `
           content
           price
           key_media
-          city
-          country
-          tag_all
-          tag_roles
-          tag_styles
-          tag_roles_needed
+          location
+          tag
           createdAt
           updatedAt
           __typename
-          comments {
-            items {
-              content
-              owner {
-                name
-                key_pp
-                id
-              }
-            }
-          }
-          likes {
-            items {
-              owner {
-                id
-                name
-              }
-            }
-          }
-          participants {
-            items {
-              id
-              key_pp
-              name
-            }
-          }
         }
       }
       __typename

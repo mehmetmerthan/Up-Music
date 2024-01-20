@@ -1,45 +1,53 @@
 import { React, useState } from "react";
-import { View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
+import Tag from "../../Components/Tag";
+import { styleTagData, roleData } from "../../../data/TagData";
 import styles from "../../Styles/OnBoardingStyle";
+import { Divider } from "@rneui/themed";
 const OnboardingScreen1 = () => {
-  const [isLoadingLeft, setIsLoadingLeft] = useState(false);
-  const [isLoadingRight, setIsLoadingRight] = useState(false);
   const navigation = useNavigation();
+  const [selectedStyleTags, setSelectedStyleTags] = useState([]);
+  const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   function navigateToNextScreen() {
-    setIsLoadingRight(true);
-    navigation.navigate("OnboardingScreen2");
-    setIsLoadingRight(false);
-  }
-  function navigateToSignIn() {
-    setIsLoadingLeft(true);
-    navigation.navigate("SignInScreen");
-    setIsLoadingLeft(false);
+    setIsLoading(true);
+    navigation.navigate("OnboardingScreen2", {
+      selectedStyleTags: selectedStyleTags,
+      selectedRoleTags: selectedRoleTags,
+    });
+    setIsLoading(false);
   }
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>Welcome !</Text>
-      <Image
-        source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-        style={styles.image}
-      />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="SignIn"
-          onPress={navigateToSignIn}
-          buttonStyle={styles.buttonLeft}
-          type="outline"
-          loading={isLoadingLeft}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.subText}>Select you music styles</Text>
+        <Tag
+          tagData={styleTagData}
+          selectedTags={selectedStyleTags}
+          setSelectedTags={setSelectedStyleTags}
         />
+        <Divider />
+        <Text style={styles.subText}>Select you roles</Text>
+        <Tag
+          tagData={roleData}
+          selectedTags={selectedRoleTags}
+          setSelectedTags={setSelectedRoleTags}
+        />
+        <View style={styles.pageViewContainer}>
+          <View style={styles.pageViewFill} />
+          <View style={styles.pageViewEmpty} />
+          <View style={styles.pageViewEmpty} />
+        </View>
         <Button
-          title="SignUp"
+          title="Next"
           onPress={navigateToNextScreen}
-          buttonStyle={styles.buttonRight}
-          loading={isLoadingRight}
+          buttonStyle={styles.button}
+          loading={isLoading}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

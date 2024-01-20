@@ -1,6 +1,6 @@
 import { SafeAreaView, Text, TouchableOpacity, Image } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/MediaPickerStyle";
+import styles from "../../Styles/Picker/MediaPickerStyle";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Divider } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";

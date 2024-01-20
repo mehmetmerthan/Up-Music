@@ -77,6 +77,5 @@ const styles = StyleSheet.create({
   searchArea: {
     alignItems: "center",
     justifyContent: "center",
-    height: 300,
   },
 });

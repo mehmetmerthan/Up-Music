@@ -40,13 +40,9 @@ const ProfileScreen = () => {
             color="rgba(255, 255, 255, 0.5)"
           />
           <Text style={styles.userProfileInfoLocationText}>
-            {userData?.city}, {userData?.country}
+            {userData?.location.city}, {userData?.location.country}
           </Text>
         </View>
-        <Text style={styles.userProfileInfoJobTitle}>
-          {userData?.gender}
-          {userData?.gender && userData?.age && ","} {userData?.age}
-        </Text>
         <View style={[styles.userProfileWidget, styles.widget]}>
           <View style={styles.widgetItem}>
             <Text style={styles.widgetItemLabel}>FOLLOWING</Text>

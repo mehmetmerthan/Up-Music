@@ -1,8 +1,8 @@
 import { React } from "react";
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-import styles from "../../Styles/UserProfileStyle";
+import styles from "../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
-import Post from "../../Components/PostComponents/UserPost";
+import Post from "./PostComponents/UserPost";
 import { Avatar } from '@rneui/themed';
 import { useNavigation } from "@react-navigation/native";
 import { Chip } from '@rneui/themed';

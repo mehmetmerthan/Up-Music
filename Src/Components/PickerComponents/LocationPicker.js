@@ -132,9 +132,11 @@ export function CityPicker({ setSelectedLocation, setVisibleCity }) {
   }
   return (
     <View>
-      <Text style={styles.baseText}>
-        {location?.city} {location?.city && ","} {location?.country}
-      </Text>
+      {location && (
+        <Text style={styles.baseText}>
+          {location?.city} {location?.city && ","} {location?.country}
+        </Text>
+      )}
       <>
         <GooglePlacesAutocomplete
           styles={{ textInput: styles.locationInput }}

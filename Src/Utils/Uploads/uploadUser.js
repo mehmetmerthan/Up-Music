@@ -8,31 +8,35 @@ async function UploadUser(props) {
     about = "",
     urlPP = "",
     location = "",
-    gender = "",
-    age = "",
     tagStyle = [],
     tagRole = [],
     userData = "",
     operationType = "",
+    experiencesData = [],
   } = props;
   const { mediaKey: key_pp } = await uploadMedia({
     media: urlPP,
     oldKey: userData?.key_pp || "",
   });
+  const userId = await getUserId();
+  
   const city = location?.city || "";
   const country = location?.country || "";
-  const userId = await getUserId();
+
   const userDetails = {
     id: userId,
     name: name,
-    age: age,
-    gender: gender,
     about: about,
     key_pp: key_pp,
-    city: city,
-    country: country,
-    tag_styles: tagStyle,
-    tag_roles: tagRole,
+    location: {
+      city: city,
+      country: country,
+    },
+    tag: {
+      tag_styles: tagStyle,
+      tag_roles: tagRole,
+    },
+    experiences: experiencesData,
   };
   if (userDetails.name === "") {
     delete userDetails.name;
@@ -49,17 +53,17 @@ async function UploadUser(props) {
   if (userDetails.key_pp === "") {
     delete userDetails.key_pp;
   }
-  if (userDetails.city === "") {
-    delete userDetails.city;
+  if (userDetails.location.city === "" && userDetails.location.country === "") {
+    delete userDetails.location;
   }
-  if (userDetails.country === "") {
-    delete userDetails.country;
+  if (
+    userDetails.tag.tag_styles.length === 0 &&
+    userDetails.tag.tag_roles.length === 0
+  ) {
+    delete userDetails.tag;
   }
-  if (userDetails.tag_styles.length === 0) {
-    delete userDetails.tag_styles;
-  }
-  if (userDetails.tag_roles.length === 0) {
-    delete userDetails.tag_roles;
+  if (userDetails.experiences.length === 0) {
+    delete userDetails.experiences;
   }
   if (operationType === "create") {
     try {

@@ -50,6 +50,8 @@ export const postsByDate = /* GraphQL */ `
         }
         likes {
           items {
+            id
+            userLikesId
             owner {
               id
               name

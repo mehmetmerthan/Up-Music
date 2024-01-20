@@ -16,12 +16,10 @@ const VerifyEmailScreen = ({ route }) => {
     tagRole = [],
     about = "",
     location = "",
-    gender = "",
     urlPP = "",
     name,
     email,
-    mediaType = "",
-    age = "",
+    experiencesData = [],
   } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
@@ -45,8 +43,7 @@ const VerifyEmailScreen = ({ route }) => {
         tagStyle: tagStyle,
         tagRole: tagRole,
         gender: gender,
-        mediaType: mediaType,
-        age: age,
+        experiencesData: experiencesData,
         operationType: "create",
       });
       setLoading(false);

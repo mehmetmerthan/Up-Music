@@ -1,26 +1,18 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
-} # FOR TESTING ONLY!
+}
 type User @model {
   id: ID!
   name: String
   about: String
-  gender: String
-  age: String
   key_pp: String
-  key_back: String
+  posts: [Post] @hasMany
+  price: Int
   city: String
   country: String
   tag_styles: [String]
   tag_roles: [String]
-  tag_all: [String]
-  posts: [Post] @hasMany
-  followings: [User] @hasMany
-  followers: [User] @hasMany
-  comments: [Comment] @hasMany
-  likes: [Like] @hasMany
+  experiences: [Experience]
 }
 type Post @model {
   id: ID!
@@ -34,11 +26,7 @@ type Post @model {
   tag_styles: [String]
   tag_roles: [String]
   tag_roles_needed: [String]
-  tag_all: [String]
-  participants: [User] @hasMany
   owner: User @belongsTo
-  likes: [Like] @hasMany
-  comments: [Comment] @hasMany
   type: String!
     @index(
       name: "postsByDate"
@@ -47,14 +35,11 @@ type Post @model {
     )
   createdAt: String!
 }
-type Comment @model {
-  id: ID!
-  content: String
-  post: Post @belongsTo
-  owner: User @belongsTo
-}
-type Like @model {
-  id: ID!
-  post: Post @belongsTo
-  owner: User @belongsTo
+type Experience {
+  about: String
+  tag_styles: [String]
+  tag_roles: [String]
+  song_name: String
+  song_artist: String
+  song_link: String
 }

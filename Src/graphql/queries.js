@@ -7,40 +7,27 @@ export const getUser = /* GraphQL */ `
       id
       name
       about
-      gender
-      age
       key_pp
-      key_back
-      city
-      country
-      tag_styles
-      tag_roles
-      tag_all
       posts {
         nextToken
         __typename
       }
-      followings {
-        nextToken
-        __typename
-      }
-      followers {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
-        __typename
-      }
-      likes {
-        nextToken
+      price
+      city
+      country
+      tag_styles
+      tag_roles
+      experiences {
+        about
+        tag_styles
+        tag_roles
+        song_name
+        song_artist
+        song_link
         __typename
       }
       createdAt
       updatedAt
-      userFollowingsId
-      userFollowersId
-      postParticipantsId
       __typename
     }
   }
@@ -56,20 +43,14 @@ export const listUsers = /* GraphQL */ `
         id
         name
         about
-        gender
-        age
         key_pp
-        key_back
+        price
         city
         country
         tag_styles
         tag_roles
-        tag_all
         createdAt
         updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
         __typename
       }
       nextToken
@@ -91,37 +72,18 @@ export const getPost = /* GraphQL */ `
       tag_styles
       tag_roles
       tag_roles_needed
-      tag_all
-      participants {
-        nextToken
-        __typename
-      }
       owner {
         id
         name
         about
-        gender
-        age
         key_pp
-        key_back
+        price
         city
         country
         tag_styles
         tag_roles
-        tag_all
         createdAt
         updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      likes {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
         __typename
       }
       type
@@ -151,155 +113,10 @@ export const listPosts = /* GraphQL */ `
         tag_styles
         tag_roles
         tag_roles_needed
-        tag_all
         type
         createdAt
         updatedAt
         userPostsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      content
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userCommentsId
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        content
-        createdAt
-        updatedAt
-        userCommentsId
-        postCommentsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getLike = /* GraphQL */ `
-  query GetLike($id: ID!) {
-    getLike(id: $id) {
-      id
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userLikesId
-      postLikesId
-      __typename
-    }
-  }
-`;
-export const listLikes = /* GraphQL */ `
-  query ListLikes(
-    $filter: ModelLikeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        createdAt
-        updatedAt
-        userLikesId
-        postLikesId
         __typename
       }
       nextToken
@@ -336,7 +153,6 @@ export const postsByDate = /* GraphQL */ `
         tag_styles
         tag_roles
         tag_roles_needed
-        tag_all
         type
         createdAt
         updatedAt

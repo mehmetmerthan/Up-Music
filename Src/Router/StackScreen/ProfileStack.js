@@ -2,9 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../Screens/Profile/ProfileScreen";
 import EditPorfileScreen from "../../Screens/Profile/EditProfileScreen";
-import UserProfile from "../../Components/UserComponents/UserProfile";
-//import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
-import Tag from "../../Components/TagComponents/Tag";
 const MyProfileStack = createStackNavigator();
 
 const ProfileStack = () => (
@@ -21,20 +18,6 @@ const ProfileStack = () => (
       component={EditPorfileScreen}
       options={{
         title: "Edit Profile",
-      }}
-    />
-    {/* <MyProfileStack.Screen
-      name="LocationPicker"
-      component={LocationPicker}
-      options={{
-        title: "Select Location",
-      }}
-    /> */}
-    <MyProfileStack.Screen
-      name="Tag"
-      component={Tag}
-      options={{
-        title: "Select Tags",
       }}
     />
   </MyProfileStack.Navigator>

@@ -7,40 +7,27 @@ export const onCreateUser = /* GraphQL */ `
       id
       name
       about
-      gender
-      age
       key_pp
-      key_back
-      city
-      country
-      tag_styles
-      tag_roles
-      tag_all
       posts {
         nextToken
         __typename
       }
-      followings {
-        nextToken
-        __typename
-      }
-      followers {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
-        __typename
-      }
-      likes {
-        nextToken
+      price
+      city
+      country
+      tag_styles
+      tag_roles
+      experiences {
+        about
+        tag_styles
+        tag_roles
+        song_name
+        song_artist
+        song_link
         __typename
       }
       createdAt
       updatedAt
-      userFollowingsId
-      userFollowersId
-      postParticipantsId
       __typename
     }
   }
@@ -51,40 +38,27 @@ export const onUpdateUser = /* GraphQL */ `
       id
       name
       about
-      gender
-      age
       key_pp
-      key_back
-      city
-      country
-      tag_styles
-      tag_roles
-      tag_all
       posts {
         nextToken
         __typename
       }
-      followings {
-        nextToken
-        __typename
-      }
-      followers {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
-        __typename
-      }
-      likes {
-        nextToken
+      price
+      city
+      country
+      tag_styles
+      tag_roles
+      experiences {
+        about
+        tag_styles
+        tag_roles
+        song_name
+        song_artist
+        song_link
         __typename
       }
       createdAt
       updatedAt
-      userFollowingsId
-      userFollowersId
-      postParticipantsId
       __typename
     }
   }
@@ -95,40 +69,27 @@ export const onDeleteUser = /* GraphQL */ `
       id
       name
       about
-      gender
-      age
       key_pp
-      key_back
-      city
-      country
-      tag_styles
-      tag_roles
-      tag_all
       posts {
         nextToken
         __typename
       }
-      followings {
-        nextToken
-        __typename
-      }
-      followers {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
-        __typename
-      }
-      likes {
-        nextToken
+      price
+      city
+      country
+      tag_styles
+      tag_roles
+      experiences {
+        about
+        tag_styles
+        tag_roles
+        song_name
+        song_artist
+        song_link
         __typename
       }
       createdAt
       updatedAt
-      userFollowingsId
-      userFollowersId
-      postParticipantsId
       __typename
     }
   }
@@ -147,37 +108,18 @@ export const onCreatePost = /* GraphQL */ `
       tag_styles
       tag_roles
       tag_roles_needed
-      tag_all
-      participants {
-        nextToken
-        __typename
-      }
       owner {
         id
         name
         about
-        gender
-        age
         key_pp
-        key_back
+        price
         city
         country
         tag_styles
         tag_roles
-        tag_all
         createdAt
         updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      likes {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
         __typename
       }
       type
@@ -202,37 +144,18 @@ export const onUpdatePost = /* GraphQL */ `
       tag_styles
       tag_roles
       tag_roles_needed
-      tag_all
-      participants {
-        nextToken
-        __typename
-      }
       owner {
         id
         name
         about
-        gender
-        age
         key_pp
-        key_back
+        price
         city
         country
         tag_styles
         tag_roles
-        tag_all
         createdAt
         updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      likes {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
         __typename
       }
       type
@@ -257,352 +180,24 @@ export const onDeletePost = /* GraphQL */ `
       tag_styles
       tag_roles
       tag_roles_needed
-      tag_all
-      participants {
-        nextToken
-        __typename
-      }
       owner {
         id
         name
         about
-        gender
-        age
         key_pp
-        key_back
+        price
         city
         country
         tag_styles
         tag_roles
-        tag_all
         createdAt
         updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      likes {
-        nextToken
-        __typename
-      }
-      comments {
-        nextToken
         __typename
       }
       type
       createdAt
       updatedAt
       userPostsId
-      __typename
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
-      id
-      content
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userCommentsId
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
-      id
-      content
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userCommentsId
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
-      id
-      content
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userCommentsId
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onCreateLike = /* GraphQL */ `
-  subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
-    onCreateLike(filter: $filter) {
-      id
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userLikesId
-      postLikesId
-      __typename
-    }
-  }
-`;
-export const onUpdateLike = /* GraphQL */ `
-  subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
-    onUpdateLike(filter: $filter) {
-      id
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userLikesId
-      postLikesId
-      __typename
-    }
-  }
-`;
-export const onDeleteLike = /* GraphQL */ `
-  subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
-    onDeleteLike(filter: $filter) {
-      id
-      post {
-        id
-        post_type
-        content
-        price
-        key_media
-        media_type
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_roles_needed
-        tag_all
-        type
-        createdAt
-        updatedAt
-        userPostsId
-        __typename
-      }
-      owner {
-        id
-        name
-        about
-        gender
-        age
-        key_pp
-        key_back
-        city
-        country
-        tag_styles
-        tag_roles
-        tag_all
-        createdAt
-        updatedAt
-        userFollowingsId
-        userFollowersId
-        postParticipantsId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userLikesId
-      postLikesId
       __typename
     }
   }

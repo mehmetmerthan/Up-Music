@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    paddingTop: Constants.statusBarHeight,
+    //paddingTop: Constants.statusBarHeight,
   },
   button: {
     borderRadius: 10,
@@ -13,14 +13,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   locationInput: {
-    borderColor: "#ccc",
+    height: 40,
+    marginVertical: 10,
     borderWidth: 1,
+    padding: 10,
     borderRadius: 10,
-    marginHorizontal: 20,
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    borderColor: "#ccc",
+    backgroundColor: "#ffffff00",
   },
   buttonContainer: {
     flexDirection: "row",

@@ -1,5 +1,5 @@
 import React from "react";
-import ListPostMain from "../../Components/PostComponents/ListPostComponents/ListPostMain";
+import ListPost from "../../Components/PostComponents/ListPost";
 export default function HomeScreen() {
-  return <ListPostMain post_type={"main_post"} />;
+  return <ListPost post_type={"main_post"} />;
 }

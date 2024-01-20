@@ -1,7 +1,7 @@
 import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreateGroupStyle";
-import Tag from "../../Components/TagComponents/Tag";
+import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";

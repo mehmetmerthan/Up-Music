@@ -5,14 +5,14 @@ import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
 import NotificationStackScreen from "../StackScreen/NotificationStack";
 import ProfileStackScreen from "../StackScreen/ProfileStack";
-import DrawerNavigator from "../Drawer/DrawerNavigator";
+import HomeStack from "../StackScreen/HomeStack";
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => (
   <Tab.Navigator>
     <Tab.Screen
       name="Home"
-      component={DrawerNavigator}
+      component={HomeStack}
       options={{
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="ios-home" color={color} size={size} />
