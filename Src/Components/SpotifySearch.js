@@ -12,8 +12,8 @@ import {
 } from "react-native";
 
 export default function SpotifySearch({ setSelectedSong }) {
-  const clientId = "05f18f0974804052b4c02354ba8a6d26";
-  const clientSecret = "12e00a6f65e44e48bbd289e69b9b655f";
+  const clientId = "";
+  const clientSecret = "";
   const base64Credentials = btoa(`${clientId}:${clientSecret}`);
   const accessTokenEndpoint = "https://accounts.spotify.com/api/token";
   const searchEndpoint = "https://api.spotify.com/v1/search";
