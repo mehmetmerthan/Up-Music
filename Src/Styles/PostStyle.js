@@ -41,57 +41,38 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 10,
   },
-  actionContainer: {
-    flexDirection: "row",
-    marginTop: 5,
-    padding: 5,
-  },
-  likeContainer: {
-    marginRight: 20,
-  },
-  likeText: {
-    marginTop: 2,
-    marginLeft: 5,
-    fontSize: 16,
-  },
-  likeCount: {
-    marginTop: 2,
-    marginLeft: 5,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  commentContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  commentText: {
-    marginLeft: 5,
-  },
   tagsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 20,
   },
   tag: {
-    backgroundColor: "#e0e0e0",
-    padding: 10,
-    borderRadius: 5,
     marginRight: 5,
   },
-  lineSeparator: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    marginTop: 10,
+  tagText: {
+    color: "#464646",
   },
-  input: {
-    height: 40,
-    width: "90%",
-    margin: 12,
+  section: {
+    padding: 15,
     borderWidth: 1,
-    padding: 10,
     borderRadius: 10,
     borderColor: "#ccc",
-    alignSelf: "center",
+    margin: 10,
+    backgroundColor: "#f2f2f2",
+
+  },
+  sectionHeadingText: {
+    marginTop: 20,
+    marginBottom: 10,
+    fontWeight: "400",
+    fontSize: 16,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+    paddingBottom: 5,
+    textTransform: "uppercase",
+    color: "#464646",
+    letterSpacing: 1,
+    alignSelf: "flex-start",
   },
 });
 

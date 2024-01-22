@@ -4,12 +4,14 @@ import { API } from "aws-amplify";
 import { postsByDate } from "../../Utils/Queries/postQueries";
 import Post from "./Post";
 import PostHeaderComponent from "./PostHeaderComponent";
+import { useRoute } from "@react-navigation/native";
 export default function ListPost() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
-  const [filter, setFilter] = useState({});
+  const route = useRoute();
+  const { filter } = route?.params || {};
   const fetchItems = async () => {
     if (loading || refreshing) return;
     console.log("fetchItems running");
@@ -41,6 +43,8 @@ export default function ListPost() {
   };
   useEffect(() => {
     console.log("useEffect running");
+    console.log("filter", filter);
+    console.log("filter details", filter?.or);
     fetchItems();
   }, [filter]);
 
@@ -51,7 +55,6 @@ export default function ListPost() {
       await fetchItems();
     }
   };
-
   return (
     <FlatList
       data={items}
@@ -67,7 +70,7 @@ export default function ListPost() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<PostHeaderComponent setFilter={setFilter} />}
+      ListHeaderComponent={<PostHeaderComponent />}
       keyboardShouldPersistTaps="always"
     />
   );

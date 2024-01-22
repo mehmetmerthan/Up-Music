@@ -1,7 +1,8 @@
-import { Chip, Button } from "@rneui/themed";
+import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 export default function PostHeaderComponent({ setFilter }) {
   const navigation = useNavigation();
   return (
@@ -10,7 +11,7 @@ export default function PostHeaderComponent({ setFilter }) {
         <View style={styles.chipContainer}>
           <Chip
             buttonStyle={styles.chip}
-            title={"Country"}
+            title={"Musicians"}
             size="lg"
             onPress={() => {
               {
@@ -19,7 +20,7 @@ export default function PostHeaderComponent({ setFilter }) {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"City"}
+            title={"Bands"}
             size="lg"
             onPress={() => {
               {
@@ -28,7 +29,7 @@ export default function PostHeaderComponent({ setFilter }) {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Role"}
+            title={"Events"}
             size="lg"
             onPress={() => {
               {
@@ -56,9 +57,16 @@ export default function PostHeaderComponent({ setFilter }) {
           />
         </View>
       </ScrollView>
-      <Button
-        title={"Filter"}
-        onPress={() => navigation.navigate("FilterScreen", { setFilter })}
+      <Ionicons
+        name="filter"
+        size={24}
+        style={styles.headerRight}
+        color="black"
+        onPress={() => {
+          {
+            navigation.navigate("FilterScreen");
+          }
+        }}
       />
     </View>
   );
@@ -73,8 +81,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: 100,
   },
-  buttonContainer: {
-    flexDirection: "row",
-    alignSelf: "center",
+  headerRight: {
+    marginRight: 16,
+    alignSelf: "flex-end",
   },
 });
+function HeaderRight() {
+  return (
+    <Ionicons
+      name="filter"
+      size={24}
+      style={styles.headerRight}
+      color="black"
+      onPress={() => {
+        {
+        }
+      }}
+    />
+  );
+}

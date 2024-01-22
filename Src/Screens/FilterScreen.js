@@ -6,15 +6,14 @@ import {
   CityPicker,
   CountryPicker,
 } from "../Components/PickerComponents/LocationPicker";
-import { styleTagData } from "../../data/TagData";
+import { styleTagData, roleData } from "../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
-export default function FilterScreen({ route }) {
+export default function FilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { setFilter } = route?.params || { setFilter: () => {} };
   const navigation = useNavigation();
   async function submitFilter() {
     setLoading(true);
@@ -30,18 +29,22 @@ export default function FilterScreen({ route }) {
     }
 
     if (selectedStyleTags.length > 0) {
-      filter.or.push({ tags_styles: { contains: selectedStyleTags } });
+      selectedStyleTags.forEach((tag) => {
+        filter.or.push({ tag_styles: { contains: tag } });
+      });
     }
 
     if (selectedRoleTags.length > 0) {
-      filter.or.push({ tags_roles: { contains: selectedRoleTags } });
+      selectedRoleTags.forEach((tag) => {
+        filter.or.push({ tag_roles: { contains: tag } });
+      });
     }
 
     if (filter.or.length > 0) {
-      setFilter(filter);
+      navigation.navigate("HomeScreen", { filter: filter });
+    }else{
+      navigation.navigate("HomeScreen");
     }
-    setFilter(filter);
-    navigation.goBack();
     setLoading(false);
   }
   function renderItem() {
@@ -64,7 +67,7 @@ export default function FilterScreen({ route }) {
         <Tag
           selectedTags={selectedRoleTags}
           setSelectedTags={setSelectedRoleTags}
-          tagData={styleTagData}
+          tagData={roleData}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
@@ -105,7 +108,5 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
   },
 });

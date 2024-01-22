@@ -17,7 +17,7 @@ const BottomTab = () => (
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="ios-home" color={color} size={size} />
         ),
-        headerShown: true,
+        headerShown: false,
       }}
     />
     <Tab.Screen
