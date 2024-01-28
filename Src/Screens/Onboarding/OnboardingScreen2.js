@@ -5,10 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../../Styles/OnBoardingStyle";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../Components/PickerComponents/useMedia";
-import { Avatar } from "@rneui/themed";
 const OnboardingScreen2 = ({ route }) => {
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
-  const { MediaPickerImageComponent, image } = useMedia();
+  const { MediaPickerAvatarComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
   const [text, onChangeText] = useState("");
   const navigation = useNavigation();
@@ -31,30 +30,18 @@ const OnboardingScreen2 = ({ route }) => {
           placeholder="I am a .."
           value={text}
         />
+        <Divider />
         <Text style={styles.subText}>Where are you living?</Text>
         <CityPicker setSelectedLocation={setSelectedLocation} />
+        <Divider />
         <Text style={styles.subText}>Select a profile picture</Text>
-        {image !== "" ? (
-          <Avatar
-            size={100}
-            rounded
-            source={{ uri: image }}
-            containerStyle={{ alignSelf: "center" }}
-          />
-        ) : (
-          <Avatar
-            size={100}
-            rounded
-            icon={{ name: "user", type: "font-awesome" }}
-            containerStyle={{ backgroundColor: "#595959", alignSelf: "center" }}
-          />
-        )}
-        <MediaPickerImageComponent />
+        <MediaPickerAvatarComponent />
         <View style={styles.pageViewContainer}>
           <View style={styles.pageViewEmpty} />
           <View style={styles.pageViewFill} />
           <View style={styles.pageViewEmpty} />
         </View>
+        <Divider />
         <Button
           title={"Next"}
           buttonStyle={styles.button}

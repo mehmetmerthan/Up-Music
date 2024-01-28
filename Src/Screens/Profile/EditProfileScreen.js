@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons, AntDesign, MaterialIcons } from "@expo/vector-icons";
-import Post from "../../Components/PostComponents/UserPost";
 import { Button, Chip } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
@@ -13,6 +12,9 @@ import { S3ImageAvatar } from "../../Components/S3Media";
 import { styleTagData, roleData } from "../../../data/TagData";
 import Tag from "../../Components/Tag";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
+import Experiences from "../../Components/Experiences";
+import { isEqual } from "lodash";
+import AddExperience from "../../Components/AddExperiences";
 const validationSchema = yup.object().shape({
   name: yup
     .string()
@@ -49,6 +51,13 @@ const EditPorfileScreen = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { MediaPickerImage: MediaPickerImagePP, image: imagePP } = useMedia();
+  const [experiences, setExperiences] = useState(userData?.experiences);
+  const [visibleExperience, setVisibleExperience] = useState(false);
+  const handleDeleteExperience = (index) => {
+    const updatedExperiences = [...experiences];
+    updatedExperiences.splice(index, 1);
+    setExperiences(updatedExperiences);
+  };
   async function OpenGalleryPP() {
     await MediaPickerImagePP();
   }
@@ -63,24 +72,30 @@ const EditPorfileScreen = () => {
       setError("Please select at least one role");
       return;
     }
+    if (formik.errors.name) {
+      return alert(formik.errors.name);
+    }
     const locationTemplate = {
-      city: userData?.location?.city,
-      country: userData?.location?.country,
+      city: userData?.city,
+      country: userData?.country,
     };
     await UploadUser({
       name: name === userData?.name ? "" : name,
       about: text === userData?.about ? "" : text,
       urlPP: imagePP,
-      location:
-        JSON.stringify(selectedLocation) === JSON.stringify(locationTemplate)
-          ? ""
-          : selectedLocation,
+      location: isEqual(selectedLocation, locationTemplate)
+        ? ""
+        : selectedLocation,
+      experiencesData: isEqual(userData?.experiences, experiences)
+        ? ""
+        : experiences,
       tagStyle: userData?.tag_styles === userMusicStyles ? "" : userMusicStyles,
       tagRole: userData?.tag_roles === userRoles ? "" : userRoles,
       userData: userData,
       operationType: "update",
     });
-    navigation.navigate("ProfileScreen");
+    const worker = "worker";
+    navigation.navigate("ProfileScreen", { worker });
     setIsLoading(false);
   }
   const formik = useFormik({
@@ -90,8 +105,12 @@ const EditPorfileScreen = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      onChangeName(values.name);
-      onChangeText(values.about);
+      if (!values.name) {
+        formik.setFieldError("name", "Name is required");
+      } else {
+        onChangeName(values.name);
+        onChangeText(values.about);
+      }
     },
   });
 
@@ -160,18 +179,8 @@ const EditPorfileScreen = () => {
               />
             )}
             <Text style={styles.userProfileInfoLocationText}>
-              {userData?.location.city} {userData?.location?.city && ","} {userData?.location?.country}
+              {userData?.city} {userData?.city && ","} {userData?.country}
             </Text>
-          </View>
-          <View style={[styles.userProfileWidget, styles.widget]}>
-            <View style={styles.widgetItem}>
-              <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
-              <Text style={styles.widgetItemValue}>638</Text>
-            </View>
-            <View style={[styles.widgetItem, styles.widgetItemLast]}>
-              <Text style={styles.widgetItemLabel}>FOLLOWERS</Text>
-              <Text style={styles.widgetItemValue}>356</Text>
-            </View>
           </View>
         </View>
         <View style={styles.userProfileBody}>
@@ -184,7 +193,7 @@ const EditPorfileScreen = () => {
             />
             <Button
               buttonStyle={styles.buttonEdit}
-              //onPress={() => navigation.navigate("ProfileScreen")}
+              onPress={() => navigation.navigate("ProfileScreen")}
               title="Cancel"
               type="outline"
               titleStyle={styles.buttonTextEdit}
@@ -196,16 +205,17 @@ const EditPorfileScreen = () => {
             <View style={styles.gridContent}>
               <View style={styles.gridItem}>
                 <View style={styles.section}>
-                  <View style={styles.sectionHeading}>
-                    <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                      Info
-                    </Text>
-                  </View>
+                  <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                    Info
+                  </Text>
                   <View style={styles.sectionContent}>
                     <Text style={styles.subHeader}>Name</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={formik.handleChange("name")}
+                      onChangeText={(text) => {
+                        formik.handleChange("name")(text);
+                        formik.handleSubmit();
+                      }}
                       onBlur={() => {
                         formik.handleBlur("name");
                         formik.handleSubmit();
@@ -219,7 +229,10 @@ const EditPorfileScreen = () => {
                     <Text style={styles.subHeader}>About</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={formik.handleChange("about")}
+                      onChangeText={(text) => {
+                        formik.handleChange("about")(text);
+                        formik.handleSubmit();
+                      }}
                       value={formik.values.about}
                       onBlur={() => {
                         formik.handleBlur("about");
@@ -235,6 +248,7 @@ const EditPorfileScreen = () => {
                       <Button
                         title={"Select Location"}
                         onPress={() => setVisibleCity(true)}
+                        buttonStyle={styles.button}
                       />
                     )}
                     {visibleCity && (
@@ -249,12 +263,9 @@ const EditPorfileScreen = () => {
               <View style={styles.divider} />
               <View style={styles.gridItem}>
                 <View style={styles.section}>
-                  <View style={styles.sectionHeading}>
-                    <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                      Music Styles
-                    </Text>
-                  </View>
-
+                  <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                    Music Styles
+                  </Text>
                   <View
                     style={{
                       flexDirection: "row",
@@ -322,11 +333,9 @@ const EditPorfileScreen = () => {
                 </View>
               </View>
               <View style={styles.divider} />
-              <View style={styles.sectionHeading}>
-                <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                  Roles
-                </Text>
-              </View>
+              <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                Roles
+              </Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -394,8 +403,30 @@ const EditPorfileScreen = () => {
             </View>
           </View>
           <View style={styles.divider} />
-          <Text style={styles.PostText}> Posts </Text>
-          <Post />
+          {experiences && (
+            <>
+              <Text style={styles.sectionHeadingText}>Experiences</Text>
+              <Experiences
+                experiencesData={experiences}
+                accessory={true}
+                onDeleteExperience={handleDeleteExperience}
+              />
+            </>
+          )}
+          {!visibleExperience && (
+            <Button
+              title={"Add Experience"}
+              onPress={() => setVisibleExperience(true)}
+              buttonStyle={styles.button}
+            />
+          )}
+          {visibleExperience && (
+            <AddExperience
+              experiences={experiences}
+              setExperiences={setExperiences}
+              setVisibleExperience={setVisibleExperience}
+            />
+          )}
         </View>
       </View>
     );

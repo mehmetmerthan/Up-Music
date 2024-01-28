@@ -1,7 +1,9 @@
 import { API, Auth } from "aws-amplify";
 import { getUser } from "./Queries/userQueries";
 async function getUserId() {
-    const user = await Auth.currentAuthenticatedUser();
+    const user = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+    });
     const { attributes } = user;
     const userID = attributes.sub;
     return (userID)

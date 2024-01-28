@@ -11,11 +11,10 @@ const styles = StyleSheet.create({
     marginTop: 6,
     textAlign: "center",
   },
-  
+
   userProfileTop: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 120,
     minHeight: 380,
   },
   userProfileTopBg: {
@@ -63,44 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     opacity: 0.7,
-  },
-  userProfileWidget: {
-    alignSelf: "stretch",
-    margin: 24,
-    marginTop: 24,
-    marginBottom: 24,
-  },
-  widget: {
-    flexDirection: "row",
-    flexGrow: 1,
-    flexShrink: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
-    borderRadius: 8,
-    paddingVertical: 8,
-    minHeight: 60,
-  },
-  widgetItem: {
-    flex: 1,
-    justifyContent: "center",
-    minWidth: 0,
-    paddingVertical: 4,
-    borderRightWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.5)",
-  },
-  widgetItemLast: {
-    borderRightWidth: 0,
-  },
-  widgetItemLabel: {
-    color: "#ffffff",
-    fontSize: 14,
-    textAlign: "center",
-    opacity: 0.5,
-  },
-  widgetItemValue: {
-    marginTop: 4,
-    color: "#ffffff",
-    fontSize: 16,
-    textAlign: "center",
   },
   userProfileBody: {
     flexGrow: 1,
@@ -155,16 +116,12 @@ const styles = StyleSheet.create({
   typography: {
     fontSize: 16,
   },
-  sectionHeading: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    minHeight: 30,
-    paddingHorizontal: 24,
-  },
   sectionHeadingText: {
-    fontSize: 26,
-    color: "#1c1c1c",
+    paddingHorizontal: 24,
+    fontSize: 20,
+    textTransform: "uppercase",
+    color: "#464646",
+    letterSpacing: 1,
   },
   sectionContent: {
     paddingHorizontal: 24,
@@ -177,12 +134,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
   },
-  PostText: {
-    fontSize: 26,
-    color: "#1c1c1c",
-    alignSelf: "center",
-    marginBottom: 20,
-  },
   input: {
     height: "auto",
     width: "90%",
@@ -193,18 +144,6 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     alignSelf: "center",
     fontSize: 16,
-  },
-  inputAge: {
-    height: "auto",
-    width: "30%",
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: "#ccc",
-    alignSelf: "flex-start",
-    fontSize: 16,
-    textAlign: "center",
   },
   inputInfo: {
     height: "auto",
@@ -245,6 +184,11 @@ const styles = StyleSheet.create({
   buttonEdit: {
     borderWidth: 1,
     borderColor: "#032535",
+    borderRadius: 10,
+    width: "80%",
+  },
+  buttonSettings: {
+    borderWidth: 1,
     borderRadius: 10,
     width: "80%",
   },

@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign , MaterialIcons } from "@expo/vector-icons";
 import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
 import NotificationStackScreen from "../StackScreen/NotificationStack";
@@ -15,7 +15,7 @@ const BottomTab = () => (
       component={HomeStack}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="ios-home" color={color} size={size} />
+          <AntDesign  name="home" color={color} size={size} />
         ),
         headerShown: false,
       }}
@@ -36,7 +36,7 @@ const BottomTab = () => (
       component={CreateStackScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="create-outline" color={color} size={size} />
+          <AntDesign name="home" color={color} size={size} />
         ),
         headerShown: false,
       }}
@@ -46,8 +46,8 @@ const BottomTab = () => (
       component={NotificationStackScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons
-            name="notifications-circle-outline"
+          <AntDesign
+            name="home"
             color={color}
             size={size}
           />
@@ -61,7 +61,7 @@ const BottomTab = () => (
       component={ProfileStackScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="person" color={color} size={size} />
+          <AntDesign name="home" color={color} size={size} />
         ),
         headerShown: false,
       }}

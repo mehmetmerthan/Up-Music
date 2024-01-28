@@ -6,9 +6,6 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: "space-between",
   },
-  genderContainer: {
-    marginBottom: 150,
-  },
   headerText: {
     fontSize: 24,
     fontWeight: "400",

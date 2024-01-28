@@ -116,25 +116,32 @@ export function CountryPicker({ setSelectedLocation, setVisibleCountry }) {
     </View>
   );
 }
-export function CityPicker({ setSelectedLocation, setVisibleCity }) {
+export function CityPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
+  const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
-    setLocation(data?.structured_formatting?.main_text);
+    setLocation(data?.structured_formatting);
+    setVisible(true);
   }
   function locationSave() {
-    setSelectedLocation(location);
-    setVisibleCity(false);
+    const locationTemp = {
+      city: location?.main_text,
+      country: location?.secondary_text,
+    };
+    setSelectedLocation(locationTemp);
+    setVisible(false);
   }
   function locationCancel() {
     setLocation({});
     setSelectedLocation({});
-    setVisibleCity(false);
+    setVisible(false);
   }
   return (
     <View>
       {location && (
         <Text style={styles.baseText}>
-          {location?.city} {location?.city && ","} {location?.country}
+          {location?.main_text} {location?.main_text && ","}{" "}
+          {location?.secondary_text}
         </Text>
       )}
       <>
@@ -149,7 +156,7 @@ export function CityPicker({ setSelectedLocation, setVisibleCity }) {
             types: "(cities)",
           }}
         />
-        {location && (
+        {visible && (
           <View style={styles.buttonContainer}>
             <Button
               title={"Save"}

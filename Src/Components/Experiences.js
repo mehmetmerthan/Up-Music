@@ -1,35 +1,49 @@
 import { View, Text, StyleSheet } from "react-native";
 import { React } from "react";
 import { Avatar, Divider } from "@rneui/themed";
-export default function Experiences({ experiencesData }) {
+import { AntDesign } from "@expo/vector-icons";
+export default function Experiences({
+  experiencesData,
+  accessory = false,
+  onDeleteExperience,
+}) {
   return (
     <View>
       {experiencesData?.map((experience, index) => {
         return (
           <View style={styles.container} key={index}>
             <View style={styles.songContainer}>
-              <Avatar
-                size={52}
-                rounded
-                source={{ uri: experience?.song?.album?.images[0]?.url }}
-              />
+              {experience?.song_link && (
+                <Avatar
+                  size={52}
+                  rounded
+                  source={{ uri: experience?.song_link }}
+                />
+              )}
               <View style={styles.content}>
-                <Text style={styles.songText}>{experience?.song?.name} </Text>
-                <Text style={styles.artistText}>
-                  {experience?.song?.artists[0]?.name}
-                </Text>
+                <Text style={styles.songText}>{experience?.song_name} </Text>
+                <Text style={styles.artistText}>{experience?.song_artist}</Text>
               </View>
+              {accessory && (
+                <AntDesign
+                  name="closecircleo"
+                  size={24}
+                  color="black"
+                  style={{ marginLeft: "auto" }}
+                  onPress={() => onDeleteExperience(index)}
+                />
+              )}
             </View>
             <Divider />
             <Text style={styles.aboutText}>{experience?.about}</Text>
-            {experience?.roles?.length > 0 && (
+            {experience?.tag_roles?.length > 0 && (
               <>
                 <Text style={styles.sub}>Role</Text>
                 <Divider insetType="middle" />
               </>
             )}
             <View style={styles.tagContainer}>
-              {experience?.roles?.map((role, index) => {
+              {experience?.tag_roles?.map((role, index) => {
                 return (
                   <Text key={index} style={styles.tag}>
                     {role}
@@ -37,14 +51,14 @@ export default function Experiences({ experiencesData }) {
                 );
               })}
             </View>
-            {experience?.styles?.length > 0 && (
+            {experience?.tag_styles?.length > 0 && (
               <>
                 <Text style={styles.sub}>Style</Text>
                 <Divider insetType="middle" />
               </>
             )}
             <View style={styles.tagContainer}>
-              {experience?.styles?.map((style, index) => {
+              {experience?.tag_styles?.map((style, index) => {
                 return (
                   <Text key={index} style={styles.tag}>
                     {style}
@@ -62,9 +76,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     padding: 10,
-    marginTop: 10,
-    borderWidth: 0.5,
-    borderRadius: 10,
+    margin: 10,
+    borderWidth: 0.3,
+    borderRadius: 5,
   },
   songContainer: {
     flexDirection: "row",

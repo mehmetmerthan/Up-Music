@@ -57,17 +57,6 @@ export default function PostHeaderComponent({ setFilter }) {
           />
         </View>
       </ScrollView>
-      <Ionicons
-        name="filter"
-        size={24}
-        style={styles.headerRight}
-        color="black"
-        onPress={() => {
-          {
-            navigation.navigate("FilterScreen");
-          }
-        }}
-      />
     </View>
   );
 }
@@ -81,22 +70,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: 100,
   },
-  headerRight: {
-    marginRight: 16,
-    alignSelf: "flex-end",
-  },
 });
-function HeaderRight() {
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-        }
-      }}
-    />
-  );
-}
+

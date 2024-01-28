@@ -1,12 +1,15 @@
 import { React, useEffect, useState } from "react";
-import { View, ScrollView, Text, Image } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
-import Post from "../../Components/PostComponents/UserPost";
 import { Chip, Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { getUserAttributes } from "../../Utils/getUser";
 import { S3ImageAvatar } from "../../Components/S3Media";
+import Experiences from "../../Components/Experiences";
+import Post from "../../Components/PostComponents/Post";
+import { ScrollView } from "react-native-virtualized-view";
+import { useRoute } from "@react-navigation/native";
 const ProfileScreen = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -14,9 +17,12 @@ const ProfileScreen = () => {
     const { userItem } = await getUserAttributes();
     setUserData(userItem);
   }
+  const route = useRoute();
+  const { worker } = route?.params || "";
   useEffect(() => {
+    console.log("working");
     getUser();
-  }, [userData]);
+  }, [worker]);
   const navigation = useNavigation();
   function editProfile() {
     setLoading(true);
@@ -40,18 +46,8 @@ const ProfileScreen = () => {
             color="rgba(255, 255, 255, 0.5)"
           />
           <Text style={styles.userProfileInfoLocationText}>
-            {userData?.location.city}, {userData?.location.country}
+            {userData?.city}, {userData?.country}
           </Text>
-        </View>
-        <View style={[styles.userProfileWidget, styles.widget]}>
-          <View style={styles.widgetItem}>
-            <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
-            <Text style={styles.widgetItemValue}>638</Text>
-          </View>
-          <View style={[styles.widgetItem, styles.widgetItemLast]}>
-            <Text style={styles.widgetItemLabel}>FOLLOWERS</Text>
-            <Text style={styles.widgetItemValue}>356</Text>
-          </View>
         </View>
       </View>
       <View style={styles.userProfileBody}>
@@ -64,24 +60,25 @@ const ProfileScreen = () => {
             buttonStyle={styles.buttonEdit}
             loading={loading}
           />
+          <Button
+            title={"Settings"}
+            onPress={() => navigation.navigate("SettingsScreen")}
+            buttonStyle={styles.buttonSettings}
+          />
         </View>
         <View style={styles.divider} />
-        <View style={styles.sectionHeading}>
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            About
-          </Text>
-        </View>
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          About
+        </Text>
         <View style={styles.sectionContent}>
           <Text style={styles.typography}>
             {userData.about ? userData.about : "No description"}
           </Text>
         </View>
         <View style={styles.divider} />
-        <View style={styles.sectionHeading}>
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            Music Styles
-          </Text>
-        </View>
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          Music Styles
+        </Text>
         <View
           style={{
             flexDirection: "row",
@@ -103,11 +100,9 @@ const ProfileScreen = () => {
           ))}
         </View>
         <View style={styles.divider} />
-        <View style={styles.sectionHeading}>
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            Instruments Played
-          </Text>
-        </View>
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          Instruments Played
+        </Text>
         <View
           style={{
             flexDirection: "row",
@@ -129,8 +124,15 @@ const ProfileScreen = () => {
           ))}
         </View>
         <View style={styles.divider} />
-        <Text style={styles.PostText}> Posts </Text>
-        <Post />
+        <Text style={styles.sectionHeadingText}>Experiences</Text>
+        <Experiences experiencesData={userData?.experiences} />
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText}>Announcments</Text>
+        <FlatList
+          data={userData?.posts?.items}
+          renderItem={({ item }) => <Post item={item} />}
+          keyExtractor={(item) => item.id}
+        />
       </View>
     </ScrollView>
   );

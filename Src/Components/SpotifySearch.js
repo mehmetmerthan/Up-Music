@@ -9,11 +9,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   Keyboard,
+  Text,
 } from "react-native";
 
-export default function SpotifySearch({ setSelectedSong }) {
-  const clientId = "";
-  const clientSecret = "";
+export default function SpotifySearch({
+  setSelectedSong,
+  spotifySong,
+  setSpotifySong,
+}) {
+  const clientId = "05f18f0974804052b4c02354ba8a6d26";
+  const clientSecret = "12e00a6f65e44e48bbd289e69b9b655f";
   const base64Credentials = btoa(`${clientId}:${clientSecret}`);
   const accessTokenEndpoint = "https://accounts.spotify.com/api/token";
   const searchEndpoint = "https://api.spotify.com/v1/search";
@@ -48,22 +53,16 @@ export default function SpotifySearch({ setSelectedSong }) {
         searchSongs(searchQuery);
       }
     };
-
-    // `handleSearch` fonksiyonunu çağırırken bir değişiklik olduğunda kontrol et
     handleSearch();
-
-    // Bu, bir harf silindiğinde çalışacak
     const timeoutId = setTimeout(() => {
       handleSearch();
-    }, 100); // Belirli bir süre (örneğin 300 milisaniye) sonra yeniden kontrol et
-
-    return () => clearTimeout(timeoutId); // Temizleme fonksiyonu, bileşen yeniden oluşturulduğunda timeout'u temizler
+    }, 100);
+    return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
   const searchSongs = async (query) => {
     try {
       const accessToken = await getAccessToken();
-
       const response = await axios.get(searchEndpoint, {
         params: {
           q: query,
@@ -86,6 +85,7 @@ export default function SpotifySearch({ setSelectedSong }) {
       <TouchableOpacity
         onPress={() => {
           setSelectedSong(item);
+          setSpotifySong(item);
           setSearchResults([]);
           setSearchQuery("");
           Keyboard.dismiss();
@@ -103,6 +103,21 @@ export default function SpotifySearch({ setSelectedSong }) {
   }
   return (
     <View style={styles.container}>
+      {spotifySong.name && (
+        <View style={styles.songContainer}>
+          <Avatar
+            size={52}
+            rounded
+            source={{ uri: spotifySong.album?.images[2]?.url }}
+          />
+          <View style={styles.content}>
+            <Text style={styles.songText}>{spotifySong?.name} </Text>
+            <Text style={styles.artistText}>
+              {spotifySong?.artists[0]?.name}
+            </Text>
+          </View>
+        </View>
+      )}
       <TextInput
         style={styles.input}
         placeholder="Search song from Spotify"
@@ -132,5 +147,21 @@ const styles = StyleSheet.create({
   },
   list: {
     marginTop: 8,
+  },
+  songContainer: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  content: {
+    marginLeft: 10,
+    width: "80%",
+    flexDirection: "column",
+  },
+  songText: {
+    fontSize: 18,
+  },
+  artistText: {
+    fontWeight: "300",
+    fontSize: 18,
   },
 });

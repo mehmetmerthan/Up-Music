@@ -32,6 +32,10 @@ export const getUser = /* GraphQL */ `
           tag_roles
           tag_styles
           tag_roles_needed
+          owner {
+            name
+            key_pp
+          }
           createdAt
           updatedAt
           __typename

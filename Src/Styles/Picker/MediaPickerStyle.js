@@ -14,6 +14,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#ccc",
   },
+  mediaButtonAvatar: {
+    margin: 12,
+    borderWidth: 0.5,
+    padding: 20,
+    alignSelf: "center",
+    borderRadius: 100,
+    borderColor: "#000000",
+  },
   image: {
     width: 300,
     height: 300,

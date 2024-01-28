@@ -19,23 +19,18 @@ async function UploadUser(props) {
     oldKey: userData?.key_pp || "",
   });
   const userId = await getUserId();
-  
+
   const city = location?.city || "";
   const country = location?.country || "";
-
   const userDetails = {
     id: userId,
     name: name,
     about: about,
     key_pp: key_pp,
-    location: {
-      city: city,
-      country: country,
-    },
-    tag: {
-      tag_styles: tagStyle,
-      tag_roles: tagRole,
-    },
+    city: city,
+    country: country,
+    tag_styles: tagStyle,
+    tag_roles: tagRole,
     experiences: experiencesData,
   };
   if (userDetails.name === "") {
@@ -44,23 +39,23 @@ async function UploadUser(props) {
   if (userDetails.age === "") {
     delete userDetails.age;
   }
-  if (userDetails.gender === "") {
-    delete userDetails.gender;
-  }
   if (userDetails.about === "") {
     delete userDetails.about;
   }
   if (userDetails.key_pp === "") {
     delete userDetails.key_pp;
   }
-  if (userDetails.location.city === "" && userDetails.location.country === "") {
-    delete userDetails.location;
+  if (userDetails.city === "") {
+    delete userDetails.city;
   }
-  if (
-    userDetails.tag.tag_styles.length === 0 &&
-    userDetails.tag.tag_roles.length === 0
-  ) {
-    delete userDetails.tag;
+  if (userDetails.country === "") {
+    delete userDetails.country;
+  }
+  if (userDetails.tag_styles.length === 0) {
+    delete userDetails.tag_styles;
+  }
+  if (userDetails.tag_roles.length === 0) {
+    delete userDetails.tag_roles;
   }
   if (userDetails.experiences.length === 0) {
     delete userDetails.experiences;

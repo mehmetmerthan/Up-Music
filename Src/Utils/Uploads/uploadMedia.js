@@ -2,7 +2,7 @@ import { Storage } from "aws-amplify";
 
 export default async function uploadMedia(props) {
   const { media = "", oldKey = "" } = props;
-  if (media === "") {
+  if (media === "" || media === undefined || media === null) {
     return { mediaKey: "" };
   } else {
     if (oldKey !== "" && oldKey !== undefined && oldKey !== null) {

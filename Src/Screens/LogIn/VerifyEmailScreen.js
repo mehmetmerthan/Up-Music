@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { confirmSignUp, resendSignUp } from "../../Utils/Auth/confirmSignUp";
 import { Button } from "@rneui/themed";
 import UploadUser from "../../Utils/Uploads/uploadUser";
+import { Auth } from "aws-amplify";
 const validationSchema = yup.object().shape({
   code: yup.string().required("code is required"),
 });
@@ -19,48 +20,85 @@ const VerifyEmailScreen = ({ route }) => {
     urlPP = "",
     name,
     email,
+    password,
     experiencesData = [],
   } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
   const [error, setError] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation();
   const handleRegistration = async (values) => {
     setError(null);
     setLoading(true);
-    const { error } = confirmSignUp({ username: email, code: values.code });
-    if (error) {
-      console.log(error);
-      setLoading(false);
-      setError(error);
-    } else {
-      await UploadUser({
-        name: name,
-        about: about,
-        urlPP: urlPP,
-        location: location,
-        tagStyle: tagStyle,
-        tagRole: tagRole,
-        gender: gender,
-        experiencesData: experiencesData,
-        operationType: "create",
+    try {
+      await confirmSignUp({
+        username: email,
+        code: values.code,
       });
+      const user = await Auth.signIn(email, password);
+      if (user) {
+        await UploadUser({
+          name: name,
+          about: about,
+          urlPP: urlPP,
+          location: location,
+          tagStyle: tagStyle,
+          tagRole: tagRole,
+          experiencesData: experiencesData,
+          operationType: "create",
+        });
+        navigation.navigate("SignInScreen");
+      }
       setLoading(false);
-      navigation.navigate("SignInScreen");
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      console.log("error signing up:", error);
+      setLoading(false);
+      if (error.code === "NotAuthorizedException") {
+        setPasswordVisible(true);
+      }
     }
   };
-  const handleResend = () => {
+  const sendTosignIn = async () => {
     setError(null);
-    const { error } = resendSignUp({ username: email });
-    if (error) {
+    setLoading(true);
+    try {
+      const user = await Auth.signIn(email, confirmPassword);
+      if (user) {
+        await UploadUser({
+          name: name,
+          about: about,
+          urlPP: urlPP,
+          location: location,
+          tagStyle: tagStyle,
+          tagRole: tagRole,
+          experiencesData: experiencesData,
+          operationType: "create",
+        });
+        navigation.navigate("SignInScreen");
+      }
+      setLoading(false);
+    } catch (error) {
       console.log(error);
       setError(error);
-    } else {
+      console.log("error confirmed:", error);
+      setLoading(false);
+    }
+  };
+  const handleResend = async () => {
+    setError(null);
+    try {
+      await resendSignUp({ username: email });
       setCountdown(30);
       setButtonVisible(false);
       startCountdown();
-      console.log("success resend");
+    } catch (error) {
+      console.log(error);
+      setError(error);
     }
   };
   const startCountdown = useCallback(() => {
@@ -116,6 +154,24 @@ const VerifyEmailScreen = ({ route }) => {
               </View>
             </View>
             {error && <Text style={styles.errorText}>{error.message}</Text>}
+            {passwordVisible && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Confirm Password"
+                  onChangeText={(text) => setConfirmPassword(text)}
+                  value={confirmPassword}
+                  secureTextEntry
+                />
+                <Button
+                  buttonStyle={styles.button}
+                  onPress={sendTosignIn}
+                  loading={loading}
+                  title={"Confirm password"}
+                  titleStyle={styles.buttonText}
+                />
+              </>
+            )}
             <Button
               buttonStyle={styles.button}
               onPress={handleSubmit}
