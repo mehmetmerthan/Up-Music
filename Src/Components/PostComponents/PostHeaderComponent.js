@@ -1,10 +1,7 @@
 import { Chip } from "@rneui/themed";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
-export default function PostHeaderComponent({ setFilter }) {
-  const navigation = useNavigation();
+export default function PostHeaderComponent({ filter }) {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -15,6 +12,7 @@ export default function PostHeaderComponent({ setFilter }) {
             size="lg"
             onPress={() => {
               {
+                filter?.or?.push({ post_type: { eq: "musician_post" } });
               }
             }}
           />
@@ -24,24 +22,7 @@ export default function PostHeaderComponent({ setFilter }) {
             size="lg"
             onPress={() => {
               {
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Events"}
-            size="lg"
-            onPress={() => {
-              {
-              }
-            }}
-          />
-          <Chip
-            containerStyle={styles.chip}
-            title={"Style"}
-            size="lg"
-            onPress={() => {
-              {
+                filter?.or?.push({ post_type: { eq: "group_post" } });
               }
             }}
           />
@@ -52,6 +33,7 @@ export default function PostHeaderComponent({ setFilter }) {
             size="lg"
             onPress={() => {
               {
+                filter.or.filter((item) => !("post_type" in item));
               }
             }}
           />
@@ -71,4 +53,3 @@ const styles = StyleSheet.create({
     width: 100,
   },
 });
-

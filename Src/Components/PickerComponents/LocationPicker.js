@@ -28,9 +28,11 @@ export function LocationPicker({ setSelectedLocation }) {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.baseText}>
-        {location?.place}, {location?.city}, {location?.country}
-      </Text>
+      {location && (
+        <Text style={styles.baseText}>
+          {location?.place}, {location?.city}, {location?.country}
+        </Text>
+      )}
       <GooglePlacesAutocomplete
         styles={{ textInput: styles.locationInput }}
         placeholder="Hard Rock Cafe, London"
@@ -59,53 +61,54 @@ export function LocationPicker({ setSelectedLocation }) {
   );
 }
 
-export function CountryPicker({ setSelectedLocation, setVisibleCountry }) {
+export function CountryPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
+  const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
     setLocation(data?.description);
+    setVisible(true);
   }
   function locationSave() {
     setSelectedLocation(location);
-    setVisibleCountry(false);
+    setVisible(false);
   }
   function locationCancel() {
     setLocation({});
     setSelectedLocation({});
-    setVisibleCountry(false);
+    setVisible(false);
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.baseText}>
-        {location?.city} {location?.city && ","} {location?.country}
-      </Text>
-
-      <>
-        <GooglePlacesAutocomplete
-          styles={{ textInput: styles.locationInput }}
-          placeholder="Search a Country"
-          fetchDetails={true}
-          onPress={(data = null) => handleLocationSelect(data)}
-          query={{
-            key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
-            language: "en",
-            types: "(regions)",
-          }}
-        />
-        {location && (
-          <View style={styles.buttonContainer}>
-            <Button
-              title={"Save"}
-              buttonStyle={styles.buttonPropertySave}
-              onPress={locationSave}
-            />
-            <Button
-              title={"Cancel"}
-              buttonStyle={styles.buttonPropertyCancel}
-              onPress={locationCancel}
-            />
-          </View>
-        )}
-      </>
+      {location && (
+        <Text style={styles.baseText}>
+          {location}
+        </Text>
+      )}
+      <GooglePlacesAutocomplete
+        styles={{ textInput: styles.locationInput }}
+        placeholder="Search a Country"
+        fetchDetails={true}
+        onPress={(data = null) => handleLocationSelect(data)}
+        query={{
+          key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
+          language: "en",
+          types: "(regions)",
+        }}
+      />
+      {visible && (
+        <View style={styles.buttonContainer}>
+          <Button
+            title={"Save"}
+            buttonStyle={styles.buttonPropertySave}
+            onPress={locationSave}
+          />
+          <Button
+            title={"Cancel"}
+            buttonStyle={styles.buttonPropertyCancel}
+            onPress={locationCancel}
+          />
+        </View>
+      )}
     </View>
   );
 }
