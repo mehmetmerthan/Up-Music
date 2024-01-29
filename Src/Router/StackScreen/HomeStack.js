@@ -13,7 +13,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 const MyHomeStack = createStackNavigator();
 const HomeStack = () => {
-  const navigation = useNavigation();
   return (
     <MyHomeStack.Navigator>
       <MyHomeStack.Screen
@@ -79,9 +78,7 @@ const HomeStack = () => {
         name="FilterScreen"
         component={FilterScreen}
         options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
+          title: "Filter",
         }}
       />
     </MyHomeStack.Navigator>
@@ -91,6 +88,7 @@ const HomeStack = () => {
 export default HomeStack;
 
 function headerRight() {
+  const navigation = useNavigation();
   return (
     <Ionicons
       name="filter"

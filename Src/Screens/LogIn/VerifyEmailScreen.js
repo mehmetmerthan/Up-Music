@@ -147,37 +147,40 @@ const VerifyEmailScreen = ({ route }) => {
                   onChangeText={handleChange("code")}
                   onBlur={handleBlur("code")}
                   value={values.code}
+                  keyboardType="numeric"
                 />
                 {touched.code && errors.code && (
                   <Text style={styles.errorText}>{errors.code}</Text>
                 )}
+                {passwordVisible && (
+                  <>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Confirm Password"
+                      onChangeText={(text) => setConfirmPassword(text)}
+                      value={confirmPassword}
+                      secureTextEntry
+                    />
+                    <Button
+                      buttonStyle={styles.button}
+                      onPress={sendTosignIn}
+                      loading={loading}
+                      title={"Confirm password"}
+                      titleStyle={styles.buttonText}
+                    />
+                  </>
+                )}
               </View>
             </View>
             {error && <Text style={styles.errorText}>{error.message}</Text>}
-            {passwordVisible && (
-              <>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirm Password"
-                  onChangeText={(text) => setConfirmPassword(text)}
-                  value={confirmPassword}
-                  secureTextEntry
-                />
-                <Button
-                  buttonStyle={styles.button}
-                  onPress={sendTosignIn}
-                  loading={loading}
-                  title={"Confirm password"}
-                  titleStyle={styles.buttonText}
-                />
-              </>
-            )}
+
             <Button
               buttonStyle={styles.button}
               onPress={handleSubmit}
               loading={loading}
               title={"Send"}
               titleStyle={styles.buttonText}
+              disabled={passwordVisible}
             />
             <Button
               buttonStyle={styles.buttonRe}
@@ -186,7 +189,7 @@ const VerifyEmailScreen = ({ route }) => {
                 buttonVisible ? "Resend code" : `Resend code (${countdown}s)`
               }
               titleStyle={styles.buttonTextRe}
-              disabled={!buttonVisible}
+              disabled={!buttonVisible || passwordVisible}
             />
           </View>
         )}
@@ -233,7 +236,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   containerRow: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
   },

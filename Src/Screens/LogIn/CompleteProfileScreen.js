@@ -85,7 +85,7 @@ const CompleteProfileScreen = ({ setCompleteProfile, setRedirect }) => {
               loading={loading}
               onPress={handleSubmit}
               buttonStyle={styles.buttonRegister}
-              title={"SignUp"}
+              title={"Complete"}
               titleStyle={styles.buttonTextRegister}
             />
           </View>

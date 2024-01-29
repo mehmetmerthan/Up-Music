@@ -117,6 +117,7 @@ export const createPost = /* GraphQL */ `
       media_type
       city
       country
+      place
       tag_styles
       tag_roles
       tag_roles_needed
@@ -156,6 +157,7 @@ export const updatePost = /* GraphQL */ `
       media_type
       city
       country
+      place
       tag_styles
       tag_roles
       tag_roles_needed
@@ -195,6 +197,7 @@ export const deletePost = /* GraphQL */ `
       media_type
       city
       country
+      place
       tag_styles
       tag_roles
       tag_roles_needed

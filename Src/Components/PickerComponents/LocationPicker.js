@@ -7,11 +7,15 @@ export function LocationPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
+    const num = data.terms.length;
     const newLocation = {
-      city: data?.structured_formatting?.main_text,
-      country: data?.structured_formatting?.secondary_text,
+      city: data?.terms[num - 2]?.value,
+      country: data?.terms[num - 1]?.value,
+      place: data?.structured_formatting?.main_text,
     };
     setLocation(newLocation);
+    console.log(newLocation);
+    setVisible(true);
   }
   function locationSave() {
     setSelectedLocation(location);
@@ -25,42 +29,31 @@ export function LocationPicker({ setSelectedLocation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.baseText}>
-        {location?.city} {location?.city && ","} {location?.country}
+        {location?.place}, {location?.city}, {location?.country}
       </Text>
-      {visible ? (
-        <>
-          <GooglePlacesAutocomplete
-            styles={{ textInput: styles.locationInput }}
-            placeholder="Hard Rock Cafe, London"
-            fetchDetails={true}
-            onPress={(data = null) => handleLocationSelect(data)}
-            query={{
-              key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
-              language: "en",
-              types: "(cities)",
-            }}
+      <GooglePlacesAutocomplete
+        styles={{ textInput: styles.locationInput }}
+        placeholder="Hard Rock Cafe, London"
+        fetchDetails={true}
+        onPress={(data = null) => handleLocationSelect(data)}
+        query={{
+          key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
+          language: "en",
+        }}
+      />
+      {visible && (
+        <View style={styles.buttonContainer}>
+          <Button
+            title={"Save"}
+            buttonStyle={styles.buttonPropertySave}
+            onPress={locationSave}
           />
-          {location && (
-            <View style={styles.buttonContainer}>
-              <Button
-                title={"Save"}
-                buttonStyle={styles.buttonPropertySave}
-                onPress={locationSave}
-              />
-              <Button
-                title={"Cancel"}
-                buttonStyle={styles.buttonPropertyCancel}
-                onPress={locationCancel}
-              />
-            </View>
-          )}
-        </>
-      ) : (
-        <Button
-          buttonStyle={styles.button}
-          onPress={() => setVisible(true)}
-          title="Change location"
-        />
+          <Button
+            title={"Cancel"}
+            buttonStyle={styles.buttonPropertyCancel}
+            onPress={locationCancel}
+          />
+        </View>
       )}
     </View>
   );
@@ -81,7 +74,7 @@ export function CountryPicker({ setSelectedLocation, setVisibleCountry }) {
     setVisibleCountry(false);
   }
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.baseText}>
         {location?.city} {location?.city && ","} {location?.country}
       </Text>
@@ -137,7 +130,7 @@ export function CityPicker({ setSelectedLocation }) {
     setVisible(false);
   }
   return (
-    <View>
+    <View style={styles.container}>
       {location && (
         <Text style={styles.baseText}>
           {location?.main_text} {location?.main_text && ","}{" "}

@@ -23,6 +23,7 @@ type Post @model {
   media_type: String
   city: String
   country: String
+  place: String
   tag_styles: [String]
   tag_roles: [String]
   tag_roles_needed: [String]

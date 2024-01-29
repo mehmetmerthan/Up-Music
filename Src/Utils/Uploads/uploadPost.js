@@ -19,22 +19,20 @@ async function UploadPost(props) {
   });
   const city = location?.city || "";
   const country = location?.country || "";
+  const place = location?.place || "";
   const postDetails = {
     content: content,
     type: "post",
     post_type: post_type,
-    location: {
-      city: city,
-      country: country,
-    },
+    city: city,
+    country: country,
+    place: place,
     key_media: mediaKey,
     media_type: mediaType,
     userPostsId: userID,
-    tag: {
-      tag_styles: tag_styles,
-      tag_roles: tag_roles,
-      tag_roles_needed: tag_roles_needed,
-    },
+    tag_styles: tag_styles,
+    tag_roles: tag_roles,
+    tag_roles_needed: tag_roles_needed,
   };
   if (content === "") {
     delete postDetails.content;
@@ -45,15 +43,19 @@ async function UploadPost(props) {
   if (mediaType === "") {
     delete postDetails.media_type;
   }
-  if (postDetails.location.city === "" && postDetails.location.country === "") {
-    delete postDetails.location;
+  if (postDetails.country === "") {
+    delete postDetails.city;
+    delete postDetails.country;
+    delete postDetails.place;
   }
-  if (
-    postDetails.tag.tag_styles.length === 0 &&
-    postDetails.tag.tag_roles.length === 0 &&
-    postDetails.tag.tag_roles_needed.length === 0
-  ) {
-    delete postDetails.tag;
+  if (tag_styles.length === 0) {
+    delete postDetails.tag_styles;
+  }
+  if (tag_roles.length === 0) {
+    delete postDetails.tag_roles;
+  }
+  if (tag_roles_needed.length === 0) {
+    delete postDetails.tag_roles_needed;
   }
   await API.graphql({
     query: mutations.createPost,

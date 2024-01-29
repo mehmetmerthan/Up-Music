@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
     padding: 100,
     resizeMode: "cover",
   },
+  icon: {
+    alignSelf: "center",
+    margin: 12,
+  },
 });
 
 export default styles;

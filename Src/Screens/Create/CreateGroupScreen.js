@@ -1,9 +1,9 @@
 import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/Create/CreateGroupStyle";
+import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
-import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
+import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData, roleData } from "../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
@@ -16,6 +16,10 @@ export default function CreateGroupScreen() {
   const [selectedRoleExisting, setSelectedRoleExisting] = useState([]);
   const navigation = useNavigation();
   async function submitPost() {
+    if (text === "") {
+      alert("Please write something about your group");
+      return;
+    }
     setLoading(true);
     await UploadPost({
       content: text,
@@ -26,7 +30,7 @@ export default function CreateGroupScreen() {
       tag_roles: selectedRoleExisting,
     });
     setLoading(false);
-    navigation.navigate("SearchGroupStack");
+    //navigation.navigate("SearchGroupStack");
   }
   function renderItem() {
     return (
@@ -43,7 +47,7 @@ export default function CreateGroupScreen() {
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select group location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <LocationPicker setSelectedLocation={setSelectedLocation}/>
+          <CityPicker setSelectedLocation={setSelectedLocation}/>
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians existing</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />

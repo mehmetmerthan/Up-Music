@@ -1,6 +1,6 @@
 import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/Create/CreateStageStyle";
+import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
@@ -17,6 +17,10 @@ export default function CreateStageScreen() {
   const { MediaPickerImageComponent, image } = useMedia();
   const navigation = useNavigation();
   async function submitPost() {
+    if (text === "" ) {
+      alert("Please write something about your stage");
+      return;
+    }
     setLoading(true);
     await UploadPost({
       content: text,
@@ -27,7 +31,7 @@ export default function CreateStageScreen() {
       price: price,
     });
     setLoading(false);
-    navigation.navigate("SearchStageStack");
+    //navigation.navigate("SearchStageStack");
   }
   function renderItem() {
     return (
@@ -47,6 +51,7 @@ export default function CreateStageScreen() {
           onChangeText={setPrice}
           placeholder="20$ per hour"
           value={price}
+          keyboardType="numeric"
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <LocationPicker setSelectedLocation={setSelectedLocation} />

@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    width: "80%",
-    margin: 12,
+    margin: 10,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: "#ccc",
+  },
+  priceInput: {
+    margin: 10,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    width: 200,
     alignSelf: "center",
   },
   header: {

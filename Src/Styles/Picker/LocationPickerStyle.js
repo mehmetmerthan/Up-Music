@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    //paddingTop: Constants.statusBarHeight,
+    margin: 10,
+    padding: 10,
   },
   button: {
     borderRadius: 10,
@@ -13,8 +14,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   locationInput: {
-    height: 40,
-    marginVertical: 10,
+    margin: 10,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,

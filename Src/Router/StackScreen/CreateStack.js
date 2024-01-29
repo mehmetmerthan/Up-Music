@@ -1,10 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import CreateScreen from "../../Screens/Create/CreateScreen";
-import CreatePostScreen from "../../Screens/Create/CreatePostScreen";
+//import CreatePostScreen from "../../Screens/Create/CreatePostScreen";
 import CreateEventScreen from "../../Screens/Create/CreateEventScreen";
 import CreateGroupScreen from "../../Screens/Create/CreateGroupScreen";
-import CreateProfScreen from "../../Screens/Create/CreateProfScreen";
+//import CreateProfScreen from "../../Screens/Create/CreateProfScreen";
 import CreateStageScreen from "../../Screens/Create/CreateStageScreen";
 import CreateMusicianScreen from "../../Screens/Create/CreateMusicianScreen";
 //import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
@@ -18,13 +18,13 @@ const CreateStack = () => (
         title: "Create",
       }}
     />
-    <MyCreateStack.Screen
+    {/* <MyCreateStack.Screen
       name="CreatePostScreen"
       component={CreatePostScreen}
       options={{
         title: "Create Post",
       }}
-    />
+    /> */}
     <MyCreateStack.Screen
       name="CreateEventScreen"
       component={CreateEventScreen}
@@ -39,13 +39,13 @@ const CreateStack = () => (
         title: "Create Group",
       }}
     />
-    <MyCreateStack.Screen
+    {/* <MyCreateStack.Screen
       name="CreateProfScreen"
       component={CreateProfScreen}
       options={{
         title: "Create Job",
       }}
-    />
+    /> */}
     <MyCreateStack.Screen
       name="CreateStageScreen"
       component={CreateStageScreen}

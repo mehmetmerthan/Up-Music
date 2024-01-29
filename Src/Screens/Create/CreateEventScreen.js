@@ -1,6 +1,6 @@
 import { TextInput, Text, View, FlatList } from "react-native";
 import { React, useState } from "react";
-import styles from "../../Styles/Create/CreateEventStyle";
+import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
@@ -13,9 +13,13 @@ export default function CreateEventScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
   const [isLoading, setLoading] = useState(false);
-  const { MediaPickerComponent, image } = useMedia();
+  const { MediaPickerImageComponent, image } = useMedia();
   const navigation = useNavigation();
   async function submitPost() {
+    if (text === "") {
+      alert("Please write something about your event");
+      return;
+    }
     setLoading(true);
     await UploadPost({
       content: text,
@@ -25,12 +29,11 @@ export default function CreateEventScreen() {
       location: selectedLocation,
     });
     setLoading(false);
-    navigation.navigate("EventStack");
   }
   function renderItem() {
     return (
       <View>
-        <MediaPickerComponent />
+        <MediaPickerImageComponent />
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -38,7 +41,7 @@ export default function CreateEventScreen() {
           value={text}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <LocationPicker setSelectedLocation={setSelectedLocation}/>
+        <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select Categories</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />

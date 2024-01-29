@@ -55,17 +55,17 @@ function S3Video({ mediaUrl }) {
 }
 
 export function S3ImageAvatar(props) {
-  const { imageKey = "", size, accessory, url = "" } = props;
+  const { imageKey = "", size, accessory, url=null } = props;
   const [mediaUrl, setMediaUrl] = useState("");
   useEffect(() => {
     async function getMediaUrl() {
       try {
-        if (imageKey !== "" && url === "") {
+        if (imageKey !== "" && url === null) {
           const result = await Storage.get(imageKey, {
             validateObjectExistence: true,
           });
           setMediaUrl(result);
-        } else if (url !== "") {
+        } else if (url !== null) {
           setMediaUrl(url);
         }
       } catch (error) {

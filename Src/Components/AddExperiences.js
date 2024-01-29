@@ -12,6 +12,7 @@ import styles from "../Styles/OnBoardingStyle";
 import Tag from "./Tag";
 import { roleData, styleTagData } from "../../data/TagData";
 import SpotifySearch from "./SpotifySearch";
+import { isEmpty } from "lodash";
 const AddExperience = ({
   setExperiences,
   experiences,
@@ -26,6 +27,15 @@ const AddExperience = ({
   const [spotifySong, setSpotifySong] = useState({});
   const [aboutExperience, setAboutExperience] = useState("");
   function addExperience() {
+    if (
+      aboutExperience === "" &&
+      selectedExperienceRoleTags.length === 0 &&
+      selectedExperienceStyleTags.length === 0 &&
+      isEmpty(selectedSong)
+    ) {
+      setVisibleExperience && setVisibleExperience(false);
+      return;
+    }
     if (aboutExperience === "") {
       alert("Please fill in the about experience field");
       return;
@@ -99,7 +109,7 @@ const AddExperience = ({
           />
           <Divider />
           <Button
-            title={"Add experience"}
+            title={"Complete experience"}
             onPress={addExperience}
             buttonStyle={styles.button}
           />

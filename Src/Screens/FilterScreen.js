@@ -71,7 +71,7 @@ export default function FilterScreen() {
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button
-          title="Share"
+          title="Filter"
           loading={isLoading}
           buttonStyle={{
             borderColor: "#ccc",

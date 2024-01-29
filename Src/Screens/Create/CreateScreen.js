@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { View, TouchableOpacity, Image } from "react-native";
 import styles from "../../Styles/Create/CreateStyle";
 import { useNavigation } from "@react-navigation/native";
 const CreateScreen = () => {
@@ -10,10 +9,10 @@ const CreateScreen = () => {
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("CreatePostScreen")}
+          onPress={() => navigation.navigate("CreateStageScreen")}
         >
           <Image
-            source={require("../../../assets/create-post.png")} // Resim yolunu düzgün bir şekilde ayarlayın
+            source={require("../../../assets/create-stage.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -22,7 +21,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateEventScreen")}
         >
           <Image
-            source={require("../../../assets/create-event.png")} // Resim yolunu düzgün bir şekilde ayarlayın
+            source={require("../../../assets/create-event.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -33,7 +32,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateGroupScreen")}
         >
           <Image
-            source={require("../../../assets/group-search-notice.png")} 
+            source={require("../../../assets/group-search-notice.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -42,18 +41,18 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateMusicianScreen")}
         >
           <Image
-            source={require("../../../assets/musician-search-notice.png")} 
+            source={require("../../../assets/musician-search-notice.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.row}>
+      {/* <View style={styles.row}>
         <TouchableOpacity
           style={styles.column}
           onPress={() => navigation.navigate("CreateStageScreen")}
         >
           <Image
-            source={require("../../../assets/create-stage.png")} 
+            source={require("../../../assets/create-stage.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -62,11 +61,11 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateProfScreen")}
         >
           <Image
-            source={require("../../../assets/create-job-notice.png")} 
+            source={require("../../../assets/create-job-notice.png")}
             style={styles.icon}
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
