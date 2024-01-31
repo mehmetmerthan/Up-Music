@@ -26,6 +26,14 @@ export const getUser = /* GraphQL */ `
         song_link
         __typename
       }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -126,6 +134,70 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        userMessagesSentId
+        userMessagesReceivedId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const postsByDate = /* GraphQL */ `
   query PostsByDate(
     $type: String!
@@ -160,6 +232,38 @@ export const postsByDate = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const messagesByDate = /* GraphQL */ `
+  query MessagesByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    messagesByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        content
+        userMessagesSentId
+        userMessagesReceivedId
+        type
+        createdAt
+        updatedAt
         __typename
       }
       nextToken

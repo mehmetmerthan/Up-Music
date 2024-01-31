@@ -1,141 +1,140 @@
-import { React,useState } from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { React, useEffect, useState } from "react";
+import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
 import styles from "../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
-import Post from "../Components/PostComponents/UserPost";
-import { Avatar } from '@rneui/themed';
+import { Chip, Button } from "@rneui/themed";
+import { API } from "aws-amplify";
+import { S3ImageAvatar } from "../Components/S3Media";
+import Experiences from "../Components/Experiences";
+import Post from "../Components/PostComponents/Post";
+import { ScrollView } from "react-native-virtualized-view";
+import { useRoute } from "@react-navigation/native";
+import { getUser } from "../Utils/Queries/userQueries";
 import { useNavigation } from "@react-navigation/native";
-import { Chip } from '@rneui/themed';
 const UserDetailScreen = () => {
-    const aboutText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut debitis enim eos facilis, impedit labore mollitia placeat praesentium quos sit suscipit totam veritatis. Deleniti incidunt necessitatibus omnis porro unde!";
-    const musicStyles = ["Rock", "Pop", "Jazz", "Hip Hop"];
-    const instruments = ["Guitar", "Piano", "Drums", "Bass"];
-    const [isFollow, setFollow] = useState(false);
-    const navigation = useNavigation();
-    function navigateToMessageDetails() {
-        navigation.navigate("MessageDetailScreen");
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const route = useRoute();
+  const { userId } = route?.params || "";
+  const navigation = useNavigation();
+  async function getUserAtt() {
+    setLoading(true);
+    try {
+      const item = await API.graphql({
+        query: getUser,
+        variables: { id: userId },
+      });
+      const userItem = item?.data?.getUser;
+      setUserData(userItem);
+    } catch (error) {
+      console.log(error);
     }
-    return (
-
-        <ScrollView >
-            <View style={styles.userProfileTop}>
-                <Avatar
-                    style={styles.userProfileTopBg}
-                    source={{
-                        uri: "https://source.unsplash.com/800x600/?",
-                    }}
-                >
-                </Avatar>
-                <View style={styles.userProfileTopOverlay} />
-                <Avatar
-                    size={150}
-                    rounded
-                    source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
-                >
-                </Avatar>
-                <Text style={styles.userProfileInfoName}>Amelie Stevens</Text>
-                <View style={styles.userProfileInfoLocation}>
-                    <EvilIcons
-                        name="location"
-                        size={20}
-                        color="rgba(255, 255, 255, 0.5)"
-                    />
-                    <Text style={styles.userProfileInfoLocationText}>
-                        New York, USA
-                    </Text>
-                </View>
-                <Text style={styles.userProfileInfoJobTitle}>
-                    Guitarist, Singer
-                </Text>
-                <View style={[styles.userProfileWidget, styles.widget]}>
-                    <View style={styles.widgetItem}>
-                        <Text style={styles.widgetItemLabel}>FOLLOWING</Text>
-                        <Text style={styles.widgetItemValue}>638</Text>
-                    </View>
-                    <View style={[styles.widgetItem, styles.widgetItemLast]}>
-                        <Text style={styles.widgetItemLabel}>FOLLOWERS</Text>
-                        <Text style={styles.widgetItemValue}>356</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.userProfileBody}>
-                <View style={styles.flexB}>
-                    <TouchableOpacity style={styles.btnA} activeOpacity={0.8} onPress={() => setFollow(!isFollow)}>
-                        <Text style={styles.btnTextA} numberOfLines={1}>
-                            {isFollow ? "Unfollow" : "Follow"}
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnB} activeOpacity={0.8} onPress={navigateToMessageDetails}>
-                        <Text style={styles.btnTextB} numberOfLines={1}>
-                            Message
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.divider} />
-                <View style={styles.sectionHeading}>
-
-                    <Text
-                        style={styles.sectionHeadingText}
-                    >
-                        About
-                    </Text>
-                </View>
-                <View style={styles.sectionContent}>
-                    <Text style={styles.typography}>
-                        {aboutText}
-                    </Text>
-                </View>
-                <View style={styles.divider} />
-                <View style={styles.sectionHeading}>
-                    <Text
-                        style={styles.sectionHeadingText}
-                    >
-                        Music Styles
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-                    {musicStyles?.map((item, index) => (
-                        <Chip
-                            key={index}
-                            title={item}
-                            titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                            buttonStyle={{ borderColor: "#000000" }}
-                            type="outline"
-                            containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                            style={{ backgroundColor: "#ccc" }}
-
-                        />
-                    ))}
-                </View>
-                <View style={styles.divider} />
-                <View style={styles.sectionHeading}>
-                    <Text
-                        style={styles.sectionHeadingText}
-
-                    >
-                        Instruments Played
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 10, marginTop: 5 }}>
-                    {instruments?.map((item, index) => (
-                        <Chip
-                            key={index}
-                            title={item}
-                            titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                            buttonStyle={{ borderColor: "#000000" }}
-                            type="outline"
-                            containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                            style={{ backgroundColor: "#ccc" }}
-
-                        />
-                    ))}
-                </View>
-                <View style={styles.divider} />
-                <Text style={styles.PostText}> Posts </Text>
-                <Post />
-            </View>
-        </ScrollView>
-    );
+    setLoading(false);
+  }
+  useEffect(() => {
+    getUserAtt();
+  }, []);
+  return (
+    <ScrollView>
+      {loading && <ActivityIndicator />}
+      <View style={styles.userProfileTop}>
+        <Image
+          source={{ uri: "https://picsum.photos/800/800" }}
+          style={styles.userProfileTopBg}
+        />
+        <View style={styles.userProfileTopOverlay} />
+        <S3ImageAvatar imageKey={userData?.key_pp} size={150} />
+        <Text style={styles.userProfileInfoName}>{userData.name}</Text>
+        <View style={styles.userProfileInfoLocation}>
+          <EvilIcons
+            name="location"
+            size={20}
+            color="rgba(255, 255, 255, 0.5)"
+          />
+          <Text style={styles.userProfileInfoLocationText}>
+            {userData?.city}, {userData?.country}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.userProfileBody}>
+        <View style={styles.flexB}>
+          <Button
+            title={"Message"}
+            onPress={() =>
+              navigation.navigate("MessageDetailScreen", { senderId: userId })
+            }
+            buttonStyle={styles.buttonSave}
+          />
+        </View>
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          About
+        </Text>
+        <View style={styles.sectionContent}>
+          <Text style={styles.typography}>
+            {userData.about ? userData.about : "No description"}
+          </Text>
+        </View>
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          Music Styles
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginHorizontal: 10,
+            marginTop: 5,
+          }}
+        >
+          {userData?.tag_styles?.map((item, index) => (
+            <Chip
+              key={index}
+              title={item}
+              titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+              buttonStyle={{ borderColor: "#000000" }}
+              type="outline"
+              containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
+              style={{ backgroundColor: "#ccc" }}
+            />
+          ))}
+        </View>
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText} numberOfLines={1}>
+          Instruments Played
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginHorizontal: 10,
+            marginTop: 5,
+          }}
+        >
+          {userData?.tag_roles?.map((item, index) => (
+            <Chip
+              key={index}
+              title={item}
+              titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+              buttonStyle={{ borderColor: "#000000" }}
+              type="outline"
+              containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
+              style={{ backgroundColor: "#ccc" }}
+            />
+          ))}
+        </View>
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText}>Experiences</Text>
+        <Experiences experiencesData={userData?.experiences} />
+        <View style={styles.divider} />
+        <Text style={styles.sectionHeadingText}>Announcments</Text>
+        <FlatList
+          data={userData?.posts?.items}
+          renderItem={({ item }) => <Post item={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </ScrollView>
+  );
 };
 export default UserDetailScreen;
-

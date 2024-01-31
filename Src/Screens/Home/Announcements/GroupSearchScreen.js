@@ -1,10 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../Utils/Queries/postQueries";
-import Post from "../../Components/PostComponents/Post";
+import { postsByDate } from "../../../Utils/Queries/postQueries";
+import Post from "../../../Components/PostComponents/Post";
+import GroupSearchHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/GroupSearchHeader";
 import { useRoute } from "@react-navigation/native";
-export default function StagesScreen() {
+export default function GroupSearchScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -15,7 +16,7 @@ export default function StagesScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = {
-      post_type: { eq: "stage_post" },
+      post_type: { eq: "group_post" },
     };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
@@ -45,13 +46,11 @@ export default function StagesScreen() {
       setRefreshing(false);
     }
   };
-
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
     fetchItems();
   }, [filter]);
-
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
       await fetchItems();
@@ -71,6 +70,7 @@ export default function StagesScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
+      ListHeaderComponent={<GroupSearchHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

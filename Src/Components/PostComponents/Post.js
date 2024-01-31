@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView, View, Text, Pressable } from "react-native";
 import { React } from "react";
 import styles from "../../Styles/PostStyle";
 import { Ionicons } from "@expo/vector-icons";
@@ -9,18 +9,15 @@ import { Chip } from "@rneui/themed";
 const Post = ({ item }) => {
   const navigation = useNavigation();
   function navigateToUserDetail() {
-    navigation.navigate("UserDetailScreen");
+    navigation.navigate("UserDetailScreen", { userId: item?.owner?.id });
   }
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.userInfo}
-          onPress={navigateToUserDetail}
-        >
+        <Pressable style={styles.userInfo} onPress={navigateToUserDetail}>
           <S3ImageAvatar imageKey={item?.owner?.key_pp} size={52} />
           <Text style={styles.username}>{item?.owner?.name}</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.contentText}>{item?.content}</Text>
         {item.country && (
           <View style={styles.locationContainer}>
@@ -54,15 +51,15 @@ const Post = ({ item }) => {
         {item?.tag_instruments?.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.tagsContainer}>Musician Needed</Text>
-              {item?.tag_roles_needed?.map((musician, musicianIndex) => (
-                <Chip
-                  key={musicianIndex}
-                  title={musician}
-                  type="outline"
-                  buttonStyle={styles.tag}
-                  titleStyle={styles.tagText}
-                />
-              ))}
+            {item?.tag_roles_needed?.map((musician, musicianIndex) => (
+              <Chip
+                key={musicianIndex}
+                title={musician}
+                type="outline"
+                buttonStyle={styles.tag}
+                titleStyle={styles.tagText}
+              />
+            ))}
           </View>
         )}
         {item?.tag_roles?.length > 0 && (
@@ -82,7 +79,7 @@ const Post = ({ item }) => {
           </View>
         )}
         {item?.tag_roles?.length > 0 && (
-           <View style={styles.section}>
+          <View style={styles.section}>
             <Text style={styles.sectionHeadingText}>Instruments Played</Text>
             <View style={styles.tagsContainer}>
               {item?.tag_roles?.map((musician, musicianIndex) => (

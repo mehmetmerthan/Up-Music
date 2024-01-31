@@ -4,11 +4,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../Screens/Home/HomeScreen";
 import UserDetailScreen from "../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../Screens/Message/MessageDetailScreen";
-import AnnouncementsScreen from "../../Screens/Home/AnnouncementsScreen";
-import ProfilesScreen from "../../Screens/Home/ProfilesScreen";
+import AnnouncementsScreen from "../../Screens/Home/Announcements/AnnouncementsScreen";
+import ProfilesScreen from "../../Screens/Home/Profiles/ProfilesScreen";
 import StagesScreen from "../../Screens/Home/StagesScreen";
 import EventsScreen from "../../Screens/Home/EventsScreen";
-import FilterScreen from "../../Screens/FilterScreen";
+import AnnouncementsFilterScreen from "../../Screens/Filter/AnnouncementsFilterScreen";
+import MusicianSearchScreen from "../../Screens/Home/Announcements/MusicianSearchScreen";
+import GroupSearchScreen from "../../Screens/Home/Announcements/GroupSearchScreen";
+import GroupSearchFilterScreen from "../../Screens/Filter/GroupSearchFilterScreen";
+import MusicianSearchFilterScreen from "../../Screens/Filter/MusicianSearchFilterScreen";
+import EventsFilterScreen from "../../Screens/Filter/EventsFilterScreen";
+import StagesFilterScreen from "../../Screens/Filter/StagesFilterScreen";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 const MyHomeStack = createStackNavigator();
@@ -29,7 +35,25 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Announcements",
-          headerRight: headerRight,
+          headerRight: headerRightAnnouncementsScreen,
+        }}
+      />
+      <MyHomeStack.Screen
+        name="MusicianSearchScreen"
+        component={MusicianSearchScreen}
+        options={{
+          headerShown: true,
+          title: "Musician Search",
+          headerRight: headerRightMusicianSearchScreen,
+        }}
+      />
+      <MyHomeStack.Screen
+        name="GroupSearchScreen"
+        component={GroupSearchScreen}
+        options={{
+          headerShown: true,
+          title: "Group Search",
+          headerRight: headerRightGroupSearchScreen,
         }}
       />
       <MyHomeStack.Screen
@@ -46,6 +70,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Stages",
+          headerRight: headerRightStagesScreen,
         }}
       />
       <MyHomeStack.Screen
@@ -54,6 +79,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Events",
+          headerRight: headerRightEventsScreen,
         }}
       />
       <MyHomeStack.Screen
@@ -75,8 +101,36 @@ const HomeStack = () => {
         }}
       />
       <MyHomeStack.Screen
-        name="FilterScreen"
-        component={FilterScreen}
+        name="AnnouncementsFilterScreen"
+        component={AnnouncementsFilterScreen}
+        options={{
+          title: "Filter",
+        }}
+      />
+      <MyHomeStack.Screen
+        name="GroupSearchFilterScreen"
+        component={GroupSearchFilterScreen}
+        options={{
+          title: "Filter",
+        }}
+      />
+      <MyHomeStack.Screen
+        name="MusicianSearchFilterScreen"
+        component={MusicianSearchFilterScreen}
+        options={{
+          title: "Filter",
+        }}
+      />
+      <MyHomeStack.Screen
+        name="EventsFilterScreen"
+        component={EventsFilterScreen}
+        options={{
+          title: "Filter",
+        }}
+      />
+      <MyHomeStack.Screen
+        name="StagesFilterScreen"
+        component={StagesFilterScreen}
         options={{
           title: "Filter",
         }}
@@ -87,7 +141,7 @@ const HomeStack = () => {
 
 export default HomeStack;
 
-function headerRight() {
+function headerRightAnnouncementsScreen() {
   const navigation = useNavigation();
   return (
     <Ionicons
@@ -97,7 +151,73 @@ function headerRight() {
       color="black"
       onPress={() => {
         {
-          navigation.navigate("FilterScreen");
+          navigation.navigate("AnnouncementsFilterScreen");
+        }
+      }}
+    />
+  );
+}
+function headerRightGroupSearchScreen() {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="filter"
+      size={24}
+      style={styles.headerRight}
+      color="black"
+      onPress={() => {
+        {
+          navigation.navigate("GroupSearchFilterScreen");
+        }
+      }}
+    />
+  );
+}
+function headerRightMusicianSearchScreen() {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="filter"
+      size={24}
+      style={styles.headerRight}
+      color="black"
+      onPress={() => {
+        {
+          navigation.navigate("MusicianSearchFilterScreen");
+        }
+      }}
+    />
+  );
+}
+
+function headerRightEventsScreen() {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="filter"
+      size={24}
+      style={styles.headerRight}
+      color="black"
+      onPress={() => {
+        {
+          navigation.navigate("EventsFilterScreen");
+        }
+      }}
+    />
+  );
+}
+
+function headerRightStagesScreen() {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="filter"
+      size={24}
+      style={styles.headerRight}
+      color="black"
+      onPress={() => {
+        {
+          navigation.navigate("StagesFilterScreen");
         }
       }}
     />

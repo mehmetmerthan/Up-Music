@@ -1,10 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../Utils/Queries/postQueries";
-import Post from "../../Components/PostComponents/Post";
+import { listUsers } from "../../../Utils/Queries/userProfileQueries";
+import PostUser from "../../../Components/PostComponents/PostUser";
+import UserProfileHeaderHeader from "../../../Components/PostComponents/Headers/UserProfileHeaders/UserProfilesHeader";
 import { useRoute } from "@react-navigation/native";
-export default function StagesScreen() {
+export default function AnnouncementsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -14,26 +15,18 @@ export default function StagesScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = {
-      post_type: { eq: "stage_post" },
-    };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter;
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
-        type: "post",
-        sortDirection: "DESC",
-        filter: updatedFilter,
+        filter: filter,
       };
       const result = await API.graphql({
-        query: postsByDate,
+        query: listUsers,
         variables: variables,
       });
-      const newItems = result?.data?.postsByDate?.items;
-      const newNextToken = result?.data?.postsByDate?.nextToken;
+      const newItems = result?.data?.listUsers?.items;
+      const newNextToken = result?.data?.listUsers?.nextToken;
       setItems((prevItems) =>
         postNextToken ? [...prevItems, ...newItems] : newItems
       );
@@ -60,7 +53,7 @@ export default function StagesScreen() {
   return (
     <FlatList
       data={items}
-      renderItem={({ item, index }) => <Post item={item} index={index} />}
+      renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.5}
@@ -71,6 +64,7 @@ export default function StagesScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
+      ListHeaderComponent={<UserProfileHeaderHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

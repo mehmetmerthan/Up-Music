@@ -1,39 +1,60 @@
 import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
-export default function PostHeaderComponent({ filter }) {
+import { useNavigation } from "@react-navigation/native";
+export default function UserProfileHeaderHeader() {
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
           <Chip
             buttonStyle={styles.chip}
-            title={"Musicians"}
+            title={"Productors"}
             size="lg"
             onPress={() => {
               {
-                filter?.or?.push({ post_type: { eq: "musician_post" } });
+                navigation.navigate("");
               }
             }}
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Bands"}
+            title={"Artists"}
             size="lg"
             onPress={() => {
               {
-                filter?.or?.push({ post_type: { eq: "group_post" } });
+                navigation.navigate("");
               }
             }}
           />
           <Chip
-            type="outline"
-            containerStyle={styles.chip}
-            title={"Reset"}
+            buttonStyle={styles.chip}
+            title={"Musicians"}
             size="lg"
             onPress={() => {
               {
-                filter.or.filter((item) => !("post_type" in item));
+                navigation.navigate("");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Clip Makers"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Graphic Makers"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("");
               }
             }}
           />
@@ -50,6 +71,5 @@ const styles = StyleSheet.create({
   },
   chip: {
     marginHorizontal: 10,
-    width: 100,
   },
 });

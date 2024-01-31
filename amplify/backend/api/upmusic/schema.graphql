@@ -13,6 +13,8 @@ type User @model {
   tag_styles: [String]
   tag_roles: [String]
   experiences: [Experience]
+  messagesSent: [Message] @hasMany
+  messagesReceived: [Message] @hasMany
 }
 type Post @model {
   id: ID!
@@ -43,4 +45,19 @@ type Experience {
   song_name: String
   song_artist: String
   song_link: String
+}
+type Message @model {
+  id: ID!
+  content: String
+  sender: User @belongsTo(fields: ["userMessagesSentId"])
+  receiver: User @belongsTo(fields: ["userMessagesReceivedId"])
+  userMessagesSentId: ID!
+  userMessagesReceivedId: ID!
+  type: String!
+    @index(
+      name: "messagesByDate"
+      queryField: "messagesByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String!
 }

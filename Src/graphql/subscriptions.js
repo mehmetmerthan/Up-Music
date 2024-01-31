@@ -26,6 +26,14 @@ export const onCreateUser = /* GraphQL */ `
         song_link
         __typename
       }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -57,6 +65,14 @@ export const onUpdateUser = /* GraphQL */ `
         song_link
         __typename
       }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -86,6 +102,14 @@ export const onDeleteUser = /* GraphQL */ `
         song_name
         song_artist
         song_link
+        __typename
+      }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
         __typename
       }
       createdAt
@@ -201,6 +225,132 @@ export const onDeletePost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
+      __typename
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onCreateMessage(filter: $filter) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onUpdateMessage(filter: $filter) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onDeleteMessage(filter: $filter) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
       __typename
     }
   }

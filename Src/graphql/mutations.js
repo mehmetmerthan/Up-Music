@@ -29,6 +29,14 @@ export const createUser = /* GraphQL */ `
         song_link
         __typename
       }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -63,6 +71,14 @@ export const updateUser = /* GraphQL */ `
         song_link
         __typename
       }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -95,6 +111,14 @@ export const deleteUser = /* GraphQL */ `
         song_name
         song_artist
         song_link
+        __typename
+      }
+      messagesSent {
+        nextToken
+        __typename
+      }
+      messagesReceived {
+        nextToken
         __typename
       }
       createdAt
@@ -219,6 +243,141 @@ export const deletePost = /* GraphQL */ `
       createdAt
       updatedAt
       userPostsId
+      __typename
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      id
+      content
+      sender {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      receiver {
+        id
+        name
+        about
+        key_pp
+        price
+        city
+        country
+        tag_styles
+        tag_roles
+        createdAt
+        updatedAt
+        __typename
+      }
+      userMessagesSentId
+      userMessagesReceivedId
+      type
+      createdAt
+      updatedAt
       __typename
     }
   }
