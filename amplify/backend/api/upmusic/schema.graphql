@@ -49,6 +49,9 @@ type Experience {
 type Message @model {
   id: ID!
   content: String
+  isRead: Boolean
+  hasMessagesSender: Boolean
+  hasMessagesReceiver: Boolean
   sender: User @belongsTo(fields: ["userMessagesSentId"])
   receiver: User @belongsTo(fields: ["userMessagesReceivedId"])
   userMessagesSentId: ID!

@@ -234,6 +234,9 @@ export const onCreateMessage = /* GraphQL */ `
     onCreateMessage(filter: $filter) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name
@@ -276,6 +279,9 @@ export const onUpdateMessage = /* GraphQL */ `
     onUpdateMessage(filter: $filter) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name
@@ -318,6 +324,9 @@ export const onDeleteMessage = /* GraphQL */ `
     onDeleteMessage(filter: $filter) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name

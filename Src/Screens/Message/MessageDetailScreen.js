@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import { Input, Divider, Button } from "@rneui/themed";
-import styles from "../../Styles/MessageDetailStyle";
+import styles from "../../Styles/Message/MessageDetailStyle";
 import { useRoute } from "@react-navigation/native";
 import { getUserId } from "../../Utils/getUser";
 import { API, graphqlOperation } from "aws-amplify";

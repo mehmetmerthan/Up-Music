@@ -55,7 +55,7 @@ function S3Video({ mediaUrl }) {
 }
 
 export function S3ImageAvatar(props) {
-  const { imageKey = "", size, accessory, url=null } = props;
+  const { imageKey = "", size, accessory, url = null } = props;
   const [mediaUrl, setMediaUrl] = useState("");
   useEffect(() => {
     async function getMediaUrl() {
@@ -75,26 +75,42 @@ export function S3ImageAvatar(props) {
     getMediaUrl();
   }, [imageKey, url]);
   return (
-    <Avatar
-      rounded
-      size={size}
-      source={mediaUrl !== "" ? { uri: mediaUrl } : {}}
-      containerStyle={{
-        backgroundColor: "transparent",
-      }}
-    >
-      <LinearGradient
-        colors={["#ff7e5f", "#feb47b"]}
-        style={{
-          width: size,
-          height: size,
-          borderRadius: size / 2,
-          position: "absolute",
-          zIndex: -1,
-        }}
-      />
-      {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
-    </Avatar>
+    <>
+      {mediaUrl !== "" ? (
+        <Avatar
+          rounded
+          size={size}
+          source={{ uri: mediaUrl }}
+          containerStyle={{
+            backgroundColor: "transparent",
+          }}
+        >
+          <Skeleton
+            circle
+            width={size}
+            height={size}
+            style={{
+              position: "absolute",
+              zIndex: -1,
+              borderRadius: size / 2,
+            }}
+          />
+
+          {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
+        </Avatar>
+      ) : (
+        <Avatar
+          rounded
+          size={size}
+          icon={{ name: "user", type: "font-awesome", color: "#4a4a4a" }}
+          containerStyle={{
+            backgroundColor: "#CCC",
+          }}
+        >
+          {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
+        </Avatar>
+      )}
+    </>
   );
 }
 

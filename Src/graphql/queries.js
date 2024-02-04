@@ -139,6 +139,9 @@ export const getMessage = /* GraphQL */ `
     getMessage(id: $id) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name
@@ -186,6 +189,9 @@ export const listMessages = /* GraphQL */ `
       items {
         id
         content
+        isRead
+        hasMessagesSender
+        hasMessagesReceiver
         userMessagesSentId
         userMessagesReceivedId
         type
@@ -259,6 +265,9 @@ export const messagesByDate = /* GraphQL */ `
       items {
         id
         content
+        isRead
+        hasMessagesSender
+        hasMessagesReceiver
         userMessagesSentId
         userMessagesReceivedId
         type

@@ -255,6 +255,9 @@ export const createMessage = /* GraphQL */ `
     createMessage(input: $input, condition: $condition) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name
@@ -300,6 +303,9 @@ export const updateMessage = /* GraphQL */ `
     updateMessage(input: $input, condition: $condition) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name
@@ -345,6 +351,9 @@ export const deleteMessage = /* GraphQL */ `
     deleteMessage(input: $input, condition: $condition) {
       id
       content
+      isRead
+      hasMessagesSender
+      hasMessagesReceiver
       sender {
         id
         name

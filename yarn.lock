@@ -3088,10 +3088,10 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@expo/cli@0.17.3":
-  version "0.17.3"
-  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.3.tgz#0763696671522062e5592411d02952ed905d4838"
-  integrity sha512-lIK8igsEQxTh4WuDlcEhE0wAJcDrAyjWDF00phdmwuSCpE5SaEXNlddOXvGxEVKPhUxHZUFo9NbfoQC+JVmkfA==
+"@expo/cli@0.17.4":
+  version "0.17.4"
+  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.4.tgz#ac720bc03e16cc9f4130b4319118053743b50395"
+  integrity sha512-6pswecVC9qCBp1qa004D2HjPeXKYDaw/PhyUOsqnF7AUCwunlKa1tJO0Ik8zxzF68kuywIOXUnTJl74Z2aHqiw==
   dependencies:
     "@babel/runtime" "^7.20.0"
     "@expo/code-signing-certificates" "0.0.5"
@@ -4013,7 +4013,7 @@
     hermes-parser "0.15.0"
     nullthrows "^1.1.1"
 
-"@react-native/normalize-color@^2.0.0", "@react-native/normalize-color@^2.1.0":
+"@react-native/normalize-color@*", "@react-native/normalize-color@^2.0.0", "@react-native/normalize-color@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@react-native/normalize-color/-/normalize-color-2.1.0.tgz#939b87a9849e81687d3640c5efa2a486ac266f91"
   integrity sha512-Z1jQI2NpdFJCVgpY+8Dq/Bt3d+YUi1928Q+/CZm/oh66fzM0RUl54vvuXlPJKybH4pdCZey1eDTPaLHkMPNgWA==
@@ -6081,6 +6081,15 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==
 
+deprecated-react-native-prop-types@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/deprecated-react-native-prop-types/-/deprecated-react-native-prop-types-2.3.0.tgz#c10c6ee75ff2b6de94bb127f142b814e6e08d9ab"
+  integrity sha512-pWD0voFtNYxrVqvBMYf5gq3NA2GCpfodS1yNynTPc93AYA/KEMGeWDqqeUB6R2Z9ZofVhks2aeJXiuQqKNpesA==
+  dependencies:
+    "@react-native/normalize-color" "*"
+    invariant "*"
+    prop-types "*"
+
 deprecated-react-native-prop-types@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/deprecated-react-native-prop-types/-/deprecated-react-native-prop-types-5.0.0.tgz#02a12f090da7bd9e8c3ac53c31cf786a1315d302"
@@ -6503,13 +6512,13 @@ expo-pwa@0.0.127:
     commander "2.20.0"
     update-check "1.5.3"
 
-expo@^50.0.4:
-  version "50.0.4"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.4.tgz#3ec5349a58b8b3264bc2f218d85b673beb352a99"
-  integrity sha512-8QWBvYZyKFd7pHxbtri8/ZITBR19QbrW2IkezAhs3ZOHR2kluSgNfyo9ojAe7GnOnE8hCB6Xe83Dbm0R3Ealhw==
+expo@~50.0.5:
+  version "50.0.5"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.5.tgz#16c13eca981990fce2c884e974885935aca74da8"
+  integrity sha512-gfZbJv8eqVG1xX8QqlQHF4Mn6HnLFuE14Kq5FRUVZQWE+IhlrP+mr+un7Zdp/3a63Bp/VkPzHi77G1bVP1pM7A==
   dependencies:
     "@babel/runtime" "^7.20.0"
-    "@expo/cli" "0.17.3"
+    "@expo/cli" "0.17.4"
     "@expo/config" "8.5.4"
     "@expo/config-plugins" "7.8.4"
     "@expo/metro-config" "0.17.3"
@@ -7367,7 +7376,7 @@ internal-ip@4.3.0:
     default-gateway "^4.2.0"
     ipaddr.js "^1.9.0"
 
-invariant@^2.2.4:
+invariant@*, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -9309,6 +9318,15 @@ prompts@^2.3.2, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
+prop-types@*, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x, prop-types@^15.8.1:
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+  integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.13.1"
+
 prop-types@15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
@@ -9317,15 +9335,6 @@ prop-types@15.7.2:
     loose-envify "^1.4.0"
     object-assign "^4.1.1"
     react-is "^16.8.1"
-
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x, prop-types@^15.8.1:
-  version "15.8.1"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
-  integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
-  dependencies:
-    loose-envify "^1.4.0"
-    object-assign "^4.1.1"
-    react-is "^16.13.1"
 
 property-expr@^2.0.5:
   version "2.0.6"
@@ -9636,6 +9645,14 @@ react-native-svg@14.1.0:
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
+
+react-native-touchable-scale@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-touchable-scale/-/react-native-touchable-scale-2.2.0.tgz#b12723014a66ba14af3e55c1925e4d7c77ef7209"
+  integrity sha512-EKWOpvqFKKvw4FsaMqoIqqALQbhEcEYeyd5iIctub4lA+6nUfQ472NeQzDLtXMJD65JUYxsC8XEKz/Ttj5+b/Q==
+  dependencies:
+    deprecated-react-native-prop-types "^2.3.0"
+    prop-types "^15.6.0"
 
 react-native-typing-animation@0.1.7:
   version "0.1.7"
