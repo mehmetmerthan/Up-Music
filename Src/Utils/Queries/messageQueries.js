@@ -18,6 +18,9 @@ export const messagesByDate = /* GraphQL */ `
       items {
         id
         content
+        hasMessagesReceiver
+        hasMessagesSender
+        isRead
         receiver {
           id
           name

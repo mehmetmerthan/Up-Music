@@ -5,33 +5,37 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
-import { Input, Divider, Button } from "@rneui/themed";
+import { Input, Divider, Button, Icon } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageDetailStyle";
 import { useRoute } from "@react-navigation/native";
 import { getUserId } from "../../Utils/getUser";
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "../../graphql/subscriptions";
 import * as mutations from "../../graphql/mutations";
-import * as queries from "../../graphql/queries";
+import { messagesByDate } from "../../Utils/Queries/messageQueries";
+import { S3ImageAvatar } from "../../Components/S3Media";
+
 export default function MessageDetailScreen() {
   const [text, onChangeText] = useState("");
   const [messages, setMessages] = useState([]);
   const route = useRoute();
   const { senderId } = route?.params || "";
   const [receiverId, setReceiverId] = useState("");
+  const [loading, setLoading] = useState(false);
   const scrollViewRef = useRef();
-  async function getreceiverID() {
-    const res = await getUserId();
-    setReceiverId(res);
-  }
+
   async function sendMessage() {
     try {
       const result = await API.graphql(
         graphqlOperation(mutations.createMessage, {
           input: {
-            userMessagesSentId: senderId,
-            userMessagesReceivedId: receiverId,
+            hasMessagesSender: true,
+            hasMessagesReceiver: true,
+            isRead: false,
+            userMessagesSentId: receiverId,
+            userMessagesReceivedId: senderId,
             content: text,
             type: "message",
           },
@@ -43,20 +47,20 @@ export default function MessageDetailScreen() {
     }
   }
   async function fetchMessages() {
+    setLoading(true);
+    const res = await getUserId();
+    setReceiverId(res);
     const variables = {
+      type: "message",
       filter: {
         or: [
           {
-            and: [
-              { userMessagesSentId: { eq: senderId } },
-              { userMessagesReceivedId: { eq: receiverId } },
-            ],
+            userMessagesSentId: { eq: senderId },
+            userMessagesReceivedId: { eq: res },
           },
           {
-            and: [
-              { userMessagesSentId: { eq: receiverId } },
-              { userMessagesReceivedId: { eq: senderId } },
-            ],
+            userMessagesSentId: { eq: res },
+            userMessagesReceivedId: { eq: senderId },
           },
         ],
       },
@@ -64,29 +68,36 @@ export default function MessageDetailScreen() {
 
     try {
       const result = await API.graphql(
-        graphqlOperation(queries.listMessages, variables)
+        graphqlOperation(messagesByDate, variables)
       );
-      const newMessages = result?.data?.listMessages?.items;
+      const newMessages = result?.data?.messagesByDate?.items;
       setMessages(newMessages);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
   useEffect(() => {
-    getreceiverID();
     fetchMessages();
-
     const variables = {
       filter: {
-        userMessagesSentId: { eq: senderId },
-        userMessagesReceivedId: { eq: receiverId },
+        or: [
+          {
+            userMessagesReceivedId: { eq: receiverId },
+            userMessagesSentId: { eq: senderId },
+          },
+          {
+            userMessagesReceivedId: { eq: senderId },
+            userMessagesSentId: { eq: receiverId },
+          },
+        ],
       },
     };
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
       next: ({ value }) => {
-        console.log("value", { value });
+
         const newMessage = value.data.onCreateMessage;
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         scrollViewRef.current.scrollToEnd({ animated: true });
@@ -105,17 +116,56 @@ export default function MessageDetailScreen() {
     console.log("Keyboard dismissed");
   };
 
-  const renderMessage = ({ item }) => {
+  const renderMessage = ({ item, index }) => {
+    const messageDate = new Date(item.createdAt);
+    const options = { hour: "numeric", minute: "numeric" };
+    const formattedDate = messageDate.toLocaleString("us-US", options);
     return (
-      <View>
-        <Text style={styles.message}>{item.content}</Text>
+      <View
+        style={[
+          styles.messageContainer,
+          { backgroundColor: index % 2 !== 0 ? "#00000006" : "#ffffff00" },
+        ]}
+      >
+        {item.sender.id === receiverId ? (
+          <View style={styles.messageReceiever}>
+            <View style={styles.userInfo}>
+              <Text style={styles.username}>{item.sender.name}</Text>
+              <S3ImageAvatar size={42} />
+            </View>
+            <View style={styles.typeArea}>
+              <Text style={styles.message}>{item.content}</Text>
+              {item.createdAt && (
+                <Text style={styles.createdAt}>{formattedDate}</Text>
+              )}
+            </View>
+          </View>
+        ) : (
+          <View style={styles.messageSender}>
+            <View style={styles.userInfo}>
+              <Text style={styles.username}>{item.sender.name}</Text>
+              <S3ImageAvatar size={42} />
+            </View>
+            <View style={styles.typeArea}>
+              <Text style={styles.message}>{item.content}</Text>
+              {item.createdAt && (
+                <Text style={styles.createdAt}>{formattedDate}</Text>
+              )}
+            </View>
+          </View>
+        )}
         <Divider />
       </View>
     );
   };
-
+  function rightIcon() {
+    return <Icon type="font-awesome" name="send" onPress={sendMessage} />;
+  }
   return (
     <View style={styles.container}>
+      {loading && (
+        <ActivityIndicator size={"large"} style={{ marginTop: 20 }} />
+      )}
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <FlatList
           data={messages}
@@ -133,10 +183,9 @@ export default function MessageDetailScreen() {
         onChangeText={onChangeText}
         placeholder="Write here..."
         value={text}
-        rightIcon={{ type: "font-awesome", name: "send" }}
+        rightIcon={rightIcon}
         onFocus={handleInputFocus}
       />
-      <Button title={"Send"} onPress={sendMessage} />
     </View>
   );
 }

@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  console.log("HomeScreen");
   return (
     <View style={styles.container}>
       <Text style={styles.sectionText}>Profiles</Text>
