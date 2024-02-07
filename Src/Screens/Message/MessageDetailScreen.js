@@ -7,7 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import { Input, Divider, Button, Icon } from "@rneui/themed";
+import { Input, Divider, Icon } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageDetailStyle";
 import { useRoute } from "@react-navigation/native";
 import { getUserId } from "../../Utils/getUser";
@@ -24,11 +24,11 @@ export default function MessageDetailScreen() {
   const { senderId } = route?.params || "";
   const [receiverId, setReceiverId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const scrollViewRef = useRef();
-
   async function sendMessage() {
     try {
-      const result = await API.graphql(
+      await API.graphql(
         graphqlOperation(mutations.createMessage, {
           input: {
             hasMessagesSender: true,
@@ -47,25 +47,38 @@ export default function MessageDetailScreen() {
     }
   }
   async function fetchMessages() {
-    setLoading(true);
+    setRefreshing(true);
     const res = await getUserId();
     setReceiverId(res);
     const variables = {
+      limit: 8,
       type: "message",
+      sortDirection: "DESC",
       filter: {
         or: [
           {
-            userMessagesSentId: { eq: senderId },
-            userMessagesReceivedId: { eq: res },
+            and: [
+              {
+                userMessagesSentId: { eq: senderId },
+              },
+              {
+                userMessagesReceivedId: { eq: res },
+              },
+            ],
           },
           {
-            userMessagesSentId: { eq: res },
-            userMessagesReceivedId: { eq: senderId },
+            and: [
+              {
+                userMessagesSentId: { eq: res },
+              },
+              {
+                userMessagesReceivedId: { eq: senderId },
+              },
+            ],
           },
         ],
       },
     };
-
     try {
       const result = await API.graphql(
         graphqlOperation(messagesByDate, variables)
@@ -75,49 +88,41 @@ export default function MessageDetailScreen() {
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
+    setRefreshing(false);
+    console.log("first message ", messages[0]);
+    console.log("last messag ", messages[messages.length - 1]);
   }
+
   useEffect(() => {
     fetchMessages();
-    const variables = {
-      filter: {
-        or: [
-          {
-            userMessagesReceivedId: { eq: receiverId },
-            userMessagesSentId: { eq: senderId },
-          },
-          {
-            userMessagesReceivedId: { eq: senderId },
-            userMessagesSentId: { eq: receiverId },
-          },
-        ],
-      },
-    };
+  }, [loading]);
+
+  useEffect(() => {
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
-      next: ({ value }) => {
-
-        const newMessage = value.data.onCreateMessage;
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-        scrollViewRef.current.scrollToEnd({ animated: true });
+      next: (messageData) => {
+        setLoading(true);
+        const newMessage = messageData.value.data.onCreateMessage;
+        if (newMessage && newMessage?.id) {
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        }
       },
       error: (error) => console.log(error),
     });
+    setLoading(false);
     return () => subscription.unsubscribe();
-  }, []);
+  }, [messages, senderId, receiverId]);
 
   const handleInputFocus = () => {
-    scrollViewRef.current.scrollToEnd({ animated: true });
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
-
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
-    console.log("Keyboard dismissed");
   };
-
   const renderMessage = ({ item, index }) => {
-    const messageDate = new Date(item.createdAt);
+    const messageDate = new Date(item?.createdAt);
     const options = { hour: "numeric", minute: "numeric" };
     const formattedDate = messageDate.toLocaleString("us-US", options);
     return (
@@ -127,14 +132,14 @@ export default function MessageDetailScreen() {
           { backgroundColor: index % 2 !== 0 ? "#00000006" : "#ffffff00" },
         ]}
       >
-        {item.sender.id === receiverId ? (
+        {item?.sender?.id === receiverId ? (
           <View style={styles.messageReceiever}>
             <View style={styles.userInfo}>
-              <Text style={styles.username}>{item.sender.name}</Text>
+              <Text style={styles.username}>{item?.sender?.name}</Text>
               <S3ImageAvatar size={42} />
             </View>
             <View style={styles.typeArea}>
-              <Text style={styles.message}>{item.content}</Text>
+              <Text style={styles.message}>{item?.content}</Text>
               {item.createdAt && (
                 <Text style={styles.createdAt}>{formattedDate}</Text>
               )}
@@ -143,12 +148,12 @@ export default function MessageDetailScreen() {
         ) : (
           <View style={styles.messageSender}>
             <View style={styles.userInfo}>
-              <Text style={styles.username}>{item.sender.name}</Text>
+              <Text style={styles.username}>{item?.sender?.name}</Text>
               <S3ImageAvatar size={42} />
             </View>
             <View style={styles.typeArea}>
-              <Text style={styles.message}>{item.content}</Text>
-              {item.createdAt && (
+              <Text style={styles.message}>{item?.content}</Text>
+              {item?.createdAt && (
                 <Text style={styles.createdAt}>{formattedDate}</Text>
               )}
             </View>
@@ -163,9 +168,6 @@ export default function MessageDetailScreen() {
   }
   return (
     <View style={styles.container}>
-      {loading && (
-        <ActivityIndicator size={"large"} style={{ marginTop: 20 }} />
-      )}
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <FlatList
           data={messages}
@@ -173,8 +175,9 @@ export default function MessageDetailScreen() {
           keyExtractor={(item) => item.id}
           ref={scrollViewRef}
           onContentSizeChange={() =>
-            scrollViewRef.current.scrollToEnd({ animated: true })
+            scrollViewRef.current.scrollToOffset({ offset: 0, animated: true })
           }
+          inverted
         />
       </TouchableWithoutFeedback>
       <Input
@@ -185,7 +188,18 @@ export default function MessageDetailScreen() {
         value={text}
         rightIcon={rightIcon}
         onFocus={handleInputFocus}
+        ListFooterComponent={
+          refreshing &&
+          !messages.length > 0 && (
+            <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+          )
+        }
       />
     </View>
   );
 }
+/*
+      {loading && (
+        <ActivityIndicator size={"large"} style={{ marginTop: 20 }} />
+      )}
+*/

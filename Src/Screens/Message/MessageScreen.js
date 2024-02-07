@@ -1,12 +1,5 @@
-import { React, useState, useRef, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { React, useState, useEffect } from "react";
+import { View, FlatList, Pressable, ActivityIndicator } from "react-native";
 import { ListItem, Button } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageStyle";
 import { getUserId } from "../../Utils/getUser";
@@ -22,36 +15,36 @@ export default function MessageScreen() {
   const [messages, setMessages] = useState([]);
   const [groupedMessages, setGroupedMessages] = useState([]);
   const [userId, setUserId] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
-    fetchMessages();
-    const variables = {
-      filter: {
-        or: [
-          { userMessagesReceivedId: { eq: userId } },
-          { userMessagesSentId: { eq: userId } },
-        ],
-      },
-    };
     const subscription = API.graphql(
-      graphqlOperation(subscriptions.onCreateMessage, variables)
+      graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
-      next: ({ value }) => {
-        const newMessage = value.data.onCreateMessage;
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-        groupMessages();
+      next: (messageData) => {
+        setLoading(true);
+        const newMessage = messageData.value.data.onCreateMessage;
+        if (newMessage && newMessage?.id) {
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        }
       },
       error: (error) => console.log(error),
     });
+    setLoading(false);
     return () => subscription.unsubscribe();
   }, [userId, messages]);
 
+  useEffect(() => {
+    fetchMessages();
+  }, [loading]);
+
   async function fetchMessages() {
+    setRefreshing(true);
     const res = await getUserId();
     setUserId(res);
     const variables = {
       type: "message",
-      sortDirection: "DESC",
+      sortDirection: "ASC",
       filter: {
         or: [
           { userMessagesReceivedId: { eq: res } },
@@ -65,11 +58,14 @@ export default function MessageScreen() {
       );
       const allMessages = result?.data?.messagesByDate?.items;
       setMessages(allMessages);
-      groupMessages();
+      setRefreshing(false);
     } catch (error) {
       console.log(error);
     }
   }
+  useEffect(() => {
+    groupMessages();
+  }, [messages]);
   function groupMessages() {
     let tempMessages = {};
     messages.forEach((message) => {
@@ -101,7 +97,7 @@ export default function MessageScreen() {
   const navigation = useNavigation();
   const RenderMessage = ({ item }) => {
     return (
-      <Pressable
+      <ListItem.Swipeable
         onPress={() => {
           navigation.navigate("MessageDetailScreen", {
             senderId:
@@ -109,50 +105,53 @@ export default function MessageScreen() {
                 ? item.message.receiver.id
                 : item.message.sender.id,
           });
-          console.log("pressed");
         }}
+        rightContent={(action) => (
+          <Button
+            containerStyle={{
+              flex: 1,
+              justifyContent: "center",
+              backgroundColor: "#f4f4f4",
+            }}
+            type="clear"
+            icon={{ name: "delete-outline" }}
+            onPress={action}
+          />
+        )}
+        bottomDivider
+        Component={TouchableScale}
+        friction={90}
+        tension={100}
+        activeScale={0.95}
+        linearGradientProps={
+          item.isRead
+            ? {
+                colors: ["#f4f4f4", "#f4f4f4"],
+                start: { x: 1, y: 0 },
+                end: { x: 0.2, y: 0 },
+              }
+            : {
+                colors: ["#4facfe", "#00f2fe"],
+                start: { x: 1, y: 0 },
+                end: { x: 0.2, y: 0 },
+              }
+        }
+        ViewComponent={LinearGradient}
       >
-        <ListItem.Swipeable
-          rightContent={(action) => (
-            <Button
-              containerStyle={{
-                flex: 1,
-                justifyContent: "center",
-                backgroundColor: "#f4f4f4",
-              }}
-              type="clear"
-              icon={{ name: "delete-outline" }}
-              onPress={action}
-            />
-          )}
-          bottomDivider
-          // Component={TouchableScale}
-          // friction={90}
-          // tension={100}
-          // activeScale={0.95}
-          // linearGradientProps={{
-          //   colors: ["#4facfe", "#00f2fe"],
-          //   start: { x: 1, y: 0 },
-          //   end: { x: 0.2, y: 0 },
-          // }}
-          // ViewComponent={LinearGradient}
-        >
-          <S3ImageAvatar size={42} />
-          <ListItem.Content>
-            <ListItem.Title style={styles.username}>
-              {item.message.sender.id === userId
-                ? item.message.receiver.name
-                : item.message.sender.name}
-            </ListItem.Title>
-            <ListItem.Subtitle>
-              {item.message.sender.id === userId && "you:"}{" "}
-              {item.message.content}{" "}
-              {item.unreadCount > 0 && `(${item.unreadCount})`}
-            </ListItem.Subtitle>
-          </ListItem.Content>
-          <ListItem.Chevron color="black" />
-        </ListItem.Swipeable>
-      </Pressable>
+        <S3ImageAvatar size={42} />
+        <ListItem.Content>
+          <ListItem.Title style={styles.username}>
+            {item.message.sender.id === userId
+              ? item.message.receiver.name
+              : item.message.sender.name}
+          </ListItem.Title>
+          <ListItem.Subtitle>
+            {item.message.sender.id === userId && "you:"} {item.message.content}{" "}
+            {item.unreadCount > 0 && `(${item.unreadCount})`}
+          </ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron color="black" />
+      </ListItem.Swipeable>
     );
   };
   return (
@@ -161,6 +160,12 @@ export default function MessageScreen() {
         data={groupedMessages}
         renderItem={({ item }) => <RenderMessage item={item} />}
         keyExtractor={(item) => item.message.id}
+        ListFooterComponent={
+          refreshing &&
+          !groupedMessages.length > 0 && (
+            <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+          )
+        }
       />
     </View>
   );
