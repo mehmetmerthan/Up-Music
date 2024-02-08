@@ -51,7 +51,6 @@ export default function MessageDetailScreen() {
     const res = await getUserId();
     setReceiverId(res);
     const variables = {
-      limit: 8,
       type: "message",
       sortDirection: "DESC",
       filter: {
@@ -85,13 +84,25 @@ export default function MessageDetailScreen() {
       );
       const newMessages = result?.data?.messagesByDate?.items;
       setMessages(newMessages);
+      if (newMessages.length > 0) {
+        newMessages.forEach(async (message) => {
+          if (message?.receiver?.id === res && message?.isRead === false) {
+            await API.graphql(
+              graphqlOperation(mutations.updateMessage, {
+                input: {
+                  id: message.id,
+                  isRead: true,
+                },
+              })
+            );
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
     setRefreshing(false);
-    console.log("first message ", messages[0]);
-    console.log("last messag ", messages[messages.length - 1]);
   }
 
   useEffect(() => {
@@ -178,6 +189,12 @@ export default function MessageDetailScreen() {
             scrollViewRef.current.scrollToOffset({ offset: 0, animated: true })
           }
           inverted
+          ListFooterComponent={
+            refreshing &&
+            !messages.length > 0 && (
+              <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+            )
+          }
         />
       </TouchableWithoutFeedback>
       <Input
@@ -188,18 +205,7 @@ export default function MessageDetailScreen() {
         value={text}
         rightIcon={rightIcon}
         onFocus={handleInputFocus}
-        ListFooterComponent={
-          refreshing &&
-          !messages.length > 0 && (
-            <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
-          )
-        }
       />
     </View>
   );
 }
-/*
-      {loading && (
-        <ActivityIndicator size={"large"} style={{ marginTop: 20 }} />
-      )}
-*/

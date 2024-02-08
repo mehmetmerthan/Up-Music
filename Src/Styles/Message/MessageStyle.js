@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: "#464646",
     letterSpacing: 1,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+    paddingBottom: 5,
+
+  },
+  createdAt: {
+    fontSize: 10,
+    color: "#464646",
   },
 });
 
