@@ -94,6 +94,7 @@ export default function MessageScreen() {
   function groupMessages() {
     console.log("groupMessages called");
     let tempMessages = {};
+    let allUnreadCount = 0;
     messages.forEach((message) => {
       let senderID = message.sender.id;
       const receiverID = message.receiver.id;
@@ -114,6 +115,9 @@ export default function MessageScreen() {
           if (message.isRead === false && controlId !== userId) {
             tempMessages[senderID].unreadCount += 1;
           }
+        }
+        if (controlId !== userId && message.isRead === false) {
+          allUnreadCount += 1;
         }
       }
     });
