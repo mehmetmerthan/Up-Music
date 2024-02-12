@@ -1,12 +1,6 @@
 import { React, useState, useEffect } from "react";
-import {
-  View,
-  FlatList,
-  Pressable,
-  ActivityIndicator,
-  Text,
-} from "react-native";
-import { ListItem, Button, Divider } from "@rneui/themed";
+import { View, FlatList, ActivityIndicator, Text } from "react-native";
+import { ListItem, Button } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageStyle";
 import { getUserId } from "../../Utils/getUser";
 import { API, graphqlOperation } from "aws-amplify";
@@ -16,7 +10,6 @@ import { S3ImageAvatar } from "../../Components/S3Media";
 import TouchableScale from "react-native-touchable-scale";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
-
 export default function MessageScreen() {
   const [messages, setMessages] = useState([]);
   const [groupedMessages, setGroupedMessages] = useState([]);
@@ -25,7 +18,6 @@ export default function MessageScreen() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    console.log("useEffect subscription update called");
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onUpdateMessage)
     ).subscribe({
@@ -39,7 +31,6 @@ export default function MessageScreen() {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect subscription create called");
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
@@ -57,12 +48,10 @@ export default function MessageScreen() {
   }, [userId, messages]);
 
   useEffect(() => {
-    console.log("useEffect fetchMessages called");
     fetchMessages();
   }, [loading]);
 
   async function fetchMessages() {
-    console.log("fetchMessages called");
     setRefreshing(true);
     const res = await getUserId();
     setUserId(res);
@@ -88,11 +77,9 @@ export default function MessageScreen() {
     }
   }
   useEffect(() => {
-    console.log("useEffect groupMessages called");
     groupMessages();
   }, [messages]);
   function groupMessages() {
-    console.log("groupMessages called");
     let tempMessages = {};
     let allUnreadCount = 0;
     messages.forEach((message) => {
@@ -195,6 +182,7 @@ export default function MessageScreen() {
       </ListItem.Swipeable>
     );
   };
+
   return (
     <View style={styles.container}>
       <FlatList

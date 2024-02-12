@@ -71,6 +71,31 @@ function BottomTab() {
     };
   }, []);
 
+  const fetchLastMessage = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    const userId = user.attributes.sub;
+    try {
+      const variables = {
+        limit: 1,
+        type: "message",
+        sortDirection: "DESC",
+        filter: {
+          userMessagesReceivedId: { eq: userId },
+          hasMessagesReceiver: { eq: true },
+          isRead: { eq: false },
+        },
+      };
+      const result = await API.graphql(
+        graphqlOperation(messagesByDate, variables)
+      );
+      const message = result?.data?.messagesByDate?.items;
+      if (message && message.length > 0 && screenName !== "MessageScreen") {
+        const lastMessage = message[0];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Tab.Navigator>
       <Tab.Screen

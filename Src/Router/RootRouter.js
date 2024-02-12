@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { AppState, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomTab from "./BottomTab/BottomTab";
 import AuthStack from "./StackScreen/AuthStack";
 import { Amplify, Auth, API } from "aws-amplify";
 import awsconfig from "../aws-exports";
-import { useNavigation } from "@react-navigation/native";
 import Ex from "../ex";
 import * as queries from "../graphql/queries";
 import CompleteProfileScreen from "../Screens/LogIn/CompleteProfileScreen";
+
 export default function Router() {
   const [redirect, setRedirect] = useState(null);
   const [completeProfile, setCompleteProfile] = useState(false);
@@ -44,8 +45,13 @@ export default function Router() {
   useEffect(() => {
     listenToAutoSignInEvent();
   }, []);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      onStateChange={(state) => {
+        console.log("New state is", state.index);
+      }}
+    >
       {completeProfile && (
         <CompleteProfileScreen
           setCompleteProfile={setCompleteProfile}

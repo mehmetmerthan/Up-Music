@@ -1,5 +1,5 @@
-import React from 'react';
-import RootRouter from './Src/Router/RootRouter';
+import React from "react";
+import RootRouter from "./Src/Router/RootRouter";
 export default function App() {
-  return <RootRouter/>
+  return <RootRouter />;
 }
