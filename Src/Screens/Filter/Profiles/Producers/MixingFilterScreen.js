@@ -1,15 +1,15 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { React, useState } from "react";
-import Tag from "../../Components/Tag";
+import Tag from "../../../../Components/Tag";
 import { Button } from "@rneui/themed";
 import {
   CityPicker,
   CountryPicker,
-} from "../../Components/PickerComponents/LocationPicker";
-import { styleTagData, roleData } from "../../../data/TagData";
+} from "../../../../Components/PickerComponents/LocationPicker";
+import { styleTagData, roleData } from "../../../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function AnnouncementsFilterScreen() {
+export default function MixingFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");

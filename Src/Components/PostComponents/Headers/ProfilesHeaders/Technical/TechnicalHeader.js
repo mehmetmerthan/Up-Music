@@ -2,59 +2,35 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function UserProfileHeaderHeader() {
+export default function ProducersHeader() {
   const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
           <Chip
+            type="outline"
+            containerStyle={styles.chip}
+            title={"Technical"}
+            size="lg"
+          />
+          <Chip
             buttonStyle={styles.chip}
-            title={"Productors"}
+            title={"Sound Engineer"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("");
+                navigation.navigate("SoundEngineerScreen");
               }
             }}
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Artists"}
+            title={"Technician"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Musicians"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Clip Makers"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Graphic Makers"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("");
+                navigation.navigate("TechnicianScreen");
               }
             }}
           />

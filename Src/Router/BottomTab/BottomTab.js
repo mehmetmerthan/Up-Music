@@ -1,101 +1,79 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
 import NotificationStackScreen from "../StackScreen/NotificationStack";
 import ProfileStackScreen from "../StackScreen/ProfileStack";
-import HomeStack from "../StackScreen/HomeStack";
+import HomeStack from "../StackScreen/HomeStack/HomeStack";
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "../../graphql/subscriptions";
-import { listMessages } from "../../graphql/queries";
-import { getUserId } from "../../Utils/getUser";
+import * as Notifications from "expo-notifications";
+import {
+  fetchLastMessage,
+  fetchUnreadMessages,
+} from "../../Utils/FetchMessage";
+import { useNavigation } from "@react-navigation/native";
 const Tab = createBottomTabNavigator();
-function BottomTab() {
+function BottomTab({ screenIndex }) {
+  const navigation = useNavigation();
   const [unreadCount, setUnreadCount] = useState(null);
+  const notificationListener = useRef();
+  const responseListener = useRef();
   useEffect(() => {
-    const fetchUnreadMessages = async () => {
-      try {
-        const userId = await getUserId();
-        const variables = {
-          filter: {
-            userMessagesReceivedId: { eq: userId },
-            hasMessagesReceiver: { eq: true },
-            isRead: { eq: false },
-          },
-        };
-        const result = await API.graphql(
-          graphqlOperation(listMessages, variables)
-        );
-        const unreadMessages = result?.data?.listMessages?.items;
-        if (unreadMessages.length === 0) {
-          setUnreadCount(null);
-        } else {
-          setUnreadCount(unreadMessages.length);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const onCreateMessageSubscription = API.graphql(
       graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
       next: () => {
-        fetchUnreadMessages();
+        fetchUnreadMessages({ setUnreadCount });
+        if (screenIndex !== 1) {
+          fetchLastMessage();
+        }
       },
     });
-
     const onUpdateMessageSubscription = API.graphql(
       graphqlOperation(subscriptions.onUpdateMessage)
     ).subscribe({
       next: () => {
-        fetchUnreadMessages();
+        fetchUnreadMessages({ setUnreadCount });
       },
     });
-
     const onDeleteMessageSubscription = API.graphql(
       graphqlOperation(subscriptions.onDeleteMessage)
     ).subscribe({
       next: () => {
-        fetchUnreadMessages();
+        fetchUnreadMessages({ setUnreadCount });
       },
     });
-
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log("notification triggered ", notification);
+      });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        navigation.navigate("MessageDetailScreen", {
+          senderId: response.notification.request.content.data.senderId,
+        });
+      });
     fetchUnreadMessages();
-
     return () => {
       onCreateMessageSubscription.unsubscribe();
       onUpdateMessageSubscription.unsubscribe();
       onDeleteMessageSubscription.unsubscribe();
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+      onCreateMessageSubscription.unsubscribe();
     };
   }, []);
-
-  const fetchLastMessage = async () => {
-    const user = await Auth.currentAuthenticatedUser();
-    const userId = user.attributes.sub;
-    try {
-      const variables = {
-        limit: 1,
-        type: "message",
-        sortDirection: "DESC",
-        filter: {
-          userMessagesReceivedId: { eq: userId },
-          hasMessagesReceiver: { eq: true },
-          isRead: { eq: false },
-        },
-      };
-      const result = await API.graphql(
-        graphqlOperation(messagesByDate, variables)
-      );
-      const message = result?.data?.messagesByDate?.items;
-      if (message && message.length > 0 && screenName !== "MessageScreen") {
-        const lastMessage = message[0];
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
   return (
     <Tab.Navigator>
       <Tab.Screen

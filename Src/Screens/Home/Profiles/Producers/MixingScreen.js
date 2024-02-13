@@ -3,9 +3,9 @@ import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
-import ProducersHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/ProducersHeader";
+import MixingHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/MixingHeader";
 import { useRoute } from "@react-navigation/native";
-export default function ProducersScreen() {
+export default function MixingScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -64,7 +64,7 @@ export default function ProducersScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<ProducersHeader />}
+      ListHeaderComponent={<MixingHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

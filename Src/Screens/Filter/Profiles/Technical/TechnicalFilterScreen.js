@@ -1,15 +1,15 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { React, useState } from "react";
-import Tag from "../../Components/Tag";
+import Tag from "../../../../Components/Tag";
 import { Button } from "@rneui/themed";
 import {
   CityPicker,
   CountryPicker,
-} from "../../Components/PickerComponents/LocationPicker";
-import { styleTagData, roleData } from "../../../data/TagData";
+} from "../../../../Components/PickerComponents/LocationPicker";
+import { styleTagData, roleData } from "../../../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function GroupSearchFilterScreen() {
+export default function TechnicalFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -48,11 +48,9 @@ export default function GroupSearchFilterScreen() {
     }
 
     if (filter.or.length > 0) {
-      navigation.navigate("GroupSearchScreen", {
-        filter: filter,
-      });
+      navigation.navigate("AnnouncementsScreen", { filter: filter });
     } else {
-      navigation.navigate("GroupSearchScreen", {});
+      navigation.navigate("AnnouncementsScreen", { filter: {} });
     }
     setLoading(false);
   }
@@ -62,7 +60,10 @@ export default function GroupSearchFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    navigation.navigate("GroupSearchScreen", {});
+    const filter = {
+      or: [],
+    };
+    navigation.navigate("AnnouncementsScreen", { filter: filter });
     setLoadingReset(false);
   }
   function renderItem() {

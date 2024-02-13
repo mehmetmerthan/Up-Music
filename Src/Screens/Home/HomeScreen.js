@@ -9,7 +9,7 @@ const HomeScreen = () => {
       <Text style={styles.sectionText}>Profiles</Text>
       <Pressable
         style={styles.section}
-        onPress={() => navigation.navigate("ProfilesScreen")}
+        onPress={() => navigation.navigate("ProfilesStack")}
       >
         <Image
           source={require("../../.../../../assets/Producers.png")}
@@ -39,7 +39,7 @@ const HomeScreen = () => {
       <Text style={styles.sectionText}>Announcements</Text>
       <Pressable
         style={styles.section}
-        onPress={() => navigation.navigate("AnnouncementsScreen")}
+        onPress={() => navigation.navigate("AnnouncementsStack")}
       >
         <Image
           source={require("../../../assets/Bands.png")}

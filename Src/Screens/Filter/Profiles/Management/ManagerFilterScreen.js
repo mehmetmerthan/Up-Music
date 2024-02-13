@@ -1,15 +1,15 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { React, useState } from "react";
-import Tag from "../../Components/Tag";
+import Tag from "../../../../Components/Tag";
 import { Button } from "@rneui/themed";
 import {
   CityPicker,
   CountryPicker,
-} from "../../Components/PickerComponents/LocationPicker";
-import { styleTagData, roleData } from "../../../data/TagData";
+} from "../../../../Components/PickerComponents/LocationPicker";
+import { styleTagData, roleData } from "../../../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function MusicianSearchFilterScreen() {
+export default function ManagerFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -48,9 +48,9 @@ export default function MusicianSearchFilterScreen() {
     }
 
     if (filter.or.length > 0) {
-      navigation.navigate("MusicianSearchScreen", { filter: filter });
+      navigation.navigate("AnnouncementsScreen", { filter: filter });
     } else {
-      navigation.navigate("MusicianSearchScreen", {});
+      navigation.navigate("AnnouncementsScreen", { filter: {} });
     }
     setLoading(false);
   }
@@ -63,7 +63,7 @@ export default function MusicianSearchFilterScreen() {
     const filter = {
       or: [],
     };
-    navigation.navigate("MusicianSearchScreen", { filter: filter });
+    navigation.navigate("AnnouncementsScreen", { filter: filter });
     setLoadingReset(false);
   }
   function renderItem() {

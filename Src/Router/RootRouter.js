@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AppState, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomTab from "./BottomTab/BottomTab";
 import AuthStack from "./StackScreen/AuthStack";
@@ -8,10 +7,11 @@ import awsconfig from "../aws-exports";
 import Ex from "../ex";
 import * as queries from "../graphql/queries";
 import CompleteProfileScreen from "../Screens/LogIn/CompleteProfileScreen";
-
+import { LogBox } from "react-native";
 export default function Router() {
   const [redirect, setRedirect] = useState(null);
   const [completeProfile, setCompleteProfile] = useState(false);
+  const [screenIndex, setScreenIndex] = useState(0);
   Amplify.configure(awsconfig);
   async function listenToAutoSignInEvent() {
     try {
@@ -43,13 +43,16 @@ export default function Router() {
     }
   }
   useEffect(() => {
+    LogBox.ignoreLogs(["new NativeEventEmitter"]);
+    LogBox.ignoreAllLogs();
     listenToAutoSignInEvent();
   }, []);
 
   return (
     <NavigationContainer
       onStateChange={(state) => {
-        console.log("New state is", state.index);
+        setScreenIndex(state.index);
+        console.log("state", state.index);
       }}
     >
       {completeProfile && (
@@ -59,11 +62,11 @@ export default function Router() {
         />
       )}
       {redirect === true ? (
-        <BottomTab />
+        <BottomTab screenIndex={screenIndex} />
       ) : redirect === false ? (
         <AuthStack />
       ) : null}
     </NavigationContainer>
-    // <Ex />
+    //<Ex />
   );
 }

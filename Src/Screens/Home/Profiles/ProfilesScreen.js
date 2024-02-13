@@ -3,9 +3,9 @@ import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { listUsers } from "../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../Components/PostComponents/PostUser";
-import UserProfileHeaderHeader from "../../../Components/PostComponents/Headers/UserProfileHeaders/UserProfilesHeader";
+import ProfilesHeader from "../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeader";
 import { useRoute } from "@react-navigation/native";
-export default function AnnouncementsScreen() {
+export default function ProfilesScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -64,7 +64,7 @@ export default function AnnouncementsScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<UserProfileHeaderHeader />}
+      ListHeaderComponent={<ProfilesHeader />}
       keyboardShouldPersistTaps="always"
     />
   );
