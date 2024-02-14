@@ -6,10 +6,11 @@ import StagesScreen from "../../../Screens/Home/StagesScreen";
 import EventsScreen from "../../../Screens/Home/EventsScreen";
 import EventsFilterScreen from "../../../Screens/Filter/EventsFilterScreen";
 import StagesFilterScreen from "../../../Screens/Filter/StagesFilterScreen";
-import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
 import AnnouncementStack from "./AnnouncementStack";
 import ProfilesStack from "./Profiles/ProfilesStack";
+import HeaderRight from "../../../Components/PostComponents/Headers/HeaderRight";
+import UserDetailScreen from "../../../Screens/UserDetailScreen";
+import MessageDetailScreen from "../../../Screens/Message/MessageDetailScreen";
 const Stack = createStackNavigator();
 const HomeStack = () => {
   return (
@@ -36,7 +37,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Stages",
-          headerRight: headerRightStagesScreen,
+          headerRight: () => <HeaderRight screenName={"StagesFilterScreen"} />,
         }}
       />
       <Stack.Screen
@@ -45,7 +46,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Events",
-          headerRight: headerRightEventsScreen,
+          headerRight: () => <HeaderRight screenName={"EventsFilterScreen"} />,
         }}
       />
       <Stack.Screen
@@ -70,111 +71,29 @@ const HomeStack = () => {
           title: "Filter",
         }}
       />
+      <Stack.Screen
+        name="UserDetailScreen"
+        component={UserDetailScreen}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="MessageDetailScreen"
+        component={MessageDetailScreen}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerTintColor: "white",
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
 export default HomeStack;
-
-function headerRightAnnouncementsScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("AnnouncementsFilterScreen");
-        }
-      }}
-    />
-  );
-}
-function headerRightGroupSearchScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("GroupSearchFilterScreen");
-        }
-      }}
-    />
-  );
-}
-function headerRightMusicianSearchScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("MusicianSearchFilterScreen");
-        }
-      }}
-    />
-  );
-}
-
-function headerRightEventsScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("EventsFilterScreen");
-        }
-      }}
-    />
-  );
-}
-
-function headerRightStagesScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("StagesFilterScreen");
-        }
-      }}
-    />
-  );
-}
-
-function headerRightProfilesScreen() {
-  const navigation = useNavigation();
-  return (
-    <Ionicons
-      name="filter"
-      size={24}
-      style={styles.headerRight}
-      color="black"
-      onPress={() => {
-        {
-          navigation.navigate("ProfilesFilterScreen");
-        }
-      }}
-    />
-  );
-}
 
 const styles = StyleSheet.create({
   headerRight: {

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
-export default function ProfileHeaderRight({ screenName }) {
+export default function HeaderRight({ screenName }) {
   const navigation = useNavigation();
   return (
     <Ionicons

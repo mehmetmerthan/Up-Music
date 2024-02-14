@@ -7,7 +7,7 @@ import AnnouncementsFilterScreen from "../../../Screens/Filter/Announcements/Ann
 import GroupSearchFilterScreen from "../../../Screens/Filter/Announcements/GroupSearchFilterScreen";
 import MusicianSearchFilterScreen from "../../../Screens/Filter/Announcements/MusicianSearchFilterScreen";
 import { createStackNavigator } from "@react-navigation/stack";
-import ProfileHeaderRight from "../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../Components/PostComponents/Headers/HeaderRight";
 import React from "react";
 const Stack = createStackNavigator();
 export default function AnnouncementStack() {
@@ -19,6 +19,9 @@ export default function AnnouncementStack() {
         options={{
           headerShown: true,
           title: "Announcements",
+          headerRight: () => (
+            <HeaderRight screenName="AnnouncementsFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -27,7 +30,9 @@ export default function AnnouncementStack() {
         options={{
           headerShown: true,
           title: "Musician Search",
-          headerRight: ProfileHeaderRight,
+          headerRight: () => (
+            <HeaderRight screenName="MusicianSearchFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -36,7 +41,9 @@ export default function AnnouncementStack() {
         options={{
           headerShown: true,
           title: "Group Search",
-          headerRight: ProfileHeaderRight,
+          headerRight: () => (
+            <HeaderRight screenName="GroupSearchFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen

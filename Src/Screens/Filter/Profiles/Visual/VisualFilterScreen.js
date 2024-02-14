@@ -40,7 +40,7 @@ export default function VisualFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("VisualScreen", { filter: filter });
     } else {
-      navigation.navigate("VisualScreen", { filter: {} });
+      navigation.navigate("VisualScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function VisualFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("VisualScreen", { filter: filter });
+
+    navigation.navigate("VisualScreen");
     setLoadingReset(false);
   }
   function renderItem() {

@@ -41,7 +41,7 @@ export default function SingerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("SingerScreen", { filter: filter });
     } else {
-      navigation.navigate("SingerScreen", { filter: {} });
+      navigation.navigate("SingerScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function SingerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("SingerScreen", { filter: filter });
+
+    navigation.navigate("SingerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

@@ -41,7 +41,7 @@ export default function SongwriterFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("SongwriterScreen", { filter: filter });
     } else {
-      navigation.navigate("SongwriterScreen", { filter: {} });
+      navigation.navigate("SongwriterScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function SongwriterFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("SongwriterScreen", { filter: filter });
+
+    navigation.navigate("SongwriterScreen");
     setLoadingReset(false);
   }
   function renderItem() {

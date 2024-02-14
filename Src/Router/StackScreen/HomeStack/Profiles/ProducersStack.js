@@ -10,7 +10,7 @@ import MixingFilterScreen from "../../../../Screens/Filter/Profiles/Producers/Mi
 import ProducersFilterScreen from "../../../../Screens/Filter/Profiles/Producers/ProducersFilterScreen";
 import SongwriterScreen from "../../../../Screens/Home/Profiles/Producers/SongwriterScreen";
 import SongwriterFilterScreen from "../../../../Screens/Filter/Profiles/Producers/SongwriterFilterScreen";
-import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 const Stack = createStackNavigator();
 export default function ProducersStack() {
   return (
@@ -22,7 +22,7 @@ export default function ProducersStack() {
           headerShown: true,
           title: "Producers",
           headerRight: () => (
-            <ProfileHeaderRight screenName="ProducersFilterScreen" />
+            <HeaderRight screenName="ProducersFilterScreen" />
           ),
         }}
       />
@@ -33,7 +33,7 @@ export default function ProducersStack() {
           headerShown: true,
           title: "Beatmaker",
           headerRight: () => (
-            <ProfileHeaderRight screenName="BeatmakerFilterScreen" />
+            <HeaderRight screenName="BeatmakerFilterScreen" />
           ),
         }}
       />
@@ -44,7 +44,7 @@ export default function ProducersStack() {
           headerShown: true,
           title: "Composer",
           headerRight: () => (
-            <ProfileHeaderRight screenName="ComposerFilterScreen" />
+            <HeaderRight screenName="ComposerFilterScreen" />
           ),
         }}
       />
@@ -55,7 +55,7 @@ export default function ProducersStack() {
           headerShown: true,
           title: "Mixing Engineer",
           headerRight: () => (
-            <ProfileHeaderRight screenName="MixingFilterScreen" />
+            <HeaderRight screenName="MixingFilterScreen" />
           ),
         }}
       />
@@ -66,7 +66,7 @@ export default function ProducersStack() {
           headerShown: true,
           title: "Songwriter",
           headerRight: () => (
-            <ProfileHeaderRight screenName="SongwriterFilterScreen" />
+            <HeaderRight screenName="SongwriterFilterScreen" />
           ),
         }}
       />

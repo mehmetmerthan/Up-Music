@@ -6,7 +6,7 @@ import SingerScreen from "../../../../Screens/Home/Profiles/Performance/SingerSc
 import InstrumentalistFilterScreen from "../../../../Screens/Filter/Profiles/Performance/InstrumentalistFilterScreen";
 import PerformanceFilterScreen from "../../../../Screens/Filter/Profiles/Performance/PerformanceFilterScreen";
 import SingerFilterScreen from "../../../../Screens/Filter/Profiles/Performance/SingerFilterScreen";
-import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 const Stack = createStackNavigator();
 export default function PerformanceStack() {
   return (
@@ -18,7 +18,7 @@ export default function PerformanceStack() {
           headerShown: true,
           title: "Performance",
           headerRight: () => (
-            <ProfileHeaderRight screenName="PerformanceFilterScreen" />
+            <HeaderRight screenName="PerformanceFilterScreen" />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function PerformanceStack() {
           headerShown: true,
           title: "Instrumentalist",
           headerRight: () => (
-            <ProfileHeaderRight screenName="InstrumentalistFilterScreen" />
+            <HeaderRight screenName="InstrumentalistFilterScreen" />
           ),
         }}
       />
@@ -40,7 +40,7 @@ export default function PerformanceStack() {
           headerShown: true,
           title: "Publicist",
           headerRight: () => (
-            <ProfileHeaderRight screenName="SingerFilterScreen" />
+            <HeaderRight screenName="SingerFilterScreen" />
           ),
         }}
       />

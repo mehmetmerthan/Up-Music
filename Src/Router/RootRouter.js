@@ -52,7 +52,6 @@ export default function Router() {
     <NavigationContainer
       onStateChange={(state) => {
         setScreenIndex(state.index);
-        console.log("state", state.index);
       }}
     >
       {completeProfile && (

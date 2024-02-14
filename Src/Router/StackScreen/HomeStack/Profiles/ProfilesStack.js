@@ -7,7 +7,9 @@ import ProducersStack from "./ProducersStack";
 import TechnicalStack from "./TechnicalStack";
 import VisualStack from "./VisualStack";
 import React from "react";
-import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
+import UserDetailScreen from "../../../../Screens/UserDetailScreen";
+import MessageDetailScreen from "../../../../Screens/Message/MessageDetailScreen";
 const Stack = createStackNavigator();
 export default function ProfilesStack() {
   return (
@@ -19,7 +21,7 @@ export default function ProfilesStack() {
           headerShown: true,
           title: "Profiles",
           headerRight: () => (
-            <ProfileHeaderRight screenName="ProfilesFilterScreen" />
+            <HeaderRight screenName="ProfilesFilterScreen" />
           ),
         }}
       />
@@ -69,6 +71,24 @@ export default function ProfilesStack() {
         options={{
           headerShown: true,
           title: "Filter",
+        }}
+      />
+      <Stack.Screen
+        name="UserDetailScreen"
+        component={UserDetailScreen}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="MessageDetailScreen"
+        component={MessageDetailScreen}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerTintColor: "white",
         }}
       />
     </Stack.Navigator>

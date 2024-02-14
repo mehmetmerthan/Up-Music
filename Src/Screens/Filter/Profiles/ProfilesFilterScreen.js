@@ -49,7 +49,7 @@ export default function ProfilesFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("ProfilesScreen", { filter: filter });
     } else {
-      navigation.navigate("ProfilesScreen", { filter: {} });
+      navigation.navigate("ProfilesScreen");
     }
     setLoading(false);
   }
@@ -59,10 +59,7 @@ export default function ProfilesFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("ProfilesScreen", { filter: filter });
+    navigation.navigate("ProfilesScreen");
     setLoadingReset(false);
   }
   function renderItem() {

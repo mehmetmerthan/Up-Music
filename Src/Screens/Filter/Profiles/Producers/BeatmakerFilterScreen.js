@@ -41,7 +41,7 @@ export default function BeatmakerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("BeatmakerScreen", { filter: filter });
     } else {
-      navigation.navigate("BeatmakerScreen", { filter: {} });
+      navigation.navigate("BeatmakerScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function BeatmakerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("BeatmakerScreen", { filter: filter });
+
+    navigation.navigate("BeatmakerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

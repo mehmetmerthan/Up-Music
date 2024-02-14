@@ -40,7 +40,7 @@ export default function TechnicianFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("TechnicianScreen", { filter: filter });
     } else {
-      navigation.navigate("TechnicianScreen", { filter: {} });
+      navigation.navigate("TechnicianScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function TechnicianFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("TechnicianScreen", { filter: filter });
+
+    navigation.navigate("TechnicianScreen");
     setLoadingReset(false);
   }
   function renderItem() {

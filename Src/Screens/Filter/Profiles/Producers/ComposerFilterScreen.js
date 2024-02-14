@@ -40,7 +40,7 @@ export default function ComposerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("ComposerScreen", { filter: filter });
     } else {
-      navigation.navigate("ComposerScreen", { filter: {} });
+      navigation.navigate("ComposerScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function ComposerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("ComposerScreen", { filter: filter });
+
+    navigation.navigate("ComposerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

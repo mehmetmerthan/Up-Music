@@ -50,7 +50,7 @@ export default function StagesFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("StagesScreen", { filter: filter });
     } else {
-      navigation.navigate("StagesScreen", {});
+      navigation.navigate("StagesScreen");
     }
     setLoading(false);
   }
@@ -60,10 +60,8 @@ export default function StagesFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("StagesScreen", { filter: filter });
+
+    navigation.navigate("StagesScreen");
     setLoadingReset(false);
   }
   function renderItem() {

@@ -56,24 +56,14 @@ export default function MessageDetailScreen() {
       filter: {
         or: [
           {
-            and: [
-              {
-                userMessagesSentId: { eq: senderId },
-              },
-              {
-                userMessagesReceivedId: { eq: res },
-              },
-            ],
+            userMessagesSentId: { eq: senderId },
+            userMessagesReceivedId: { eq: res },
+            hasMessagesReceiver: { eq: true },
           },
           {
-            and: [
-              {
-                userMessagesSentId: { eq: res },
-              },
-              {
-                userMessagesReceivedId: { eq: senderId },
-              },
-            ],
+            userMessagesSentId: { eq: res },
+            userMessagesReceivedId: { eq: senderId },
+            hasMessagesReceiver: { eq: true },
           },
         ],
       },

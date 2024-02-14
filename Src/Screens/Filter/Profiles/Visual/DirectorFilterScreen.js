@@ -40,7 +40,7 @@ export default function DirectorFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("DirectorScreen", { filter: filter });
     } else {
-      navigation.navigate("DirectorScreen", { filter: {} });
+      navigation.navigate("DirectorScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function DirectorFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("DirectorScreen", { filter: filter });
+
+    navigation.navigate("DirectorScreen");
     setLoadingReset(false);
   }
   function renderItem() {

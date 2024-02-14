@@ -41,7 +41,7 @@ export default function PhotographerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("PhotographerScreen", { filter: filter });
     } else {
-      navigation.navigate("PhotographerScreen", { filter: {} });
+      navigation.navigate("PhotographerScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function PhotographerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("PhotographerScreen", { filter: filter });
+
+    navigation.navigate("PhotographerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

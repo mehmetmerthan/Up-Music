@@ -49,7 +49,7 @@ export default function InstrumentalistFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("InstrumentalistScreen", { filter: filter });
     } else {
-      navigation.navigate("InstrumentalistScreen", { filter: {} });
+      navigation.navigate("InstrumentalistScreen");
     }
     setLoading(false);
   }
@@ -59,10 +59,8 @@ export default function InstrumentalistFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("InstrumentalistScreen", { filter: filter });
+
+    navigation.navigate("InstrumentalistScreen");
     setLoadingReset(false);
   }
   function renderItem() {

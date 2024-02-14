@@ -27,6 +27,7 @@ function BottomTab({ screenIndex }) {
       next: () => {
         fetchUnreadMessages({ setUnreadCount });
         if (screenIndex !== 1) {
+          console.log("fetchLastMessage");
           fetchLastMessage();
         }
       },
@@ -55,7 +56,6 @@ function BottomTab({ screenIndex }) {
           senderId: response.notification.request.content.data.senderId,
         });
       });
-    fetchUnreadMessages();
     return () => {
       onCreateMessageSubscription.unsubscribe();
       onUpdateMessageSubscription.unsubscribe();
@@ -67,6 +67,9 @@ function BottomTab({ screenIndex }) {
       onCreateMessageSubscription.unsubscribe();
     };
   }, []);
+  useEffect(() => {
+    fetchUnreadMessages({ setUnreadCount });
+  }, [unreadCount]);
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,

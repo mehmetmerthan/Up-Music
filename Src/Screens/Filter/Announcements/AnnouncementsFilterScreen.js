@@ -50,7 +50,7 @@ export default function AnnouncementsFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("AnnouncementsScreen", { filter: filter });
     } else {
-      navigation.navigate("AnnouncementsScreen", { filter: {} });
+      navigation.navigate("AnnouncementsScreen");
     }
     setLoading(false);
   }
@@ -60,10 +60,8 @@ export default function AnnouncementsFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("AnnouncementsScreen", { filter: filter });
+
+    navigation.navigate("AnnouncementsScreen");
     setLoadingReset(false);
   }
   function renderItem() {

@@ -41,7 +41,7 @@ export default function GraphicerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("GraphicerScreen", { filter: filter });
     } else {
-      navigation.navigate("GraphicerScreen", { filter: {} });
+      navigation.navigate("GraphicerScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function GraphicerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("GraphicerScreen", { filter: filter });
+
+    navigation.navigate("GraphicerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

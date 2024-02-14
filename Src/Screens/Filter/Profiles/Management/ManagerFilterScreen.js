@@ -41,7 +41,7 @@ export default function ManagerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("ManagerScreen", { filter: filter });
     } else {
-      navigation.navigate("ManagerScreen", { filter: {} });
+      navigation.navigate("ManagerScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function ManagerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("ManagerScreen", { filter: filter });
+
+    navigation.navigate("ManagerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

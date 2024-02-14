@@ -50,7 +50,7 @@ export default function MusicianSearchFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("MusicianSearchScreen", { filter: filter });
     } else {
-      navigation.navigate("MusicianSearchScreen", {});
+      navigation.navigate("MusicianSearchScreen");
     }
     setLoading(false);
   }
@@ -60,10 +60,8 @@ export default function MusicianSearchFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("MusicianSearchScreen", { filter: filter });
+
+    navigation.navigate("MusicianSearchScreen");
     setLoadingReset(false);
   }
   function renderItem() {

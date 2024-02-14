@@ -6,7 +6,7 @@ import ManagerScreen from "../../../../Screens/Home/Profiles/Management/ManagerS
 import ManagerFilterScreen from "../../../../Screens/Filter/Profiles/Management/ManagerFilterScreen";
 import PublicistScreen from "../../../../Screens/Home/Profiles/Management/PublicistScreen";
 import PublicistFilterScreen from "../../../../Screens/Filter/Profiles/Management/PublicistFilterScreen";
-import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 const Stack = createStackNavigator();
 export default function ManagementStack() {
   return (
@@ -18,7 +18,7 @@ export default function ManagementStack() {
           headerShown: true,
           title: "Profiles",
           headerRight: () => (
-            <ProfileHeaderRight screenName="ManagementFilterScreen" />
+            <HeaderRight screenName="ManagementFilterScreen" />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function ManagementStack() {
           headerShown: true,
           title: "Manager",
           headerRight: () => (
-            <ProfileHeaderRight screenName="ManagerFilterScreen" />
+            <HeaderRight screenName="ManagerFilterScreen" />
           ),
         }}
       />
@@ -40,7 +40,7 @@ export default function ManagementStack() {
           headerShown: true,
           title: "Publicist",
           headerRight: () => (
-            <ProfileHeaderRight screenName="PublicistFilterScreen" />
+            <HeaderRight screenName="PublicistFilterScreen" />
           ),
         }}
       />

@@ -6,7 +6,7 @@ import TechnicianScreen from "../../../../Screens/Home/Profiles/Technical/Techni
 import SoundEngineerFilterScreen from "../../../../Screens/Filter/Profiles/Technical/SoundEngineerFilterScreen";
 import TechnicalFilterScreen from "../../../../Screens/Filter/Profiles/Technical/TechnicalFilterScreen";
 import TechnicianFilterScreen from "../../../../Screens/Filter/Profiles/Technical/TechnicianFilterScreen";
-import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
+import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 const Stack = createStackNavigator();
 export default function TechnicaltStack() {
   return (
@@ -18,7 +18,7 @@ export default function TechnicaltStack() {
           headerShown: true,
           title: "Technical",
           headerRight: () => (
-            <ProfileHeaderRight screenName="TechnicalFilterScreen" />
+            <HeaderRight screenName="TechnicalFilterScreen" />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function TechnicaltStack() {
           headerShown: true,
           title: "Sound Engineer",
           headerRight: () => (
-            <ProfileHeaderRight screenName="SoundEngineerFilterScreen" />
+            <HeaderRight screenName="SoundEngineerFilterScreen" />
           ),
         }}
       />
@@ -40,7 +40,7 @@ export default function TechnicaltStack() {
           headerShown: true,
           title: "Technician",
           headerRight: () => (
-            <ProfileHeaderRight screenName="TechnicianFilterScreen" />
+            <HeaderRight screenName="TechnicianFilterScreen" />
           ),
         }}
       />

@@ -40,7 +40,7 @@ export default function VideographyFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("VideographyScreen", { filter: filter });
     } else {
-      navigation.navigate("VideographyScreen", { filter: {} });
+      navigation.navigate("VideographyScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function VideographyFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("VideographyScreen", { filter: filter });
+
+    navigation.navigate("VideographyScreen");
     setLoadingReset(false);
   }
   function renderItem() {

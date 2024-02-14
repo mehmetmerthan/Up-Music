@@ -40,7 +40,7 @@ export default function ProducersFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("ProducersScreen", { filter: filter });
     } else {
-      navigation.navigate("ProducersScreen", { filter: {} });
+      navigation.navigate("ProducersScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function ProducersFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("ProducersScreen", { filter: filter });
+
+    navigation.navigate("ProducersScreen");
     setLoadingReset(false);
   }
   function renderItem() {

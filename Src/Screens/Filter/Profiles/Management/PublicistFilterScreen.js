@@ -41,7 +41,7 @@ export default function PublicistFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("PublicistScreen", { filter: filter });
     } else {
-      navigation.navigate("PublicistScreen", { filter: {} });
+      navigation.navigate("PublicistScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function PublicistFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("PublicistScreen", { filter: filter });
+
+    navigation.navigate("PublicistScreen");
     setLoadingReset(false);
   }
   function renderItem() {

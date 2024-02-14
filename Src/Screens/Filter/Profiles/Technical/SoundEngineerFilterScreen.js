@@ -40,7 +40,7 @@ export default function SoundEngineerFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("SoundEngineerScreen", { filter: filter });
     } else {
-      navigation.navigate("SoundEngineerScreen", { filter: {} });
+      navigation.navigate("SoundEngineerScreen");
     }
     setLoading(false);
   }
@@ -49,10 +49,8 @@ export default function SoundEngineerFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("SoundEngineerScreen", { filter: filter });
+
+    navigation.navigate("SoundEngineerScreen");
     setLoadingReset(false);
   }
   function renderItem() {

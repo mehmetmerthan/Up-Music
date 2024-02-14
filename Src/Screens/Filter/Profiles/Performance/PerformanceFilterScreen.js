@@ -49,7 +49,7 @@ export default function PerformanceFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("PerformanceScreen", { filter: filter });
     } else {
-      navigation.navigate("PerformanceScreen", { filter: {} });
+      navigation.navigate("PerformanceScreen");
     }
     setLoading(false);
   }
@@ -59,10 +59,8 @@ export default function PerformanceFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("PerformanceScreen", { filter: filter });
+
+    navigation.navigate("PerformanceScreen");
     setLoadingReset(false);
   }
   function renderItem() {

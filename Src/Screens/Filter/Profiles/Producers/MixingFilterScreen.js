@@ -41,7 +41,7 @@ export default function MixingFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("MixingScreen", { filter: filter });
     } else {
-      navigation.navigate("MixingScreen", { filter: {} });
+      navigation.navigate("MixingScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function MixingFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("MixingScreen", { filter: filter });
+
+    navigation.navigate("MixingScreen");
     setLoadingReset(false);
   }
   function renderItem() {

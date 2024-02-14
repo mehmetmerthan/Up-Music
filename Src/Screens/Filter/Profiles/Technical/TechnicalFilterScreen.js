@@ -41,7 +41,7 @@ export default function TechnicalFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("TechnicalScreen", { filter: filter });
     } else {
-      navigation.navigate("TechnicalScreen", { filter: {} });
+      navigation.navigate("TechnicalScreen");
     }
     setLoading(false);
   }
@@ -50,10 +50,8 @@ export default function TechnicalFilterScreen() {
     setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("TechnicalScreen", { filter: filter });
+
+    navigation.navigate("TechnicalScreen");
     setLoadingReset(false);
   }
   function renderItem() {

@@ -50,7 +50,7 @@ export default function EventsFilterScreen() {
     if (filter.or.length > 0) {
       navigation.navigate("EventsScreen", { filter: filter });
     } else {
-      navigation.navigate("EventsScreen", {});
+      navigation.navigate("EventsScreen");
     }
     setLoading(false);
   }
@@ -60,10 +60,8 @@ export default function EventsFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    const filter = {
-      or: [],
-    };
-    navigation.navigate("EventsScreen", { filter: filter });
+
+    navigation.navigate("EventsScreen");
     setLoadingReset(false);
   }
   function renderItem() {

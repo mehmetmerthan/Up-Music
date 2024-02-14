@@ -52,7 +52,7 @@ export default function GroupSearchFilterScreen() {
         filter: filter,
       });
     } else {
-      navigation.navigate("GroupSearchScreen", {});
+      navigation.navigate("GroupSearchScreen");
     }
     setLoading(false);
   }
@@ -62,7 +62,7 @@ export default function GroupSearchFilterScreen() {
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
-    navigation.navigate("GroupSearchScreen", {});
+    navigation.navigate("GroupSearchScreen");
     setLoadingReset(false);
   }
   function renderItem() {
