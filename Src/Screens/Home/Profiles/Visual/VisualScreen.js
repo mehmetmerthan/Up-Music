@@ -15,11 +15,21 @@ export default function VisualScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
+    const additionalFilters = [
+      { tag_roles: { eq: "Photographer" } },
+      { tag_roles: { eq: "Videographer" } },
+      { tag_roles: { eq: "Director" } },
+      { tag_roles: { eq: "Editor" } },
+      { tag_roles: { eq: "Graphicer" } },
+    ];
+    const updatedFilter = filter
+      ? { ...filter, or: [...filter.or, ...additionalFilters] }
+      : { or: additionalFilters };
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: listUsers,

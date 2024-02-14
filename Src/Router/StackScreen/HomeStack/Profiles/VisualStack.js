@@ -12,7 +12,7 @@ import GraphicerFilterScreen from "../../../../Screens/Filter/Profiles/Visual/Gr
 import PhotographerFilterScreen from "../../../../Screens/Filter/Profiles/Visual/PhotographerFilterScreen";
 import VideographyFilterScreen from "../../../../Screens/Filter/Profiles/Visual/VideographyFilterScreen";
 import VisualFilterScreen from "../../../../Screens/Filter/Profiles/Visual/VisualFilterScreen";
-
+import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
 const Stack = createStackNavigator();
 export default function VisualStack() {
   return (
@@ -23,6 +23,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Visual",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="VisualFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -31,6 +34,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Director",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="DirectorFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -39,6 +45,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Editor",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="EditorFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -47,6 +56,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Graphicer",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="GraphicerFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -55,6 +67,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Photographer",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="PhotographerFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -63,6 +78,9 @@ export default function VisualStack() {
         options={{
           headerShown: true,
           title: "Videography",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="VideographyFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen

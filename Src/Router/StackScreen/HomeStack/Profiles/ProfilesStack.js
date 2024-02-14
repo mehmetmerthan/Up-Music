@@ -7,7 +7,7 @@ import ProducersStack from "./ProducersStack";
 import TechnicalStack from "./TechnicalStack";
 import VisualStack from "./VisualStack";
 import React from "react";
-
+import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
 const Stack = createStackNavigator();
 export default function ProfilesStack() {
   return (
@@ -18,6 +18,9 @@ export default function ProfilesStack() {
         options={{
           headerShown: true,
           title: "Profiles",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="ProfilesFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen

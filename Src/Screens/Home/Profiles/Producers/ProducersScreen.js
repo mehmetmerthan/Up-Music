@@ -15,11 +15,21 @@ export default function ProducersScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
+    const additionalFilters = [
+      { tag_roles: { eq: "Beatmaker" } },
+      { tag_roles: { eq: "Composer" } },
+      { tag_roles: { eq: "Mixing" } },
+      { tag_roles: { eq: "Songwriter" } },
+    ];
+    const updatedFilter = filter
+      ? { ...filter, or: [...filter.or, ...additionalFilters] }
+      : { or: additionalFilters };
+
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: listUsers,

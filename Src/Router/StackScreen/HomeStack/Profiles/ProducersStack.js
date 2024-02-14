@@ -9,6 +9,8 @@ import ComposerFilterScreen from "../../../../Screens/Filter/Profiles/Producers/
 import MixingFilterScreen from "../../../../Screens/Filter/Profiles/Producers/MixingFilterScreen";
 import ProducersFilterScreen from "../../../../Screens/Filter/Profiles/Producers/ProducersFilterScreen";
 import SongwriterScreen from "../../../../Screens/Home/Profiles/Producers/SongwriterScreen";
+import SongwriterFilterScreen from "../../../../Screens/Filter/Profiles/Producers/SongwriterFilterScreen";
+import ProfileHeaderRight from "../../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeaderRight";
 const Stack = createStackNavigator();
 export default function ProducersStack() {
   return (
@@ -19,6 +21,9 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Producers",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="ProducersFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -27,6 +32,9 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Beatmaker",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="BeatmakerFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -35,6 +43,9 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Composer",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="ComposerFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -43,6 +54,9 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Mixing Engineer",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="MixingFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -51,6 +65,9 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Songwriter",
+          headerRight: () => (
+            <ProfileHeaderRight screenName="SongwriterFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -83,6 +100,14 @@ export default function ProducersStack() {
         options={{
           headerShown: true,
           title: "Producers",
+        }}
+      />
+      <Stack.Screen
+        name="SongwriterFilterScreen"
+        component={SongwriterFilterScreen}
+        options={{
+          headerShown: true,
+          title: "Songwriter",
         }}
       />
     </Stack.Navigator>

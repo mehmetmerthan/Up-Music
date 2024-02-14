@@ -20,7 +20,6 @@ export default function PerformanceFilterScreen() {
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
-  const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);
@@ -48,9 +47,9 @@ export default function PerformanceFilterScreen() {
     }
 
     if (filter.or.length > 0) {
-      navigation.navigate("AnnouncementsScreen", { filter: filter });
+      navigation.navigate("PerformanceScreen", { filter: filter });
     } else {
-      navigation.navigate("AnnouncementsScreen", { filter: {} });
+      navigation.navigate("PerformanceScreen", { filter: {} });
     }
     setLoading(false);
   }
@@ -63,7 +62,7 @@ export default function PerformanceFilterScreen() {
     const filter = {
       or: [],
     };
-    navigation.navigate("AnnouncementsScreen", { filter: filter });
+    navigation.navigate("PerformanceScreen", { filter: filter });
     setLoadingReset(false);
   }
   function renderItem() {
@@ -124,24 +123,6 @@ export default function PerformanceFilterScreen() {
           isExpanded={expandedRoleTags}
           onPress={() => {
             setExpandedRoleTags(!expandedRoleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={roleData}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Role Tags Needed</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTagsNeeded}
-          onPress={() => {
-            setExpandedRoleTagsNeeded(!expandedRoleTagsNeeded);
           }}
           topDivider
         >

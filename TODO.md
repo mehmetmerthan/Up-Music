@@ -6,13 +6,13 @@ Project Description
 
 ### Todo
 
-- [ ] isim soyisim değil artist name olması gerekli  
 - [ ] son ui değişikliklerini yap  
 - [ ] apk build al ve test et  
 - [ ] stres testi yap  
 
 ### In Progress
 
+- [ ] isim soyisim değil artist name olması gerekli  
 - [ ] PERFORMANS da dj ekle  
 - [ ] son olarak da herşeyi kontrol et ve düzelt  
 - [ ] ana sayfaya kurumsal şirketler kısmı eklenecek  
@@ -25,10 +25,10 @@ Project Description
 - [ ] profil fotoğrafı boyutunu düzenle  
 - [ ] prfilde müzikler yana kadyırmalı olsun  
 - [ ] mesaj silme kodları yaz ve bağımlılıkları kontrol et  
-- [ ] yeni sayfa düzenini oluştur  
 
 ### Done ✓
 
+- [x] yeni sayfa düzenini oluştur  
 - [x] push notifi ekle  
 - [x] mesajlaşma için gerekli kodları yaz ve test et  
 - [x] mesaj bildirimi ve post bildirimi  için gerekli kodları yaz ve test et  

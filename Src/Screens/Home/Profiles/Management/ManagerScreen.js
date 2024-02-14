@@ -15,11 +15,16 @@ export default function ManagerScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
+    const additionalFilter = { tag_roles: { contains: "manager" } };
+
+    const updatedFilter = filter
+    ? { ...filter, or: [...filter.or, additionalFilter] }
+    : additionalFilter;
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: listUsers,

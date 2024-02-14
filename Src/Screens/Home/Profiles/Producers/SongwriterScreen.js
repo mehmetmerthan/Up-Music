@@ -15,11 +15,17 @@ export default function SongwriterScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    try {
+    const additionalFilter = { tag_roles: { contains: "songwriter" } };
+
+    const updatedFilter = filter
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : additionalFilter;
+    
+      try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: listUsers,
