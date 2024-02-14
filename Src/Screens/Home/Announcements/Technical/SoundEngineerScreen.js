@@ -1,11 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../../Utils/Queries/postQueries";
-import Post from "../../../Components/PostComponents/Post";
-import MusicianSearchHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/MusicianSearchHeader";
+import { postsByDate } from "../../../../Utils/Queries/postQueries";
+import Post from "../../../../Components/PostComponents/Post";
+import SoundEngineerHeader from "../../../../Components/PostComponents/Headers/AnnouncementsHeaders/Technical/SoundEngineerHeader";
 import { useRoute } from "@react-navigation/native";
-export default function MusicianSearchScreen() {
+export default function SoundEngineerScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -15,9 +15,8 @@ export default function MusicianSearchScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = {
-      post_type: { eq: "musician_post" },
-    };
+    const additionalFilter = { tag_roles: { contains: "Sound Engineer" } };
+
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : additionalFilter;
@@ -67,13 +66,12 @@ export default function MusicianSearchScreen() {
       onEndReachedThreshold={0.5}
       ListFooterComponent={loading && <ActivityIndicator />}
       onRefresh={() => {
-        console.log("onRefresh running");
         setRefreshing(true);
         setPostNextToken(null);
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<MusicianSearchHeader />}
+      ListHeaderComponent={<SoundEngineerHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

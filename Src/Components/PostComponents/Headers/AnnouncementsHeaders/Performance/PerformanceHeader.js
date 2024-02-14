@@ -2,26 +2,35 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function GroupSearchHeader() {
+export default function PerformanceHeader() {
   const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
           <Chip
-            buttonStyle={styles.chip}
-            title={"Bands"}
             type="outline"
+            containerStyle={styles.chip}
+            title={"Performance"}
             size="lg"
           />
           <Chip
-            type="outline"
-            containerStyle={styles.chip}
-            title={"Reset"}
+            buttonStyle={styles.chip}
+            title={"Instrumentalist"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsScreen");
+                navigation.navigate("AnnouncementsInstrumentalistScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Singer"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("AnnouncementsSingerScreen");
               }
             }}
           />
@@ -38,6 +47,5 @@ const styles = StyleSheet.create({
   },
   chip: {
     marginHorizontal: 10,
-    width: 100,
   },
 });

@@ -2,59 +2,65 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function UserProfileHeaderHeader() {
+export default function VisualHeader() {
   const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
           <Chip
-            buttonStyle={styles.chip}
-            title={"Management"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsManagementStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Performance"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsPerformanceStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Producers"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsProducersStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Technical"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsTechnicalStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
+            type="outline"
+            containerStyle={styles.chip}
             title={"Visual"}
             size="lg"
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Director"}
+            size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsVisualStack");
+                navigation.navigate("AnnouncementsDirectorScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Editor"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("AnnouncementsEditorScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Graphicer"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("AnnouncementsGraphicerScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Photographer"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("AnnouncementsPhotographerScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Videography"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("AnnouncementsVideographyScreen");
               }
             }}
           />

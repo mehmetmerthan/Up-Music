@@ -1,15 +1,15 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { React, useState } from "react";
-import Tag from "../../../Components/Tag";
+import Tag from "../../../../Components/Tag";
 import { Button } from "@rneui/themed";
 import {
   CityPicker,
   CountryPicker,
-} from "../../../Components/PickerComponents/LocationPicker";
-import { styleTagData, roleData } from "../../../../data/TagData";
+} from "../../../../Components/PickerComponents/LocationPicker";
+import { styleTagData, roleData } from "../../../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function MusicianSearchFilterScreen() {
+export default function InstrumentalistFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -20,7 +20,6 @@ export default function MusicianSearchFilterScreen() {
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
-  const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);
@@ -48,9 +47,9 @@ export default function MusicianSearchFilterScreen() {
     }
 
     if (filter.or.length > 0) {
-      navigation.navigate("MusicianSearchScreen", { filter: filter });
+      navigation.navigate("AnnouncementsInstrumentalistScreen", { filter: filter });
     } else {
-      navigation.navigate("MusicianSearchScreen");
+      navigation.navigate("AnnouncementsInstrumentalistScreen");
     }
     setLoading(false);
   }
@@ -61,7 +60,7 @@ export default function MusicianSearchFilterScreen() {
     setSelectedCity("");
     setSelectedCountry("");
 
-    navigation.navigate("MusicianSearchScreen");
+    navigation.navigate("AnnouncementsInstrumentalistScreen");
     setLoadingReset(false);
   }
   function renderItem() {
@@ -122,24 +121,6 @@ export default function MusicianSearchFilterScreen() {
           isExpanded={expandedRoleTags}
           onPress={() => {
             setExpandedRoleTags(!expandedRoleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={roleData}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Role Tags Needed</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTagsNeeded}
-          onPress={() => {
-            setExpandedRoleTagsNeeded(!expandedRoleTagsNeeded);
           }}
           topDivider
         >

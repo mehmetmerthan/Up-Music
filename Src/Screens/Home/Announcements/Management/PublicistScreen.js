@@ -1,11 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../../Utils/Queries/postQueries";
-import Post from "../../../Components/PostComponents/Post";
-import GroupSearchHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/GroupSearchHeader";
+import { postsByDate } from "../../../../Utils/Queries/postQueries";
+import Post from "../../../../Components/PostComponents/Post";
+import PublicistHeader from "../../../../Components/PostComponents/Headers/AnnouncementsHeaders/Management/PublicistHeader";
 import { useRoute } from "@react-navigation/native";
-export default function GroupSearchScreen() {
+export default function PublicistScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -15,9 +15,7 @@ export default function GroupSearchScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = {
-      post_type: { eq: "group_post" },
-    };
+    const additionalFilter = { tag_roles: { contains: "publicist" } };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : additionalFilter;
@@ -46,11 +44,13 @@ export default function GroupSearchScreen() {
       setRefreshing(false);
     }
   };
+
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
     fetchItems();
   }, [filter]);
+
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
       await fetchItems();
@@ -70,7 +70,7 @@ export default function GroupSearchScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<GroupSearchHeader />}
+      ListHeaderComponent={<PublicistHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

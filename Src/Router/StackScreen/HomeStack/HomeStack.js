@@ -6,7 +6,7 @@ import StagesScreen from "../../../Screens/Home/StagesScreen";
 import EventsScreen from "../../../Screens/Home/EventsScreen";
 import EventsFilterScreen from "../../../Screens/Filter/EventsFilterScreen";
 import StagesFilterScreen from "../../../Screens/Filter/StagesFilterScreen";
-import AnnouncementStack from "./AnnouncementStack";
+import AnnouncementStack from "./Announcements/AnnouncementStack";
 import ProfilesStack from "./Profiles/ProfilesStack";
 import HeaderRight from "../../../Components/PostComponents/Headers/HeaderRight";
 import UserDetailScreen from "../../../Screens/UserDetailScreen";
