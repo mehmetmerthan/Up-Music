@@ -1,15 +1,14 @@
 import AnnouncementsScreen from "../../../../Screens/Home/Announcements/AnnouncementsScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import AnnouncementsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsFilterScreen";
-import ManagementStack from "./ManagementStack";
-import PerformanceStack from "./PerformanceStack";
-import ProducersStack from "./ProducersStack";
-import TechnicalStack from "./TechnicalStack";
-import VisualStack from "./VisualStack";
 import React from "react";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 import UserDetailScreen from "../../../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../../../Screens/Message/MessageDetailScreen";
+import AnnouncementsMusiciansStack from "./AnnouncementsMusiciansStack";
+import AnnouncementsArtistsScreen from "../../../../Screens/Home/Announcements/AnnouncementsArtistsScreen";
+import AnnouncementsBandsScreen from "../../../../Screens/Home/Announcements/AnnouncementsBandsScreen";
+import AnnouncementsStagesScreen from "../../../../Screens/Home/Announcements/AnnouncementsStagesScreen";
 const Stack = createStackNavigator();
 export default function AnnouncementsStack() {
   return (
@@ -26,43 +25,35 @@ export default function AnnouncementsStack() {
         }}
       />
       <Stack.Screen
-        name="AnnouncementsManagementStack"
-        component={ManagementStack}
+        name="AnnouncementsMusiciansStack"
+        component={AnnouncementsMusiciansStack}
         options={{
           headerShown: false,
           title: "",
         }}
       />
       <Stack.Screen
-        name="AnnouncementsPerformanceStack"
-        component={PerformanceStack}
+        name="AnnouncementsArtistsScreen"
+        component={AnnouncementsArtistsScreen}
         options={{
-          headerShown: false,
-          title: "",
+          headerShown: true,
+          title: "Artists",
         }}
       />
       <Stack.Screen
-        name="AnnouncementsProducersStack"
-        component={ProducersStack}
+        name="AnnouncementsBandsScreen"
+        component={AnnouncementsBandsScreen}
         options={{
-          headerShown: false,
-          title: "",
+          headerShown: true,
+          title: "Bands",
         }}
       />
       <Stack.Screen
-        name="AnnouncementsTechnicalStack"
-        component={TechnicalStack}
+        name="AnnouncementsStagesScreen"
+        component={AnnouncementsStagesScreen}
         options={{
-          headerShown: false,
-          title: "",
-        }}
-      />
-      <Stack.Screen
-        name="AnnouncementsVisualStack"
-        component={VisualStack}
-        options={{
-          headerShown: false,
-          title: "",
+          headerShown: true,
+          title: "Stages",
         }}
       />
       <Stack.Screen

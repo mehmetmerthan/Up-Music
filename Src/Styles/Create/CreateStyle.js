@@ -10,33 +10,29 @@ const styles = StyleSheet.create({
     },
     column: {
       flex: 1,
-      // justifyContent: 'center',
-      // alignItems: 'center',
       borderWidth: 1, 
       borderColor: '#ccc',
-      shadowColor: '#007BFF', 
-      shadowOpacity: 0.1,
-      shadowRadius: 5,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
+      // shadowColor: '#007BFF', 
+      // shadowOpacity: 0.1,
+      // shadowRadius: 5,
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 4,
+      // },
     },
     icon: {
-      // justifyContent: 'center',
-      //alignItems: 'center',
       alignSelf: 'center',
-      width: 200,
-      height: 180,
-      //position: 'absolute',
-      //backgroundColor: 'red',
+      width: 100,
+      height: 100,
       marginTop: 40,
       marginRight: 45,
     },
-    text: {
-      //marginTop: 10, 
+    decsriptionText: {
+      //marginTop: 40,
+      textAlign: 'center',
       fontSize: 16,
-      //padding: 10,
+      fontWeight: '300',
+      padding: 5,
     },
   });
 

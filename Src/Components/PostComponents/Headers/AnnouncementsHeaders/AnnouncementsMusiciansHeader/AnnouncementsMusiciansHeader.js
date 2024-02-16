@@ -2,49 +2,35 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function UserProfileHeaderHeader() {
+export default function AnnouncementsStagesHeader() {
   const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.chipContainer}>
           <Chip
-            buttonStyle={styles.chip}
-            title={"Musicians"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsMusiciansStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Bands"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("AnnouncementsBandsScreen");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
+            type="outline"
+            containerStyle={styles.chip}
             title={"Stages"}
             size="lg"
+          />
+          <Chip
+            buttonStyle={styles.chip}
+            title={"Collaboration"}
+            size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsStagesScreen");
+                navigation.navigate("AnnouncementsCollaborationScreen");
               }
             }}
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Artists"}
+            title={"Join Group"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsArtistsScreen");
+                navigation.navigate("AnnouncementsJoinGroupScreen");
               }
             }}
           />
