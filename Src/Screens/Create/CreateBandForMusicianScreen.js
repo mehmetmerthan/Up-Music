@@ -24,13 +24,13 @@ export default function CreateBandForMusicianScreen() {
     await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      post_type: "group_post",
+      post_type: "band_post",
       location: selectedLocation,
       tag_roles_needed: selectedRoleTags,
       tag_roles: selectedRoleExisting,
     });
     setLoading(false);
-    //navigation.navigate("SearchGroupStack");
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (

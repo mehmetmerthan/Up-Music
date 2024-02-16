@@ -15,13 +15,10 @@ export default function AnnouncementsStagesScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = [
-      { tag_roles: { eq: "manager" } },
-      { tag_roles: { eq: "publicist" } },
-    ];
+    const additionalFilter = { post_type: { eq: "stage_post" } };
     const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : { or: additionalFilter };
     try {
       const variables = {
         limit: 1,

@@ -7,55 +7,45 @@ import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData, roleData } from "../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
-export default function CreateOtherScreen() {
+export default function CreateArtistScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  const [selectedRoleExisting, setSelectedRoleExisting] = useState([]);
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about your group");
+      alert("Please write something");
       return;
     }
     setLoading(true);
     await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      post_type: "group_post",
+      post_type: "artist_post",
       location: selectedLocation,
       tag_roles_needed: selectedRoleTags,
-      tag_roles: selectedRoleExisting,
     });
     setLoading(false);
-    //navigation.navigate("SearchGroupStack");
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (
       <View>
         <View>
-          <Text style={styles.header}>Write something about the group</Text>
+          <Text style={styles.header}>Write something</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Searching a drummer for a rock band"
+            placeholder="Searching a photographer for my album cover."
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select group location</Text>
+          <Text style={styles.header}>Select a location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <CityPicker setSelectedLocation={setSelectedLocation}/>
-          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select the musicians existing</Text>
-          <Divider inset={true} insetType="middle" orientation="vertical" />
-          <Tag
-            tagData={roleData}
-            selectedTags={selectedRoleExisting}
-            setSelectedTags={setSelectedRoleExisting}
-          />
+          <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians needed</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
@@ -74,7 +64,7 @@ export default function CreateOtherScreen() {
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
-            title="Create group"
+            title="Create artist notice"
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

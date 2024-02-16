@@ -29,6 +29,7 @@ export default function CreateEventScreen() {
       location: selectedLocation,
     });
     setLoading(false);
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (

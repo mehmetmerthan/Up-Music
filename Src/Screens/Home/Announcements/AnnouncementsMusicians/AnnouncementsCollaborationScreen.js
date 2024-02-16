@@ -7,7 +7,7 @@ import AnnouncementsCallobrationHeader from "../../../../Components/PostComponen
 import { useRoute } from "@react-navigation/native";
 export default function AnnouncementsCollaborationScreen() {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const route = useRoute();
@@ -15,13 +15,10 @@ export default function AnnouncementsCollaborationScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = [
-      { tag_roles: { eq: "manager" } },
-      { tag_roles: { eq: "publicist" } },
-    ];
+    const additionalFilter = { tag_roles: { eq: "collaborate_post" } };
     const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : { or: additionalFilter };
     try {
       const variables = {
         limit: 1,

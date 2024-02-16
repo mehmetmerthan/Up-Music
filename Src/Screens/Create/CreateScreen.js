@@ -41,7 +41,7 @@ const CreateScreen = () => {
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("CreateGroupScreen")}
+          onPress={() => navigation.navigate("CreateBandForMusicianScreen")}
         >
           <Image
             source={require("../../../assets/group-search-notice.png")}
@@ -54,7 +54,7 @@ const CreateScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("CreateMusicianScreen")}
+          onPress={() => navigation.navigate("CreateMusicianForBandScreen")}
         >
           <Image
             source={require("../../../assets/musician-search-notice.png")}
@@ -69,7 +69,7 @@ const CreateScreen = () => {
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("")}
+          onPress={() => navigation.navigate("CreateMusicianForCollaborateScreen")}
         >
           <Image
             source={require("../../../assets/create-stage.png")}
@@ -84,7 +84,7 @@ const CreateScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("")}
+          onPress={() => navigation.navigate("CreateArtistScreen")}
         >
           <Image
             source={require("../../../assets/create-job-notice.png")}

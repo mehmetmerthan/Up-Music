@@ -16,8 +16,8 @@ export default function AnnouncementsMusiciansScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { eq: "manager" } },
-      { tag_roles: { eq: "publicist" } },
+      { tag_roles: { eq: "collaborate_post" } },
+      { tag_roles: { eq: "musicianForBand_post" } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

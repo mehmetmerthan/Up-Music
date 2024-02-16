@@ -24,11 +24,11 @@ export default function CreateMusicianForBandScreen() {
       content: text,
       tag_roles: selectedRoleTags,
       tag_styles: selectedStyleTags,
-      post_type: "musician_post",
+      post_type: "musicianForBand_post",
       location: selectedLocation,
     });
     setLoading(false);
-    //navigation.navigate("SearchMusicianStack");
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (

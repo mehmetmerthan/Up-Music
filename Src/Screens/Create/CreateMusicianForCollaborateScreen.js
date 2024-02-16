@@ -13,49 +13,39 @@ export default function CreateMusicianForCollaborateScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
-  const [selectedRoleExisting, setSelectedRoleExisting] = useState([]);
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about your group");
+      alert("Please write something");
       return;
     }
     setLoading(true);
     await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      post_type: "group_post",
+      post_type: "collaborate_post",
       location: selectedLocation,
       tag_roles_needed: selectedRoleTags,
-      tag_roles: selectedRoleExisting,
     });
     setLoading(false);
-    //navigation.navigate("SearchGroupStack");
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (
       <View>
         <View>
-          <Text style={styles.header}>Write something about the group</Text>
+          <Text style={styles.header}>Write something</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Searching a drummer for a rock band"
+            placeholder="Need a mix for my song."
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select group location</Text>
+          <Text style={styles.header}>Select a location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <CityPicker setSelectedLocation={setSelectedLocation}/>
-          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select the musicians existing</Text>
-          <Divider inset={true} insetType="middle" orientation="vertical" />
-          <Tag
-            tagData={roleData}
-            selectedTags={selectedRoleExisting}
-            setSelectedTags={setSelectedRoleExisting}
-          />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians needed</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />

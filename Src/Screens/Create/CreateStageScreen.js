@@ -8,7 +8,7 @@ import { LocationPicker } from "../../Components/PickerComponents/LocationPicker
 import UploadPost from "../../Utils/Uploads/uploadPost";
 import { styleTagData } from "../../../data/TagData";
 import { useNavigation } from "@react-navigation/native";
-export default function CreateMusicianForStageScreen() {
+export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function CreateMusicianForStageScreen() {
       price: price,
     });
     setLoading(false);
-    //navigation.navigate("SearchStageStack");
+    navigation.navigate("AnnouncementsStack");
   }
   function renderItem() {
     return (

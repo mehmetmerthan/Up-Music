@@ -3,10 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CreateScreen from "../../Screens/Create/CreateScreen";
 import CreateEventScreen from "../../Screens/Create/CreateEventScreen";
 import CreateMusicianForBandScreen from "../../Screens/Create/CreateMusicianForBandScreen";
-import CreateMusicianForStageScreen from "../../Screens/Create/CreateMusicianForStageScreen";
+import CreateStageScreen from "../../Screens/Create/CreateStageScreen";
 import CreateBandForMusicianScreen from "../../Screens/Create/CreateBandForMusicianScreen";
 import CreateMusicianForCollaborateScreen from "../../Screens/Create/CreateMusicianForCollaborateScreen";
-import CreateOtherScreen from "../../Screens/Create/CreateOtherScreen";
+import CreateArtistScreen from "../../Screens/Create/CreateArtistScreen";
 const Stack = createStackNavigator();
 const CreateStack = () => (
   <Stack.Navigator>
@@ -46,15 +46,15 @@ const CreateStack = () => (
       }}
     />
     <Stack.Screen
-      name="CreateMusicianForStageScreen"
-      component={CreateMusicianForStageScreen}
+      name="CreateStageScreen"
+      component={CreateStageScreen}
       options={{
         title: "Create Stage",
       }}
     />
     <Stack.Screen
-      name="CreateOtherScreen"
-      component={CreateOtherScreen}
+      name="CreateArtistScreen"
+      component={CreateArtistScreen}
       options={{
         title: "Create",
       }}
