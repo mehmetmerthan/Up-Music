@@ -7,6 +7,8 @@ import InstrumentalistFilterScreen from "../../../../Screens/Filter/Profiles/Per
 import PerformanceFilterScreen from "../../../../Screens/Filter/Profiles/Performance/PerformanceFilterScreen";
 import SingerFilterScreen from "../../../../Screens/Filter/Profiles/Performance/SingerFilterScreen";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
+import DjScreen from "../../../../Screens/Home/Profiles/Performance/DjScreen";
+import DjFilterScreen from "../../../../Screens/Filter/Profiles/Performance/DjFilterScreen";
 const Stack = createStackNavigator();
 export default function PerformanceStack() {
   return (
@@ -39,9 +41,24 @@ export default function PerformanceStack() {
         options={{
           headerShown: true,
           title: "Publicist",
-          headerRight: () => (
-            <HeaderRight screenName="SingerFilterScreen" />
-          ),
+          headerRight: () => <HeaderRight screenName="SingerFilterScreen" />,
+        }}
+      />
+      <Stack.Screen
+        name="DjScreen"
+        component={DjScreen}
+        options={{
+          headerShown: true,
+          title: "Dj",
+          headerRight: () => <HeaderRight screenName="DjFilterScreen" />,
+        }}
+      />
+      <Stack.Screen
+        name="DjFilterScreen"
+        component={DjFilterScreen}
+        options={{
+          headerShown: true,
+          title: "filter",
         }}
       />
       <Stack.Screen

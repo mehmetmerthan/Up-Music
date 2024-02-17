@@ -1,55 +1,31 @@
-import { React, useState } from "react";
-import { View, TextInput, StyleSheet, Text, Image } from "react-native";
+import React from "react";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "@rneui/themed";
-import signIn from "../../Utils/Auth/SignIn";
-import { Auth } from "aws-amplify";
 const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
   password: yup
     .string()
-    .min(8, "password must be least 8 characters")
+    .min(6, "password must be least 6 characters")
     .required("password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
-const SignInScreen = () => {
-  const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
-  const [error, setError] = useState(null);
+const ForgotPassNewPassScreen = () => {
   const navigation = useNavigation();
-  function navigateToSignUp() {
-    setLoading2(true);
-    navigation.navigate("OnboardingScreen1");
-    setLoading2(false);
+  function navigateToSignIn() {
+    navigation.navigate("SignInScreen");
   }
-  const handleRegistration = async (values) => {
-    setError(null);
-    setLoading(true);
-    const { error } = await signIn({
-      email: values.email,
-      password: values.password,
-    });
-    if (error) {
-      if (error.code === "UserNotConfirmedException") {
-        await Auth.resendSignUp(values.email);
-        navigation.navigate("VerifyEmailScreen", {
-          email: values.email,
-          password: values.password,
-        });
-        setLoading(false);
-        return;
-      }
-      setError(error.message);
-      setLoading(false);
-      return;
-    }
-    setLoading(false);
-    navigation.navigate("BottomTab");
+  const handleRegistration = (values) => {
+    console.log(values);
   };
   return (
     <KeyboardAwareScrollView
@@ -57,15 +33,9 @@ const SignInScreen = () => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-          style={styles.image}
-        />
-      </View>
-
+      <Text style={styles.headerText}>Register</Text>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ password: "", confirmPassword: "" }}
         onSubmit={handleRegistration}
         validationSchema={validationSchema}
       >
@@ -90,7 +60,7 @@ const SignInScreen = () => {
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
-              <Text style={styles.subText}> Password</Text>
+              <Text style={styles.subText}>New Password</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Password"
@@ -102,26 +72,33 @@ const SignInScreen = () => {
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
+              <Text style={styles.subText}>New Password confirm</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Password"
+                onChangeText={handleChange("confirmPassword")}
+                onBlur={handleBlur("confirmPassword")}
+                value={values.confirmPassword}
+                secureTextEntry
+              />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+              )}
             </View>
-            {error && <Text style={styles.errorText}>{error}</Text>}
-            <Button
-              loading={loading}
+            <TouchableOpacity
               onPress={handleSubmit}
-              buttonStyle={styles.buttonRegister}
-              title={"LogIn"}
-              titleStyle={styles.buttonTextRegister}
-            />
+              style={styles.buttonRegister}
+            >
+              <Text style={styles.buttonTextRegister}>Register</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
-      <Button
-        loading={loading2}
-        title={"Create new account"}
-        buttonStyle={styles.button}
-        titleStyle={styles.buttonText}
-        onPress={navigateToSignUp}
-        type="outline"
-      />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={{}}>
+          <Text style={styles.buttonText}>Have an account?</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAwareScrollView>
   );
 };
@@ -154,6 +131,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 12,
   },
+  buttonText: {
+    color: "#000000",
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 26,
+  },
   input: {
     height: 40,
     width: "80%",
@@ -175,34 +164,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 16,
   },
-  button: {
-    marginVertical: 15,
-    borderRadius: 8,
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "#000000",
-  },
   buttonRegister: {
+    backgroundColor: "#3498db",
+    padding: 12,
     borderRadius: 8,
-    marginVertical: 6,
+    marginTop: 6,
+    alignItems: "center",
+    justifyContent: "center",
     marginHorizontal: 50,
   },
   buttonTextRegister: {
     color: "#fff",
-  },
-  image: {
-    width: 300,
-    height: 300,
-    resizeMode: "contain",
-    alignSelf: "center",
-  },
-  imageContainer: {
-    padding: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.142)",
-    borderBottomEndRadius: 30,
-    borderBottomStartRadius: 30,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
-export default SignInScreen;
+export default ForgotPassNewPassScreen;

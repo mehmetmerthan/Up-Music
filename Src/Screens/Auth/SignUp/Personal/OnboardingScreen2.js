@@ -2,9 +2,9 @@ import { React, useState } from "react";
 import { View, Text, TextInput, FlatList } from "react-native";
 import { Button, Divider } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
-import styles from "../../Styles/OnBoardingStyle";
-import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
-import useMedia from "../../Components/PickerComponents/useMedia";
+import styles from "../../../../Styles/OnBoardingStyle";
+import { CityPicker } from "../../../../Components/PickerComponents/LocationPicker";
+import useMedia from "../../../../Components/PickerComponents/useMedia";
 const OnboardingScreen2 = ({ route }) => {
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
   const { MediaPickerAvatarComponent, image } = useMedia();

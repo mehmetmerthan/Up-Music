@@ -6,7 +6,7 @@ import { Amplify, Auth, API } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import Ex from "../ex";
 import * as queries from "../graphql/queries";
-import CompleteProfileScreen from "../Screens/LogIn/CompleteProfileScreen";
+import CompleteProfileScreen from "../Screens/Auth/SignIn/CompleteProfileScreen";
 import { LogBox } from "react-native";
 export default function Router() {
   const [redirect, setRedirect] = useState(null);

@@ -9,7 +9,7 @@ const WelcomeScreen = () => {
   const navigation = useNavigation();
   function navigateToNextScreen() {
     setIsLoadingRight(true);
-    navigation.navigate("OnboardingScreen1");
+    navigation.navigate("SelectionScreen");
     setIsLoadingRight(false);
   }
   function navigateToSignIn() {

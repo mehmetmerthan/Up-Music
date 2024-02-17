@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
-import styles from "../../Styles/OnBoardingStyle";
-import Experiences from "../../Components/Experiences";
-import AddExperience from "../../Components/AddExperiences";
+import styles from "../../../../Styles/OnBoardingStyle";
+import Experiences from "../../../../Components/Experiences";
+import AddExperience from "../../../../Components/AddExperiences";
 const OnboardingScreen3 = ({ route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [experiences, setExperiences] = useState([]);

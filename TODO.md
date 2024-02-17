@@ -12,26 +12,15 @@ Project Description
 
 ### In Progress
 
-- [ ] duyuru  profil gibi olacak  
-- [ ] oluştur ilan düzenle  
-- [ ] mekanlar için eventde bölüm oluştur  
-- [ ] ana sayfaya kurumsal şirketler kısmı eklenecek  
 - [ ] girişde kurumsal kısı ekle  
-- [ ] grup duyuruları artist duyuruları  
-- [ ] PERFORMANS da dj ekle  
-- [ ] artistten de grupdaki gibi ne aradığımı yazmak gerek  
-- [ ] artist ayfasında bilgiler kendi profilinden otomatik olarak gelsin  
-- [ ] isim soyisim değil artist name olması gerekli  
-- [ ] stage afis ön pana çıkar pp küçült  
+- [ ] ana sayfaya kurumsal şirketler kısmı eklenecek  
 - [ ] profil fotoğrafı boyutunu düzenle  
 - [ ] prfilde müzikler yana kadyırmalı olsun  
-- [ ] son olarak da herşeyi kontrol et ve düzelt  
+- [ ] stage afis ön pana çıkar pp küçült  
+- [ ] isim soyisim değil artist name olması gerekli  
+- [ ] mekanlar için eventde bölüm oluştur  
 
 ### Done ✓
 
-- [x] mesaj silme kodları yaz ve bağımlılıkları kontrol et  
-- [x] yeni sayfa düzenini oluştur  
-- [x] push notifi ekle  
-- [x] mesajlaşma için gerekli kodları yaz ve test et  
-- [x] mesaj bildirimi ve post bildirimi  için gerekli kodları yaz ve test et  
+- [x] PERFORMANS da dj ekle  
 

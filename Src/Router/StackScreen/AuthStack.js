@@ -1,21 +1,24 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import SignUpScreen from "../../Screens/LogIn/SignUpScreen";
-import SignInScreen from "../../Screens/LogIn/SignInScreen";
-import VerifyEmailScreen from "../../Screens/LogIn/VerifyEmailScreen";
-import ForgotPassScreen from "../../Screens/LogIn/ForgotPassScreen";
-import ForgotPassVerifyScreen from "../../Screens/LogIn/ForgotPassVerifyScreen";
-import ForgotPassNewPassScreen from "../../Screens/LogIn/ForgotPassNewPassScreen";
-import ResetPassScreen from "../../Screens/LogIn/ResetPassScreen";
-import WelcomeScreen from "../../Screens/Onboarding/WelcomeScreen";
-import OnboardingScreen1 from "../../Screens/Onboarding/OnboardingScreen1";
-import OnboardingScreen2 from "../../Screens/Onboarding/OnboardingScreen2";
-import OnboardingScreen3 from "../../Screens/Onboarding/OnboardingScreen3";
+import PersonalSignUpScreen from "../../Screens/Auth/SignUp/Personal/PersonalSignUpScreen";
+import EnterpriseSignUpScreen from "../../Screens/Auth/SignUp/Enterprise/EnterpriseSignUpScreen";
+import SignInScreen from "../../Screens/Auth/SignIn/SignInScreen";
+import VerifyEmailScreen from "../../Screens/Auth/SignUp/VerifyEmailScreen";
+import ForgotPassScreen from "../../Screens/Auth/SignIn/ForgotPassScreen";
+import ForgotPassVerifyScreen from "../../Screens/Auth/SignIn/ForgotPassVerifyScreen";
+import ForgotPassNewPassScreen from "../../Screens/Auth/SignIn/ForgotPassNewPassScreen";
+import ResetPassScreen from "../../Screens/Auth/SignIn/ResetPassScreen";
+import WelcomeScreen from "../../Screens/Auth/WelcomeScreen";
+import SelectionScreen from "../../Screens/Auth/SignUp/SelectionScreen";
+import EnterpriseSelectionScreen from "../../Screens/Auth/SignUp/Enterprise/EnterpriseSelectionScreen";
+import OnboardingScreen1 from "../../Screens/Auth/SignUp/Personal/OnboardingScreen1";
+import OnboardingScreen2 from "../../Screens/Auth/SignUp/Personal/OnboardingScreen2";
+import OnboardingScreen3 from "../../Screens/Auth/SignUp/Personal/OnboardingScreen3";
 import BottomTab from "../BottomTab/BottomTab";
 export default function AuthStack() {
-  const AuthStack = createStackNavigator();
+  const Stack = createStackNavigator();
   return (
-    <AuthStack.Navigator
+    <Stack.Navigator
       initialRouteName="WelcomeScreen"
       screenOptions={{
         cardStyleInterpolator: ({ current, layouts }) => {
@@ -38,35 +41,56 @@ export default function AuthStack() {
         },
       }}
     >
-      <AuthStack.Screen
+      <Stack.Screen
         name="SignUpScreen"
-        component={SignUpScreen}
+        component={EnterpriseSignUpScreen}
         options={{
           title: "SignUp",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
+        name="PersonalSignUpScreen"
+        component={PersonalSignUpScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
+        name="SelectionScreen"
+        component={SelectionScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
+        name="EnterpriseSelectionScreen"
+        component={EnterpriseSelectionScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
         name="SignInScreen"
         component={SignInScreen}
         options={{
           title: "SignIn",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="VerifyEmailScreen"
         component={VerifyEmailScreen}
         options={{
           title: "Verify Email",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="ForgotPassScreen"
         component={ForgotPassScreen}
         options={{
           title: "Forgot Password",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="ForgotPassVerifyScreen"
         component={ForgotPassVerifyScreen}
         options={{
@@ -74,45 +98,45 @@ export default function AuthStack() {
         }}
       />
 
-      <AuthStack.Screen
+      <Stack.Screen
         name="ForgotPassNewScreen"
         component={ForgotPassNewPassScreen}
         options={{
           title: "New Password",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="ResetPassScreen"
         component={ResetPassScreen}
         options={{
           title: "Reset Password",
         }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
         options={{ title: "Welcome !" }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="OnboardingScreen1"
         component={OnboardingScreen1}
         options={{ title: "Something" }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="OnboardingScreen2"
         component={OnboardingScreen2}
         options={{ title: "Tell about yourself" }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="OnboardingScreen3"
         component={OnboardingScreen3}
         options={{ title: "Have an any eperience ?" }}
       />
-      <AuthStack.Screen
+      <Stack.Screen
         name="BottomTab"
         component={BottomTab}
         options={{ headerShown: false, title: "" }}
       />
-    </AuthStack.Navigator>
+    </Stack.Navigator>
   );
 }

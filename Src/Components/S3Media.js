@@ -113,15 +113,75 @@ export function S3ImageAvatar(props) {
     </>
   );
 }
+export function S3ImageProfile(props) {
+  const { imageKey = "", size, accessory, url = null } = props;
+  const [mediaUrl, setMediaUrl] = useState("");
+  useEffect(() => {
+    async function getMediaUrl() {
+      try {
+        if (imageKey !== "" && url === null) {
+          const result = await Storage.get(imageKey, {
+            validateObjectExistence: true,
+          });
+          setMediaUrl(result);
+        } else if (url !== null) {
+          setMediaUrl(url);
+        }
+      } catch (error) {
+        setMediaUrl("");
+      }
+    }
+    getMediaUrl();
+  }, [imageKey, url]);
+  return (
+    <>
+      {mediaUrl !== "" ? (
+        <Avatar
+          //size={size}
+          source={{ uri: mediaUrl }}
+          containerStyle={{
+            backgroundColor: "transparent",
+            width: "100%",
+            height: 300,
+          }}
+          avatarStyle={{
+            //width: "100%",
+            //height: 300,
+          }}
+          overlayContainerStyle={{
+            backgroundColor: "transparent",
+            width: "100%",
+            height: 300,
+          }}
+        >
+          <Skeleton
+            circle
+            width={size}
+            height={size}
+            style={{
+              position: "absolute",
+              zIndex: -1,
+              borderRadius: size / 2,
+            }}
+          />
+
+          {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
+        </Avatar>
+      ) : (
+        <Avatar
+          rounded
+          size={size}
+          icon={{ name: "user", type: "font-awesome", color: "#4a4a4a" }}
+          containerStyle={{
+            backgroundColor: "#CCC",
+          }}
+        >
+          {accessory && <Avatar.Accessory size={50} onPress={accessory} />}
+        </Avatar>
+      )}
+    </>
+  );
+}
 
 const styles = StyleSheet.create({
-  userProfileTopBg: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: "",
-    height: "",
-  },
 });

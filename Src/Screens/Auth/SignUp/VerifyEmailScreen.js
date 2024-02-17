@@ -4,9 +4,9 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-import { confirmSignUp, resendSignUp } from "../../Utils/Auth/confirmSignUp";
+import { confirmSignUp, resendSignUp } from "../../../Utils/Auth/confirmSignUp";
 import { Button } from "@rneui/themed";
-import UploadUser from "../../Utils/Uploads/uploadUser";
+import UploadUser from "../../../Utils/Uploads/uploadUser";
 import { Auth } from "aws-amplify";
 const validationSchema = yup.object().shape({
   code: yup.string().required("code is required"),

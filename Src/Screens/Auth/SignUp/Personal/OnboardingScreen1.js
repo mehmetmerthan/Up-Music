@@ -2,9 +2,9 @@ import { React, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
-import Tag from "../../Components/Tag";
-import { styleTagData, roleData } from "../../../data/TagData";
-import styles from "../../Styles/OnBoardingStyle";
+import Tag from "../../../../Components/Tag";
+import { styleTagData, roleData } from "../../../../../data/TagData";
+import styles from "../../../../Styles/OnBoardingStyle";
 import { Divider } from "@rneui/themed";
 const OnboardingScreen1 = () => {
   const navigation = useNavigation();
