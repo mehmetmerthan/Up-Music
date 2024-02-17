@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
@@ -29,6 +28,7 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 const VenueSignUpScreen = () => {
+  const { selectedLocation, image } = route?.params || {};
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
@@ -47,6 +47,10 @@ const VenueSignUpScreen = () => {
       });
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,
+        password: values.password,
+        user_type: "venue",
+        location: selectedLocation,
+        urlPP: image,
       });
     } catch (error) {
       console.log(error);
@@ -60,13 +64,9 @@ const VenueSignUpScreen = () => {
     setLoading(false);
     setError(null);
   };
+
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.scrollContainer}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={true}
-    >
-      <Text style={styles.headerText}>Register</Text>
+    <View style={styles.containerLabel}>
       <Formik
         initialValues={{
           email: "",
@@ -85,7 +85,7 @@ const VenueSignUpScreen = () => {
           touched,
         }) => (
           <View>
-            <View style={styles.container}>
+            <View>
               <Text style={styles.subText}> Email</Text>
               <TextInput
                 style={styles.input}
@@ -141,42 +141,27 @@ const VenueSignUpScreen = () => {
         type="outline"
         loading={loading2}
       />
-    </KeyboardAwareScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+  containerLabel: {
+    flex: 1,
+    padding: 10,
   },
   errorText: {
     color: "#ff0000c5",
     marginBottom: 8,
     marginLeft: 12,
   },
-
   input: {
     height: 40,
-    width: "80%",
     marginVertical: 12,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: "#ccc",
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 30,
-    justifyContent: "center",
-    textAlign: "center",
   },
   subText: {
     fontSize: 16,

@@ -10,13 +10,19 @@ export default function SelectionScreen() {
     setCheckedPersonal(!checkedPersonal);
     setCheckedEnterprise(false);
     navigation.navigate("PersonalSignUpScreen");
-    setCheckedPersonal(false);
+    setTimeout(() => {
+      setCheckedPersonal(false);
+      setCheckedEnterprise(false);
+    }, 1000);
   }
   function handleEnterprise() {
     setCheckedEnterprise(!checkedEnterprise);
     setCheckedPersonal(false);
     navigation.navigate("EnterpriseSelectionScreen");
-    setCheckedEnterprise(false);
+    setTimeout(() => {
+      setCheckedPersonal(false);
+      setCheckedEnterprise(false);
+    }, 1000);
   }
   return (
     <View style={styles.container}>

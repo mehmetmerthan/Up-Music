@@ -7,8 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
 const validationSchema = yup.object().shape({
-  fistname: yup.string().required("Firstname is required"),
-  lastname: yup.string().required("Lastname is required"),
+  name: yup.string().required("Name is required"),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -55,7 +54,7 @@ const PersonalSignUpScreen = ({ route }) => {
       });
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,
-        name: values.fistname + " " + values.lastname,
+        name: values.name,
         password: values.password,
         about: about,
         urlPP: image,
@@ -85,8 +84,7 @@ const PersonalSignUpScreen = ({ route }) => {
       <Text style={styles.headerText}>Register</Text>
       <Formik
         initialValues={{
-          fistname: "",
-          lastname: "",
+          name: "",
           email: "",
           password: "",
           confirmPassword: "",
@@ -104,29 +102,17 @@ const PersonalSignUpScreen = ({ route }) => {
         }) => (
           <View>
             <View style={styles.container}>
-              <Text style={styles.subText}> Firstname</Text>
+              <Text style={styles.subText}> Artist name</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Firstname"
-                onChangeText={handleChange("fistname")}
-                onBlur={handleBlur("fistname")}
-                value={values.fistname}
+                placeholder="Name"
+                onChangeText={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
               />
-              {touched.fistname && errors.fistname && (
-                <Text style={styles.errorText}>{errors.fistname}</Text>
+              {touched.name && errors.name && (
+                <Text style={styles.errorText}>{errors.name}</Text>
               )}
-              <Text style={styles.subText}> Lastname</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Lastname"
-                onChangeText={handleChange("lastname")}
-                onBlur={handleBlur("lastname")}
-                value={values.lastname}
-              />
-              {touched.lastname && errors.lastname && (
-                <Text style={styles.errorText}>{errors.lastname}</Text>
-              )}
-
               <Text style={styles.subText}> Email</Text>
               <TextInput
                 style={styles.input}

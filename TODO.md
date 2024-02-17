@@ -12,15 +12,15 @@ Project Description
 
 ### In Progress
 
-- [ ] girişde kurumsal kısı ekle  
-- [ ] ana sayfaya kurumsal şirketler kısmı eklenecek  
+- [ ] mekanlar için eventde bölüm oluştur  
 - [ ] profil fotoğrafı boyutunu düzenle  
 - [ ] prfilde müzikler yana kadyırmalı olsun  
 - [ ] stage afis ön pana çıkar pp küçült  
-- [ ] isim soyisim değil artist name olması gerekli  
-- [ ] mekanlar için eventde bölüm oluştur  
 
 ### Done ✓
 
+- [x] isim soyisim değil artist name olması gerekli  
+- [x] ana sayfaya kurumsal şirketler kısmı eklenecek  
+- [x] girişde kurumsal kısı ekle  
 - [x] PERFORMANS da dj ekle  
 

@@ -10,6 +10,7 @@ export const createUser = /* GraphQL */ `
       id
       name
       about
+      user_type
       key_pp
       posts {
         nextToken
@@ -52,6 +53,7 @@ export const updateUser = /* GraphQL */ `
       id
       name
       about
+      user_type
       key_pp
       posts {
         nextToken
@@ -94,6 +96,7 @@ export const deleteUser = /* GraphQL */ `
       id
       name
       about
+      user_type
       key_pp
       posts {
         nextToken
@@ -149,6 +152,7 @@ export const createPost = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -189,6 +193,7 @@ export const updatePost = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -229,6 +234,7 @@ export const deletePost = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -262,6 +268,7 @@ export const createMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -276,6 +283,7 @@ export const createMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -310,6 +318,7 @@ export const updateMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -324,6 +333,7 @@ export const updateMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -358,6 +368,7 @@ export const deleteMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -372,6 +383,7 @@ export const deleteMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city

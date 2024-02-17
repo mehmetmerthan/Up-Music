@@ -18,6 +18,7 @@ const VerifyEmailScreen = ({ route }) => {
     about = "",
     location = "",
     urlPP = "",
+    user_type = "",
     name,
     email,
     password,
@@ -48,6 +49,7 @@ const VerifyEmailScreen = ({ route }) => {
           tagStyle: tagStyle,
           tagRole: tagRole,
           experiencesData: experiencesData,
+          user_type: user_type,
           operationType: "create",
         });
         navigation.navigate("SignInScreen");

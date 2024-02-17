@@ -3,6 +3,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { View, Text } from "react-native";
 import { Button } from "@rneui/themed";
 import styles from "../../Styles/Picker/LocationPickerStyle";
+import { API_KEY } from "../../Utils/Constants/API_KEY";
 export function LocationPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -27,20 +28,21 @@ export function LocationPicker({ setSelectedLocation }) {
     setVisible(false);
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.containerPlace}>
       {location && (
         <Text style={styles.baseText}>
           {location?.place}, {location?.city}, {location?.country}
         </Text>
       )}
       <GooglePlacesAutocomplete
-        styles={{ textInput: styles.locationInput }}
+        styles={{ textInput: styles.locationInputPlace }}
         placeholder="Hard Rock Cafe, London"
-        fetchDetails={true}
+        fetchDetails={false}
         onPress={(data = null) => handleLocationSelect(data)}
         query={{
-          key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
+          key: API_KEY,
           language: "en",
+          types: "establishment",
         }}
       />
       {visible && (
@@ -79,18 +81,14 @@ export function CountryPicker({ setSelectedLocation }) {
   }
   return (
     <View style={styles.container}>
-      {location && (
-        <Text style={styles.baseText}>
-          {location}
-        </Text>
-      )}
+      {location && <Text style={styles.baseText}>{location}</Text>}
       <GooglePlacesAutocomplete
         styles={{ textInput: styles.locationInput }}
         placeholder="Search a Country"
         fetchDetails={true}
         onPress={(data = null) => handleLocationSelect(data)}
         query={{
-          key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
+          key: API_KEY,
           language: "en",
           types: "(regions)",
         }}
@@ -147,7 +145,7 @@ export function CityPicker({ setSelectedLocation }) {
           fetchDetails={true}
           onPress={(data = null) => handleLocationSelect(data)}
           query={{
-            key: "AIzaSyB-SUyU6ODGM7SPEE8m_1I5QIuAmruJBfw",
+            key: API_KEY,
             language: "en",
             types: "(cities)",
           }}

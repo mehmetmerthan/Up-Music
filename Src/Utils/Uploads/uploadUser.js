@@ -13,6 +13,7 @@ async function UploadUser(props) {
     userData = "",
     operationType = "",
     experiencesData = [],
+    user_type = "",
   } = props;
   const { mediaKey: key_pp } = await uploadMedia({
     media: urlPP,
@@ -22,13 +23,16 @@ async function UploadUser(props) {
 
   const city = location?.city || "";
   const country = location?.country || "";
+  const place = location?.place || ""; // This is the place name from the location picker
   const userDetails = {
     id: userId,
     name: name,
     about: about,
     key_pp: key_pp,
+    user_type: user_type,
     city: city,
     country: country,
+    place: place,
     tag_styles: tagStyle,
     tag_roles: tagRole,
     experiences: experiencesData,
@@ -45,11 +49,17 @@ async function UploadUser(props) {
   if (userDetails.key_pp === "") {
     delete userDetails.key_pp;
   }
+  if (userDetails.user_type === "") {
+    delete userDetails.user_type;
+  }
   if (userDetails.city === "") {
     delete userDetails.city;
   }
   if (userDetails.country === "") {
     delete userDetails.country;
+  }
+  if (userDetails.place === "") {
+    delete userDetails.place;
   }
   if (userDetails.tag_styles.length === 0) {
     delete userDetails.tag_styles;

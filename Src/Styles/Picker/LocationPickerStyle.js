@@ -1,11 +1,21 @@
 import { StyleSheet } from "react-native";
-import Constants from "expo-constants";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
     margin: 10,
     padding: 10,
+  },
+  containerPlace: {
+    flex: 1,
+  },
+  locationInputPlace: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    backgroundColor: "#ffffff00",
+    height: 40,
+    marginBottom: 16,
   },
   button: {
     borderRadius: 10,

@@ -1,15 +1,31 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.sectionText}>Profiles</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("ProfilesStack")}
+      >
+        <Image
+          source={require("../../.../../../assets/Producers.png")}
+          style={styles.image}
+        />
+      </Pressable>
+      <Text style={styles.sectionText}>Companies</Text>
+      <Pressable
+        style={styles.section}
+        onPress={() => navigation.navigate("CompaniesScreen")}
       >
         <Image
           source={require("../../.../../../assets/Producers.png")}
@@ -46,24 +62,16 @@ const HomeScreen = () => {
           style={styles.image}
         />
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "column",
   },
   section: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
+    height: 150,
   },
   image: {
     width: "100%",

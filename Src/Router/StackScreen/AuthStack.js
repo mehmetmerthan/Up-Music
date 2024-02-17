@@ -1,7 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import PersonalSignUpScreen from "../../Screens/Auth/SignUp/Personal/PersonalSignUpScreen";
-import EnterpriseSignUpScreen from "../../Screens/Auth/SignUp/Enterprise/EnterpriseSignUpScreen";
+import CompanySignUpScreen from "../../Screens/Auth/SignUp/Enterprise/CompanySignUpScreen";
+import VenueSignUpScreen from "../../Screens/Auth/SignUp/Enterprise/VenueSignUpScreen";
 import SignInScreen from "../../Screens/Auth/SignIn/SignInScreen";
 import VerifyEmailScreen from "../../Screens/Auth/SignUp/VerifyEmailScreen";
 import ForgotPassScreen from "../../Screens/Auth/SignIn/ForgotPassScreen";
@@ -15,6 +16,8 @@ import OnboardingScreen1 from "../../Screens/Auth/SignUp/Personal/OnboardingScre
 import OnboardingScreen2 from "../../Screens/Auth/SignUp/Personal/OnboardingScreen2";
 import OnboardingScreen3 from "../../Screens/Auth/SignUp/Personal/OnboardingScreen3";
 import BottomTab from "../BottomTab/BottomTab";
+import VenueGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/VenueGetDetailsScreen";
+import CompanyGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/CompanyGetDetailsScreen";
 export default function AuthStack() {
   const Stack = createStackNavigator();
   return (
@@ -42,8 +45,29 @@ export default function AuthStack() {
       }}
     >
       <Stack.Screen
-        name="SignUpScreen"
-        component={EnterpriseSignUpScreen}
+        name="CompanySignUpScreen"
+        component={CompanySignUpScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
+        name="VenueSignUpScreen"
+        component={VenueSignUpScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
+        name="VenueGetDetailsScreen"
+        component={VenueGetDetailsScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <Stack.Screen
+        name="CompanyGetDetailsScreen"
+        component={CompanyGetDetailsScreen}
         options={{
           title: "SignUp",
         }}

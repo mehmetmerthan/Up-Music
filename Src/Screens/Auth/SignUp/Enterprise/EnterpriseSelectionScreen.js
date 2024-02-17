@@ -9,12 +9,20 @@ export default function VenueSelectionScreen() {
   function handleCompany() {
     setCheckedCompany(!checkedCompany);
     setCheckedVenue(false);
-    navigation.navigate("CompanySignUpScreen");
+    navigation.navigate("CompanyGetDetailsScreen");
+    setTimeout(() => {
+      setCheckedCompany(false);
+      setCheckedVenue(false);
+    }, 1000);
   }
   function handleVenue() {
     setCheckedVenue(!checkedVenue);
     setCheckedCompany(false);
-    navigation.navigate("VenueSignUpScreen");
+    navigation.navigate("VenueGetDetailsScreen");
+    setTimeout(() => {
+      setCheckedCompany(false);
+      setCheckedVenue(false);
+    }, 1000);
   }
   return (
     <View style={styles.container}>

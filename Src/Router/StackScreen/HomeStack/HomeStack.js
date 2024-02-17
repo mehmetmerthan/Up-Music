@@ -11,6 +11,7 @@ import ProfilesStack from "./Profiles/ProfilesStack";
 import HeaderRight from "../../../Components/PostComponents/Headers/HeaderRight";
 import UserDetailScreen from "../../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../../Screens/Message/MessageDetailScreen";
+import CompaniesScreen from "../../../Screens/Home/CompaniesScreen";
 const Stack = createStackNavigator();
 const HomeStack = () => {
   return (
@@ -21,6 +22,14 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Home",
+        }}
+      />
+      <Stack.Screen
+        name="CompaniesScreen"
+        component={CompaniesScreen}
+        options={{
+          headerShown: true,
+          title: "Companies",
         }}
       />
       <Stack.Screen

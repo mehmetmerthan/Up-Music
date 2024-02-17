@@ -7,6 +7,7 @@ export const getUser = /* GraphQL */ `
       id
       name
       about
+      user_type
       key_pp
       posts {
         nextToken
@@ -51,6 +52,7 @@ export const listUsers = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -85,6 +87,7 @@ export const getPost = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -146,6 +149,7 @@ export const getMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city
@@ -160,6 +164,7 @@ export const getMessage = /* GraphQL */ `
         id
         name
         about
+        user_type
         key_pp
         price
         city

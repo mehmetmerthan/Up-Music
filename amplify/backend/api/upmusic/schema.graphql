@@ -5,6 +5,7 @@ type User @model {
   id: ID!
   name: String
   about: String
+  user_type: String
   key_pp: String
   posts: [Post] @hasMany
   price: Int
