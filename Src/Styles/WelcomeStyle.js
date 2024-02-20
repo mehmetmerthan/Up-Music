@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     justifyContent: "space-between",
   },
   headerText: {
@@ -50,25 +49,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    width: "100%",
-    marginBottom: 26,
+    flexDirection: "column",
+    marginBottom: 50,
+    padding: 20,
   },
-  buttonLeft: {
+  buttonSignIn: {
     borderRadius: 8,
-    marginLeft: 50,
+    width: "80%",
+    alignSelf: "center",
   },
-  buttonRight: {
+  buttonSignUp: {
     borderRadius: 8,
-    marginRight: 50,
+    marginBottom: 30,
   },
   image: {
-    width: "auto",
+    width: "100%",
     height: 400,
     resizeMode: "cover",
-    borderRadius: 50,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
   input: {
     height: 40,

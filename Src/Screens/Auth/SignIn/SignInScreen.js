@@ -24,7 +24,7 @@ const SignInScreen = () => {
   const navigation = useNavigation();
   function navigateToSignUp() {
     setLoading2(true);
-    navigation.navigate("OnboardingScreen1");
+    navigation.navigate("SelectionScreen");
     setLoading2(false);
   }
   const handleRegistration = async (values) => {
@@ -57,12 +57,10 @@ const SignInScreen = () => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-          style={styles.image}
-        />
-      </View>
+      <Image
+        source={require("../../../../assets/Design.png")}
+        style={styles.image}
+      />
 
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -192,16 +190,11 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   image: {
-    width: 300,
+    width: "100%",
     height: 300,
-    resizeMode: "contain",
-    alignSelf: "center",
-  },
-  imageContainer: {
-    padding: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.142)",
-    borderBottomEndRadius: 30,
-    borderBottomStartRadius: 30,
+    resizeMode: "cover",
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
 });
 

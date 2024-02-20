@@ -1,6 +1,5 @@
 import { React, useState, useEffect, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
 import NotificationStackScreen from "../StackScreen/NotificationStack";
@@ -14,6 +13,7 @@ import {
   fetchUnreadMessages,
 } from "../../Utils/FetchMessage";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 function BottomTab({ screenIndex }) {
   const navigation = useNavigation();
@@ -105,7 +105,7 @@ function BottomTab({ screenIndex }) {
         component={CreateStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" color={color} size={size} />
+            <Ionicons name="create-outline" color={color} size={size} />
           ),
           headerShown: false,
         }}
@@ -115,10 +115,13 @@ function BottomTab({ screenIndex }) {
         component={NotificationStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" color={color} size={size} />
+            <Ionicons
+              name="notifications-circle-outline"
+              color={color}
+              size={size}
+            />
           ),
           headerShown: false,
-          tabBarBadge: 5,
         }}
       />
       <Tab.Screen
@@ -126,7 +129,7 @@ function BottomTab({ screenIndex }) {
         component={ProfileStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" color={color} size={size} />
+            <Ionicons name="person-circle-outline" color={color} size={size} />
           ),
           headerShown: false,
         }}

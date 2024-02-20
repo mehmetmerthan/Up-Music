@@ -6,7 +6,7 @@ import styles from "../../../../Styles/OnBoardingStyle";
 import { LocationPicker } from "../../../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../../../Components/PickerComponents/useMedia";
 const CompanyGetDetailsScreen = () => {
-  const { MediaPickerAvatarComponent, image } = useMedia();
+  const { MediaPickerImageComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
@@ -22,7 +22,7 @@ const CompanyGetDetailsScreen = () => {
         <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Divider />
         <Text style={styles.subText}>Select your place picture</Text>
-        <MediaPickerAvatarComponent />
+        <MediaPickerImageComponent />
         <Divider />
         <Button
           title={"Next"}

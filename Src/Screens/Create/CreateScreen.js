@@ -12,7 +12,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateStageScreen")}
         >
           <Image
-            source={require("../../../assets/create-stage.png")}
+            source={require("../../../assets/images/Create/create-stage.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
@@ -27,7 +27,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateEventScreen")}
         >
           <Image
-            source={require("../../../assets/create-event.png")}
+            source={require("../../../assets/images/Create/create-event.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
@@ -44,7 +44,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateBandForMusicianScreen")}
         >
           <Image
-            source={require("../../../assets/group-search-notice.png")}
+            source={require("../../../assets/images/Create/group-search-notice.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
@@ -57,7 +57,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateMusicianForBandScreen")}
         >
           <Image
-            source={require("../../../assets/musician-search-notice.png")}
+            source={require("../../../assets/images/Create/musician-search-notice.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
@@ -72,7 +72,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateMusicianForCollaborateScreen")}
         >
           <Image
-            source={require("../../../assets/create-stage.png")}
+            source={require("../../../assets/images/Create/create-stage.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
@@ -87,7 +87,7 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateArtistScreen")}
         >
           <Image
-            source={require("../../../assets/create-job-notice.png")}
+            source={require("../../../assets/images/Create/create-job-notice.png")}
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>Looking for a artist ?</Text>

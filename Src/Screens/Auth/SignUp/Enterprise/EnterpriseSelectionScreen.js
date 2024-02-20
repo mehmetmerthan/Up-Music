@@ -26,35 +26,47 @@ export default function VenueSelectionScreen() {
   }
   return (
     <View style={styles.container}>
+      <Text style={styles.headerText}>Select your account type</Text>
       <View style={styles.checkBoxGroup}>
-        <Text style={styles.descriptionText}>
-          Music companies, Record Labels, etc.
-        </Text>
         <CheckBox
           checked={checkedCompany}
           onPress={handleCompany}
           title={"Company"}
           containerStyle={styles.checkBoxContainer}
-          size={40}
+          size={30}
           style={styles.checkBox}
           textStyle={styles.checkBoxText}
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Divider width={1} style={{ marginVertical: 50 }} />
         <Text style={styles.descriptionText}>
-          Venue owner, Event organizer, etc.
+          Music companies, Record Labels, etc.
         </Text>
+        <Divider
+          width={1}
+          style={{ marginVertical: 5 }}
+          inset={true}
+          insetType="middle"
+        />
         <CheckBox
           checked={checkedVenue}
           onPress={handleVenue}
           title={"Venue"}
           containerStyle={styles.checkBoxContainer}
-          size={40}
+          size={30}
           style={styles.checkBox}
           textStyle={styles.checkBoxText}
           checkedColor="green"
           uncheckedColor="white"
+        />
+        <Text style={styles.descriptionText}>
+          Venue owner, Event organizer, etc.
+        </Text>
+        <Divider
+          width={1}
+          style={{ marginVertical: 5 }}
+          inset={true}
+          insetType="middle"
         />
       </View>
     </View>
@@ -64,7 +76,7 @@ export default function VenueSelectionScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    marginTop: 150,
     padding: 16,
   },
   checkBoxGroup: {
@@ -80,8 +92,15 @@ const styles = StyleSheet.create({
     color: "#ebebeb",
   },
   descriptionText: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "300",
+    textAlign: "center",
+  },
+  headerText: {
+    marginBottom: 50,
+    fontSize: 24,
     fontWeight: "400",
     textAlign: "center",
+    color: "#5a5a5aff",
   },
 });

@@ -1,14 +1,18 @@
-import { React, useState } from "react";
-import { View, Text, Image, TextInput, FlatList } from "react-native";
+import { React, useState, useRef, useEffect } from "react";
+import { View, Text, TextInput, FlatList, Animated } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "../../Styles/UserProfileStyle";
-import { EvilIcons, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import {
+  EvilIcons,
+  AntDesign,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { Button, Chip } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
-import { S3ImageAvatar } from "../../Components/S3Media";
 import { styleTagData, roleData } from "../../../data/TagData";
 import Tag from "../../Components/Tag";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
@@ -154,35 +158,105 @@ const EditPorfileScreen = () => {
     }
     setSelectedRoleTags([]);
   }
+  const scrollY = useRef(new Animated.Value(0)).current;
+
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, 250],
+    outputRange: [250, 0],
+    extrapolate: "clamp",
+  });
+
+  const imageOpacity = scrollY.interpolate({
+    inputRange: [10, 300],
+    outputRange: [1, 0.5],
+    extrapolate: "clamp",
+  });
+
+  const imageTranslateY = scrollY.interpolate({
+    inputRange: [0, 250],
+    outputRange: [0, -250],
+    extrapolate: "clamp",
+  });
+
+  const imageScale = scrollY.interpolate({
+    inputRange: [-50, 250],
+    outputRange: [1, 1.5],
+    extrapolate: "clamp",
+  });
+  const borderRadius = scrollY.interpolate({
+    inputRange: [0, 250],
+    outputRange: [60, 0],
+    extrapolate: "clamp",
+  });
+  const [image, setImage] = useState(null);
+  useEffect(() => {
+    if (imagePP) {
+      setImage(imagePP);
+    } else {
+      setImage(userData?.key_pp);
+    }
+  }, [imagePP, userData?.key_pp]);
   function renderItem() {
     return (
       <View>
-        <View style={styles.userProfileTop}>
-          <Image
-            source={{ uri: "https://picsum.photos/800/800" }}
-            style={styles.userProfileTopBg}
-          />
-          <View style={styles.userProfileTopOverlay} />
-          <S3ImageAvatar
-            imageKey={userData?.key_pp}
-            size={150}
-            accessory={OpenGalleryPP}
-            url={imagePP}
-          />
-          <Text style={styles.userProfileInfoName}>{userData.name}</Text>
-          <View style={styles.userProfileInfoLocation}>
-            {userData?.location?.city && (
+        <Animated.View
+          style={[styles.userProfileTop, { height: headerHeight }]}
+        >
+          {image && (
+            <Animated.Image
+              source={{ uri: image }}
+              style={[
+                styles.profileImage,
+                {
+                  opacity: imageOpacity,
+                  transform: [
+                    { translateY: imageTranslateY },
+                    { scaleX: imageScale },
+                    { scaleY: imageScale },
+                  ],
+                  borderBottomLeftRadius: borderRadius,
+                  borderBottomRightRadius: borderRadius,
+                },
+              ]}
+            />
+          )}
+          <Animated.View
+            style={[
+              styles.profileNameContainer,
+              {
+                opacity: imageOpacity,
+                transform: [
+                  { translateY: imageTranslateY },
+                  { scaleX: imageScale },
+                  { scaleY: imageScale },
+                ],
+              },
+            ]}
+          >
+            <Text style={styles.userProfileInfoName}>{userData.name}</Text>
+            <View style={styles.userProfileInfoLocation}>
               <EvilIcons
                 name="location"
                 size={20}
                 color="rgba(255, 255, 255, 0.5)"
               />
-            )}
-            <Text style={styles.userProfileInfoLocationText}>
-              {userData?.city} {userData?.city && ","} {userData?.country}
-            </Text>
-          </View>
-        </View>
+              <Text style={styles.userProfileInfoLocationText}>
+                {userData?.city}, {userData?.country}
+              </Text>
+            </View>
+          </Animated.View>
+          <MaterialCommunityIcons
+            name="circle-edit-outline"
+            size={50}
+            color="#008000"
+            style={{
+              position: "absolute",
+              right: 15,
+              bottom: -100,
+            }}
+            onPress={OpenGalleryPP}
+          />
+        </Animated.View>
         <View style={styles.userProfileBody}>
           <View style={styles.flexB}>
             <Button
@@ -437,6 +511,11 @@ const EditPorfileScreen = () => {
       renderItem={renderItem}
       keyExtractor={(item) => item.toString()}
       keyboardShouldPersistTaps="always"
+      scrollEventThrottle={16}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        { useNativeDriver: false }
+      )}
     />
   );
 };

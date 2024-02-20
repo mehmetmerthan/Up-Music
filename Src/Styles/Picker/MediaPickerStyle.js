@@ -3,8 +3,9 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     margin: 12,
-    marginTop: 50,
+    marginTop: 20,
     alignSelf: "center",
+    fontWeight: "300",
   },
   mediaButton: {
     margin: 12,

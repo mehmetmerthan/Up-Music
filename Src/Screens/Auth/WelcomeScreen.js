@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
-import styles from "../../Styles/OnBoardingStyle";
+import styles from "../../Styles/WelcomeStyle";
 const WelcomeScreen = () => {
   const [isLoadingLeft, setIsLoadingLeft] = useState(false);
   const [isLoadingRight, setIsLoadingRight] = useState(false);
@@ -20,22 +20,22 @@ const WelcomeScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
+        source={require("../../../assets/Design.png")}
         style={styles.image}
       />
       <View style={styles.buttonContainer}>
+      <Button
+          title="SignUp"
+          onPress={navigateToNextScreen}
+          buttonStyle={styles.buttonSignUp}
+          loading={isLoadingRight}
+        />
         <Button
           title="SignIn"
           onPress={navigateToSignIn}
-          buttonStyle={styles.buttonLeft}
+          buttonStyle={styles.buttonSignIn}
           type="outline"
           loading={isLoadingLeft}
-        />
-        <Button
-          title="SignUp"
-          onPress={navigateToNextScreen}
-          buttonStyle={styles.buttonRight}
-          loading={isLoadingRight}
         />
       </View>
     </View>

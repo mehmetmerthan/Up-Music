@@ -1,12 +1,12 @@
 import { React, useState } from "react";
-import { View, Text, TextInput, FlatList } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { Button, Divider } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../../../../Styles/OnBoardingStyle";
 import { LocationPicker } from "../../../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../../../Components/PickerComponents/useMedia";
 const VenueGetDetailsScreen = () => {
-  const { MediaPickerAvatarComponent, image } = useMedia();
+  const { MediaPickerImageComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
@@ -22,7 +22,7 @@ const VenueGetDetailsScreen = () => {
         <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Divider />
         <Text style={styles.subText}>Select your place picture</Text>
-        <MediaPickerAvatarComponent />
+        <MediaPickerImageComponent />
         <Divider />
         <Button
           title={"Next"}

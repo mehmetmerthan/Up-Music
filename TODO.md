@@ -12,13 +12,13 @@ Project Description
 
 ### In Progress
 
-- [ ] mekanlar için eventde bölüm oluştur  
 - [ ] profil fotoğrafı boyutunu düzenle  
 - [ ] prfilde müzikler yana kadyırmalı olsun  
 - [ ] stage afis ön pana çıkar pp küçült  
 
 ### Done ✓
 
+- [x] mekanlar için eventde bölüm oluştur  
 - [x] isim soyisim değil artist name olması gerekli  
 - [x] ana sayfaya kurumsal şirketler kısmı eklenecek  
 - [x] girişde kurumsal kısı ekle  

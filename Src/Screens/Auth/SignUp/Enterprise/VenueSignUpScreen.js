@@ -27,7 +27,7 @@ const validationSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
-const VenueSignUpScreen = () => {
+const VenueSignUpScreen = ({ route }) => {
   const { selectedLocation, image } = route?.params || {};
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);

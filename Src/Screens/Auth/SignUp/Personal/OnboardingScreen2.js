@@ -7,7 +7,7 @@ import { CityPicker } from "../../../../Components/PickerComponents/LocationPick
 import useMedia from "../../../../Components/PickerComponents/useMedia";
 const OnboardingScreen2 = ({ route }) => {
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
-  const { MediaPickerAvatarComponent, image } = useMedia();
+  const { MediaPickerImageComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
   const [text, onChangeText] = useState("");
   const navigation = useNavigation();
@@ -35,7 +35,7 @@ const OnboardingScreen2 = ({ route }) => {
         <CityPicker setSelectedLocation={setSelectedLocation} />
         <Divider />
         <Text style={styles.subText}>Select a profile picture</Text>
-        <MediaPickerAvatarComponent />
+        <MediaPickerImageComponent />
         <View style={styles.pageViewContainer}>
           <View style={styles.pageViewEmpty} />
           <View style={styles.pageViewFill} />

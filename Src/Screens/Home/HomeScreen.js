@@ -12,53 +12,48 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.sectionText}>Profiles</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("ProfilesStack")}
       >
         <Image
-          source={require("../../.../../../assets/Producers.png")}
+          source={require("../../.../../../assets/images/Home/Profiles.jpg")}
           style={styles.image}
         />
       </Pressable>
-      <Text style={styles.sectionText}>Companies</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("CompaniesScreen")}
       >
         <Image
-          source={require("../../.../../../assets/Producers.png")}
+          source={require("../../.../../../assets/images/Home/Companies.png")}
           style={styles.image}
         />
       </Pressable>
-      <Text style={styles.sectionText}>Stages</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("StagesScreen")}
       >
         <Image
-          source={require("../../../assets/Stage.png")}
+          source={require("../../../assets/images/Home/Stages.jpg")}
           style={styles.image}
         />
       </Pressable>
-      <Text style={styles.sectionText}>Events</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("EventsScreen")}
       >
         <Image
-          source={require("../../../assets/Events.png")}
+          source={require("../../../assets/images/Home/Events.jpg")}
           style={styles.image}
         />
       </Pressable>
-      <Text style={styles.sectionText}>Announcements</Text>
       <Pressable
         style={styles.section}
         onPress={() => navigation.navigate("AnnouncementsStack")}
       >
         <Image
-          source={require("../../../assets/Bands.png")}
+          source={require("../../../assets/images/Home/Announcements.jpg")}
           style={styles.image}
         />
       </Pressable>
@@ -72,6 +67,7 @@ const styles = StyleSheet.create({
   },
   section: {
     height: 150,
+    marginBottom: 5,
   },
   image: {
     width: "100%",

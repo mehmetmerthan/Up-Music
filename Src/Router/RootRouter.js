@@ -66,6 +66,6 @@ export default function Router() {
         <AuthStack />
       ) : null}
     </NavigationContainer>
-    //<Ex />
+    // <Ex />
   );
 }
