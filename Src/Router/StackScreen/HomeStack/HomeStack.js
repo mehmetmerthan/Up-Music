@@ -84,9 +84,7 @@ const HomeStack = () => {
         name="UserDetailScreen"
         component={UserDetailScreen}
         options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
+          title: "User Detail",
         }}
       />
       <Stack.Screen
