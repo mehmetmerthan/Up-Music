@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import ProducersHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/ProducersHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function ProducersScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,10 +17,10 @@ export default function ProducersScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { contains: "Beatmaker" } },
-      { tag_roles: { contains: "Composer" } },
-      { tag_roles: { contains: "Mixing" } },
-      { tag_roles: { contains: "Songwriter" } },
+      { tag_roles: { contains: PROFILE_SCREEN_TYPES.BEATMAKER } },
+      { tag_roles: { contains: PROFILE_SCREEN_TYPES.COMPOSER } },
+      { tag_roles: { contains: PROFILE_SCREEN_TYPES.MIXING } },
+      { tag_roles: { contains: PROFILE_SCREEN_TYPES.SONGWRITER } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

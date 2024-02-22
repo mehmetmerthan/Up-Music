@@ -21,7 +21,7 @@ export default function Router() {
       const { attributes } = user;
       //const email_verified = attributes.email_verified;
       setRedirect(true);
-      
+
       // if (email_verified === false) {
       //   setRedirect(false);
       //   return;
@@ -48,8 +48,16 @@ export default function Router() {
     LogBox.ignoreLogs(["new NativeEventEmitter"]);
     LogBox.ignoreAllLogs();
     listenToAutoSignInEvent();
+    x();
   }, []);
-
+  async function x() {
+    const user = await Auth.currentAuthenticatedUser({
+      bypassCache: true,
+    });
+    const { attributes } = user;
+    const userID = attributes.sub;
+    console.log("userID", userID);
+  }
   return (
     <NavigationContainer
       onStateChange={(state) => {

@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import MixingHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/MixingHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function MixingScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,10 @@ export default function MixingScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { contains: "Mixing" } };
-    
+    const additionalFilter = {
+      tag_roles: { contains: PROFILE_SCREEN_TYPES.MIXING },
+    };
+
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : additionalFilter;

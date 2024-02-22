@@ -5,6 +5,7 @@ import { postsByDate } from "../../../../Utils/Queries/postQueries";
 import Post from "../../../../Components/PostComponents/Post";
 import AnnouncementsCallobrationHeader from "../../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsMusiciansHeader/AnnouncementsCollaborationHeader";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../../../Constants/Enums/PostTypes";
 export default function AnnouncementsCollaborationScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,9 @@ export default function AnnouncementsCollaborationScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { eq: "collaborate_post" } };
+    const additionalFilter = {
+      tag_roles: { eq: POST_TYPES.MUSICIAN_FOR_COLLABORATE },
+    };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : { or: additionalFilter };

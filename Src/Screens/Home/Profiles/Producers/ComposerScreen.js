@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import ComposerHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/ComposerHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function ComposerScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,10 +16,12 @@ export default function ComposerScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { contains: "Composer" } };
+    const additionalFilter = {
+      tag_roles: { contains: PROFILE_SCREEN_TYPES.COMPOSER },
+    };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter; 
+      : additionalFilter;
     try {
       const variables = {
         limit: 1,

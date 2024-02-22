@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import SongwriterHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/SongwriterHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function SongwriterScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,13 +16,15 @@ export default function SongwriterScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { contains: "Songwriter" } };
+    const additionalFilter = {
+      tag_roles: { contains: PROFILE_SCREEN_TYPES.SONGWRITER },
+    };
 
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : additionalFilter;
-    
-      try {
+
+    try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,

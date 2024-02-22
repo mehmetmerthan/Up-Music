@@ -19,7 +19,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "upmusicstorage": {
+    "myS3": {
       "BucketName": "string",
       "Region": "string"
     }

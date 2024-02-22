@@ -16,11 +16,11 @@ export default function PerformanceHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Instrumentalist"}
+            title={"Dj"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("InstrumentalistScreen");
+                navigation.navigate("DjScreen");
               }
             }}
           />

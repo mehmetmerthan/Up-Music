@@ -12,14 +12,14 @@
       "AmplifyAppId": "d27xhhiznwkz0z"
     },
     "categories": {
-      "storage": {
-        "upmusicstorage": {}
-      },
       "api": {
         "upmusic": {}
       },
       "auth": {
         "UpMusic": {}
+      },
+      "storage": {
+        "myS3": {}
       }
     }
   }

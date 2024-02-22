@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import PhotographerHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Visual/PhotographerHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function PhotographerScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,9 @@ export default function PhotographerScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { contains: "Photographer" } };
+    const additionalFilter = {
+      tag_roles: { contains: PROFILE_SCREEN_TYPES.PHOTOGRAPHER },
+    };
 
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }

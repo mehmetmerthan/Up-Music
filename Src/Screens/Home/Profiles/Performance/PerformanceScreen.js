@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import PerformanceHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Performance/PerformanceHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function PerformnceScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,8 @@ export default function PerformnceScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { eq: "instrumentalist" } },
-      { tag_roles: { eq: "singer" } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.DJ } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.SINGER } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

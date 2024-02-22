@@ -5,6 +5,7 @@ import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../../Components/PostComponents/PostUser";
 import VisualHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Visual/VisualHeader";
 import { useRoute } from "@react-navigation/native";
+import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
 export default function VisualScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,11 +17,11 @@ export default function VisualScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { eq: "Photographer" } },
-      { tag_roles: { eq: "Videographer" } },
-      { tag_roles: { eq: "Director" } },
-      { tag_roles: { eq: "Editor" } },
-      { tag_roles: { eq: "Graphicer" } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.PHOTOGRAPHER } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.VIDEOGRAPHER } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.DIRECTOR } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.EDITOR } },
+      { tag_roles: { eq: PROFILE_SCREEN_TYPES.GRAPHICER } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

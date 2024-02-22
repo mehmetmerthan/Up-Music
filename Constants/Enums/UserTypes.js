@@ -1,5 +1,5 @@
 export const USER_TYPES = {
-  PERSONAL: "Individual",
+  PERSONAL: "Personal",
   VENUE: "Venue",
   COMPANY: "Company",
 };

@@ -5,6 +5,7 @@ import { postsByDate } from "../../../../Utils/Queries/postQueries";
 import Post from "../../../../Components/PostComponents/Post";
 import AnnouncementsMusiciansHeader from "../../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsMusiciansHeader/AnnouncementsMusiciansHeader";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../../../Constants/Enums/PostTypes";
 export default function AnnouncementsMusiciansScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,8 @@ export default function AnnouncementsMusiciansScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { eq: "collaborate_post" } },
-      { tag_roles: { eq: "musicianForBand_post" } },
+      { tag_roles: { eq: POST_TYPES.MUSICIAN_FOR_COLLABORATE } },
+      { tag_roles: { eq: POST_TYPES.MUSICIAN_FOR_BAND } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

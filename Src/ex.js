@@ -1,69 +1,46 @@
-import { Auth } from "aws-amplify";
-import { React, useEffect } from "react";
+import { React, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
+import * as ImagePicker from "expo-image-picker";
+import { Storage } from "aws-amplify";
 function Ex() {
-  const username = "";
-  const password = "";
-
-  async function signUp() {
+  const [image, setImage] = useState(null);
+  async function imagePicker() {
     try {
-      const user = await Auth.signUp({
-        username,
-        password,
-        autoSignIn: {
-          enabled: true,
-        },
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [6, 5],
+        quality: 0.2,
       });
-      console.log(user);
+      if (!result.canceled) {
+        setImage(result?.assets[0]?.uri);
+      }
     } catch (error) {
-      console.log("error signing up:", error);
+      console.log("pic issue", error);
     }
   }
-  async function signIn() {
+  async function upload() {
     try {
-      const user = await Auth.signIn(username, password);
-      console.log(user);
-    } catch (error) {
-      console.log("error signing in", error);
-    }
-  }
-  async function signOut() {
-    try {
-      await Auth.signOut();
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-  }
-
-  async function getCurrentUser() {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log("current user", user);
-    } catch (error) {
-      console.log("error getting current user", error);
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const key = `media/6:45`;
+      const res = await Storage.put(key, blob);
+      console.log("res", res);
+    } catch (err) {
+      console.log("Error uploading file:", err);
     }
   }
   return (
     <View style={styles.container}>
       <Button
-        onPress={signUp}
-        title={"SignUp"}
+        onPress={imagePicker}
+        title={"pick image"}
         buttonStyle={styles.buttonStyle}
       />
       <Button
-        onPress={signIn}
-        title={"SignIn"}
-        buttonStyle={styles.buttonStyle}
-      />
-      <Button
-        onPress={signOut}
-        title={"SignOut"}
-        buttonStyle={styles.buttonStyle}
-      />
-      <Button
-        onPress={getCurrentUser}
-        title={"GetCurrentUser"}
+        onPress={upload}
+        title={"upload"}
         buttonStyle={styles.buttonStyle}
       />
     </View>

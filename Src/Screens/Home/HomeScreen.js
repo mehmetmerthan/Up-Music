@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  Text,
-  Image,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-} from "react-native";
+import { React } from "react";
+import { Image, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {

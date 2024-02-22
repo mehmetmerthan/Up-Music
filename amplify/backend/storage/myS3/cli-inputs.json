@@ -1,7 +1,7 @@
 {
-  "resourceName": "upmusicstorage",
-  "policyUUID": "389d6c8d",
-  "bucketName": "upmusic89fe21a359b04436bfccc3d752546f76",
+  "resourceName": "myS3",
+  "policyUUID": "d3af74db",
+  "bucketName": "upmusic562dc60e7f3c4163ae8751f3dbb20732",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "CREATE_AND_UPDATE",
