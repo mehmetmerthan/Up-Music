@@ -5,6 +5,7 @@ import { postsByDate } from "../../../Utils/Queries/postQueries";
 import Post from "../../../Components/PostComponents/Post";
 import AnnouncementsVisualArtistsHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsVisualArtistsHeader";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../../Constants/Enums/PostTypes";
 export default function AnnouncementsVisualArtistsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ export default function AnnouncementsVisualArtistsScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { post_type: { eq: "artist_post" } };
+    const additionalFilter = { post_type: { eq: POST_TYPES.VISUAL_ARTIST } };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : { or: additionalFilter };

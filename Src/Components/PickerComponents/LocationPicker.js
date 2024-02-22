@@ -3,7 +3,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { View, Text } from "react-native";
 import { Button } from "@rneui/themed";
 import styles from "../../Styles/Picker/LocationPickerStyle";
-import { GOOGLE_PLACES_API_KEY } from "../../Utils/Constants/API_KEY";
+import { GOOGLE_PLACES_API_KEY } from "../../../Constants/Keys/API_KEY";
 export function LocationPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);

@@ -5,6 +5,7 @@ import { postsByDate } from "../../../Utils/Queries/postQueries";
 import Post from "../../../Components/PostComponents/Post";
 import AnnouncementBandsHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsBandsHeader";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../../Constants/Enums/PostTypes";
 export default function AnnouncementsBandsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ export default function AnnouncementsBandsScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { post_type: { eq: "band_post" } };
+    const additionalFilter = { post_type: { eq: POST_TYPES.BAND } };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : { or: additionalFilter };

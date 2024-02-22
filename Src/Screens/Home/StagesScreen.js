@@ -1,9 +1,10 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { postsByDate } from "../../Utils/Queries/postQueries";
+import { listUsers } from "../../Utils/Queries/userProfileQueries";
 import Post from "../../Components/PostComponents/Post";
 import { useRoute } from "@react-navigation/native";
+import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 export default function StagesScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ export default function StagesScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = {
-      post_type: { eq: "stage_post" },
+      post_type: { eq: USER_TYPES.VENUE },
     };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
@@ -29,7 +30,7 @@ export default function StagesScreen() {
         filter: updatedFilter,
       };
       const result = await API.graphql({
-        query: postsByDate,
+        query: listUsers,
         variables: variables,
       });
       const newItems = result?.data?.postsByDate?.items;

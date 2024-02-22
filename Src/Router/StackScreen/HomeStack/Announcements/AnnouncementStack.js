@@ -37,7 +37,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsVisualArtistsScreen}
         options={{
           headerShown: true,
-          title: "Artists",
+          title: "Visual Artists",
         }}
       />
       <Stack.Screen

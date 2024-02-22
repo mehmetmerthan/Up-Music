@@ -5,9 +5,11 @@ import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import { styleTagData, roleData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
+import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
-export default function CreateArtistScreen() {
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
+export default function CreateVisualArtistScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
@@ -23,7 +25,7 @@ export default function CreateArtistScreen() {
     await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      post_type: "artist_post",
+      post_type: POST_TYPES.VISUAL_ARTIST,
       location: selectedLocation,
       tag_roles_needed: selectedRoleTags,
     });
@@ -50,7 +52,7 @@ export default function CreateArtistScreen() {
           <Text style={styles.header}>Select the musicians needed</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
-            tagData={roleData}
+            tagData={RoleTags}
             selectedTags={selectedRoleTags}
             setSelectedTags={setSelectedRoleTags}
           />
@@ -58,13 +60,13 @@ export default function CreateArtistScreen() {
           <Text style={styles.header}>Select music styles</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
-            tagData={styleTagData}
+            tagData={StyleTags}
             selectedTags={selectedStyleTags}
             setSelectedTags={setSelectedStyleTags}
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
-            title="Create artist notice"
+            title="Create visual artist notice"
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

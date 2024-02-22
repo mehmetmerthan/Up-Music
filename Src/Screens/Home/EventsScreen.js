@@ -4,6 +4,7 @@ import { API } from "aws-amplify";
 import { postsByDate } from "../../Utils/Queries/postQueries";
 import Post from "../../Components/PostComponents/Post";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 export default function EventsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ export default function EventsScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = {
-      post_type: { eq: "event_post" },
+      post_type: { eq: POST_TYPES.EVENT },
     };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }

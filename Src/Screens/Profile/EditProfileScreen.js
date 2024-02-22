@@ -13,7 +13,8 @@ import { Button, Chip } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
-import { styleTagData, roleData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
+import RoleTags from "../../../Constants/Data/RoleTags";
 import Tag from "../../Components/Tag";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import Experiences from "../../Components/Experiences";
@@ -33,10 +34,10 @@ const validationSchema = yup.object().shape({
 const EditPorfileScreen = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
-  const withoutUserRoleData = roleData?.filter(
+  const withoutUserRoleData = RoleTags?.filter(
     (role) => !userData?.tag_roles?.includes(role)
   );
-  const withoutUserStyleData = styleTagData?.filter(
+  const withoutUserStyleData = StyleTags?.filter(
     (style) => !userData?.tag_styles?.includes(style)
   );
   const [userMusicStyles, setUserMusicStyles] = useState(userData?.tag_styles);

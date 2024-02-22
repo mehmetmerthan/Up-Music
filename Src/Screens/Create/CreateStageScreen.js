@@ -6,8 +6,9 @@ import useMedia from "../../Components/PickerComponents/useMedia";
 import { Divider, Button } from "@rneui/themed";
 import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import { styleTagData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
@@ -26,7 +27,7 @@ export default function CreateStageScreen() {
       content: text,
       media: image,
       tag_styles: selectedTags,
-      post_type: "stage_post",
+      post_type: POST_TYPES.STAGE,
       location: selectedLocation,
       price: price,
     });
@@ -60,7 +61,7 @@ export default function CreateStageScreen() {
         <Tag
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
-          tagData={styleTagData}
+          tagData={StyleTags}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button

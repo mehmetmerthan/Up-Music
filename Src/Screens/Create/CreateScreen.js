@@ -84,13 +84,13 @@ const CreateScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.column}
-          onPress={() => navigation.navigate("CreateArtistScreen")}
+          onPress={() => navigation.navigate("CreateVisualArtistScreen")}
         >
           <Image
             source={require("../../../assets/images/Create/create-job-notice.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>Looking for a artist ?</Text>
+          <Text style={styles.decsriptionText}>Looking for a visual artist ?</Text>
           <Text style={styles.decsriptionText}>
             (Photographer, director, graphicer, etc. )
           </Text>

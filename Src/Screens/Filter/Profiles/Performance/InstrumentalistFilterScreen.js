@@ -6,7 +6,8 @@ import {
   CityPicker,
   CountryPicker,
 } from "../../../../Components/PickerComponents/LocationPicker";
-import { styleTagData, roleData } from "../../../../../data/TagData";
+import StyleTags from "../../../../../Constants/Data/StyleTags";
+import RoleTags from "../../../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function InstrumentalistFilterScreen() {
@@ -107,7 +108,7 @@ export default function InstrumentalistFilterScreen() {
           topDivider
         >
           <Tag
-            tagData={styleTagData}
+            tagData={StyleTags}
             selectedTags={selectedStyleTags}
             setSelectedTags={setSelectedStyleTags}
           />
@@ -125,7 +126,7 @@ export default function InstrumentalistFilterScreen() {
           topDivider
         >
           <Tag
-            tagData={roleData}
+            tagData={RoleTags}
             selectedTags={selectedRoleTags}
             setSelectedTags={setSelectedRoleTags}
           />

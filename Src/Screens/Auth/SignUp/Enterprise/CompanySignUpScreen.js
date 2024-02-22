@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
+import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 const validationSchema = yup.object().shape({
   fistname: yup.string().required("Firstname is required"),
   lastname: yup.string().required("Lastname is required"),
@@ -48,7 +49,7 @@ const CompanySignUpScreen = ({ route }) => {
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,
         password: values.password,
-        user_type: "company",
+        user_type: USER_TYPES.COMPANY,
         location: selectedLocation,
         urlPP: image,
       });

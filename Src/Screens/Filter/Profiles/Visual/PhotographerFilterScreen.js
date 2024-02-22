@@ -6,7 +6,7 @@ import {
   CityPicker,
   CountryPicker,
 } from "../../../../Components/PickerComponents/LocationPicker";
-import { styleTagData } from "../../../../../data/TagData";
+import StyleTags from "../../../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function PhotographerFilterScreen() {
@@ -98,7 +98,7 @@ export default function PhotographerFilterScreen() {
           topDivider
         >
           <Tag
-            tagData={styleTagData}
+            tagData={StyleTags}
             selectedTags={selectedStyleTags}
             setSelectedTags={setSelectedStyleTags}
           />

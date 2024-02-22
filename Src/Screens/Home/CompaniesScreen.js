@@ -5,6 +5,7 @@ import { listUsers } from "../../Utils/Queries/userProfileQueries";
 import PostUser from "../../Components/PostComponents/PostUser";
 import ProfilesHeader from "../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeader";
 import { useRoute } from "@react-navigation/native";
+import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 export default function CompaniesScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ export default function CompaniesScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = {
-      user_type: { eq: "event_post" },
+      user_type: { eq: USER_TYPES.COMPANY },
     };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }

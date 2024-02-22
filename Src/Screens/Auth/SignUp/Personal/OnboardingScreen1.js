@@ -3,7 +3,8 @@ import { View, Text, ScrollView } from "react-native";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import Tag from "../../../../Components/Tag";
-import { styleTagData, roleData } from "../../../../../data/TagData";
+import StyleTags from "../../../../../Constants/Data/StyleTags";
+import RoleTags from "../../../../../Constants/Data/RoleTags";
 import styles from "../../../../Styles/OnBoardingStyle";
 import { Divider } from "@rneui/themed";
 const OnboardingScreen1 = () => {
@@ -24,14 +25,14 @@ const OnboardingScreen1 = () => {
       <View style={styles.container}>
         <Text style={styles.subText}>Select you music styles</Text>
         <Tag
-          tagData={styleTagData}
+          tagData={StyleTags}
           selectedTags={selectedStyleTags}
           setSelectedTags={setSelectedStyleTags}
         />
         <Divider />
         <Text style={styles.subText}>Select you roles</Text>
         <Tag
-          tagData={roleData}
+          tagData={RoleTags}
           selectedTags={selectedRoleTags}
           setSelectedTags={setSelectedRoleTags}
         />

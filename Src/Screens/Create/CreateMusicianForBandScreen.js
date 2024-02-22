@@ -5,8 +5,10 @@ import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import { styleTagData, roleData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
+import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 export default function CreateMusicianForBandScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ export default function CreateMusicianForBandScreen() {
       content: text,
       tag_roles: selectedRoleTags,
       tag_styles: selectedStyleTags,
-      post_type: "musicianForBand_post",
+      post_type: POST_TYPES.MUSICIAN_FOR_BAND,
       location: selectedLocation,
     });
     setLoading(false);
@@ -51,7 +53,7 @@ export default function CreateMusicianForBandScreen() {
         <Tag
           selectedTags={selectedRoleTags}
           setSelectedTags={setSelectedRoleTags}
-          tagData={roleData}
+          tagData={RoleTags}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Text style={styles.header}>Select music styles</Text>
@@ -59,7 +61,7 @@ export default function CreateMusicianForBandScreen() {
         <Tag
           selectedTags={selectedStyleTags}
           setSelectedTags={setSelectedStyleTags}
-          tagData={styleTagData}
+          tagData={StyleTags}
         />
         <Divider orientation="vertical" />
         <Button

@@ -2,7 +2,7 @@ import axios from "axios";
 import { encode as btoa } from "base-64";
 import React, { useEffect, useState } from "react";
 import { ListItem, Avatar } from "@rneui/themed";
-import { clientId, clientSecret } from "../Utils/Constants/API_KEY";
+import { clientId, clientSecret } from "../../Constants/Keys/API_KEY";
 import {
   FlatList,
   TextInput,

@@ -6,8 +6,9 @@ import { Divider, Button } from "@rneui/themed";
 import { LocationPicker } from "../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import { styleTagData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
@@ -25,7 +26,7 @@ export default function CreateEventScreen() {
       content: text,
       media: image,
       tag_styles: selectedStyleTags,
-      post_type: "event_post",
+      post_type: POST_TYPES.EVENT,
       location: selectedLocation,
     });
     setLoading(false);
@@ -49,7 +50,7 @@ export default function CreateEventScreen() {
         <Tag
           selectedTags={selectedStyleTags}
           setSelectedTags={setSelectedStyleTags}
-          tagData={styleTagData}
+          tagData={StyleTags}
         />
         <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
         <Button

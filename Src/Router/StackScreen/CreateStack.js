@@ -6,7 +6,7 @@ import CreateMusicianForBandScreen from "../../Screens/Create/CreateMusicianForB
 import CreateStageScreen from "../../Screens/Create/CreateStageScreen";
 import CreateBandForMusicianScreen from "../../Screens/Create/CreateBandForMusicianScreen";
 import CreateMusicianForCollaborateScreen from "../../Screens/Create/CreateMusicianForCollaborateScreen";
-import CreateArtistScreen from "../../Screens/Create/CreateArtistScreen";
+import CreateVisualArtistScreen from "../../Screens/Create/CreateVisualArtistScreen";
 const Stack = createStackNavigator();
 const CreateStack = () => (
   <Stack.Navigator>
@@ -53,8 +53,8 @@ const CreateStack = () => (
       }}
     />
     <Stack.Screen
-      name="CreateArtistScreen"
-      component={CreateArtistScreen}
+      name="CreateVisualArtistScreen"
+      component={CreateVisualArtistScreen}
       options={{
         title: "Create",
       }}

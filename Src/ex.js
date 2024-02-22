@@ -3,8 +3,8 @@ import { React, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
 function Ex() {
-  const username = "+905378780204";
-  const password = "Mert.0987";
+  const username = "";
+  const password = "";
 
   async function signUp() {
     try {

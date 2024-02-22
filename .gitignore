@@ -56,5 +56,5 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
-#constants
-Src/Utils/Constants
+#keys
+Constants/Keys

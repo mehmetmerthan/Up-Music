@@ -10,7 +10,8 @@ import {
 import { Button, Divider } from "@rneui/themed";
 import styles from "../Styles/OnBoardingStyle";
 import Tag from "./Tag";
-import { roleData, styleTagData } from "../../data/TagData";
+import StyleTags from "../../Constants/Data/StyleTags";
+import RoleTags from "../../Constants/Data/RoleTags";
 import SpotifySearch from "./SpotifySearch";
 import { isEmpty } from "lodash";
 const AddExperience = ({
@@ -89,14 +90,14 @@ const AddExperience = ({
           <Divider />
           <Text style={styles.subText}>Experience in which role?</Text>
           <Tag
-            tagData={roleData}
+            tagData={RoleTags}
             selectedTags={selectedExperienceRoleTags}
             setSelectedTags={setSelectedExperienceRoleTags}
           />
           <Divider />
           <Text style={styles.subText}>Experience in which style?</Text>
           <Tag
-            tagData={styleTagData}
+            tagData={StyleTags}
             selectedTags={selectedExperienceStyleTags}
             setSelectedTags={setSelectedExperienceStyleTags}
           />

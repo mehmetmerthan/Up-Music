@@ -5,8 +5,10 @@ import Tag from "../../Components/Tag";
 import { Divider, Button } from "@rneui/themed";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import UploadPost from "../../Utils/Uploads/uploadPost";
-import { styleTagData, roleData } from "../../../data/TagData";
+import StyleTags from "../../../Constants/Data/StyleTags";
+import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
+import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 export default function CreateBandForMusicianScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ export default function CreateBandForMusicianScreen() {
     await UploadPost({
       content: text,
       tag_styles: selectedStyleTags,
-      post_type: "band_post",
+      post_type: POST_TYPES.BAND,
       location: selectedLocation,
       tag_roles_needed: selectedRoleTags,
       tag_roles: selectedRoleExisting,
@@ -47,12 +49,12 @@ export default function CreateBandForMusicianScreen() {
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select group location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <CityPicker setSelectedLocation={setSelectedLocation}/>
+          <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians existing</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
-            tagData={roleData}
+            tagData={RoleTags}
             selectedTags={selectedRoleExisting}
             setSelectedTags={setSelectedRoleExisting}
           />
@@ -60,7 +62,7 @@ export default function CreateBandForMusicianScreen() {
           <Text style={styles.header}>Select the musicians needed</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
-            tagData={roleData}
+            tagData={RoleTags}
             selectedTags={selectedRoleTags}
             setSelectedTags={setSelectedRoleTags}
           />
@@ -68,7 +70,7 @@ export default function CreateBandForMusicianScreen() {
           <Text style={styles.header}>Select music styles</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
-            tagData={styleTagData}
+            tagData={StyleTags}
             selectedTags={selectedStyleTags}
             setSelectedTags={setSelectedStyleTags}
           />
