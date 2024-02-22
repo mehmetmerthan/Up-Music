@@ -2,7 +2,7 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function ProducersHeader() {
+export default function AnnouncementsVisualArtistsHeader() {
   const navigation = useNavigation();
   return (
     <View>
@@ -11,26 +11,16 @@ export default function ProducersHeader() {
           <Chip
             type="outline"
             containerStyle={styles.chip}
-            title={"Technical"}
+            title={"Visual Artists"}
             size="lg"
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Sound Engineer"}
+            title={"Reset"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("SoundEngineerScreen");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Technician"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("TechnicianScreen");
+                navigation.navigate("AnnouncementsScreen");
               }
             }}
           />

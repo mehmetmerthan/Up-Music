@@ -1,11 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
-import PostUser from "../../../../Components/PostComponents/PostUser";
-import TechnicalHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Technical/TechnicalHeader";
+import { postsByDate } from "../../../Utils/Queries/postQueries";
+import Post from "../../../Components/PostComponents/Post";
+import AnnouncementsVisualArtistsHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsVisualArtistsHeader";
 import { useRoute } from "@react-navigation/native";
-export default function TechnicalScreen() {
+export default function AnnouncementsVisualArtistsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -15,25 +15,24 @@ export default function TechnicalScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = [
-      { tag_roles: { eq: "Sound Engineer" } },
-      { tag_roles: { eq: "Technician" } },
-    ];
+    const additionalFilter = { post_type: { eq: "artist_post" } };
     const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : { or: additionalFilter };
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
+        type: "post",
+        sortDirection: "DESC",
         filter: updatedFilter,
       };
       const result = await API.graphql({
-        query: listUsers,
+        query: postsByDate,
         variables: variables,
       });
-      const newItems = result?.data?.listUsers?.items;
-      const newNextToken = result?.data?.listUsers?.nextToken;
+      const newItems = result?.data?.postsByDate?.items;
+      const newNextToken = result?.data?.postsByDate?.nextToken;
       setItems((prevItems) =>
         postNextToken ? [...prevItems, ...newItems] : newItems
       );
@@ -60,7 +59,7 @@ export default function TechnicalScreen() {
   return (
     <FlatList
       data={items}
-      renderItem={({ item, index }) => <PostUser item={item} index={index} />}
+      renderItem={({ item, index }) => <Post item={item} index={index} />}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.5}
@@ -71,7 +70,7 @@ export default function TechnicalScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<TechnicalHeader />}
+      ListHeaderComponent={<AnnouncementsVisualArtistsHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

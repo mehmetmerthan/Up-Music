@@ -1,10 +1,8 @@
 import ProfilesScreen from "../../../../Screens/Home/Profiles/ProfilesScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfilesFilterScreen from "../../../../Screens/Filter/Profiles/ProfilesFilterScreen";
-import ManagementStack from "./ManagementStack";
 import PerformanceStack from "./PerformanceStack";
 import ProducersStack from "./ProducersStack";
-import TechnicalStack from "./TechnicalStack";
 import VisualStack from "./VisualStack";
 import React from "react";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
@@ -26,14 +24,6 @@ export default function ProfilesStack() {
         }}
       />
       <Stack.Screen
-        name="ManagementStack"
-        component={ManagementStack}
-        options={{
-          headerShown: false,
-          title: "",
-        }}
-      />
-      <Stack.Screen
         name="PerformanceStack"
         component={PerformanceStack}
         options={{
@@ -44,14 +34,6 @@ export default function ProfilesStack() {
       <Stack.Screen
         name="ProducersStack"
         component={ProducersStack}
-        options={{
-          headerShown: false,
-          title: "",
-        }}
-      />
-      <Stack.Screen
-        name="TechnicalStack"
-        component={TechnicalStack}
         options={{
           headerShown: false,
           title: "",

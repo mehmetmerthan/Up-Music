@@ -16,10 +16,10 @@ export default function ProducersScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilters = [
-      { tag_roles: { eq: "Beatmaker" } },
-      { tag_roles: { eq: "Composer" } },
-      { tag_roles: { eq: "Mixing" } },
-      { tag_roles: { eq: "Songwriter" } },
+      { tag_roles: { contains: "Beatmaker" } },
+      { tag_roles: { contains: "Composer" } },
+      { tag_roles: { contains: "Mixing" } },
+      { tag_roles: { contains: "Songwriter" } },
     ];
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }

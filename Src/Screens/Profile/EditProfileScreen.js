@@ -233,17 +233,19 @@ const EditPorfileScreen = () => {
               },
             ]}
           >
-            <Text style={styles.userProfileInfoName}>{userData.name}</Text>
-            <View style={styles.userProfileInfoLocation}>
-              <EvilIcons
-                name="location"
-                size={20}
-                color="rgba(255, 255, 255, 0.5)"
-              />
-              <Text style={styles.userProfileInfoLocationText}>
-                {userData?.city}, {userData?.country}
-              </Text>
-            </View>
+            <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
+            {userData?.city && (
+              <View style={styles.userProfileInfoLocation}>
+                <EvilIcons
+                  name="location"
+                  size={20}
+                  color="rgba(255, 255, 255, 0.5)"
+                />
+                <Text style={styles.userProfileInfoLocationText}>
+                  {userData?.city}, {userData?.country}
+                </Text>
+              </View>
+            )}
           </Animated.View>
           <MaterialCommunityIcons
             name="circle-edit-outline"

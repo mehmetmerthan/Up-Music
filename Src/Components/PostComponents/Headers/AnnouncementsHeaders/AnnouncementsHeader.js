@@ -40,11 +40,11 @@ export default function UserProfileHeaderHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Artists"}
+            title={"Visual Artists"}
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsArtistsScreen");
+                navigation.navigate("AnnouncementsVisualArtistsScreen");
               }
             }}
           />

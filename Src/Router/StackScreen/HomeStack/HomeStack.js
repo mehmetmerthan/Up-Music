@@ -22,6 +22,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Home",
+          headerLeft: () => null,
         }}
       />
       <Stack.Screen

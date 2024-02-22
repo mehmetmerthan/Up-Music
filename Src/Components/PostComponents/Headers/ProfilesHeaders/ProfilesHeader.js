@@ -10,16 +10,6 @@ export default function UserProfileHeaderHeader() {
         <View style={styles.chipContainer}>
           <Chip
             buttonStyle={styles.chip}
-            title={"Management"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("ManagementStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
             title={"Performance"}
             size="lg"
             onPress={() => {
@@ -35,16 +25,6 @@ export default function UserProfileHeaderHeader() {
             onPress={() => {
               {
                 navigation.navigate("ProducersStack");
-              }
-            }}
-          />
-          <Chip
-            buttonStyle={styles.chip}
-            title={"Technical"}
-            size="lg"
-            onPress={() => {
-              {
-                navigation.navigate("TechnicalStack");
               }
             }}
           />

@@ -25,7 +25,7 @@ const OnboardingScreen3 = ({ route }) => {
   const navigation = useNavigation();
   function navigateToNextScreen() {
     setIsLoading(true);
-    navigation.navigate("SignUpScreen", {
+    navigation.navigate("PersonalSignUpScreen", {
       selectedStyleTags,
       selectedRoleTags,
       about,

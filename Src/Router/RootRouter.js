@@ -10,7 +10,7 @@ import CompleteProfileScreen from "../Screens/Auth/SignIn/CompleteProfileScreen"
 import { LogBox } from "react-native";
 export default function Router() {
   const [redirect, setRedirect] = useState(null);
-  const [completeProfile, setCompleteProfile] = useState(false);
+  //const [completeProfile, setCompleteProfile] = useState(false);
   const [screenIndex, setScreenIndex] = useState(0);
   Amplify.configure(awsconfig);
   async function listenToAutoSignInEvent() {
@@ -19,29 +19,31 @@ export default function Router() {
         bypassCache: true,
       });
       const { attributes } = user;
-      const email_verified = attributes.email_verified;
-      if (email_verified === false) {
-        setRedirect(false);
-        return;
-      }
-      const id = attributes.sub;
-      x(id);
+      //const email_verified = attributes.email_verified;
+      setRedirect(true);
+      
+      // if (email_verified === false) {
+      //   setRedirect(false);
+      //   return;
+      // }
+      // const id = attributes.sub;
+      // x(id);
     } catch (error) {
       setRedirect(false);
       console.log("root router catch", error);
     }
   }
-  async function x(id) {
-    const user = await API.graphql({
-      query: queries.listUsers,
-      variables: { filter: { id: { eq: id } } },
-    });
-    if (user.data.listUsers.items.length === 0) {
-      setCompleteProfile(true);
-    } else {
-      setRedirect(true);
-    }
-  }
+  // async function x(id) {
+  //   const user = await API.graphql({
+  //     query: queries.listUsers,
+  //     variables: { filter: { id: { eq: id } } },
+  //   });
+  //   if (user.data.listUsers.items.length === 0) {
+  //     setCompleteProfile(true);
+  //   } else {
+  //     setRedirect(true);
+  //   }
+  // }
   useEffect(() => {
     LogBox.ignoreLogs(["new NativeEventEmitter"]);
     LogBox.ignoreAllLogs();
@@ -54,12 +56,12 @@ export default function Router() {
         setScreenIndex(state.index);
       }}
     >
-      {completeProfile && (
+      {/* {completeProfile && (
         <CompleteProfileScreen
           setCompleteProfile={setCompleteProfile}
           setRedirect={setRedirect}
         />
-      )}
+      )} */}
       {redirect === true ? (
         <BottomTab screenIndex={screenIndex} />
       ) : redirect === false ? (

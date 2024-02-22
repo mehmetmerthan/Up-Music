@@ -1,119 +1,85 @@
-import React, { useRef } from "react";
-import { ScrollView, Text, StyleSheet, Animated } from "react-native";
+import { Auth } from "aws-amplify";
+import { React, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
+import { Button } from "@rneui/themed";
+function Ex() {
+  const username = "+905378780204";
+  const password = "Mert.0987";
 
-const Ex = () => {
-  const scrollY = useRef(new Animated.Value(0)).current;
+  async function signUp() {
+    try {
+      const user = await Auth.signUp({
+        username,
+        password,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+      console.log(user);
+    } catch (error) {
+      console.log("error signing up:", error);
+    }
+  }
+  async function signIn() {
+    try {
+      const user = await Auth.signIn(username, password);
+      console.log(user);
+    } catch (error) {
+      console.log("error signing in", error);
+    }
+  }
+  async function signOut() {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  }
 
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [250, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageOpacity = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [1, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageTranslateY = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [0, -250],
-    extrapolate: "clamp",
-  });
-
-  const imageScale = scrollY.interpolate({
-    inputRange: [-50, 250],
-    outputRange: [1, 1.5],
-    extrapolate: "clamp",
-  });
-  const borderRadius = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [60, 0],
-    extrapolate: "clamp",
-  });
+  async function getCurrentUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      console.log("current user", user);
+    } catch (error) {
+      console.log("error getting current user", error);
+    }
+  }
   return (
-    <ScrollView
-      style={styles.container}
-      scrollEventThrottle={16}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        { useNativeDriver: false }
-      )}
-    >
-      <Animated.View
-        style={[styles.profileImageContainer, { height: headerHeight }]}
-      >
-        <Animated.Image
-          source={{ uri: "https://picsum.photos/800/800" }}
-          style={[
-            styles.profileImage,
-            {
-              opacity: imageOpacity,
-              transform: [
-                { translateY: imageTranslateY },
-                { scaleX: imageScale },
-                { scaleY: imageScale },
-              ],
-              borderRadius: borderRadius,
-            },
-          ]}
-        />
-        <Animated.View style={styles.profileNameContainer}>
-          <Text style={styles.profileName}>Kullanıcı Adı</Text>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View
-        style={[styles.contentContainer, { paddingTop: headerHeight }]}
-      >
-        <Text style={styles.content}>Profil içeriği 1</Text>
-        <Text style={styles.content}>Profil içeriği 2</Text>
-        <Text style={styles.content}>Profil içeriği 3</Text>
-        <Text style={styles.content}>Profil içeriği 4</Text>
-        <Text style={styles.content}>Profil içeriği 5</Text>
-        <Text style={styles.content}>Profil içeriği 6</Text>
-      </Animated.View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Button
+        onPress={signUp}
+        title={"SignUp"}
+        buttonStyle={styles.buttonStyle}
+      />
+      <Button
+        onPress={signIn}
+        title={"SignIn"}
+        buttonStyle={styles.buttonStyle}
+      />
+      <Button
+        onPress={signOut}
+        title={"SignOut"}
+        buttonStyle={styles.buttonStyle}
+      />
+      <Button
+        onPress={getCurrentUser}
+        title={"GetCurrentUser"}
+        buttonStyle={styles.buttonStyle}
+      />
+    </View>
   );
-};
+}
+
+export default Ex;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-  },
-  profileImageContainer: {
-    alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#f0f0f0",
-    width: "100%",
-    position: "absolute",
-    top: 0,
-    zIndex: 1,
-  },
-  profileImage: {
-    width: "100%",
-    height: 500,
-  },
-  profileNameContainer: {
-    position: "absolute",
-    bottom: -120,
-    left: 0,
-    right: 0,
     alignItems: "center",
   },
-  profileName: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  contentContainer: {
-    padding: 20,
-    marginTop: 25,
-  },
-  content: {
-    fontSize: 18,
-    marginBottom: 250,
+  buttonStyle: {
+    width: 200,
+    margin: 20,
   },
 });
-
-export default Ex;

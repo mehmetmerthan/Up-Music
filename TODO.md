@@ -12,12 +12,17 @@ Project Description
 
 ### In Progress
 
-- [ ] profil fotoğrafı boyutunu düzenle  
-- [ ] prfilde müzikler yana kadyırmalı olsun  
 - [ ] stage afis ön pana çıkar pp küçült  
+- [ ] techniacal sil  
+- [ ] başvuru formunu düzenle  
 
 ### Done ✓
 
+- [x] profil management sil  
+- [x] artist visual artist oalcak  
+- [x] telefon no ile üye yap  
+- [x] prfilde müzikler yana kadyırmalı olsun  
+- [x] profil fotoğrafı boyutunu düzenle  
 - [x] mekanlar için eventde bölüm oluştur  
 - [x] isim soyisim değil artist name olması gerekli  
 - [x] ana sayfaya kurumsal şirketler kısmı eklenecek  

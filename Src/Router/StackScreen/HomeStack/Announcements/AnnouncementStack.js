@@ -6,7 +6,7 @@ import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRig
 import UserDetailScreen from "../../../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../../../Screens/Message/MessageDetailScreen";
 import AnnouncementsMusiciansStack from "./AnnouncementsMusiciansStack";
-import AnnouncementsArtistsScreen from "../../../../Screens/Home/Announcements/AnnouncementsArtistsScreen";
+import AnnouncementsVisualArtistsScreen from "../../../../Screens/Home/Announcements/AnnouncementsVisualArtistsScreen";
 import AnnouncementsBandsScreen from "../../../../Screens/Home/Announcements/AnnouncementsBandsScreen";
 import AnnouncementsStagesScreen from "../../../../Screens/Home/Announcements/AnnouncementsStagesScreen";
 const Stack = createStackNavigator();
@@ -33,8 +33,8 @@ export default function AnnouncementsStack() {
         }}
       />
       <Stack.Screen
-        name="AnnouncementsArtistsScreen"
-        component={AnnouncementsArtistsScreen}
+        name="AnnouncementsVisualArtistsScreen"
+        component={AnnouncementsVisualArtistsScreen}
         options={{
           headerShown: true,
           title: "Artists",

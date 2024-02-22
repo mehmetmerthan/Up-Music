@@ -3,7 +3,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { View, Text } from "react-native";
 import { Button } from "@rneui/themed";
 import styles from "../../Styles/Picker/LocationPickerStyle";
-import { API_KEY } from "../../Utils/Constants/API_KEY";
+import { GOOGLE_PLACES_API_KEY } from "../../Utils/Constants/API_KEY";
 export function LocationPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -40,7 +40,7 @@ export function LocationPicker({ setSelectedLocation }) {
         fetchDetails={false}
         onPress={(data = null) => handleLocationSelect(data)}
         query={{
-          key: API_KEY,
+          key: GOOGLE_PLACES_API_KEY,
           language: "en",
           types: "establishment",
         }}
@@ -88,7 +88,7 @@ export function CountryPicker({ setSelectedLocation }) {
         fetchDetails={true}
         onPress={(data = null) => handleLocationSelect(data)}
         query={{
-          key: API_KEY,
+          key: GOOGLE_PLACES_API_KEY,
           language: "en",
           types: "(regions)",
         }}
@@ -145,7 +145,7 @@ export function CityPicker({ setSelectedLocation }) {
           fetchDetails={true}
           onPress={(data = null) => handleLocationSelect(data)}
           query={{
-            key: API_KEY,
+            key: GOOGLE_PLACES_API_KEY,
             language: "en",
             types: "(cities)",
           }}

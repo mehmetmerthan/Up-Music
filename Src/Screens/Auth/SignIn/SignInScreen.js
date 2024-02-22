@@ -7,11 +7,18 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signIn from "../../../Utils/Auth/SignIn";
 import { Auth } from "aws-amplify";
+
+const phoneRegExp = /^\+\d{12}$/;
 const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
+  email: yup.string()
+  .required("Email or phone number is required")
+  .test(
+    'is-valid',
+    'Invalid email or phone number',
+    function (value) {
+      return yup.string().email().isValidSync(value) || phoneRegExp.test(value);
+    }
+  ),
   password: yup
     .string()
     .min(8, "password must be least 8 characters")
@@ -80,7 +87,7 @@ const SignInScreen = () => {
               <Text style={styles.subText}> Email</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder="Email or phone number"
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}

@@ -20,7 +20,7 @@ export default function AnnouncementsCallobrationHeader() {
             size="lg"
             onPress={() => {
               {
-                navigation.navigate("AnnouncementsStack");
+                navigation.navigate("AnnouncementsScreen");
               }
             }}
           />

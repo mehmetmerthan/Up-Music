@@ -15,7 +15,7 @@ export default function SongwriterScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilter = { tag_roles: { contains: "songwriter" } };
+    const additionalFilter = { tag_roles: { contains: "Songwriter" } };
 
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
