@@ -20,6 +20,16 @@ export default function UserProfileHeaderHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
+            title={"Instrumentalist"}
+            size="lg"
+            onPress={() => {
+              {
+                navigation.navigate("InstrumentalistScreen");
+              }
+            }}
+          />
+          <Chip
+            buttonStyle={styles.chip}
             title={"Producers"}
             size="lg"
             onPress={() => {

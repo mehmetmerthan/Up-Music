@@ -8,6 +8,7 @@ export const onCreateUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -48,6 +49,7 @@ export const onUpdateUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -88,6 +90,7 @@ export const onDeleteUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -141,6 +144,7 @@ export const onCreatePost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -179,6 +183,7 @@ export const onUpdatePost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -217,6 +222,7 @@ export const onDeletePost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -248,6 +254,7 @@ export const onCreateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -263,6 +270,7 @@ export const onCreateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -295,6 +303,7 @@ export const onUpdateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -310,6 +319,7 @@ export const onUpdateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -342,6 +352,7 @@ export const onDeleteMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -357,6 +368,7 @@ export const onDeleteMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city

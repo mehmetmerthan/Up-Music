@@ -8,6 +8,7 @@ export const getUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -53,6 +54,7 @@ export const listUsers = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -88,6 +90,7 @@ export const getPost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -150,6 +153,7 @@ export const getMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -165,6 +169,7 @@ export const getMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city

@@ -9,17 +9,18 @@ import {
 import styles from "../Styles/UserProfileStyle";
 import { EvilIcons } from "@expo/vector-icons";
 import { Chip, Button } from "@rneui/themed";
-import { API, Storage } from "aws-amplify";
+import { API, Storage, Auth } from "aws-amplify";
 import Experiences from "../Components/Experiences";
 import Post from "../Components/PostComponents/Post";
 import { ScrollView } from "react-native-virtualized-view";
 import { useRoute } from "@react-navigation/native";
 import { getUser } from "../Utils/Queries/userQueries";
 import { useNavigation } from "@react-navigation/native";
+import { getUserId } from "../Utils/getUser";
 const UserDetailScreen = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [loadingButton, setLoadingButton] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState("");
   const route = useRoute();
   const { userId } = route?.params || "";
   const navigation = useNavigation();
@@ -30,10 +31,16 @@ const UserDetailScreen = () => {
       variables: { id: userId },
     });
     let userItem = item?.data?.getUser;
+
+    const res = await getUserId();
+    setCurrentUserId(res);
     try {
-      const s3Link = await Storage.get(userItem?.key_pp, {
-        validateObjectExistence: true,
-      });
+      let s3Link = null;
+      if (userItem?.key_pp) {
+        s3Link = await Storage.get(userItem?.key_pp, {
+          validateObjectExistence: true,
+        });
+      }
       if (s3Link) {
         userItem.key_pp = s3Link;
       } else {
@@ -70,13 +77,13 @@ const UserDetailScreen = () => {
   });
 
   const imageScale = scrollY.interpolate({
-    inputRange: [-50, 250],
+    inputRange: [0, 250],
     outputRange: [1, 1.5],
     extrapolate: "clamp",
   });
   const borderRadius = scrollY.interpolate({
     inputRange: [0, 250],
-    outputRange: [60, 0],
+    outputRange: [40, 0],
     extrapolate: "clamp",
   });
   return (
@@ -106,7 +113,8 @@ const UserDetailScreen = () => {
                       { scaleX: imageScale },
                       { scaleY: imageScale },
                     ],
-                    borderRadius: borderRadius,
+                    borderBottomLeftRadius: borderRadius,
+                    borderBottomRightRadius: borderRadius,
                   },
                 ]}
               />
@@ -125,30 +133,34 @@ const UserDetailScreen = () => {
               ]}
             >
               <Text style={styles.userProfileInfoName}>{userData.name}</Text>
-              <View style={styles.userProfileInfoLocation}>
-                <EvilIcons
-                  name="location"
-                  size={20}
-                  color="rgba(255, 255, 255, 0.5)"
-                />
-                <Text style={styles.userProfileInfoLocationText}>
-                  {userData?.city}, {userData?.country}
-                </Text>
-              </View>
+              {userData?.country && (
+                <View style={styles.userProfileInfoLocation}>
+                  <EvilIcons
+                    name="location"
+                    size={20}
+                    color="rgba(255, 255, 255, 0.5)"
+                  />
+                  <Text style={styles.userProfileInfoLocationText}>
+                    {userData?.city}, {userData?.country}
+                  </Text>
+                </View>
+              )}
             </Animated.View>
           </Animated.View>
           <View style={styles.userProfileBody}>
-            <View style={styles.flexB}>
-              <Button
-                title={"Message"}
-                onPress={() =>
-                  navigation.navigate("MessageDetailScreen", {
-                    senderId: userId,
-                  })
-                }
-                buttonStyle={styles.buttonSave}
-              />
-            </View>
+            {userId !== currentUserId && (
+              <View style={styles.flexB}>
+                <Button
+                  title={"Message"}
+                  onPress={() =>
+                    navigation.navigate("MessageDetailScreen", {
+                      senderId: userId,
+                    })
+                  }
+                  buttonStyle={styles.buttonSave}
+                />
+              </View>
+            )}
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText} numberOfLines={1}>
               About

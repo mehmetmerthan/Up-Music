@@ -92,9 +92,7 @@ const HomeStack = () => {
         name="MessageDetailScreen"
         component={MessageDetailScreen}
         options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
+          title: "Message",
         }}
       />
     </Stack.Navigator>

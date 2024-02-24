@@ -1,12 +1,11 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { listUsers } from "../../../../Utils/Queries/userProfileQueries";
-import PostUser from "../../../../Components/PostComponents/PostUser";
-import ProducersHeader from "../../../../Components/PostComponents/Headers/ProfilesHeaders/Producers/ProducersHeader";
+import { listUsers } from "../../../Utils/Queries/userProfileQueries";
+import PostUser from "../../../Components/PostComponents/PostUser";
+import InstrumentalistHeader from "../../../Components/PostComponents/Headers/ProfilesHeaders/InstrumentalistHeader";
 import { useRoute } from "@react-navigation/native";
-import { PROFILE_SCREEN_TYPES } from "../../../../../Constants/Enums/ProfilTypes";
-export default function ProducersScreen() {
+export default function InstrumentalistScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postNextToken, setPostNextToken] = useState(null);
@@ -16,21 +15,13 @@ export default function ProducersScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = {
-      or: [
-        { tag_roles: { contains: PROFILE_SCREEN_TYPES.BEATMAKER } },
-        { tag_roles: { contains: PROFILE_SCREEN_TYPES.COMPOSER } },
-        { tag_roles: { contains: PROFILE_SCREEN_TYPES.MIXING } },
-        { tag_roles: { contains: PROFILE_SCREEN_TYPES.SONGWRITER } },
-      ],
-    };
+    const additionalFilter = { Instrumentalist: { eq: true } };
     const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
-
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : additionalFilter;
     try {
       const variables = {
-        limit: 1,
+        limit: 2,
         nextToken: postNextToken,
         filter: updatedFilter,
       };
@@ -69,7 +60,7 @@ export default function ProducersScreen() {
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.1}
       ListFooterComponent={loading && <ActivityIndicator />}
       onRefresh={() => {
         setRefreshing(true);
@@ -77,7 +68,7 @@ export default function ProducersScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<ProducersHeader />}
+      ListHeaderComponent={<InstrumentalistHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

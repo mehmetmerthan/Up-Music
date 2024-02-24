@@ -5,6 +5,7 @@ import { listUsers } from "../../../Utils/Queries/userProfileQueries";
 import PostUser from "../../../Components/PostComponents/PostUser";
 import ProfilesHeader from "../../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeader";
 import { useRoute } from "@react-navigation/native";
+import { USER_TYPES } from "../../../../Constants/Enums/UserTypes";
 export default function ProfilesScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,11 +16,18 @@ export default function ProfilesScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
+    const additionalFilter = {
+      user_type: { eq: USER_TYPES.PERSONAL },
+    };
+
+    const updatedFilter = filter
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : additionalFilter;
     try {
       const variables = {
         limit: 2,
         nextToken: postNextToken,
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: listUsers,

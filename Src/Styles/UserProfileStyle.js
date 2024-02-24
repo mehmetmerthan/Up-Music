@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   profileNameContainer: {
     position: "absolute",
-    bottom: -140,
+    bottom: -50,
     padding: 10,
     borderRadius: 25,
     backgroundColor: "#303030e1",
@@ -27,10 +27,11 @@ const styles = StyleSheet.create({
     position: "relative",
     top: 0,
     zIndex: 1,
+    paddingTop: 20,
   },
   profileImage: {
     width: "100%",
-    height: 360,
+    height: 260,
     resizeMode: "cover",
   },
   userProfileInfoName: {
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   userProfileBody: {
     flexGrow: 1,
     paddingBottom: 100,
-    marginTop: 160,
+    marginTop: 80,
   },
   flexB: {
     flexDirection: "row",

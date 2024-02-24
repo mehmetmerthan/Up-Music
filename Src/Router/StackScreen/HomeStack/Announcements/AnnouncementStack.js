@@ -3,8 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AnnouncementsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsFilterScreen";
 import React from "react";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
-import UserDetailScreen from "../../../../Screens/UserDetailScreen";
-import MessageDetailScreen from "../../../../Screens/Message/MessageDetailScreen";
 import AnnouncementsMusiciansStack from "./AnnouncementsMusiciansStack";
 import AnnouncementsVisualArtistsScreen from "../../../../Screens/Home/Announcements/AnnouncementsVisualArtistsScreen";
 import AnnouncementsBandsScreen from "../../../../Screens/Home/Announcements/AnnouncementsBandsScreen";
@@ -62,24 +60,6 @@ export default function AnnouncementsStack() {
         options={{
           headerShown: true,
           title: "Filter",
-        }}
-      />
-      <Stack.Screen
-        name="UserDetailScreen"
-        component={UserDetailScreen}
-        options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
-        }}
-      />
-      <Stack.Screen
-        name="MessageDetailScreen"
-        component={MessageDetailScreen}
-        options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
         }}
       />
     </Stack.Navigator>

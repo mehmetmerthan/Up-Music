@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     margin: 10,
   },
+  skeleton: {
+    margin: 15,
+  },
   username: {
     color: "#f1f1f1",
     fontWeight: "bold",

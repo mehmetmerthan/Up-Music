@@ -1,0 +1,28 @@
+const INSTRUMENT_LIST = [
+  "Guitarist",
+  "Acoustic Guitarist",
+  "Rythm Guitarist",
+  "Solo Guitarist",
+  "Lead Guitarist",
+  "Electric Guitarist",
+  "Electro Rythm Guitarist",
+  "Electro Solo Guitarist",
+  "Bassist",
+  "Drummer",
+  "Percussionist",
+  "Keyboardist",
+  "Pianist",
+  "MIDI Keyboardist",
+  "Synthesist",
+  "Accordionist",
+  "Clarinetist",
+  "Trumpeter",
+  "Saxophonist",
+  "Flutist",
+  "Violinist",
+  "Violist",
+  "Cellist",
+  "Contrabassist",
+];
+
+export default INSTRUMENT_LIST;

@@ -2,7 +2,7 @@ import { Chip } from "@rneui/themed";
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-export default function ComposerHeader() {
+export default function InstrumentalistHeader() {
   const navigation = useNavigation();
   return (
     <View style={styles.chipContainer}>
@@ -13,7 +13,7 @@ export default function ComposerHeader() {
         size="lg"
         onPress={() => {
           {
-            navigation.navigate("ProducersScreen");
+            navigation.navigate("ProfilesScreen");
           }
         }}
       />

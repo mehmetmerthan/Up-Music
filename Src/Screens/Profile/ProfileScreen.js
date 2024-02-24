@@ -71,35 +71,51 @@ const ProfileScreen = () => {
   });
 
   const imageScale = scrollY.interpolate({
-    inputRange: [-50, 250],
+    inputRange: [0, 250],
     outputRange: [1, 1.5],
     extrapolate: "clamp",
   });
   const borderRadius = scrollY.interpolate({
     inputRange: [0, 250],
-    outputRange: [60, 0],
+    outputRange: [40, 0],
     extrapolate: "clamp",
   });
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <ActivityIndicator size={"large"} />
-      ) : ( */}
-      <ScrollView
-        scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
-      >
-        <Animated.View
-          style={[styles.userProfileTop, { height: headerHeight }]}
+      ) : (
+        <ScrollView
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: false }
+          )}
         >
-          {userData?.key_pp && (
-            <Animated.Image
-              source={{ uri: userData?.key_pp }}
+          <Animated.View
+            style={[styles.userProfileTop, { height: headerHeight }]}
+          >
+            {userData?.key_pp && (
+              <Animated.Image
+                source={{ uri: userData?.key_pp }}
+                style={[
+                  styles.profileImage,
+                  {
+                    opacity: imageOpacity,
+                    transform: [
+                      { translateY: imageTranslateY },
+                      { scaleX: imageScale },
+                      { scaleY: imageScale },
+                    ],
+                    borderBottomLeftRadius: borderRadius,
+                    borderBottomRightRadius: borderRadius,
+                  },
+                ]}
+              />
+            )}
+            <Animated.View
               style={[
-                styles.profileImage,
+                styles.profileNameContainer,
                 {
                   opacity: imageOpacity,
                   transform: [
@@ -107,127 +123,112 @@ const ProfileScreen = () => {
                     { scaleX: imageScale },
                     { scaleY: imageScale },
                   ],
-                  borderRadius: borderRadius,
                 },
               ]}
-            />
-          )}
-          <Animated.View
-            style={[
-              styles.profileNameContainer,
-              {
-                opacity: imageOpacity,
-                transform: [
-                  { translateY: imageTranslateY },
-                  { scaleX: imageScale },
-                  { scaleY: imageScale },
-                ],
-              },
-            ]}
-          >
-            <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
-            {userData?.city && (
-              <View style={styles.userProfileInfoLocation}>
-                <EvilIcons
-                  name="location"
-                  size={20}
-                  color="rgba(255, 255, 255, 0.5)"
-                />
-                <Text style={styles.userProfileInfoLocationText}>
-                  {userData?.city}, {userData?.country}
-                </Text>
-              </View>
-            )}
+            >
+              <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
+              {userData?.city && (
+                <View style={styles.userProfileInfoLocation}>
+                  <EvilIcons
+                    name="location"
+                    size={20}
+                    color="rgba(255, 255, 255, 0.5)"
+                  />
+                  <Text style={styles.userProfileInfoLocationText}>
+                    {userData?.city}, {userData?.country}
+                  </Text>
+                </View>
+              )}
+            </Animated.View>
           </Animated.View>
-        </Animated.View>
-        <View style={styles.userProfileBody}>
-          <View style={styles.flexB}>
-            <Button
-              title="Edit Profile"
-              titleStyle={styles.buttonTextEdit}
-              onPress={editProfile}
-              type="outline"
-              buttonStyle={styles.buttonEdit}
-              loading={loadingButton}
-            />
-            <Button
-              title={"Settings"}
-              onPress={() => navigation.navigate("SettingsScreen")}
-              buttonStyle={styles.buttonSettings}
-            />
-          </View>
-          <View style={styles.divider} />
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            About
-          </Text>
-          <View style={styles.sectionContent}>
-            <Text style={styles.typography}>
-              {userData?.about ? userData?.about : "No description"}
+          <View style={styles.userProfileBody}>
+            <View style={styles.flexB}>
+              <Button
+                title="Edit Profile"
+                titleStyle={styles.buttonTextEdit}
+                onPress={editProfile}
+                type="outline"
+                buttonStyle={styles.buttonEdit}
+                loading={loadingButton}
+              />
+              <Button
+                title={"Settings"}
+                onPress={() => navigation.navigate("SettingsScreen")}
+                buttonStyle={styles.buttonSettings}
+              />
+            </View>
+            <View style={styles.divider} />
+            <Text style={styles.sectionHeadingText} numberOfLines={1}>
+              About
             </Text>
+            <View style={styles.sectionContent}>
+              <Text style={styles.typography}>
+                {userData?.about ? userData?.about : "No description"}
+              </Text>
+            </View>
+            <View style={styles.divider} />
+            <Text style={styles.sectionHeadingText} numberOfLines={1}>
+              Music Styles
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                marginHorizontal: 10,
+                marginTop: 5,
+              }}
+            >
+              {userData?.tag_styles?.map((item, index) => (
+                <Chip
+                  key={index}
+                  title={item}
+                  titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                  buttonStyle={{ borderColor: "#000000" }}
+                  type="outline"
+                  containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
+                  style={{ backgroundColor: "#ccc" }}
+                />
+              ))}
+            </View>
+            <View style={styles.divider} />
+            <Text style={styles.sectionHeadingText} numberOfLines={1}>
+              Roles
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                marginHorizontal: 10,
+                marginTop: 5,
+              }}
+            >
+              {userData?.tag_roles?.map((item, index) => (
+                <Chip
+                  key={index}
+                  title={item}
+                  titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                  buttonStyle={{ borderColor: "#000000" }}
+                  type="outline"
+                  containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
+                  style={{ backgroundColor: "#ccc" }}
+                />
+              ))}
+            </View>
+            <View style={styles.divider} />
+            <Text style={styles.sectionHeadingText}>Experiences</Text>
+            {userData?.experiences?.length > 0 && (
+              <Experiences experiencesData={userData?.experiences} />
+            )}
+            <View style={styles.divider} />
+            <Text style={styles.sectionHeadingText}>Announcments</Text>
+            <FlatList
+              data={userData?.posts?.items}
+              renderItem={({ item }) => <Post item={item} />}
+              keyExtractor={(item) => item.id}
+            />
           </View>
-          <View style={styles.divider} />
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            Music Styles
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              marginHorizontal: 10,
-              marginTop: 5,
-            }}
-          >
-            {userData?.tag_styles?.map((item, index) => (
-              <Chip
-                key={index}
-                title={item}
-                titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                buttonStyle={{ borderColor: "#000000" }}
-                type="outline"
-                containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                style={{ backgroundColor: "#ccc" }}
-              />
-            ))}
-          </View>
-          <View style={styles.divider} />
-          <Text style={styles.sectionHeadingText} numberOfLines={1}>
-            Roles
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              marginHorizontal: 10,
-              marginTop: 5,
-            }}
-          >
-            {userData?.tag_roles?.map((item, index) => (
-              <Chip
-                key={index}
-                title={item}
-                titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                buttonStyle={{ borderColor: "#000000" }}
-                type="outline"
-                containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                style={{ backgroundColor: "#ccc" }}
-              />
-            ))}
-          </View>
-          <View style={styles.divider} />
-          <Text style={styles.sectionHeadingText}>Experiences</Text>
-          {userData?.experiences?.length > 0 && (
-            <Experiences experiencesData={userData?.experiences} />
-          )}
-          <View style={styles.divider} />
-          <Text style={styles.sectionHeadingText}>Announcments</Text>
-          <FlatList
-            data={userData?.posts?.items}
-            renderItem={({ item }) => <Post item={item} />}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </ScrollView>
-      {/* )} */}
+        </ScrollView>
+      )}
     </>
   );
 };

@@ -11,6 +11,7 @@ export const createUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -54,6 +55,7 @@ export const updateUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -97,6 +99,7 @@ export const deleteUser = /* GraphQL */ `
       name
       about
       user_type
+      Instrumentalist
       key_pp
       posts {
         nextToken
@@ -153,6 +156,7 @@ export const createPost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -194,6 +198,7 @@ export const updatePost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -235,6 +240,7 @@ export const deletePost = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -269,6 +275,7 @@ export const createMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -284,6 +291,7 @@ export const createMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -319,6 +327,7 @@ export const updateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -334,6 +343,7 @@ export const updateMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -369,6 +379,7 @@ export const deleteMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city
@@ -384,6 +395,7 @@ export const deleteMessage = /* GraphQL */ `
         name
         about
         user_type
+        Instrumentalist
         key_pp
         price
         city

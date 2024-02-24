@@ -16,10 +16,12 @@ export default function PerformnceScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = [
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.DJ } },
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.SINGER } },
-    ];
+    const additionalFilters = {
+      or: [
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.DJ } },
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.SINGER } },
+      ],
+    };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }
       : { or: additionalFilters };

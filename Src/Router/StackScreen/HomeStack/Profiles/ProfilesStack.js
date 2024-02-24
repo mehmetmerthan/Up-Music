@@ -6,8 +6,8 @@ import ProducersStack from "./ProducersStack";
 import VisualStack from "./VisualStack";
 import React from "react";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
-import UserDetailScreen from "../../../../Screens/UserDetailScreen";
-import MessageDetailScreen from "../../../../Screens/Message/MessageDetailScreen";
+import InstrumentalistScreen from "../../../../Screens/Home/Profiles/InstrumentalistScreen";
+import InstrumentalistFilterScreen from "../../../../Screens/Filter/Profiles/InstrumentalistFilterScreen";
 const Stack = createStackNavigator();
 export default function ProfilesStack() {
   return (
@@ -18,8 +18,17 @@ export default function ProfilesStack() {
         options={{
           headerShown: true,
           title: "Profiles",
+          headerRight: () => <HeaderRight screenName="ProfilesFilterScreen" />,
+        }}
+      />
+      <Stack.Screen
+        name="InstrumentalistScreen"
+        component={InstrumentalistScreen}
+        options={{
+          headerShown: true,
+          title: "Instrumentalist",
           headerRight: () => (
-            <HeaderRight screenName="ProfilesFilterScreen" />
+            <HeaderRight screenName="InstrumentalistFilterScreen" />
           ),
         }}
       />
@@ -56,21 +65,11 @@ export default function ProfilesStack() {
         }}
       />
       <Stack.Screen
-        name="UserDetailScreen"
-        component={UserDetailScreen}
+        name="InstrumentalistFilterScreen"
+        component={InstrumentalistFilterScreen}
         options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
-        }}
-      />
-      <Stack.Screen
-        name="MessageDetailScreen"
-        component={MessageDetailScreen}
-        options={{
-          headerTransparent: true,
-          title: "",
-          headerTintColor: "white",
+          headerShown: true,
+          title: "Filter",
         }}
       />
     </Stack.Navigator>

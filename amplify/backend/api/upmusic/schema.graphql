@@ -6,6 +6,7 @@ type User @model {
   name: String
   about: String
   user_type: String
+  Instrumentalist: Boolean
   key_pp: String
   posts: [Post] @hasMany
   price: Int

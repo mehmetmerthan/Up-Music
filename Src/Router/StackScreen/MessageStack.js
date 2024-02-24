@@ -18,16 +18,14 @@ const MessageStack = () => (
       name="MessageDetailScreen"
       component={MessageDetailScreen}
       options={{
-        title: "",
+        title: "Message ",
       }}
     />
     <MyMessageStack.Screen
       name="UserDetailScreen"
       component={UserDetailScreen}
       options={{
-        headerTransparent: true,
-        title: "",
-        headerTintColor: "white",
+        title: "User Detail",
       }}
     />
   </MyMessageStack.Navigator>

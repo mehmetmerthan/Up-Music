@@ -2,8 +2,7 @@ import { FlatList, ActivityIndicator } from "react-native";
 import { React, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { listUsers } from "../../Utils/Queries/userProfileQueries";
-import PostUser from "../../Components/PostComponents/PostUser";
-import ProfilesHeader from "../../Components/PostComponents/Headers/ProfilesHeaders/ProfilesHeader";
+import PostCompany from "../../Components/PostComponents/PostCompany";
 import { useRoute } from "@react-navigation/native";
 import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 export default function CompaniesScreen() {
@@ -60,7 +59,9 @@ export default function CompaniesScreen() {
   return (
     <FlatList
       data={items}
-      renderItem={({ item, index }) => <PostUser item={item} index={index} />}
+      renderItem={({ item, index }) => (
+        <PostCompany item={item} index={index} />
+      )}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.1}
@@ -71,7 +72,6 @@ export default function CompaniesScreen() {
         fetchItems();
       }}
       refreshing={refreshing}
-      ListHeaderComponent={<ProfilesHeader />}
       keyboardShouldPersistTaps="always"
     />
   );

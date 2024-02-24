@@ -16,13 +16,15 @@ export default function VisualScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
-    const additionalFilters = [
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.PHOTOGRAPHER } },
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.VIDEOGRAPHER } },
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.DIRECTOR } },
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.EDITOR } },
-      { tag_roles: { eq: PROFILE_SCREEN_TYPES.GRAPHICER } },
-    ];
+    const additionalFilters = {
+      or: [
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.PHOTOGRAPHER } },
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.VIDEOGRAPHER } },
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.DIRECTOR } },
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.EDITOR } },
+        { tag_roles: { contains: PROFILE_SCREEN_TYPES.GRAPHICER } },
+      ],
+    };
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, ...additionalFilters] }
       : { or: additionalFilters };
