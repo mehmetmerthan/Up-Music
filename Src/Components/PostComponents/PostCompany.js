@@ -40,7 +40,7 @@ const PostCompany = ({ item }) => {
   }
   useEffect(() => {
     getS3Url();
-  }, [item?.key_pp]);
+  }, []);
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -82,7 +82,7 @@ const PostCompany = ({ item }) => {
             onPress={navigateToAplly}
             loading={loadingApply}
           >
-            Apply
+            Send a file
             <Ionicons name="add" size={32} color="white" />
           </Button>
         </View>

@@ -58,6 +58,8 @@ type Message @model {
   receiver: User @belongsTo(fields: ["userMessagesReceivedId"])
   userMessagesSentId: ID!
   userMessagesReceivedId: ID!
+  key_file: String
+  mime_type: String
   type: String!
     @index(
       name: "messagesByDate"

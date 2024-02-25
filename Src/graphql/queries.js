@@ -182,6 +182,8 @@ export const getMessage = /* GraphQL */ `
       }
       userMessagesSentId
       userMessagesReceivedId
+      key_file
+      mime_type
       type
       createdAt
       updatedAt
@@ -204,6 +206,8 @@ export const listMessages = /* GraphQL */ `
         hasMessagesReceiver
         userMessagesSentId
         userMessagesReceivedId
+        key_file
+        mime_type
         type
         createdAt
         updatedAt
@@ -280,6 +284,8 @@ export const messagesByDate = /* GraphQL */ `
         hasMessagesReceiver
         userMessagesSentId
         userMessagesReceivedId
+        key_file
+        mime_type
         type
         createdAt
         updatedAt

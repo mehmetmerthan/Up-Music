@@ -56,26 +56,25 @@ export default function Router() {
     });
     const { attributes } = user;
     const userID = attributes.sub;
-    console.log("userID", userID);
   }
   return (
-    // <NavigationContainer
-    //   onStateChange={(state) => {
-    //     setScreenIndex(state.index);
-    //   }}
-    // >
-    //   {/* {completeProfile && (
-    //     <CompleteProfileScreen
-    //       setCompleteProfile={setCompleteProfile}
-    //       setRedirect={setRedirect}
-    //     />
-    //   )} */}
-    //   {redirect === true ? (
-    //     <BottomTab screenIndex={screenIndex} />
-    //   ) : redirect === false ? (
-    //     <AuthStack />
-    //   ) : null}
-    // </NavigationContainer>
-    <Ex />
+    <NavigationContainer
+      onStateChange={(state) => {
+        setScreenIndex(state.index);
+      }}
+    >
+      {/* {completeProfile && (
+        <CompleteProfileScreen
+          setCompleteProfile={setCompleteProfile}
+          setRedirect={setRedirect}
+        />
+      )} */}
+      {redirect === true ? (
+        <BottomTab screenIndex={screenIndex} />
+      ) : redirect === false ? (
+        <AuthStack />
+      ) : null}
+    </NavigationContainer>
+    // <Ex />
   );
 }

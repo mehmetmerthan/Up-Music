@@ -53,11 +53,11 @@ export default function MessageScreen() {
         or: [
           {
             userMessagesReceivedId: { eq: res },
-            //hasMessagesReceiver: { eq: true },
+            hasMessagesReceiver: { eq: true },
           },
           {
             userMessagesSentId: { eq: res },
-            //hasMessagesReceiver: { eq: true },
+            hasMessagesReceiver: { eq: true },
           },
         ],
       },
@@ -108,26 +108,17 @@ export default function MessageScreen() {
     setLoadingUpdate(true);
     try {
       const deletePromises = messages.map(async (message) => {
-        return await API.graphql(
-          graphqlOperation(mutations.updateMessage, {
-            input: {
-              id: message.id,
-              hasMessagesReceiver: false,
-            },
-          })
-        );
-      });
-      await Promise.all(deletePromises);
-      fetchMessages();
-    } catch (error) {
-      console.log(error);
-    }
-    setLoadingUpdate(false);
-  }
-  async function updateMessagesTest({ messages }) {
-    setLoadingUpdate(true);
-    try {
-      const deletePromises = messages.map(async (message) => {
+        if (
+          message?.key_file &&
+          !message?.hasMessagesReceiver &&
+          !message?.hasMMessagesSender
+        ) {
+          try {
+            await Storage.remove(message.key_file);
+          } catch (error) {
+            console.log(error);
+          }
+        }
         return await API.graphql(
           graphqlOperation(mutations.deleteMessage, {
             input: {
@@ -174,7 +165,7 @@ export default function MessageScreen() {
             icon={{ name: "delete-outline" }}
             onPress={async () => {
               action();
-              await updateMessagesTest({ messages: item.allMessages });
+              await updateMessages({ messages: item.allMessages });
             }}
           />
         )}
@@ -198,7 +189,7 @@ export default function MessageScreen() {
         }
         ViewComponent={LinearGradient}
       >
-        <S3ImageAvatar size={42} />
+        <S3ImageAvatar size={42} imageKey={item.message.receiver.key_pp} />
         <ListItem.Content>
           <ListItem.Title style={styles.username}>
             {item.message.sender.id === userId

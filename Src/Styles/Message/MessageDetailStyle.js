@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     alignSelf: "center",
   },
+  clickText: {
+    color: "blue",
+    textDecorationLine: "underline",
+  },
   messageContainer: {},
   typeArea: {
     margin: 12,

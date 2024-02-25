@@ -32,7 +32,10 @@ export default function CreateBandForMusicianScreen() {
       tag_roles: selectedRoleExisting,
     });
     setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "HomeScreen" }, { name: "AnnouncementsStack" }],
+    });
   }
   function renderItem() {
     return (

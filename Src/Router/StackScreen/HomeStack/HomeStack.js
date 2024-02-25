@@ -12,6 +12,8 @@ import HeaderRight from "../../../Components/PostComponents/Headers/HeaderRight"
 import UserDetailScreen from "../../../Screens/UserDetailScreen";
 import MessageDetailScreen from "../../../Screens/Message/MessageDetailScreen";
 import CompaniesScreen from "../../../Screens/Home/CompaniesScreen";
+import ApplyCompanyScreen from "../../../Screens/Home/ApplyCompanyScreen";
+import MessageScreen from "../../../Screens/Message/MessageScreen";
 const Stack = createStackNavigator();
 const HomeStack = () => {
   return (
@@ -31,6 +33,14 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           title: "Companies",
+        }}
+      />
+      <Stack.Screen
+        name="ApplyCompanyScreen"
+        component={ApplyCompanyScreen}
+        options={{
+          headerShown: true,
+          title: "Apply",
         }}
       />
       <Stack.Screen
@@ -86,6 +96,13 @@ const HomeStack = () => {
         component={UserDetailScreen}
         options={{
           title: "User Detail",
+        }}
+      />
+      <Stack.Screen
+        name="MessageScreen"
+        component={MessageScreen}
+        options={{
+          title: "Messages",
         }}
       />
       <Stack.Screen

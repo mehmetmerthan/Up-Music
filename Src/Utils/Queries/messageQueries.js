@@ -21,13 +21,17 @@ export const messagesByDate = /* GraphQL */ `
         hasMessagesReceiver
         hasMessagesSender
         isRead
+        key_file
+        mime_type
         receiver {
           id
           name
+          key_pp
         }
         sender {
           id
           name
+          key_pp
         }
         type
         createdAt

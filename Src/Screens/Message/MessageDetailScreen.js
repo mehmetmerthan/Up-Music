@@ -16,7 +16,7 @@ import * as subscriptions from "../../graphql/subscriptions";
 import * as mutations from "../../graphql/mutations";
 import { messagesByDate } from "../../Utils/Queries/messageQueries";
 import { S3ImageAvatar } from "../../Components/S3Media";
-
+import Media from "../../Components/Media";
 export default function MessageDetailScreen() {
   const [text, onChangeText] = useState("");
   const [messages, setMessages] = useState([]);
@@ -122,6 +122,7 @@ export default function MessageDetailScreen() {
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
   };
+
   const renderMessage = ({ item, index }) => {
     const messageDate = new Date(item?.createdAt);
     const options = { hour: "numeric", minute: "numeric" };
@@ -137,9 +138,12 @@ export default function MessageDetailScreen() {
           <View style={styles.messageReceiever}>
             <View style={styles.userInfo}>
               <Text style={styles.username}>{item?.sender?.name}</Text>
-              <S3ImageAvatar size={42} />
+              <S3ImageAvatar size={42} imageKey={item?.sender?.key_pp} />
             </View>
             <View style={styles.typeArea}>
+              {item?.key_file && (
+                <Media fileKey={item?.key_file} type={item?.mime_type} />
+              )}
               <Text style={styles.message}>{item?.content}</Text>
               {item.createdAt && (
                 <Text style={styles.createdAt}>{formattedDate}</Text>
@@ -150,14 +154,18 @@ export default function MessageDetailScreen() {
           <View style={styles.messageSender}>
             <View style={styles.userInfo}>
               <Text style={styles.username}>{item?.sender?.name}</Text>
-              <S3ImageAvatar size={42} />
+              <S3ImageAvatar size={42} imageKey={item?.sender?.key_pp} />
             </View>
             <View style={styles.typeArea}>
               <Text style={styles.message}>{item?.content}</Text>
+
               {item?.createdAt && (
                 <Text style={styles.createdAt}>{formattedDate}</Text>
               )}
             </View>
+            {item?.key_file && (
+              <Media fileKey={item?.key_file} type={item?.mime_type} />
+            )}
           </View>
         )}
         <Divider />

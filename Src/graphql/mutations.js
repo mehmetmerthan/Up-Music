@@ -304,6 +304,8 @@ export const createMessage = /* GraphQL */ `
       }
       userMessagesSentId
       userMessagesReceivedId
+      key_file
+      mime_type
       type
       createdAt
       updatedAt
@@ -356,6 +358,8 @@ export const updateMessage = /* GraphQL */ `
       }
       userMessagesSentId
       userMessagesReceivedId
+      key_file
+      mime_type
       type
       createdAt
       updatedAt
@@ -408,6 +412,8 @@ export const deleteMessage = /* GraphQL */ `
       }
       userMessagesSentId
       userMessagesReceivedId
+      key_file
+      mime_type
       type
       createdAt
       updatedAt

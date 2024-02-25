@@ -1,29 +1,42 @@
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, ActivityIndicator } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Avatar } from "@rneui/themed";
 import { Storage } from "aws-amplify";
 import { Skeleton } from "@rneui/themed";
 export function S3ImageAvatar(props) {
-  const { imageKey = "", size } = props;
-  const [mediaUrl, setMediaUrl] = useState("");
+  const { imageKey, size } = props;
+  const [mediaUrl, setMediaUrl] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function getMediaUrl() {
+      setLoading(true);
       try {
-        if (imageKey !== "") {
-          const result = await Storage.get(imageKey, {
-            validateObjectExistence: true,
-          });
-          setMediaUrl(result);
-        }
+        const result = await Storage.get(imageKey, {
+          validateObjectExistence: true,
+        });
+        setMediaUrl(result);
       } catch (error) {
-        setMediaUrl("");
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
-    getMediaUrl();
-  }, [imageKey]);
+    if (imageKey && !mediaUrl) {
+      getMediaUrl();
+    }
+  }, [imageKey, mediaUrl]);
   return (
     <>
-      {mediaUrl !== "" ? (
+      {loading ? (
+        <Skeleton
+          circle
+          width={size}
+          height={size}
+          style={{
+            borderRadius: size / 2,
+          }}
+        />
+      ) : mediaUrl ? (
         <Avatar
           rounded
           size={size}
@@ -31,18 +44,7 @@ export function S3ImageAvatar(props) {
           containerStyle={{
             backgroundColor: "transparent",
           }}
-        >
-          <Skeleton
-            circle
-            width={size}
-            height={size}
-            style={{
-              position: "absolute",
-              zIndex: -1,
-              borderRadius: size / 2,
-            }}
-          />
-        </Avatar>
+        />
       ) : (
         <Avatar
           rounded
