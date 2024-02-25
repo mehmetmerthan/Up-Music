@@ -57,10 +57,15 @@ async function UploadPost(props) {
   if (tag_roles_needed.length === 0) {
     delete postDetails.tag_roles_needed;
   }
-  await API.graphql({
-    query: mutations.createPost,
-    variables: { input: postDetails },
-  });
+  try {
+    console.log("postDetails", postDetails);
+    await API.graphql({
+      query: mutations.createPost,
+      variables: { input: postDetails },
+    });
+  } catch (error) {
+    console.log("error creating post", error);
+  }
 }
 
 export default UploadPost;

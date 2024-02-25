@@ -1,4 +1,11 @@
-import { TextInput, Text, View, FlatList } from "react-native";
+import {
+  TextInput,
+  Text,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
@@ -9,33 +16,78 @@ import UploadPost from "../../Utils/Uploads/uploadPost";
 import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
+import { MaterialIcons } from "@expo/vector-icons";
 export default function CreateEventScreen() {
   const [text, onChangeText] = useState("");
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
   const [isLoading, setLoading] = useState(false);
-  const { MediaPickerImageComponent, image } = useMedia();
+  const { MediaPickerImageEvent, image, MediaPickerReset } = useMedia();
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
       alert("Please write something about your event");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      media: image,
-      tag_styles: selectedStyleTags,
-      post_type: POST_TYPES.EVENT,
-      location: selectedLocation,
-    });
-    setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        media: image,
+        tag_styles: selectedStyleTags,
+        post_type: POST_TYPES.EVENT,
+        location: selectedLocation,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedStyleTags([]);
+      setSelectedLocation({});
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("HomeScreen");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (
       <View>
-        <MediaPickerImageComponent />
+        {image && (
+          <>
+            <Pressable
+              style={{
+                position: "absolute",
+                alignSelf: "flex-end",
+                zIndex: 1,
+                margin: 10,
+                padding: 10,
+              }}
+              onPress={MediaPickerReset}
+            >
+              <MaterialIcons name="delete" size={40} color="black" />
+            </Pressable>
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: "100%",
+                height: 500,
+                alignSelf: "center",
+                margin: 12,
+                zIndex: 0,
+              }}
+            />
+          </>
+        )}
+        <Pressable onPress={MediaPickerImageEvent}>
+          <MaterialIcons
+            name="backup"
+            size={100}
+            color="#4a4a4a"
+            style={{ alignSelf: "center" }}
+          />
+        </Pressable>
+
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}

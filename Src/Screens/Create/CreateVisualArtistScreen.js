@@ -21,16 +21,27 @@ export default function CreateVisualArtistScreen() {
       alert("Please write something");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      tag_styles: selectedStyleTags,
-      post_type: POST_TYPES.VISUAL_ARTIST,
-      location: selectedLocation,
-      tag_roles_needed: selectedRoleTags,
-    });
-    setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        tag_styles: selectedStyleTags,
+        post_type: POST_TYPES.VISUAL_ARTIST,
+        location: selectedLocation,
+        tag_roles_needed: selectedRoleTags,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedRoleTags([]);
+      setSelectedStyleTags([]);
+      setSelectedLocation({});
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("AnnouncementsStack");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (

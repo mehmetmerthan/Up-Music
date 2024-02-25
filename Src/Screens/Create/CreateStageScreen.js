@@ -18,21 +18,32 @@ export default function CreateStageScreen() {
   const { MediaPickerImageComponent, image } = useMedia();
   const navigation = useNavigation();
   async function submitPost() {
-    if (text === "" ) {
+    if (text === "") {
       alert("Please write something about your stage");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      media: image,
-      tag_styles: selectedTags,
-      post_type: POST_TYPES.STAGE,
-      location: selectedLocation,
-      price: price,
-    });
-    setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        media: image,
+        tag_styles: selectedTags,
+        post_type: POST_TYPES.STAGE,
+        location: selectedLocation,
+        price: price,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedTags([]);
+      setSelectedLocation({});
+      setPrice("");
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("AnnouncementsStack");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (

@@ -21,16 +21,22 @@ const Post = ({ item }) => {
         <Text style={styles.contentText}>{item?.content}</Text>
         {item.country && (
           <View style={styles.locationContainer}>
+            <View style={styles.column}>
+              <Text style={styles.locationText}>{item?.country}</Text>
+              {item?.city && (
+                <Text style={styles.locationText}>{item?.city}</Text>
+              )}
+            </View>
             <Ionicons
               name="location-outline"
               size={24}
               color="black"
               style={styles.icon}
             />
-            <Text style={styles.text}>{item?.country}</Text>
+            {item?.place && <Text style={styles.placeText}>{item?.place}</Text>}
           </View>
         )}
-        {/* <S3PostMedia mediaKey={item?.key_media} mediaType={"image"} /> */}
+        {item?.key_media && <S3PostMedia imageKey={item?.key_media} />}
         {item?.price && <Text style={styles.textPrice}>{item?.price}"$"</Text>}
         {item?.tag_styles?.length > 0 && (
           <View style={styles.section}>

@@ -22,20 +22,29 @@ export default function CreateBandForMusicianScreen() {
       alert("Please write something about the band");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      tag_styles: selectedStyleTags,
-      post_type: POST_TYPES.BAND,
-      location: selectedLocation,
-      tag_roles_needed: selectedRoleTags,
-      tag_roles: selectedRoleExisting,
-    });
-    setLoading(false);
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "HomeScreen" }, { name: "AnnouncementsStack" }],
-    });
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        tag_styles: selectedStyleTags,
+        post_type: POST_TYPES.BAND,
+        location: selectedLocation,
+        tag_roles_needed: selectedRoleTags,
+        tag_roles: selectedRoleExisting,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedRoleTags([]);
+      setSelectedStyleTags([]);
+      setSelectedLocation({});
+      setSelectedRoleExisting([]);
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("AnnouncementsStack");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (

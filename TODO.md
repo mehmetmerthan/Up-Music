@@ -12,12 +12,14 @@ Project Description
 
 ### In Progress
 
-- [ ] stage afis ön pana çıkar pp küçült  
-- [ ] techniacal sil  
-- [ ] başvuru formunu düzenle  
+- [ ] filter screenleri düzenle  
+- [ ] şifreyu unuttum ve settings alanınıd düzenle  
 
 ### Done ✓
 
+- [x] stage afis ön pana çıkar pp küçült  
+- [x] techniacal sil  
+- [x] başvuru formunu düzenle  
 - [x] profil management sil  
 - [x] artist visual artist oalcak  
 - [x] telefon no ile üye yap  

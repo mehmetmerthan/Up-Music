@@ -5,6 +5,7 @@ import { postsByDate } from "../../../Utils/Queries/postQueries";
 import Post from "../../../Components/PostComponents/Post";
 import AnnouncementsHeader from "../../../Components/PostComponents/Headers/AnnouncementsHeaders/AnnouncementsHeader";
 import { useRoute } from "@react-navigation/native";
+import { POST_TYPES } from "../../../../Constants/Enums/PostTypes";
 export default function AnnouncementsScreen() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,13 +16,17 @@ export default function AnnouncementsScreen() {
   const fetchItems = async () => {
     if (loading || refreshing) return;
     setLoading(true);
+    const additionalFilter = { post_type: { ne: POST_TYPES.EVENT } };
+    const updatedFilter = filter
+      ? { ...filter, or: [...filter.or, additionalFilter] }
+      : { or: additionalFilter };
     try {
       const variables = {
         limit: 1,
         nextToken: postNextToken,
         type: "post",
         sortDirection: "DESC",
-        filter: filter,
+        filter: updatedFilter,
       };
       const result = await API.graphql({
         query: postsByDate,

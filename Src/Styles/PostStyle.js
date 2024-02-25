@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     margin: 10,
     backgroundColor: "#f2f2f2",
-
   },
   sectionHeadingText: {
     marginTop: 20,
@@ -73,6 +72,29 @@ const styles = StyleSheet.create({
     color: "#464646",
     letterSpacing: 1,
     alignSelf: "flex-start",
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  locationText: {
+    fontWeight: "300",
+    fontSize: 14,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+  placeText: {
+    marginLeft: 20,
+    fontWeight: "300",
+    fontSize: 20,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    textAlign: "center",
+  },
+  column: {
+    flexDirection: "column",
+    marginRight: 10,
+    alignItems: "center",
   },
 });
 

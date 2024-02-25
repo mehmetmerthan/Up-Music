@@ -21,16 +21,27 @@ export default function CreateMusicianForCollaborateScreen() {
       alert("Please write something");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      tag_styles: selectedStyleTags,
-      post_type: POST_TYPES.MUSICIAN_FOR_COLLABORATE,
-      location: selectedLocation,
-      tag_roles_needed: selectedRoleTags,
-    });
-    setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        tag_styles: selectedStyleTags,
+        post_type: POST_TYPES.MUSICIAN_FOR_COLLABORATE,
+        location: selectedLocation,
+        tag_roles_needed: selectedRoleTags,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedRoleTags([]);
+      setSelectedStyleTags([]);
+      setSelectedLocation({});
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("AnnouncementsStack");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (
@@ -47,7 +58,7 @@ export default function CreateMusicianForCollaborateScreen() {
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select a location</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
-          <CityPicker setSelectedLocation={setSelectedLocation}/>
+          <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Text style={styles.header}>Select the musicians needed</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />

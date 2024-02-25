@@ -21,16 +21,27 @@ export default function CreateMusicianForBandScreen() {
       alert("Please write something about yourself");
       return;
     }
-    setLoading(true);
-    await UploadPost({
-      content: text,
-      tag_roles: selectedRoleTags,
-      tag_styles: selectedStyleTags,
-      post_type: POST_TYPES.MUSICIAN_FOR_BAND,
-      location: selectedLocation,
-    });
-    setLoading(false);
-    navigation.navigate("AnnouncementsStack");
+    try {
+      setLoading(true);
+      await UploadPost({
+        content: text,
+        tag_roles: selectedRoleTags,
+        tag_styles: selectedStyleTags,
+        post_type: POST_TYPES.MUSICIAN_FOR_BAND,
+        location: selectedLocation,
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      onChangeText("");
+      setSelectedRoleTags([]);
+      setSelectedStyleTags([]);
+      setSelectedLocation({});
+      navigation.goBack();
+      navigation.goBack();
+      navigation.navigate("AnnouncementsStack");
+      setLoading(false);
+    }
   }
   function renderItem() {
     return (

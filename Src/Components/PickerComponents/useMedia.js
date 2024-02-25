@@ -20,6 +20,19 @@ export default function useMedia() {
       console.log("pic issue", error);
     }
   }
+  async function MediaPickerImageEvent() {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.2,
+      });
+      if (!result.canceled) {
+        setImage(result?.assets[0]?.uri);
+      }
+    } catch (error) {
+      console.log("pic issue", error);
+    }
+  }
   function MediaPickerImageComponent() {
     return (
       <SafeAreaView>
@@ -43,10 +56,15 @@ export default function useMedia() {
       </SafeAreaView>
     );
   }
+  function MediaPickerReset() {
+    setImage(null);
+  }
 
   return {
     MediaPickerImage,
     MediaPickerImageComponent,
+    MediaPickerImageEvent,
+    MediaPickerReset,
     image,
   };
 }

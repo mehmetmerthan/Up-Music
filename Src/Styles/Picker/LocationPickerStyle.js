@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   containerPlace: {
+    margin: 10,
     flex: 1,
   },
   locationInputPlace: {

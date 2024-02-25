@@ -124,4 +124,46 @@ export async function getS3ImageUrl(props) {
   return mediaUrl;
 }
 
+export function S3PostMedia(props) {
+  const { imageKey } = props;
+  const [mediaUrl, setMediaUrl] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function getMediaUrl() {
+      setLoading(true);
+      try {
+        const result = await Storage.get(imageKey, {
+          validateObjectExistence: true,
+        });
+        setMediaUrl(result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (imageKey && !mediaUrl) {
+      getMediaUrl();
+    }
+  }, [imageKey, mediaUrl]);
+  return (
+    <>
+      {loading ? (
+        <Skeleton circle width={"100%"} height={400} />
+      ) : (
+        mediaUrl && (
+          <Image
+            source={{ uri: mediaUrl }}
+            style={{
+              width: "100%",
+              height: 500,
+              resizeMode: "contain",
+            }}
+          />
+        )
+      )}
+    </>
+  );
+}
+
 const styles = StyleSheet.create({});

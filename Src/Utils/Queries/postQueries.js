@@ -25,6 +25,7 @@ export const postsByDate = /* GraphQL */ `
         key_media
         city
         country
+        place
         content
         tag_roles
         tag_styles
