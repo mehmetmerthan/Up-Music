@@ -15,6 +15,7 @@ export const listUsers = /* GraphQL */ `
         country
         tag_styles
         tag_roles
+        user_type
         experiences {
           about
           tag_styles

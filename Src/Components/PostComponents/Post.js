@@ -1,12 +1,12 @@
 import { SafeAreaView, View, Text, Pressable } from "react-native";
-import { React } from "react";
+import { React, memo } from "react";
 import styles from "../../Styles/PostStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { S3ImageAvatar, S3PostMedia } from "../S3Media";
 import { Chip } from "@rneui/themed";
 
-const Post = ({ item }) => {
+const Post = memo(({ item }) => {
   const navigation = useNavigation();
   function navigateToUserDetail() {
     navigation.navigate("UserDetailScreen", { userId: item?.owner?.id });
@@ -103,6 +103,6 @@ const Post = ({ item }) => {
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default Post;

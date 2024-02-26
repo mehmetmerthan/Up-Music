@@ -13,6 +13,7 @@ import { ListItem } from "@rneui/themed";
 export default function AnnouncementsMusiciansFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [selectedRoleTagsNeeded, setSelectedRoleTagsNeeded] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -45,6 +46,12 @@ export default function AnnouncementsMusiciansFilterScreen() {
     if (selectedRoleTags.length > 0) {
       selectedRoleTags.forEach((tag) => {
         filter.or.push({ tag_roles: { contains: tag } });
+      });
+    }
+
+    if (selectedRoleTagsNeeded.length > 0) {
+      selectedRoleTagsNeeded.forEach((tag) => {
+        filter.or.push({ tag_roles_needed: { contains: tag } });
       });
     }
 
@@ -146,8 +153,8 @@ export default function AnnouncementsMusiciansFilterScreen() {
         >
           <Tag
             tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
+            selectedTags={selectedRoleTagsNeeded}
+            setSelectedTags={setSelectedRoleTagsNeeded}
           />
         </ListItem.Accordion>
         <Button

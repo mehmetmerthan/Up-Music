@@ -1,23 +1,19 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { React, useState } from "react";
-import Tag from "../../../../Components/Tag";
 import { Button } from "@rneui/themed";
 import {
   CityPicker,
   CountryPicker,
 } from "../../../../Components/PickerComponents/LocationPicker";
-import StyleTags from "../../../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function VideographyFilterScreen() {
-  const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isLoadingReset, setLoadingReset] = useState(false);
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
-  const [expandedStyleTags, setExpandedStyleTags] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);
@@ -32,11 +28,6 @@ export default function VideographyFilterScreen() {
       filter.or.push({ country: { eq: selectedCountry } });
     }
 
-    if (selectedStyleTags.length > 0) {
-      selectedStyleTags.forEach((tag) => {
-        filter.or.push({ tag_styles: { contains: tag } });
-      });
-    }
     if (filter.or.length > 0) {
       navigation.navigate("VideographyScreen", { filter: filter });
     } else {
@@ -46,7 +37,6 @@ export default function VideographyFilterScreen() {
   }
   function reset() {
     setLoadingReset(true);
-    setSelectedStyleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
 
@@ -83,24 +73,6 @@ export default function VideographyFilterScreen() {
           topDivider
         >
           <CityPicker setSelectedLocation={setSelectedCity} />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Style Tags</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedStyleTags}
-          onPress={() => {
-            setExpandedStyleTags(!expandedStyleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={StyleTags}
-            selectedTags={selectedStyleTags}
-            setSelectedTags={setSelectedStyleTags}
-          />
         </ListItem.Accordion>
         <Button
           title="Filter"

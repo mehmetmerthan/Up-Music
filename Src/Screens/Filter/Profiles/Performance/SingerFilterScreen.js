@@ -18,7 +18,6 @@ export default function SingerFilterScreen() {
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
-  const [expandedRoleTags, setExpandedRoleTags] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);

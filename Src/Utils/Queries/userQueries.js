@@ -5,6 +5,7 @@ export const getUser = /* GraphQL */ `
       name
       about
       key_pp
+      user_type
       experiences {
         about
         tag_styles

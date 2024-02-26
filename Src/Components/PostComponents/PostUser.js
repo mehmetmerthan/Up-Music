@@ -1,12 +1,12 @@
 import { SafeAreaView, View, Text, Pressable, Image } from "react-native";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, memo } from "react";
 import styles from "../../Styles/userPostStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Chip, Skeleton } from "@rneui/themed";
 import Experieces from "../Experiences";
 import { Storage } from "aws-amplify";
-const PostUser = ({ item }) => {
+const PostUser = memo(({ item }) => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   function navigateToUserDetail() {
@@ -111,6 +111,6 @@ const PostUser = ({ item }) => {
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default PostUser;

@@ -7,6 +7,10 @@ import AnnouncementsMusiciansStack from "./AnnouncementsMusiciansStack";
 import AnnouncementsVisualArtistsScreen from "../../../../Screens/Home/Announcements/AnnouncementsVisualArtistsScreen";
 import AnnouncementsBandsScreen from "../../../../Screens/Home/Announcements/AnnouncementsBandsScreen";
 import AnnouncementsStagesScreen from "../../../../Screens/Home/Announcements/AnnouncementsStagesScreen";
+import AnnouncementsVisualArtistsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsVisualArtistsFilterScreen";
+import AnnouncementsBandsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsBandsFilterScreen";
+import AnnouncementsStagesFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsStagesFilterScreen";
+
 const Stack = createStackNavigator();
 export default function AnnouncementsStack() {
   return (
@@ -36,6 +40,9 @@ export default function AnnouncementsStack() {
         options={{
           headerShown: true,
           title: "Visual Artists",
+          headerRight: () => (
+            <HeaderRight screenName="AnnouncementsVisualArtistsFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -44,6 +51,9 @@ export default function AnnouncementsStack() {
         options={{
           headerShown: true,
           title: "Bands",
+          headerRight: () => (
+            <HeaderRight screenName="AnnouncementsBandsFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
@@ -52,11 +62,39 @@ export default function AnnouncementsStack() {
         options={{
           headerShown: true,
           title: "Stages",
+          headerRight: () => (
+            <HeaderRight screenName="AnnouncementsStagesFilterScreen" />
+          ),
         }}
       />
       <Stack.Screen
         name="AnnouncementsFilterScreen"
         component={AnnouncementsFilterScreen}
+        options={{
+          headerShown: true,
+          title: "Filter",
+        }}
+      />
+
+      <Stack.Screen
+        name="AnnouncementsVisualArtistsFilterScreen"
+        component={AnnouncementsVisualArtistsFilterScreen}
+        options={{
+          headerShown: true,
+          title: "Filter",
+        }}
+      />
+      <Stack.Screen
+        name="AnnouncementsBandsFilterScreen"
+        component={AnnouncementsBandsFilterScreen}
+        options={{
+          headerShown: true,
+          title: "Filter",
+        }}
+      />
+      <Stack.Screen
+        name="AnnouncementsStagesFilterScreen"
+        component={AnnouncementsStagesFilterScreen}
         options={{
           headerShown: true,
           title: "Filter",

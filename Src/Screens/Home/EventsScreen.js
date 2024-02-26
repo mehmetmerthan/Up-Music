@@ -23,7 +23,7 @@ export default function EventsScreen() {
       : additionalFilter;
     try {
       const variables = {
-        limit: 1,
+        limit: 5,
         nextToken: postNextToken,
         type: "post",
         sortDirection: "DESC",
@@ -64,7 +64,7 @@ export default function EventsScreen() {
       renderItem={({ item, index }) => <Post item={item} index={index} />}
       keyExtractor={(item) => item.id}
       onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.1}
       ListFooterComponent={loading && <ActivityIndicator />}
       onRefresh={() => {
         setRefreshing(true);

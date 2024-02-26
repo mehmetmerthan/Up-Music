@@ -6,6 +6,7 @@ import AnnouncementsJoinGroupScreen from "../../../../Screens/Home/Announcements
 import AnnouncementsCollaborationFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsMusicians/AnnouncementsCollaborationFilterScreen";
 import AnnouncementsJoinGroupFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsMusicians/AnnouncementsJoinGroupFilterScreen";
 import AnnouncementsMusiciansScreen from "../../../../Screens/Home/Announcements/AnnouncementsMusicians/AnnouncementsMusiciansScreen";
+import AnnouncementsMusiciansFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsMusicians/AnnouncementsMusiciansFilterScreen";
 const Stack = createStackNavigator();
 
 export default function AnnouncementsMusiciansStack() {
@@ -55,6 +56,15 @@ export default function AnnouncementsMusiciansStack() {
       <Stack.Screen
         name="AnnouncementsJoinGroupFilterScreen"
         component={AnnouncementsJoinGroupFilterScreen}
+        options={{
+          headerShown: true,
+          title: "Filter",
+        }}
+      />
+
+      <Stack.Screen
+        name="AnnouncementsMusiciansFilterScreen"
+        component={AnnouncementsMusiciansFilterScreen}
         options={{
           headerShown: true,
           title: "Filter",

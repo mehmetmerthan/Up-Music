@@ -13,6 +13,7 @@ import { ListItem } from "@rneui/themed";
 export default function AnnouncementsBandsFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [selectedRoleTagsNeeded, setSelectedRoleTagsNeeded] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -48,6 +49,12 @@ export default function AnnouncementsBandsFilterScreen() {
       });
     }
 
+    if (selectedRoleTagsNeeded.length > 0) {
+      selectedRoleTagsNeeded.forEach((tag) => {
+        filter.or.push({ tag_roles_needed: { contains: tag } });
+      });
+    }
+
     if (filter.or.length > 0) {
       navigation.navigate("AnnouncementsBandsScreen", { filter: filter });
     } else {
@@ -59,6 +66,7 @@ export default function AnnouncementsBandsFilterScreen() {
     setLoadingReset(true);
     setSelectedStyleTags([]);
     setSelectedRoleTags([]);
+    setSelectedRoleTagsNeeded([]);
     setSelectedCity("");
     setSelectedCountry("");
 
@@ -146,8 +154,8 @@ export default function AnnouncementsBandsFilterScreen() {
         >
           <Tag
             tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
+            selectedTags={selectedRoleTagsNeeded}
+            setSelectedTags={setSelectedRoleTagsNeeded}
           />
         </ListItem.Accordion>
         <Button

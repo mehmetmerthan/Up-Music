@@ -16,6 +16,7 @@ import Post from "../../Components/PostComponents/Post";
 import { ScrollView } from "react-native-virtualized-view";
 import { useRoute } from "@react-navigation/native";
 import { Storage } from "aws-amplify";
+import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 const ProfileScreen = () => {
   const [userData, setUserData] = useState({});
   const [loadingButton, setLoadingButton] = useState(false);
@@ -47,7 +48,14 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   function editProfile() {
     setLoadingButton(true);
-    navigation.navigate("EditProfileScreen", { userData });
+    if (userData?.user_type === USER_TYPES.PERSONAL) {
+      navigation.navigate("EditProfileScreen", { userData });
+    } else if (
+      userData?.user_type === USER_TYPES.VENUE ||
+      userData?.user_type === USER_TYPES.COMPANY
+    ) {
+      navigation.navigate("EditProfileCompany", { userData });
+    }
     setLoadingButton(false);
   }
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -158,69 +166,95 @@ const ProfileScreen = () => {
               />
             </View>
             <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              About
-            </Text>
-            <View style={styles.sectionContent}>
-              <Text style={styles.typography}>
-                {userData?.about ? userData?.about : "No description"}
-              </Text>
-            </View>
-            <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              Music Styles
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                marginHorizontal: 10,
-                marginTop: 5,
-              }}
-            >
-              {userData?.tag_styles?.map((item, index) => (
-                <Chip
-                  key={index}
-                  title={item}
-                  titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                  buttonStyle={{ borderColor: "#000000" }}
-                  type="outline"
-                  containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                  style={{ backgroundColor: "#ccc" }}
-                />
-              ))}
-            </View>
-            <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              Roles
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                marginHorizontal: 10,
-                marginTop: 5,
-              }}
-            >
-              {userData?.tag_roles?.map((item, index) => (
-                <Chip
-                  key={index}
-                  title={item}
-                  titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                  buttonStyle={{ borderColor: "#000000" }}
-                  type="outline"
-                  containerStyle={{ marginVertical: 5, marginHorizontal: 5 }}
-                  style={{ backgroundColor: "#ccc" }}
-                />
-              ))}
-            </View>
-            <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText}>Experiences</Text>
-            {userData?.experiences?.length > 0 && (
-              <Experiences experiencesData={userData?.experiences} />
+            {userData?.about && (
+              <>
+                {" "}
+                <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                  About
+                </Text>
+                <View style={styles.sectionContent}>
+                  <Text style={styles.typography}>
+                    {userData?.about ? userData?.about : "No description"}
+                  </Text>
+                </View>
+                <View style={styles.divider} />
+              </>
             )}
-            <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText}>Announcments</Text>
+            {userData.tag_styles.length > 0 && (
+              <>
+                <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                  Music Styles
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    marginHorizontal: 10,
+                    marginTop: 5,
+                  }}
+                >
+                  {userData?.tag_styles?.map((item, index) => (
+                    <Chip
+                      key={index}
+                      title={item}
+                      titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                      buttonStyle={{ borderColor: "#000000" }}
+                      type="outline"
+                      containerStyle={{
+                        marginVertical: 5,
+                        marginHorizontal: 5,
+                      }}
+                      style={{ backgroundColor: "#ccc" }}
+                    />
+                  ))}
+                </View>
+              </>
+            )}
+            {userData?.tag_roles.length > 0 && (
+              <>
+                <View style={styles.divider} />
+                <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                  Roles
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    marginHorizontal: 10,
+                    marginTop: 5,
+                  }}
+                >
+                  {userData?.tag_roles?.map((item, index) => (
+                    <Chip
+                      key={index}
+                      title={item}
+                      titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                      buttonStyle={{ borderColor: "#000000" }}
+                      type="outline"
+                      containerStyle={{
+                        marginVertical: 5,
+                        marginHorizontal: 5,
+                      }}
+                      style={{ backgroundColor: "#ccc" }}
+                    />
+                  ))}
+                </View>
+              </>
+            )}
+            {userData?.experiences?.length > 0 && (
+              <>
+                <View style={styles.divider} />
+                <Text style={styles.sectionHeadingText}>Experiences</Text>
+                <Experiences experiencesData={userData?.experiences} />
+              </>
+            )}
+
+            {userData?.posts?.items?.length > 0 && (
+              <>
+                <View style={styles.divider} />
+                <Text style={styles.sectionHeadingText}>Announcments</Text>
+              </>
+            )}
             <FlatList
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}

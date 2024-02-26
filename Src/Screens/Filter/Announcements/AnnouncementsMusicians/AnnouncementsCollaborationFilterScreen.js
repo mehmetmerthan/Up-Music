@@ -13,6 +13,7 @@ import { ListItem } from "@rneui/themed";
 export default function AnnouncementsCallobrationScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [selectedRoleTagsNeeded, setSelectedRoleTagsNeeded] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -48,8 +49,16 @@ export default function AnnouncementsCallobrationScreen() {
       });
     }
 
+    if (selectedRoleTagsNeeded.length > 0) {
+      selectedRoleTagsNeeded.forEach((tag) => {
+        filter.or.push({ tag_roles_needed: { contains: tag } });
+      });
+    }
+
     if (filter.or.length > 0) {
-      navigation.navigate("AnnouncementsCallobrationScreen", { filter: filter });
+      navigation.navigate("AnnouncementsCallobrationScreen", {
+        filter: filter,
+      });
     } else {
       navigation.navigate("AnnouncementsCallobrationScreen");
     }
@@ -59,6 +68,7 @@ export default function AnnouncementsCallobrationScreen() {
     setLoadingReset(true);
     setSelectedStyleTags([]);
     setSelectedRoleTags([]);
+    setSelectedRoleTagsNeeded([]);
     setSelectedCity("");
     setSelectedCountry("");
 
@@ -146,8 +156,8 @@ export default function AnnouncementsCallobrationScreen() {
         >
           <Tag
             tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
+            selectedTags={selectedRoleTagsNeeded}
+            setSelectedTags={setSelectedRoleTagsNeeded}
           />
         </ListItem.Accordion>
         <Button

@@ -7,12 +7,10 @@ import {
   CountryPicker,
 } from "../../Components/PickerComponents/LocationPicker";
 import StyleTags from "../../../Constants/Data/StyleTags";
-import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function EventsFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
-  const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -20,8 +18,6 @@ export default function EventsFilterScreen() {
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
-  const [expandedRoleTags, setExpandedRoleTags] = useState(false);
-  const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);
@@ -42,12 +38,6 @@ export default function EventsFilterScreen() {
       });
     }
 
-    if (selectedRoleTags.length > 0) {
-      selectedRoleTags.forEach((tag) => {
-        filter.or.push({ tag_roles: { contains: tag } });
-      });
-    }
-
     if (filter.or.length > 0) {
       navigation.navigate("EventsScreen", { filter: filter });
     } else {
@@ -58,7 +48,6 @@ export default function EventsFilterScreen() {
   function reset() {
     setLoadingReset(true);
     setSelectedStyleTags([]);
-    setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
 
@@ -112,42 +101,6 @@ export default function EventsFilterScreen() {
             tagData={StyleTags}
             selectedTags={selectedStyleTags}
             setSelectedTags={setSelectedStyleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Role Tags</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTags}
-          onPress={() => {
-            setExpandedRoleTags(!expandedRoleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Role Tags Needed</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTagsNeeded}
-          onPress={() => {
-            setExpandedRoleTagsNeeded(!expandedRoleTagsNeeded);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
           />
         </ListItem.Accordion>
         <Button

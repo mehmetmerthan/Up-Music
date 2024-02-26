@@ -1,21 +1,29 @@
 import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, memo } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Skeleton } from "@rneui/themed";
 import { Storage } from "aws-amplify";
 import { getUserId } from "../../Utils/getUser";
-const PostCompany = ({ item }) => {
+import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
+import { Entypo } from "@expo/vector-icons";
+const PostCompany = memo(({ item }) => {
   const [loading, setLoading] = useState(true);
   const [loadingApply, setLoadingApply] = useState(false);
   const navigation = useNavigation();
   async function navigateToAplly() {
     setLoadingApply(true);
     const userId = await getUserId();
-    navigation.navigate("ApplyCompanyScreen", {
-      userId: userId,
-      companyId: item?.id,
-    });
+    if (item.user_type === USER_TYPES.COMPANY) {
+      navigation.navigate("ApplyCompanyScreen", {
+        userId: userId,
+        companyId: item?.id,
+      });
+    } else if (item.user_type === USER_TYPES.VENUE) {
+      navigation.navigate("MessageDetailScreen", {
+        senderId: userId,
+      });
+    }
     setLoadingApply(false);
   }
   async function getS3Url() {
@@ -82,14 +90,22 @@ const PostCompany = ({ item }) => {
             onPress={navigateToAplly}
             loading={loadingApply}
           >
-            Send a file
-            <Ionicons name="add" size={32} color="white" />
+            {item.user_type === USER_TYPES.COMPANY
+              ? "Send a file"
+              : item.user_type === USER_TYPES.VENUE
+              ? "Send message"
+              : null}
+            {item.user_type === USER_TYPES.COMPANY ? (
+              <Ionicons name="add" size={32} color="white" />
+            ) : item.user_type === USER_TYPES.VENUE ? (
+              <Entypo name="message" size={32} color="white" />
+            ) : null}
           </Button>
         </View>
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default PostCompany;
 

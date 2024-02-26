@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function AnnouncementsStagesFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
-  const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+  const [selectedRoleTagsNeeded, setSelectedRoleTagsNeeded] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +20,6 @@ export default function AnnouncementsStagesFilterScreen() {
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
-  const [expandedRoleTags, setExpandedRoleTags] = useState(false);
   const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
@@ -42,9 +41,9 @@ export default function AnnouncementsStagesFilterScreen() {
       });
     }
 
-    if (selectedRoleTags.length > 0) {
-      selectedRoleTags.forEach((tag) => {
-        filter.or.push({ tag_roles: { contains: tag } });
+    if (selectedRoleTagsNeeded.length > 0) {
+      selectedRoleTagsNeeded.forEach((tag) => {
+        filter.or.push({ tag_roles_needed: { contains: tag } });
       });
     }
 
@@ -58,7 +57,7 @@ export default function AnnouncementsStagesFilterScreen() {
   function reset() {
     setLoadingReset(true);
     setSelectedStyleTags([]);
-    setSelectedRoleTags([]);
+    setSelectedRoleTagsNeeded([]);
     setSelectedCity("");
     setSelectedCountry("");
 
@@ -117,24 +116,6 @@ export default function AnnouncementsStagesFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Role Tags</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTags}
-          onPress={() => {
-            setExpandedRoleTags(!expandedRoleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
               <ListItem.Title>Role Tags Needed</ListItem.Title>
             </ListItem.Content>
           }
@@ -146,8 +127,8 @@ export default function AnnouncementsStagesFilterScreen() {
         >
           <Tag
             tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
+            selectedTags={selectedRoleTagsNeeded}
+            setSelectedTags={setSelectedRoleTagsNeeded}
           />
         </ListItem.Accordion>
         <Button

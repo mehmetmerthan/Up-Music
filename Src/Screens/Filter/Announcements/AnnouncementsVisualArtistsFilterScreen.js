@@ -11,7 +11,6 @@ import RoleTags from "../../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function AnnouncementsVisualArtistsFilterScreen() {
-  const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -19,9 +18,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
   const [isLoadingReset, setLoadingReset] = useState(false);
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
-  const [expandedStyleTags, setExpandedStyleTags] = useState(false);
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
-  const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
   function submitFilter() {
     setLoading(true);
@@ -34,12 +31,6 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
 
     if (selectedCountry) {
       filter.or.push({ country: { eq: selectedCountry } });
-    }
-
-    if (selectedStyleTags.length > 0) {
-      selectedStyleTags.forEach((tag) => {
-        filter.or.push({ tag_styles: { contains: tag } });
-      });
     }
 
     if (selectedRoleTags.length > 0) {
@@ -59,7 +50,6 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
   }
   function reset() {
     setLoadingReset(true);
-    setSelectedStyleTags([]);
     setSelectedRoleTags([]);
     setSelectedCity("");
     setSelectedCountry("");
@@ -101,48 +91,12 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Style Tags</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedStyleTags}
-          onPress={() => {
-            setExpandedStyleTags(!expandedStyleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={StyleTags}
-            selectedTags={selectedStyleTags}
-            setSelectedTags={setSelectedStyleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
               <ListItem.Title>Role Tags</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedRoleTags}
           onPress={() => {
             setExpandedRoleTags(!expandedRoleTags);
-          }}
-          topDivider
-        >
-          <Tag
-            tagData={RoleTags}
-            selectedTags={selectedRoleTags}
-            setSelectedTags={setSelectedRoleTags}
-          />
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <ListItem.Content>
-              <ListItem.Title>Role Tags Needed</ListItem.Title>
-            </ListItem.Content>
-          }
-          isExpanded={expandedRoleTagsNeeded}
-          onPress={() => {
-            setExpandedRoleTagsNeeded(!expandedRoleTagsNeeded);
           }}
           topDivider
         >
