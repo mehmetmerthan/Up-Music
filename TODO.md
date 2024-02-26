@@ -12,11 +12,11 @@ Project Description
 
 ### In Progress
 
-- [ ] filter screenleri düzenle  
 - [ ] şifreyu unuttum ve settings alanınıd düzenle  
 
 ### Done ✓
 
+- [x] filter screenleri düzenle  
 - [x] stage afis ön pana çıkar pp küçült  
 - [x] techniacal sil  
 - [x] başvuru formunu düzenle  
