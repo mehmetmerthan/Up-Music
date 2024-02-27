@@ -8,8 +8,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 export default function StagesFilterScreen() {
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [isLoadingReset, setLoadingReset] = useState(false);
   const [expandedCountry, setExpandedCountry] = useState(false);
@@ -21,7 +21,7 @@ export default function StagesFilterScreen() {
       or: [],
     };
     if (selectedCity) {
-      filter.or.push({ city: { eq: selectedCity } });
+      filter.or.push({ city: { eq: selectedCity.city } });
     }
 
     if (selectedCountry) {
@@ -37,8 +37,8 @@ export default function StagesFilterScreen() {
   }
   function reset() {
     setLoadingReset(true);
-    setSelectedCity("");
-    setSelectedCountry("");
+    setSelectedCity(null);
+    setSelectedCountry(null);
 
     navigation.navigate("StagesScreen");
     setLoadingReset(false);

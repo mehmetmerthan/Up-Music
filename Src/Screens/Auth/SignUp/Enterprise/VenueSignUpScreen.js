@@ -7,8 +7,6 @@ import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
 import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 const validationSchema = yup.object().shape({
-  fistname: yup.string().required("Firstname is required"),
-  lastname: yup.string().required("Lastname is required"),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -40,18 +38,19 @@ const VenueSignUpScreen = ({ route }) => {
     setLoading2(false);
   }
   const handleRegistration = async (values) => {
+    console.log("pressed");
     setLoading(true);
     try {
       await signUp({
         username: values.email,
         password: values.password,
+        user_type: USER_TYPES.VENUE,
+        name: selectedLocation?.place,
+        location: selectedLocation,
+        urlPP: image,
       });
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,
-        password: values.password,
-        user_type: USER_TYPES.VENUE,
-        location: selectedLocation,
-        urlPP: image,
       });
     } catch (error) {
       console.log(error);

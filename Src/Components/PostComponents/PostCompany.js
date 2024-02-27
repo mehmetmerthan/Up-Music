@@ -69,7 +69,7 @@ const PostCompany = memo(({ item }) => {
             />
           )}
         </View>
-        <View style={styles.row}>
+        <View style={styles.column}>
           <View style={styles.profileNameContainer}>
             <Text style={styles.username}>{item?.name}</Text>
             {item.country && (
@@ -81,6 +81,9 @@ const PostCompany = memo(({ item }) => {
                   style={styles.icon}
                 />
                 <Text style={styles.locationText}>{item?.country}</Text>
+                {item.city && (
+                  <Text style={styles.locationText}>, {item?.city}</Text>
+                )}
               </View>
             )}
           </View>
@@ -118,12 +121,11 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   applyButton: {
-    marginTop: 10,
+    marginTop: 20,
     backgroundColor: "green",
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  column: {
+    flexDirection: "column",
     alignItems: "center",
   },
   skeleton: {

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../Screens/Profile/ProfileScreen";
 import EditPorfileScreen from "../../Screens/Profile/EditProfileScreen";
 import SettingsScreen from "../../Screens/Profile/SettingsScreen";
-import EditPorfileCompany from "../../Screens/Profile/EditProfileCompany";
+import EditProfileCompany from "../../Screens/Profile/EditProfileCompany";
 const Stack = createStackNavigator();
 const ProfileStack = () => (
   <Stack.Navigator>
@@ -29,8 +29,8 @@ const ProfileStack = () => (
       }}
     />
     <Stack.Screen
-      name="EditPorfileCompany"
-      component={EditPorfileCompany}
+      name="EditProfileCompany"
+      component={EditProfileCompany}
       options={{
         title: "Edit Profile",
       }}

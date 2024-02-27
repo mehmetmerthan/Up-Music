@@ -10,8 +10,11 @@ const CompanyGetDetailsScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
+    if (!selectedLocation || !image) {
+      return alert("Please fill all the fields");
+    }
     navigation.navigate("CompanySignUpScreen", {
-      location: selectedLocation,
+      selectedLocation: selectedLocation,
       image: image,
     });
   }

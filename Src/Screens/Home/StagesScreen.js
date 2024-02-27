@@ -21,6 +21,7 @@ export default function StagesScreen() {
     const updatedFilter = filter
       ? { ...filter, or: [...filter.or, additionalFilter] }
       : additionalFilter;
+
     try {
       const variables = {
         limit: 5,

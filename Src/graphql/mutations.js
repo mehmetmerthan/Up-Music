@@ -20,6 +20,7 @@ export const createUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -64,6 +65,7 @@ export const updateUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -108,6 +110,7 @@ export const deleteUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -161,6 +164,7 @@ export const createPost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -203,6 +207,7 @@ export const updatePost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -245,6 +250,7 @@ export const deletePost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -280,6 +286,7 @@ export const createMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -296,6 +303,7 @@ export const createMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -334,6 +342,7 @@ export const updateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -350,6 +359,7 @@ export const updateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -388,6 +398,7 @@ export const deleteMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -404,6 +415,7 @@ export const deleteMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt

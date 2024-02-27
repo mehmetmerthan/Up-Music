@@ -17,6 +17,7 @@ export const onCreateUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -58,6 +59,7 @@ export const onUpdateUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -99,6 +101,7 @@ export const onDeleteUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -149,6 +152,7 @@ export const onCreatePost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -188,6 +192,7 @@ export const onUpdatePost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -227,6 +232,7 @@ export const onDeletePost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -259,6 +265,7 @@ export const onCreateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -275,6 +282,7 @@ export const onCreateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -310,6 +318,7 @@ export const onUpdateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -326,6 +335,7 @@ export const onUpdateMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -361,6 +371,7 @@ export const onDeleteMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -377,6 +388,7 @@ export const onDeleteMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt

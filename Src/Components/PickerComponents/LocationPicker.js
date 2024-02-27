@@ -67,6 +67,7 @@ export function CountryPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
+    console.log(data);
     setLocation(data?.description);
     setVisible(true);
   }
@@ -75,38 +76,40 @@ export function CountryPicker({ setSelectedLocation }) {
     setVisible(false);
   }
   function locationCancel() {
-    setLocation({});
-    setSelectedLocation({});
+    setLocation(null);
+    setSelectedLocation(null);
     setVisible(false);
   }
   return (
     <View style={styles.container}>
       {location && <Text style={styles.baseText}>{location}</Text>}
-      <GooglePlacesAutocomplete
-        styles={{ textInput: styles.locationInput }}
-        placeholder="Search a Country"
-        fetchDetails={true}
-        onPress={(data = null) => handleLocationSelect(data)}
-        query={{
-          key: GOOGLE_PLACES_API_KEY,
-          language: "en",
-          types: "(regions)",
-        }}
-      />
-      {visible && (
-        <View style={styles.buttonContainer}>
-          <Button
-            title={"Save"}
-            buttonStyle={styles.buttonPropertySave}
-            onPress={locationSave}
-          />
-          <Button
-            title={"Cancel"}
-            buttonStyle={styles.buttonPropertyCancel}
-            onPress={locationCancel}
-          />
-        </View>
-      )}
+      <>
+        <GooglePlacesAutocomplete
+          styles={{ textInput: styles.locationInput }}
+          placeholder="Search a Country"
+          fetchDetails={true}
+          onPress={(data = null) => handleLocationSelect(data)}
+          query={{
+            key: GOOGLE_PLACES_API_KEY,
+            language: "en",
+            types: "(regions)",
+          }}
+        />
+        {visible && (
+          <View style={styles.buttonContainer}>
+            <Button
+              title={"Save"}
+              buttonStyle={styles.buttonPropertySave}
+              onPress={locationSave}
+            />
+            <Button
+              title={"Cancel"}
+              buttonStyle={styles.buttonPropertyCancel}
+              onPress={locationCancel}
+            />
+          </View>
+        )}
+      </>
     </View>
   );
 }
@@ -126,8 +129,8 @@ export function CityPicker({ setSelectedLocation }) {
     setVisible(false);
   }
   function locationCancel() {
-    setLocation({});
-    setSelectedLocation({});
+    setLocation(null);
+    setSelectedLocation(null);
     setVisible(false);
   }
   return (

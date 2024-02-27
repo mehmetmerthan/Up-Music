@@ -51,17 +51,16 @@ const PersonalSignUpScreen = ({ route }) => {
       await signUp({
         username: values.email,
         password: values.password,
-      });
-      navigation.navigate("VerifyEmailScreen", {
-        email: values.email,
         name: values.name,
-        password: values.password,
         about: about,
         urlPP: image,
         location: location,
         tagStyle: selectedStyleTags,
         tagRole: selectedRoleTags,
         experiencesData: experiences,
+      });
+      navigation.navigate("VerifyEmailScreen", {
+        email: values.email,
       });
     } catch (error) {
       console.log(error);

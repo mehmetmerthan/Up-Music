@@ -10,8 +10,12 @@ const VenueGetDetailsScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
+    console.log(selectedLocation);
+    if (!selectedLocation || !image) {
+      return alert("Please fill all the fields");
+    }
     navigation.navigate("VenueSignUpScreen", {
-      location: selectedLocation,
+      selectedLocation: selectedLocation,
       image: image,
     });
   }

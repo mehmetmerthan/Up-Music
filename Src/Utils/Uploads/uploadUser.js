@@ -6,6 +6,7 @@ import _ from "lodash";
 import INSTRUMENT_LIST from "../../../Constants/Data/InstrumentList";
 async function UploadUser(props) {
   const {
+    id = "",
     name = "",
     about = "",
     urlPP = "",
@@ -25,7 +26,12 @@ async function UploadUser(props) {
   if (tagRole > 0) {
     control = !_.isEmpty(_.intersection(tagRole, INSTRUMENT_LIST));
   }
-  const userId = await getUserId();
+  let userId;
+  if (id === "") {
+    userId = await getUserId();
+  } else {
+    userId = id;
+  }
   const city = location?.city || "";
   const country = location?.country || "";
   const place = location?.place || "";
@@ -77,6 +83,8 @@ async function UploadUser(props) {
   if (userDetails.experiences.length === 0) {
     delete userDetails.experiences;
   }
+
+  console.log(userDetails);
   if (operationType === "create") {
     try {
       await API.graphql({

@@ -10,15 +10,12 @@ import { Auth } from "aws-amplify";
 
 const phoneRegExp = /^\+\d{12}$/;
 const validationSchema = yup.object().shape({
-  email: yup.string()
-  .required("Email or phone number is required")
-  .test(
-    'is-valid',
-    'Invalid email or phone number',
-    function (value) {
+  email: yup
+    .string()
+    .required("Email or phone number is required")
+    .test("is-valid", "Invalid email or phone number", function (value) {
       return yup.string().email().isValidSync(value) || phoneRegExp.test(value);
-    }
-  ),
+    }),
   password: yup
     .string()
     .min(8, "password must be least 8 characters")
@@ -46,7 +43,6 @@ const SignInScreen = () => {
         await Auth.resendSignUp(values.email);
         navigation.navigate("VerifyEmailScreen", {
           email: values.email,
-          password: values.password,
         });
         setLoading(false);
         return;

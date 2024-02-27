@@ -12,6 +12,7 @@ type User @model {
   price: Int
   city: String
   country: String
+  place: String
   tag_styles: [String]
   tag_roles: [String]
   experiences: [Experience]

@@ -6,23 +6,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useNavigation } from "@react-navigation/native";
 import { confirmSignUp, resendSignUp } from "../../../Utils/Auth/confirmSignUp";
 import { Button } from "@rneui/themed";
-import UploadUser from "../../../Utils/Uploads/uploadUser";
 import { Auth } from "aws-amplify";
 const validationSchema = yup.object().shape({
   code: yup.string().required("code is required"),
 });
 const VerifyEmailScreen = ({ route }) => {
   const {
-    tagStyle = [],
-    tagRole = [],
-    about = "",
-    location = "",
-    urlPP = "",
-    user_type = "",
-    name,
     email,
-    password,
-    experiencesData = [],
   } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
@@ -39,21 +29,7 @@ const VerifyEmailScreen = ({ route }) => {
         username: email,
         code: values.code,
       });
-      const user = await Auth.signIn(email, password);
-      if (user) {
-        await UploadUser({
-          name: name,
-          about: about,
-          urlPP: urlPP,
-          location: location,
-          tagStyle: tagStyle,
-          tagRole: tagRole,
-          experiencesData: experiencesData,
-          user_type: user_type,
-          operationType: "create",
-        });
-        navigation.navigate("SignInScreen");
-      }
+      navigation.navigate("SignInScreen");
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -71,16 +47,6 @@ const VerifyEmailScreen = ({ route }) => {
     try {
       const user = await Auth.signIn(email, confirmPassword);
       if (user) {
-        await UploadUser({
-          name: name,
-          about: about,
-          urlPP: urlPP,
-          location: location,
-          tagStyle: tagStyle,
-          tagRole: tagRole,
-          experiencesData: experiencesData,
-          operationType: "create",
-        });
         navigation.navigate("SignInScreen");
       }
       setLoading(false);

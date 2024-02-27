@@ -17,6 +17,7 @@ export const getUser = /* GraphQL */ `
       price
       city
       country
+      place
       tag_styles
       tag_roles
       experiences {
@@ -59,6 +60,7 @@ export const listUsers = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -95,6 +97,7 @@ export const getPost = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -158,6 +161,7 @@ export const getMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt
@@ -174,6 +178,7 @@ export const getMessage = /* GraphQL */ `
         price
         city
         country
+        place
         tag_styles
         tag_roles
         createdAt

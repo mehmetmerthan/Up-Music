@@ -9,7 +9,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
-import { isEqual } from "lodash";
+import { isEqual, isEmpty } from "lodash";
 const validationSchema = yup.object().shape({
   name: yup
     .string()
@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
     .required("Name is required"),
 });
 
-const EditPorfileCompany = () => {
+const EditProfileCompany = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
 
@@ -26,12 +26,18 @@ const EditPorfileCompany = () => {
   const [visibleCity, setVisibleCity] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { MediaPickerImage: MediaPickerImagePP, image: imagePP } = useMedia();
-
+  const [error, setError] = useState(null);
   async function OpenGalleryPP() {
     await MediaPickerImagePP();
   }
   const navigation = useNavigation();
   async function saveProfile() {
+    if (isLoading) return;
+
+    if (name === "") {
+      return alert("Name is required");
+    }
+
     setIsLoading(true);
     if (formik.errors.name) {
       return alert(formik.errors.name);
@@ -250,4 +256,4 @@ const EditPorfileCompany = () => {
     />
   );
 };
-export default EditPorfileCompany;
+export default EditProfileCompany;

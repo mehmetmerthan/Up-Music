@@ -180,7 +180,7 @@ const ProfileScreen = () => {
                 <View style={styles.divider} />
               </>
             )}
-            {userData.tag_styles.length > 0 && (
+            {userData?.tag_styles?.length > 0 && (
               <>
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
                   Music Styles
@@ -210,7 +210,7 @@ const ProfileScreen = () => {
                 </View>
               </>
             )}
-            {userData?.tag_roles.length > 0 && (
+            {userData?.tag_roles?.length > 0 && (
               <>
                 <View style={styles.divider} />
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
