@@ -213,6 +213,7 @@ export default function MessageScreen() {
     <View style={styles.container}>
       {!loadingUpdate ? (
         <FlatList
+      decelerationRate={0.5}
           data={groupedMessages}
           renderItem={({ item }) => <RenderMessage item={item} />}
           keyExtractor={(item) => item.message.id}

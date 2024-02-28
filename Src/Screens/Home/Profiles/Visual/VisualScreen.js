@@ -25,9 +25,14 @@ export default function VisualScreen() {
         { tag_roles: { contains: PROFILE_SCREEN_TYPES.GRAPHICER } },
       ],
     };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilters],
+      };
+    } else {
+      updatedFilter = additionalFilters;
+    }
     try {
       const variables = {
         limit: 5,
@@ -55,8 +60,11 @@ export default function VisualScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -65,6 +73,7 @@ export default function VisualScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

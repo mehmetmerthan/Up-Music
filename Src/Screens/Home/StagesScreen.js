@@ -18,9 +18,14 @@ export default function StagesScreen() {
     const additionalFilter = {
       user_type: { eq: USER_TYPES.VENUE },
     };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter;
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilter],
+      };
+    } else {
+      updatedFilter = additionalFilter;
+    }
 
     try {
       const variables = {
@@ -49,8 +54,11 @@ export default function StagesScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -59,6 +67,7 @@ export default function StagesScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => (
         <PostCompany item={item} index={index} />

@@ -19,9 +19,14 @@ export default function AnnouncementsCollaborationScreen() {
     const additionalFilter = {
       tag_roles: { eq: POST_TYPES.MUSICIAN_FOR_COLLABORATE },
     };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : { or: additionalFilter };
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilter],
+      };
+    } else {
+      updatedFilter = additionalFilter;
+    }
     try {
       const variables = {
         limit: 5,
@@ -51,8 +56,11 @@ export default function AnnouncementsCollaborationScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -61,6 +69,7 @@ export default function AnnouncementsCollaborationScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <Post item={item} index={index} />}
       keyExtractor={(item) => item.id}

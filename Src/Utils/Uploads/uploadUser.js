@@ -84,7 +84,6 @@ async function UploadUser(props) {
     delete userDetails.experiences;
   }
 
-  console.log(userDetails);
   if (operationType === "create") {
     try {
       await API.graphql({

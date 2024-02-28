@@ -24,9 +24,14 @@ export default function ProducersScreen() {
         { tag_roles: { contains: PROFILE_SCREEN_TYPES.SONGWRITER } },
       ],
     };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, ...additionalFilters] }
-      : { or: additionalFilters };
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilters],
+      };
+    } else {
+      updatedFilter = additionalFilters;
+    }
 
     try {
       const variables = {
@@ -55,8 +60,11 @@ export default function ProducersScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -65,6 +73,7 @@ export default function ProducersScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

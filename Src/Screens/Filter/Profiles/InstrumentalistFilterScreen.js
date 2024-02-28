@@ -161,6 +161,7 @@ export default function InstrumentalistFilterScreen() {
   return (
     <View style={styles.container}>
       <FlatList
+      decelerationRate={0.5}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}

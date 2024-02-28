@@ -17,9 +17,14 @@ export default function AnnouncementsVisualArtistsScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = { post_type: { eq: POST_TYPES.VISUAL_ARTIST } };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : { or: additionalFilter };
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilter],
+      };
+    } else {
+      updatedFilter = additionalFilter;
+    }
     try {
       const variables = {
         limit: 5,
@@ -49,8 +54,11 @@ export default function AnnouncementsVisualArtistsScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -59,6 +67,7 @@ export default function AnnouncementsVisualArtistsScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <Post item={item} index={index} />}
       keyExtractor={(item) => item.id}

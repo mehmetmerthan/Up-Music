@@ -15,7 +15,6 @@ export function LocationPicker({ setSelectedLocation }) {
       place: data?.structured_formatting?.main_text,
     };
     setLocation(newLocation);
-    console.log(newLocation);
     setVisible(true);
   }
   function locationSave() {
@@ -67,7 +66,6 @@ export function CountryPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
-    console.log(data);
     setLocation(data?.description);
     setVisible(true);
   }

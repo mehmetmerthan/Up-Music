@@ -10,7 +10,6 @@ const VenueGetDetailsScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
-    console.log(selectedLocation);
     if (!selectedLocation || !image) {
       return alert("Please fill all the fields");
     }
@@ -38,6 +37,7 @@ const VenueGetDetailsScreen = () => {
   }
   return (
     <FlatList
+      decelerationRate={0.5}
       data={[1]}
       renderItem={renderItem}
       keyExtractor={(item) => item.toString()}

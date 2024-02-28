@@ -27,7 +27,6 @@ function BottomTab({ screenIndex }) {
       next: () => {
         fetchUnreadMessages({ setUnreadCount });
         if (screenIndex !== 1) {
-          console.log("fetchLastMessage");
           fetchLastMessage();
         }
       },
@@ -48,7 +47,6 @@ function BottomTab({ screenIndex }) {
     });
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log("notification triggered ", notification);
       });
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {

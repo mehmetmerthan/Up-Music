@@ -19,9 +19,14 @@ export default function ComposerScreen() {
     const additionalFilter = {
       tag_roles: { contains: PROFILE_SCREEN_TYPES.COMPOSER },
     };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter;
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        and: [filter, additionalFilter],
+      };
+    } else {
+      updatedFilter = additionalFilter;
+    }
     try {
       const variables = {
         limit: 5,
@@ -49,8 +54,11 @@ export default function ComposerScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -59,6 +67,7 @@ export default function ComposerScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

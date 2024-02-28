@@ -168,7 +168,6 @@ const ProfileScreen = () => {
             <View style={styles.divider} />
             {userData?.about && (
               <>
-                {" "}
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
                   About
                 </Text>
@@ -256,6 +255,7 @@ const ProfileScreen = () => {
               </>
             )}
             <FlatList
+      decelerationRate={0.5}
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}
               keyExtractor={(item) => item.id}

@@ -58,7 +58,6 @@ async function UploadPost(props) {
     delete postDetails.tag_roles_needed;
   }
   try {
-    console.log("postDetails", postDetails);
     await API.graphql({
       query: mutations.createPost,
       variables: { input: postDetails },

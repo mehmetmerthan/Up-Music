@@ -75,7 +75,6 @@ function AudioComponent({ uri }) {
 
   useEffect(() => {
     loadSound();
-    console.log("loaded");
     return () => {
       if (sound) {
         sound.unloadAsync();

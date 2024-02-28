@@ -16,9 +16,17 @@ export default function InstrumentalistScreen() {
     if (loading || refreshing) return;
     setLoading(true);
     const additionalFilter = { Instrumentalist: { eq: true } };
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter;
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        ...filter,
+        ...additionalFilter,
+      };
+    } else {
+      updatedFilter = {
+        ...additionalFilter,
+      };
+    }
     try {
       const variables = {
         limit: 2,
@@ -46,8 +54,11 @@ export default function InstrumentalistScreen() {
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -56,6 +67,7 @@ export default function InstrumentalistScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

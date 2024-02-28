@@ -179,6 +179,7 @@ export default function MessageDetailScreen() {
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <FlatList
+      decelerationRate={0.5}
           data={messages}
           renderItem={renderMessage}
           keyExtractor={(item) => item.id}

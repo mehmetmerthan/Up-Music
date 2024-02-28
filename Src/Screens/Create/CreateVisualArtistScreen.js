@@ -97,6 +97,7 @@ export default function CreateVisualArtistScreen() {
   }
   return (
     <FlatList
+      decelerationRate={0.5}
       data={[1]}
       renderItem={renderItem}
       keyExtractor={(item) => item.toString()}

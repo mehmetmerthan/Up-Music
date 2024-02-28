@@ -19,15 +19,22 @@ export default function ProfilesScreen() {
     const additionalFilter = {
       user_type: { eq: USER_TYPES.PERSONAL },
     };
-
-    const updatedFilter = filter
-      ? { ...filter, or: [...filter.or, additionalFilter] }
-      : additionalFilter;
+    let updatedFilter;
+    if (filter) {
+      updatedFilter = {
+        ...filter,
+        ...additionalFilter,
+      };
+    } else {
+      updatedFilter = {
+        ...additionalFilter,
+      };
+    }
     try {
       const variables = {
-        limit: 2,
-        nextToken: postNextToken,
+        limit: 5,
         filter: updatedFilter,
+        nextToken: postNextToken,
       };
       const result = await API.graphql({
         query: listUsers,
@@ -46,12 +53,14 @@ export default function ProfilesScreen() {
       setRefreshing(false);
     }
   };
-
   useEffect(() => {
     setItems([]);
     setPostNextToken(null);
-    fetchItems();
-  }, [filter]);
+    const fetchData = async () => {
+      await fetchItems();
+    };
+    fetchData();
+  }, [JSON.stringify(filter)]);
 
   const handleLoadMore = async () => {
     if (!loading && postNextToken && !refreshing) {
@@ -60,6 +69,7 @@ export default function ProfilesScreen() {
   };
   return (
     <FlatList
+      decelerationRate={0.5}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

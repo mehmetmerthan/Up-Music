@@ -12,22 +12,14 @@ Project Description
 
 ### In Progress
 
+- [ ] 3s deki garipliği gider  
+- [ ] messsage detail düzenle  
 - [ ] şifreyu unuttum ve settings alanınıd düzenle  
+- [ ] password alanını düzenle  
+- [ ] veritabanı s3 sil  
+- [ ] kullancılar kaydet ve onayla  
+- [ ] test et  
 
 ### Done ✓
 
-- [x] filter screenleri düzenle  
-- [x] stage afis ön pana çıkar pp küçült  
-- [x] techniacal sil  
-- [x] başvuru formunu düzenle  
-- [x] profil management sil  
-- [x] artist visual artist oalcak  
-- [x] telefon no ile üye yap  
-- [x] prfilde müzikler yana kadyırmalı olsun  
-- [x] profil fotoğrafı boyutunu düzenle  
-- [x] mekanlar için eventde bölüm oluştur  
-- [x] isim soyisim değil artist name olması gerekli  
-- [x] ana sayfaya kurumsal şirketler kısmı eklenecek  
-- [x] girişde kurumsal kısı ekle  
-- [x] PERFORMANS da dj ekle  
 
