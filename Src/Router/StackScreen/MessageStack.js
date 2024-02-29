@@ -11,15 +11,13 @@ const MessageStack = () => (
       name="MessageScreen"
       component={MessageScreen}
       options={{
-        title: "Message"
+        title: "Message",
       }}
     />
     <MyMessageStack.Screen
       name="MessageDetailScreen"
       component={MessageDetailScreen}
-      options={{
-        title: "Message ",
-      }}
+      options={{ headerShown: false}}
     />
     <MyMessageStack.Screen
       name="UserDetailScreen"

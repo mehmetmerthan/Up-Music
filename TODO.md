@@ -12,8 +12,6 @@ Project Description
 
 ### In Progress
 
-- [ ] 3s deki garipliği gider  
-- [ ] messsage detail düzenle  
 - [ ] şifreyu unuttum ve settings alanınıd düzenle  
 - [ ] password alanını düzenle  
 - [ ] veritabanı s3 sil  
@@ -22,4 +20,6 @@ Project Description
 
 ### Done ✓
 
+- [x] messsage detail düzenle  
+- [x] 3s deki garipliği gider  
 

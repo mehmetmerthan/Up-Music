@@ -46,3 +46,13 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+
+export const getUserForMessageSender = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      name
+      key_pp
+      __typename
+    }
+  }
+`;

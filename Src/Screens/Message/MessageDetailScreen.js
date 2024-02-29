@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useRef, useEffect, memo } from "react";
 import {
   View,
   Text,
@@ -6,17 +6,23 @@ import {
   Keyboard,
   FlatList,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { Input, Divider, Icon } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageDetailStyle";
-import { useRoute } from "@react-navigation/native";
-import { getUserId } from "../../Utils/getUser";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import {
+  getUserId,
+  getUserAttributesForMessageSender,
+} from "../../Utils/getUser";
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "../../graphql/subscriptions";
 import * as mutations from "../../graphql/mutations";
 import { messagesByDate } from "../../Utils/Queries/messageQueries";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import Media from "../../Components/Media";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function MessageDetailScreen() {
   const [text, onChangeText] = useState("");
   const [messages, setMessages] = useState([]);
@@ -25,7 +31,9 @@ export default function MessageDetailScreen() {
   const [receiverId, setReceiverId] = useState("");
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [senderAttributes, setSenderAttributes] = useState({});
   const scrollViewRef = useRef();
+  const navigation = useNavigation();
   async function sendMessage() {
     try {
       await API.graphql(
@@ -175,36 +183,98 @@ export default function MessageDetailScreen() {
   function rightIcon() {
     return <Icon type="font-awesome" name="send" onPress={sendMessage} />;
   }
-  return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-        <FlatList
-      decelerationRate={0.5}
-          data={messages}
-          renderItem={renderMessage}
-          keyExtractor={(item) => item.id}
-          ref={scrollViewRef}
-          onContentSizeChange={() =>
-            scrollViewRef.current.scrollToOffset({ offset: 0, animated: true })
-          }
-          inverted
-          ListFooterComponent={
-            refreshing &&
-            !messages.length > 0 && (
-              <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
-            )
-          }
+
+  useEffect(() => {
+    async function fetchUser() {
+      const { userItem } = await getUserAttributesForMessageSender({
+        senderId,
+      });
+      setSenderAttributes(userItem);
+    }
+    fetchUser();
+  }, [senderId]);
+
+  const HeaderBar = () => (
+    <View
+      style={{
+        height: 56,
+        backgroundColor: " rgb(255, 255, 255)",
+        alignItems: "center",
+        flexDirection: "row",
+      }}
+    >
+      <Pressable onPress={() => navigation.goBack()}>
+        <Feather
+          name="arrow-left"
+          size={24}
+          color="black"
+          style={{ marginLeft: 15 }}
         />
-      </TouchableWithoutFeedback>
-      <Input
-        clearButtonMode="always"
-        inputContainerStyle={styles.input}
-        onChangeText={onChangeText}
-        placeholder="Write here..."
-        value={text}
-        rightIcon={rightIcon}
-        onFocus={handleInputFocus}
-      />
+      </Pressable>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          flex: 1,
+          marginLeft: 20,
+        }}
+      >
+        <Text
+          style={{
+            color: "rgb(28, 28, 30)",
+            marginHorizontal: 25,
+            fontSize: 22,
+          }}
+        >
+          {senderAttributes?.name || ""}
+        </Text>
+        <Pressable
+          onPress={() =>
+            navigation.navigate("UserDetailScreen", { userId: senderId })
+          }
+        >
+          <S3ImageAvatar size={40} imageKey={senderAttributes?.key_pp} />
+        </Pressable>
+      </View>
     </View>
+  );
+  const MemoizedHeaderBar = memo(HeaderBar);
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}>
+      <MemoizedHeaderBar />
+      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
+          <FlatList
+            decelerationRate={0.5}
+            data={messages}
+            renderItem={renderMessage}
+            keyExtractor={(item) => item.id}
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current.scrollToOffset({
+                offset: 0,
+                animated: true,
+              })
+            }
+            inverted
+            ListFooterComponent={
+              refreshing &&
+              !messages.length > 0 && (
+                <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+              )
+            }
+          />
+        </TouchableWithoutFeedback>
+        <Input
+          clearButtonMode="always"
+          inputContainerStyle={styles.input}
+          onChangeText={onChangeText}
+          placeholder="Write here..."
+          value={text}
+          rightIcon={rightIcon}
+          onFocus={handleInputFocus}
+        />
+      </View>
+    </SafeAreaView>
   );
 }

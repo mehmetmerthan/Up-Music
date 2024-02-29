@@ -8,6 +8,7 @@ import Experieces from "../Experiences";
 import { Storage } from "aws-amplify";
 const PostUser = memo(({ item }) => {
   const [loading, setLoading] = useState(true);
+  const [imgUrl, setImgUrl] = useState(null);
   const navigation = useNavigation();
   function navigateToUserDetail() {
     navigation.navigate("UserDetailScreen", { userId: item?.id });
@@ -15,16 +16,11 @@ const PostUser = memo(({ item }) => {
   async function getS3Url() {
     setLoading(true);
     try {
-      let s3Link = null;
-      if (item?.key_pp) {
-        s3Link = await Storage.get(item?.key_pp, {
+      if (item?.key_pp && !imgUrl) {
+        const s3Link = await Storage.get(item?.key_pp, {
           validateObjectExistence: true,
         });
-      }
-      if (s3Link) {
-        item.key_pp = s3Link;
-      } else {
-        item.key_pp = null;
+        setImgUrl(s3Link);
       }
     } catch (error) {
       console.log("S3 error", error);
@@ -42,17 +38,21 @@ const PostUser = memo(({ item }) => {
           {loading ? (
             <Skeleton width={"auto"} height={260} style={styles.skeleton} />
           ) : (
-            <Image
-              style={{
-                backgroundColor: "transparent",
-                width: "100%",
-                height: 260,
-                resizeMode: "cover",
-                borderBottomLeftRadius: 20,
-                borderBottomRightRadius: 20,
-              }}
-              source={{ uri: item?.key_pp }}
-            />
+            <>
+              {imgUrl && (
+                <Image
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "100%",
+                    height: 260,
+                    resizeMode: "cover",
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                  }}
+                  source={{ uri: imgUrl }}
+                />
+              )}
+            </>
           )}
           <View style={styles.profileNameContainer}>
             <Text style={styles.username}>{item?.name}</Text>

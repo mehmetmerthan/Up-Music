@@ -23,6 +23,8 @@ export function S3ImageAvatar(props) {
     }
     if (imageKey && !mediaUrl) {
       getMediaUrl();
+    } else {
+      setLoading(false);
     }
   }, [imageKey, mediaUrl]);
   return (
@@ -57,71 +59,6 @@ export function S3ImageAvatar(props) {
       )}
     </>
   );
-}
-
-export function S3ImageProfile(props) {
-  const { imageKey = "", size } = props;
-  const [mediaUrl, setMediaUrl] = useState("");
-  useEffect(() => {
-    async function getMediaUrl() {
-      try {
-        if (imageKey !== "") {
-          const result = await Storage.get(imageKey, {
-            validateObjectExistence: true,
-          });
-          setMediaUrl(result);
-        }
-      } catch (error) {
-        setMediaUrl("");
-      }
-    }
-    getMediaUrl();
-  }, [imageKey]);
-  return (
-    <>
-      {mediaUrl !== "" ? (
-        <Image
-          source={{ uri: mediaUrl }}
-          style={{
-            backgroundColor: "transparent",
-            width: "100%",
-            height: 260,
-            resizeMode: "cover",
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }}
-        ></Image>
-      ) : (
-        <Image
-          source={require("../../assets/Design.png")}
-          style={{
-            backgroundColor: "transparent",
-            width: "100%",
-            height: size,
-          }}
-        />
-      )}
-    </>
-  );
-}
-
-export async function getS3ImageUrl(props) {
-  const { imageKey } = props;
-  const [mediaUrl, setMediaUrl] = useState("");
-  useEffect(() => {
-    async function getMediaUrl() {
-      try {
-        const result = await Storage.get(imageKey, {
-          validateObjectExistence: true,
-        });
-        setMediaUrl(result);
-      } catch (error) {
-        setMediaUrl("");
-      }
-    }
-    getMediaUrl();
-  }, [imageKey]);
-  return mediaUrl;
 }
 
 export function S3PostMedia(props) {
