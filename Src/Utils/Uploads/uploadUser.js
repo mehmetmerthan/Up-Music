@@ -2,7 +2,6 @@ import { API } from "aws-amplify";
 import uploadMedia from "./uploadMedia";
 import * as mutations from "../../graphql/mutations";
 import { getUserId } from "../getUser";
-import _ from "lodash";
 import INSTRUMENT_LIST from "../../../Constants/Data/InstrumentList";
 async function UploadUser(props) {
   const {
@@ -23,9 +22,12 @@ async function UploadUser(props) {
     oldKey: userData?.key_pp || "",
   });
   let control = false;
-  if (tagRole > 0) {
-    control = !_.isEmpty(_.intersection(tagRole, INSTRUMENT_LIST));
+  if (tagRole.length > 0) {
+    control =
+      INSTRUMENT_LIST.find((element) => tagRole.includes(element)) !==
+      undefined;
   }
+
   let userId;
   if (id === "") {
     userId = await getUserId();

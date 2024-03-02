@@ -12,14 +12,15 @@ Project Description
 
 ### In Progress
 
-- [ ] şifreyu unuttum ve settings alanınıd düzenle  
-- [ ] password alanını düzenle  
 - [ ] veritabanı s3 sil  
 - [ ] kullancılar kaydet ve onayla  
 - [ ] test et  
 
 ### Done ✓
 
+- [x] password alanını düzenle  
+- [x] şifreyu unuttum ve settings alanınıd düzenle  
+- [x] instrumentalist eklenmiyor  
 - [x] messsage detail düzenle  
 - [x] 3s deki garipliği gider  
 

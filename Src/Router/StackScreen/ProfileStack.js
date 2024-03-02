@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../Screens/Profile/ProfileScreen";
 import EditPorfileScreen from "../../Screens/Profile/EditProfileScreen";
-import SettingsScreen from "../../Screens/Profile/SettingsScreen";
 import EditProfileCompany from "../../Screens/Profile/EditProfileCompany";
+import SettingsStack from "./SettingsStack";
 const Stack = createStackNavigator();
 const ProfileStack = () => (
   <Stack.Navigator>
@@ -22,10 +22,10 @@ const ProfileStack = () => (
       }}
     />
     <Stack.Screen
-      name="SettingsScreen"
-      component={SettingsScreen}
+      name="SettingsStack"
+      component={SettingsStack}
       options={{
-        title: "Settings",
+        headerShown: false,
       }}
     />
     <Stack.Screen

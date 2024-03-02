@@ -1,15 +1,10 @@
-import React from "react";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, StyleSheet, Text } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
+import { Button } from "@rneui/themed";
 const validationSchema = yup.object().shape({
   email: yup
     .string()
@@ -17,20 +12,29 @@ const validationSchema = yup.object().shape({
     .required("Email is required"),
 });
 const ForgotPassScreen = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigation = useNavigation();
-  function navigateToSignIn() {
-    navigation.navigate("SignInScreen");
-  }
-  const handleRegistration = (values) => {
-    console.log(values);
+  const handleRegistration = async (values) => {
+    try {
+      setError(null);
+      setLoading(true);
+      await Auth.forgotPassword(values.email);
+      navigation.navigate("ForgotPassVerifyScreen", {
+        email: values.email,
+      });
+    } catch (error) {
+      if (error.code === "UserNotFoundException") {
+        setError("User not found");
+      } else {
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.scrollContainer}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={true}
-    >
-      <Text style={styles.headerText}>Register</Text>
+    <View style={styles.container}>
       <Formik
         initialValues={{ email: "" }}
         onSubmit={handleRegistration}
@@ -44,8 +48,10 @@ const ForgotPassScreen = () => {
           errors,
           touched,
         }) => (
-          <View>
-            <View style={styles.container}>
+          <View style={styles.innerContainer}>
+            <View style={styles.subContainer}>
+              {error && <Text style={styles.baseError}>{error}</Text>}
+              <Text style={styles.header}>Enter your email</Text>
               <Text style={styles.subText}> Email</Text>
               <TextInput
                 style={styles.input}
@@ -53,32 +59,45 @@ const ForgotPassScreen = () => {
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
+                autoCapitalize="none"
               />
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
             </View>
-            <TouchableOpacity
+            <Button
+              loading={loading}
               onPress={handleSubmit}
-              style={styles.buttonRegister}
-            >
-              <Text style={styles.buttonTextRegister}>Register</Text>
-            </TouchableOpacity>
+              buttonStyle={styles.button}
+              title={"Next"}
+            />
           </View>
         )}
       </Formik>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={{}}>
-          <Text style={styles.buttonText}>Have an account?</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAwareScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  header: {
+    fontSize: 20,
+    fontWeight: "400",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#7e7676",
+  },
   container: {
-    padding: 16,
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  innerContainer: {
+    justifyContent: "space-between",
+    flex: 1,
+  },
+  subContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   input: {
     height: 40,
@@ -92,64 +111,28 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: 12,
   },
-  button: {
-    backgroundColor: "#0000ff00",
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    flex: 1,
-    marginHorizontal: 100,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    marginBottom: 12,
-  },
-  buttonText: {
-    color: "#000000",
-    fontSize: 14,
-    fontWeight: "bold",
+  baseError: {
+    color: "red",
     textAlign: "center",
+    marginBottom: 50,
+    fontSize: 20,
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 26,
+  button: {
+    borderRadius: 8,
+    marginBottom: 50,
+    marginHorizontal: 50,
   },
   input: {
-    height: 40,
-    width: "80%",
     marginVertical: 12,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: "#ccc",
   },
-  headerText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 100,
-    justifyContent: "center",
-    textAlign: "center",
-  },
   subText: {
     fontSize: 16,
     fontWeight: "bold",
     marginTop: 16,
-  },
-  buttonRegister: {
-    backgroundColor: "#3498db",
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 6,
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 50,
-  },
-  buttonTextRegister: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
   },
 });
 

@@ -161,7 +161,7 @@ const ProfileScreen = () => {
               />
               <Button
                 title={"Settings"}
-                onPress={() => navigation.navigate("SettingsScreen")}
+                onPress={() => navigation.navigate("SettingsStack")}
                 buttonStyle={styles.buttonSettings}
               />
             </View>
@@ -255,7 +255,7 @@ const ProfileScreen = () => {
               </>
             )}
             <FlatList
-      decelerationRate={0.5}
+              decelerationRate={0.5}
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}
               keyExtractor={(item) => item.id}

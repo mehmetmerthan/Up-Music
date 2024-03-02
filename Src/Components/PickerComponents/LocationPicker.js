@@ -115,15 +115,16 @@ export function CityPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
   const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
-    setLocation(data?.structured_formatting);
+    const num = data.terms.length;
+    const newLocation = {
+      city: data?.terms[num - 2]?.value,
+      country: data?.terms[num - 1]?.value,
+    };
+    setLocation(newLocation);
     setVisible(true);
   }
   function locationSave() {
-    const locationTemp = {
-      city: location?.main_text,
-      country: location?.secondary_text,
-    };
-    setSelectedLocation(locationTemp);
+    setSelectedLocation(location);
     setVisible(false);
   }
   function locationCancel() {

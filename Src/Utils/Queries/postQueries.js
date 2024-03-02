@@ -44,3 +44,19 @@ export const postsByDate = /* GraphQL */ `
     }
   }
 `;
+
+export const listPostsIds = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

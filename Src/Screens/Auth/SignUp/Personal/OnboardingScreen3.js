@@ -1,11 +1,9 @@
 import { React, useState } from "react";
 import {
   View,
-  Text,
   FlatList,
   TouchableWithoutFeedback,
   Keyboard,
-  TextInput,
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";

@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
+import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup
@@ -58,6 +59,7 @@ const PersonalSignUpScreen = ({ route }) => {
         tagStyle: selectedStyleTags,
         tagRole: selectedRoleTags,
         experiencesData: experiences,
+        user_type: USER_TYPES.PERSONAL,
       });
       navigation.navigate("VerifyEmailScreen", {
         email: values.email,

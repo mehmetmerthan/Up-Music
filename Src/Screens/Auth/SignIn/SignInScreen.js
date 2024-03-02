@@ -1,5 +1,12 @@
 import { React, useState } from "react";
-import { View, TextInput, StyleSheet, Text, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+} from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -7,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signIn from "../../../Utils/Auth/SignIn";
 import { Auth } from "aws-amplify";
+import { Ionicons } from "@expo/vector-icons";
 
 const phoneRegExp = /^\+\d{12}$/;
 const validationSchema = yup.object().shape({
@@ -25,9 +33,11 @@ const SignInScreen = () => {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
   function navigateToSignUp() {
     setLoading2(true);
+    setError(null);
     navigation.navigate("SelectionScreen");
     setLoading2(false);
   }
@@ -87,24 +97,54 @@ const SignInScreen = () => {
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
+                autoCapitalize="none"
               />
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
               <Text style={styles.subText}> Password</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Password"
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
+              </View>
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
+              <Pressable
+                onPress={() => {
+                  setError(null);
+                  navigation.navigate("ForgotPassScreen");
+                }}
+              >
+                <Text> Forgot password ?</Text>
+              </Pressable>
             </View>
             {error && <Text style={styles.errorText}>{error}</Text>}
+
             <Button
               loading={loading}
               onPress={handleSubmit}
@@ -164,12 +204,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#ccc",
   },
-  headerText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 100,
-    justifyContent: "center",
-    textAlign: "center",
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    marginHorizontal: 10,
   },
   subText: {
     fontSize: 16,

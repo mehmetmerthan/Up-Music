@@ -7,19 +7,20 @@ import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import { Auth } from "aws-amplify";
 import { useNavigation } from "@react-navigation/native";
-const ForgotPassVerifyScreen = ({ route }) => {
+const ChangePasswordScreen = () => {
+  const [showPasswordOld, setShowPasswordOld] = useState(false);
   const [showPasswordNew, setShowPasswordNew] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const initialValues = {
-    code: "",
+    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   };
 
   const validationSchema = Yup.object().shape({
-    code: Yup.string().required("Code is required"),
+    oldPassword: Yup.string().required("Old password is required"),
     newPassword: Yup.string()
       .min(8, "password must be least 8 characters")
       .matches(/[A-Z]/, "password must contain at least one uppercase letter")
@@ -34,13 +35,18 @@ const ForgotPassVerifyScreen = ({ route }) => {
       .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
       .required("Confirm password is required"),
   });
-  const email = route.params?.email;
+
   const handleChangePassword = async (values) => {
-    setError(null);
     setLoading(true);
     try {
-      await Auth.forgotPasswordSubmit(email, values.code, values.newPassword);
-      navigation.navigate("SignInScreen");
+      const user = await Auth.currentAuthenticatedUser();
+      const data = await Auth.changePassword(
+        user,
+        values.oldPassword,
+        values.newPassword
+      );
+
+      navigation.navigate("ProfileScreen");
     } catch (err) {
       console.log(err);
       setError(err.message);
@@ -67,24 +73,37 @@ const ForgotPassVerifyScreen = ({ route }) => {
         }) => (
           <View style={styles.subContainer}>
             <View style={styles.inputGroup}>
-              {error && <Text style={styles.baseError}>{error}</Text>}
-              <Text style={styles.header}>
-                {" "}
-                Enter the code sent to your email
-              </Text>
-              <Text style={styles.subText}>Code</Text>
+              <Text style={styles.subText}>Old password</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
-                  onChangeText={handleChange("code")}
-                  onBlur={handleBlur("code")}
-                  value={values.code}
-                  placeholder="Code"
-                  keyboardType="numeric"
+                  onChangeText={handleChange("oldPassword")}
+                  onBlur={handleBlur("oldPassword")}
+                  value={values.oldPassword}
+                  placeholder="Old Password"
+                  secureTextEntry={!showPasswordOld}
+                  autoCapitalize="none"
                 />
+                <Pressable onPress={() => setShowPasswordOld(!showPasswordOld)}>
+                  {showPasswordOld ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
               </View>
-              {touched.code && errors.code && (
-                <Text style={styles.error}>{errors.code}</Text>
+              {touched.oldPassword && errors.oldPassword && (
+                <Text style={styles.error}>{errors.oldPassword}</Text>
               )}
               <Text style={styles.subText}>New password</Text>
               <View style={styles.inputContainer}>
@@ -151,6 +170,9 @@ const ForgotPassVerifyScreen = ({ route }) => {
                 <Text style={styles.error}>{errors.confirmPassword}</Text>
               )}
             </View>
+            {error && (
+              <Text style={[styles.error, { marginBottom: 20 }]}>{error}</Text>
+            )}
             <Button
               onPress={handleSubmit}
               title="Change Password"
@@ -208,19 +230,6 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
   },
-  baseError: {
-    color: "red",
-    textAlign: "center",
-    marginBottom: 50,
-    fontSize: 20,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: "400",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#7e7676",
-  },
 });
 
-export default ForgotPassVerifyScreen;
+export default ChangePasswordScreen;

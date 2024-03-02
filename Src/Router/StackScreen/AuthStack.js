@@ -7,8 +7,6 @@ import SignInScreen from "../../Screens/Auth/SignIn/SignInScreen";
 import VerifyEmailScreen from "../../Screens/Auth/SignUp/VerifyEmailScreen";
 import ForgotPassScreen from "../../Screens/Auth/SignIn/ForgotPassScreen";
 import ForgotPassVerifyScreen from "../../Screens/Auth/SignIn/ForgotPassVerifyScreen";
-import ForgotPassNewPassScreen from "../../Screens/Auth/SignIn/ForgotPassNewPassScreen";
-import ResetPassScreen from "../../Screens/Auth/SignIn/ResetPassScreen";
 import WelcomeScreen from "../../Screens/Auth/WelcomeScreen";
 import SelectionScreen from "../../Screens/Auth/SignUp/SelectionScreen";
 import EnterpriseSelectionScreen from "../../Screens/Auth/SignUp/Enterprise/EnterpriseSelectionScreen";
@@ -119,21 +117,6 @@ export default function AuthStack() {
         component={ForgotPassVerifyScreen}
         options={{
           title: "Forgot Password Verify",
-        }}
-      />
-
-      <Stack.Screen
-        name="ForgotPassNewScreen"
-        component={ForgotPassNewPassScreen}
-        options={{
-          title: "New Password",
-        }}
-      />
-      <Stack.Screen
-        name="ResetPassScreen"
-        component={ResetPassScreen}
-        options={{
-          title: "Reset Password",
         }}
       />
       <Stack.Screen
