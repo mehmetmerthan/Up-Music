@@ -12,6 +12,10 @@ Project Description
 
 ### In Progress
 
+- [ ] mesaj kalvye ios  
+- [ ] mesaj basıılı tutma bug düzenle  
+- [ ] cafe ismi bug  
+- [ ] titreşimli bildirim ios  
 - [ ] veritabanı s3 sil  
 - [ ] kullancılar kaydet ve onayla  
 - [ ] test et  

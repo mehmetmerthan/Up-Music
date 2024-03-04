@@ -7,11 +7,14 @@ import {
   FlatList,
   ActivityIndicator,
   Pressable,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Input, Divider, Icon } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageDetailStyle";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useHeaderHeight } from "@react-navigation/elements";
 import {
   getUserId,
   getUserAttributesForMessageSender,
@@ -239,10 +242,17 @@ export default function MessageDetailScreen() {
     </View>
   );
   const MemoizedHeaderBar = memo(HeaderBar);
+  const height = useHeaderHeight();
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}>
       <MemoizedHeaderBar />
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={height }
+        enabled
+      >
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
           <FlatList
             decelerationRate={0.5}
@@ -274,7 +284,7 @@ export default function MessageDetailScreen() {
           rightIcon={rightIcon}
           onFocus={handleInputFocus}
         />
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,12 +1,10 @@
 import { React, useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { View, Text } from "react-native";
-import { Button } from "@rneui/themed";
 import styles from "../../Styles/Picker/LocationPickerStyle";
 import { GOOGLE_PLACES_API_KEY } from "../../../Constants/Keys/API_KEY";
 export function LocationPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
-  const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
     const num = data.terms.length;
     const newLocation = {
@@ -15,16 +13,7 @@ export function LocationPicker({ setSelectedLocation }) {
       place: data?.structured_formatting?.main_text,
     };
     setLocation(newLocation);
-    setVisible(true);
-  }
-  function locationSave() {
-    setSelectedLocation(location);
-    setVisible(false);
-  }
-  function locationCancel() {
-    setLocation({});
-    setSelectedLocation({});
-    setVisible(false);
+    setSelectedLocation(newLocation);
   }
   return (
     <View style={styles.containerPlace}>
@@ -44,39 +33,15 @@ export function LocationPicker({ setSelectedLocation }) {
           types: "establishment",
         }}
       />
-      {visible && (
-        <View style={styles.buttonContainer}>
-          <Button
-            title={"Save"}
-            buttonStyle={styles.buttonPropertySave}
-            onPress={locationSave}
-          />
-          <Button
-            title={"Cancel"}
-            buttonStyle={styles.buttonPropertyCancel}
-            onPress={locationCancel}
-          />
-        </View>
-      )}
     </View>
   );
 }
 
 export function CountryPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
-  const [visible, setVisible] = useState(false);
   function handleLocationSelect(data) {
     setLocation(data?.description);
-    setVisible(true);
-  }
-  function locationSave() {
-    setSelectedLocation(location);
-    setVisible(false);
-  }
-  function locationCancel() {
-    setLocation(null);
-    setSelectedLocation(null);
-    setVisible(false);
+    setSelectedLocation(data?.description);
   }
   return (
     <View style={styles.container}>
@@ -93,51 +58,28 @@ export function CountryPicker({ setSelectedLocation }) {
             types: "(regions)",
           }}
         />
-        {visible && (
-          <View style={styles.buttonContainer}>
-            <Button
-              title={"Save"}
-              buttonStyle={styles.buttonPropertySave}
-              onPress={locationSave}
-            />
-            <Button
-              title={"Cancel"}
-              buttonStyle={styles.buttonPropertyCancel}
-              onPress={locationCancel}
-            />
-          </View>
-        )}
       </>
     </View>
   );
 }
 export function CityPicker({ setSelectedLocation }) {
   const [location, setLocation] = useState(null);
-  const [visible, setVisible] = useState(false);
-  function handleLocationSelect(data) {
+  async function handleLocationSelect(data) {
     const num = data.terms.length;
     const newLocation = {
       city: data?.terms[num - 2]?.value,
       country: data?.terms[num - 1]?.value,
     };
     setLocation(newLocation);
-    setVisible(true);
-  }
-  function locationSave() {
-    setSelectedLocation(location);
-    setVisible(false);
-  }
-  function locationCancel() {
-    setLocation(null);
-    setSelectedLocation(null);
-    setVisible(false);
+    setSelectedLocation(newLocation);
+    console.log(newLocation);
+    console.log(location);
   }
   return (
     <View style={styles.container}>
       {location && (
         <Text style={styles.baseText}>
-          {location?.main_text} {location?.main_text && ","}{" "}
-          {location?.secondary_text}
+          {location?.city} {location?.city && ","} {location?.country}
         </Text>
       )}
       <>
@@ -152,20 +94,6 @@ export function CityPicker({ setSelectedLocation }) {
             types: "(cities)",
           }}
         />
-        {visible && (
-          <View style={styles.buttonContainer}>
-            <Button
-              title={"Save"}
-              buttonStyle={styles.buttonPropertySave}
-              onPress={locationSave}
-            />
-            <Button
-              title={"Cancel"}
-              buttonStyle={styles.buttonPropertyCancel}
-              onPress={locationCancel}
-            />
-          </View>
-        )}
       </>
     </View>
   );

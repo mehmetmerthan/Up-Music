@@ -15,6 +15,7 @@ const CreateStack = () => (
       component={CreateScreen}
       options={{
         title: "Create",
+        headerLeft: () => null,
       }}
     />
     <Stack.Screen

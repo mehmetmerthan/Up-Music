@@ -12,6 +12,7 @@ const ProfileStack = () => (
       component={ProfileScreen}
       options={{
         title: "Profile",
+        headerLeft: () => null,
       }}
     />
     <Stack.Screen

@@ -103,6 +103,7 @@ const HomeStack = () => {
         component={MessageScreen}
         options={{
           title: "Messages",
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -110,6 +111,7 @@ const HomeStack = () => {
         component={MessageDetailScreen}
         options={{
           title: "Message",
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

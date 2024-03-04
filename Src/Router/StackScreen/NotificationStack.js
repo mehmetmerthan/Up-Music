@@ -10,7 +10,8 @@ const NotificationStack = () => (
       name="NotificationScreen"
       component={NotificationScreen}
       options={{
-        title: "Notification"
+        title: "Notification",
+        headerLeft: () => null,
       }}
     />
     <MyNotificationStack.Screen

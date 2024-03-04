@@ -12,6 +12,7 @@ const MessageStack = () => (
       component={MessageScreen}
       options={{
         title: "Message",
+        headerLeft: () => null,
       }}
     />
     <MyMessageStack.Screen
