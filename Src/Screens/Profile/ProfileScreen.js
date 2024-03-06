@@ -103,7 +103,7 @@ const ProfileScreen = () => {
           <Animated.View
             style={[styles.userProfileTop, { height: headerHeight }]}
           >
-            {userData?.key_pp && (
+            {userData?.key_pp2 && (
               <Animated.Image
                 source={{ uri: userData?.key_pp }}
                 style={[
@@ -255,7 +255,7 @@ const ProfileScreen = () => {
               </>
             )}
             <FlatList
-              decelerationRate={0.5}
+              decelerationRate={0.8}
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}
               keyExtractor={(item) => item.id}

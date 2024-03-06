@@ -67,7 +67,7 @@ export default function ComposerScreen() {
   };
   return (
     <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
       data={items}
       renderItem={({ item, index }) => <PostUser item={item} index={index} />}
       keyExtractor={(item) => item.id}

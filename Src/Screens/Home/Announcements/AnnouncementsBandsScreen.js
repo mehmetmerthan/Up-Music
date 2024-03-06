@@ -67,7 +67,7 @@ export default function AnnouncementsBandsScreen() {
   };
   return (
     <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
       data={items}
       renderItem={({ item, index }) => <Post item={item} index={index} />}
       keyExtractor={(item) => item.id}

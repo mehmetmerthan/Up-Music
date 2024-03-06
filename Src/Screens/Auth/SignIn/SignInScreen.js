@@ -69,6 +69,7 @@ const SignInScreen = () => {
       contentContainerStyle={styles.scrollContainer}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
+      extraScrollHeight={50}
     >
       <Image
         source={require("../../../../assets/Design.png")}

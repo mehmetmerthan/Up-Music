@@ -1,4 +1,13 @@
-import { TextInput, Text, View, FlatList } from "react-native";
+import {
+  TextInput,
+  Text,
+  View,
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
@@ -9,6 +18,7 @@ import StyleTags from "../../../Constants/Data/StyleTags";
 import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
+import { useHeaderHeight } from "@react-navigation/elements";
 export default function CreateMusicianForCollaborateScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -45,7 +55,7 @@ export default function CreateMusicianForCollaborateScreen() {
   }
   function renderItem() {
     return (
-      <View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <Text style={styles.header}>Write something</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
@@ -92,16 +102,22 @@ export default function CreateMusicianForCollaborateScreen() {
             onPress={submitPost}
           />
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
+  const height = useHeaderHeight();
   return (
-    <FlatList
-      decelerationRate={0.5}
-      data={[1]}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.toString()}
-      keyboardShouldPersistTaps="always"
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={height + 20}
+    >
+      <FlatList
+        decelerationRate={0.8}
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        keyboardShouldPersistTaps="always"
+      />
+    </KeyboardAvoidingView>
   );
 }

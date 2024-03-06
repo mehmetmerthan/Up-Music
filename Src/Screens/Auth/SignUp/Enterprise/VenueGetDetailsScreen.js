@@ -37,7 +37,7 @@ const VenueGetDetailsScreen = () => {
   }
   return (
     <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
       data={[1]}
       renderItem={renderItem}
       keyExtractor={(item) => item.toString()}

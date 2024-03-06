@@ -1,4 +1,13 @@
-import { TextInput, Text, View, FlatList } from "react-native";
+import {
+  TextInput,
+  Text,
+  View,
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
@@ -9,6 +18,7 @@ import StyleTags from "../../../Constants/Data/StyleTags";
 import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
+import { useHeaderHeight } from "@react-navigation/elements";
 export default function CreateMusicianForBandScreen() {
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -43,63 +53,71 @@ export default function CreateMusicianForBandScreen() {
       setLoading(false);
     }
   }
+  const height = useHeaderHeight();
   function renderItem() {
     return (
-      <View>
-        <Text style={styles.header}>Tell about yourself</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="I am a musician..."
-          value={text}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Text style={styles.header}>Select your location</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <CityPicker setSelectedLocation={setSelectedLocation} />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Text style={styles.header}>What kind of musician are you ?</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <Tag
-          selectedTags={selectedRoleTags}
-          setSelectedTags={setSelectedRoleTags}
-          tagData={RoleTags}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Text style={styles.header}>Select music styles</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <Tag
-          selectedTags={selectedStyleTags}
-          setSelectedTags={setSelectedStyleTags}
-          tagData={StyleTags}
-        />
-        <Divider orientation="vertical" />
-        <Button
-          title="Share"
-          loading={isLoading}
-          buttonStyle={{
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
-          titleStyle={{ color: "white" }}
-          containerStyle={{
-            marginHorizontal: 70,
-            marginVertical: 10,
-          }}
-          onPress={submitPost}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <Text style={styles.header}>Tell about yourself</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            placeholder="I am a musician..."
+            value={text}
+          />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <Text style={styles.header}>Select your location</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <CityPicker setSelectedLocation={setSelectedLocation} />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <Text style={styles.header}>What kind of musician are you ?</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <Tag
+            selectedTags={selectedRoleTags}
+            setSelectedTags={setSelectedRoleTags}
+            tagData={RoleTags}
+          />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <Text style={styles.header}>Select music styles</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <Tag
+            selectedTags={selectedStyleTags}
+            setSelectedTags={setSelectedStyleTags}
+            tagData={StyleTags}
+          />
+          <Divider orientation="vertical" />
+          <Button
+            title="Share"
+            loading={isLoading}
+            buttonStyle={{
+              borderColor: "#ccc",
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+            titleStyle={{ color: "white" }}
+            containerStyle={{
+              marginHorizontal: 70,
+              marginVertical: 10,
+            }}
+            onPress={submitPost}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
   return (
-    <FlatList
-      decelerationRate={0.5}
-      data={[1]}
-      renderItem={renderItem}
-      keyExtractor={(item) => item}
-      keyboardShouldPersistTaps="always"
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={height + 20}
+    >
+      <FlatList
+        decelerationRate={0.8}
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item}
+        keyboardShouldPersistTaps="always"
+      />
+    </KeyboardAvoidingView>
   );
 }

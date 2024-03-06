@@ -226,7 +226,7 @@ const UserDetailScreen = () => {
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText}>Announcments</Text>
             <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}
               keyExtractor={(item) => item.id}

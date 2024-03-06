@@ -6,6 +6,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { Button, Divider } from "@rneui/themed";
 import styles from "../Styles/OnBoardingStyle";
@@ -78,49 +80,47 @@ const AddExperience = ({
   }
   function renderItem() {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <Text style={styles.subText}>Tell us about your experience</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="About your experience"
-            onChangeText={(text) => setAboutExperience(text)}
-            value={aboutExperience}
-          />
-          <Divider />
-          <Text style={styles.subText}>Experience in which role?</Text>
-          <Tag
-            tagData={RoleTags}
-            selectedTags={selectedExperienceRoleTags}
-            setSelectedTags={setSelectedExperienceRoleTags}
-          />
-          <Divider />
-          <Text style={styles.subText}>Experience in which style?</Text>
-          <Tag
-            tagData={StyleTags}
-            selectedTags={selectedExperienceStyleTags}
-            setSelectedTags={setSelectedExperienceStyleTags}
-          />
-          <Divider />
-          <Text style={styles.subText}>Experience in which song?</Text>
-          <SpotifySearch
-            setSelectedSong={setSelectedSong}
-            setSpotifySong={setSpotifySong}
-            spotifySong={spotifySong}
-          />
-          <Divider />
-          <Button
-            title={"Complete experience"}
-            onPress={addExperience}
-            buttonStyle={styles.button}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <Text style={styles.subText}>Tell us about your experience</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="About your experience"
+          onChangeText={(text) => setAboutExperience(text)}
+          value={aboutExperience}
+        />
+        <Divider />
+        <Text style={styles.subText}>Experience in which role?</Text>
+        <Tag
+          tagData={RoleTags}
+          selectedTags={selectedExperienceRoleTags}
+          setSelectedTags={setSelectedExperienceRoleTags}
+        />
+        <Divider />
+        <Text style={styles.subText}>Experience in which style?</Text>
+        <Tag
+          tagData={StyleTags}
+          selectedTags={selectedExperienceStyleTags}
+          setSelectedTags={setSelectedExperienceStyleTags}
+        />
+        <Divider />
+        <Text style={styles.subText}>Experience in which song?</Text>
+        <SpotifySearch
+          setSelectedSong={setSelectedSong}
+          setSpotifySong={setSpotifySong}
+          spotifySong={spotifySong}
+        />
+        <Divider />
+        <Button
+          title={"Complete experience"}
+          onPress={addExperience}
+          buttonStyle={styles.button}
+        />
+      </View>
     );
   }
   return (
     <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
       data={[1]}
       renderItem={renderItem}
       keyExtractor={(item) => item.toString()}

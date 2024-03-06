@@ -1,7 +1,18 @@
-import { React, useState, useRef, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Animated } from "react-native";
+import { React, useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useHeaderHeight } from "@react-navigation/elements";
 import styles from "../../Styles/UserProfileStyle";
 import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button } from "@rneui/themed";
@@ -20,7 +31,6 @@ const validationSchema = yup.object().shape({
 const EditProfileCompany = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
-
   const [name, onChangeName] = useState(userData?.name);
   const [selectedLocation, setSelectedLocation] = useState({});
   const [visibleCity, setVisibleCity] = useState(false);
@@ -70,39 +80,8 @@ const EditProfileCompany = () => {
         formik.setFieldError("name", "Name is required");
       } else {
         onChangeName(values.name);
-        onChangeText(values.about);
       }
     },
-  });
-  const scrollY = useRef(new Animated.Value(0)).current;
-
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [250, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageOpacity = scrollY.interpolate({
-    inputRange: [10, 300],
-    outputRange: [1, 0.5],
-    extrapolate: "clamp",
-  });
-
-  const imageTranslateY = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [0, -250],
-    extrapolate: "clamp",
-  });
-
-  const imageScale = scrollY.interpolate({
-    inputRange: [-50, 250],
-    outputRange: [1, 1.5],
-    extrapolate: "clamp",
-  });
-  const borderRadius = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [60, 0],
-    extrapolate: "clamp",
   });
   const [image, setImage] = useState(null);
   useEffect(() => {
@@ -114,147 +93,122 @@ const EditProfileCompany = () => {
   }, [imagePP, userData?.key_pp]);
   function renderItem() {
     return (
-      <View>
-        <Animated.View
-          style={[styles.userProfileTop, { height: headerHeight }]}
-        >
-          {image && (
-            <Animated.Image
-              source={{ uri: image }}
-              style={[
-                styles.profileImage,
-                {
-                  opacity: imageOpacity,
-                  transform: [
-                    { translateY: imageTranslateY },
-                    { scaleX: imageScale },
-                    { scaleY: imageScale },
-                  ],
-                  borderBottomLeftRadius: borderRadius,
-                  borderBottomRightRadius: borderRadius,
-                },
-              ]}
-            />
-          )}
-          <Animated.View
-            style={[
-              styles.profileNameContainer,
-              {
-                opacity: imageOpacity,
-                transform: [
-                  { translateY: imageTranslateY },
-                  { scaleX: imageScale },
-                  { scaleY: imageScale },
-                ],
-              },
-            ]}
-          >
-            <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
-            {userData?.city && (
-              <View style={styles.userProfileInfoLocation}>
-                <EvilIcons
-                  name="location"
-                  size={20}
-                  color="rgba(255, 255, 255, 0.5)"
-                />
-                <Text style={styles.userProfileInfoLocationText}>
-                  {userData?.city}, {userData?.country}
-                </Text>
-              </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <View style={styles.userProfileTop}>
+            {image && (
+              <Image source={{ uri: image }} style={styles.profileImage} />
             )}
-          </Animated.View>
-          <MaterialCommunityIcons
-            name="circle-edit-outline"
-            size={50}
-            color="#008000"
-            style={{
-              position: "absolute",
-              right: 15,
-              bottom: -100,
-            }}
-            onPress={OpenGalleryPP}
-          />
-        </Animated.View>
-        <View style={styles.userProfileBody}>
-          <View style={styles.flexB}>
-            <Button
-              buttonStyle={styles.buttonSave}
-              onPress={saveProfile}
-              title="Save"
-              loading={isLoading}
-            />
-            <Button
-              buttonStyle={styles.buttonEdit}
-              onPress={() => navigation.navigate("ProfileScreen")}
-              title="Cancel"
-              type="outline"
-              titleStyle={styles.buttonTextEdit}
+            <View style={styles.profileNameContainer}>
+              <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
+              {userData?.city && (
+                <View style={styles.userProfileInfoLocation}>
+                  <EvilIcons
+                    name="location"
+                    size={20}
+                    color="rgba(255, 255, 255, 0.5)"
+                  />
+                  <Text style={styles.userProfileInfoLocationText}>
+                    {userData?.city}, {userData?.country}
+                  </Text>
+                </View>
+              )}
+            </View>
+            <MaterialCommunityIcons
+              name="circle-edit-outline"
+              size={50}
+              color="#008000"
+              style={{
+                position: "absolute",
+                right: 15,
+                bottom: -100,
+              }}
+              onPress={OpenGalleryPP}
             />
           </View>
-          <Text style={styles.errorText}>{error}</Text>
-          <View style={styles.divider} />
-          <View style={styles.grid}>
-            <View style={styles.gridContent}>
-              <View style={styles.gridItem}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                    Info
-                  </Text>
-                  <View style={styles.sectionContent}>
-                    <Text style={styles.subHeader}>Name</Text>
-                    <TextInput
-                      style={styles.input}
-                      onChangeText={(text) => {
-                        formik.handleChange("name")(text);
-                        formik.handleSubmit();
-                      }}
-                      onBlur={() => {
-                        formik.handleBlur("name");
-                        formik.handleSubmit();
-                      }}
-                      value={formik.values.name}
-                      multiline={false}
-                      maxLength={50}
-                      placeholder="your name"
-                      onSubmitEditing={formik.handleSubmit}
-                    />
+          <View style={styles.userProfileBody}>
+            <View style={styles.flexB}>
+              <Button
+                buttonStyle={styles.buttonSave}
+                onPress={saveProfile}
+                title="Save"
+                loading={isLoading}
+              />
+              <Button
+                buttonStyle={styles.buttonEdit}
+                onPress={() => navigation.navigate("ProfileScreen")}
+                title="Cancel"
+                type="outline"
+                titleStyle={styles.buttonTextEdit}
+              />
+            </View>
+            <Text style={styles.errorText}>{error}</Text>
+            <View style={styles.divider} />
+            <View style={styles.grid}>
+              <View style={styles.gridContent}>
+                <View style={styles.gridItem}>
+                  <View style={styles.section}>
+                    <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                      Info
+                    </Text>
+                    <View style={styles.sectionContent}>
+                      <Text style={styles.subHeader}>Name</Text>
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => {
+                          formik.handleChange("name")(text);
+                          formik.handleSubmit();
+                        }}
+                        onBlur={() => {
+                          formik.handleBlur("name");
+                          formik.handleSubmit();
+                        }}
+                        value={formik.values.name}
+                        multiline={false}
+                        maxLength={50}
+                        placeholder="your name"
+                        onSubmitEditing={formik.handleSubmit}
+                      />
 
-                    <Text style={styles.subHeader}>Location</Text>
-                    {!visibleCity && (
-                      <Button
-                        title={"Select Location"}
-                        onPress={() => setVisibleCity(true)}
-                        buttonStyle={styles.button}
-                      />
-                    )}
-                    {visibleCity && (
-                      <CityPicker
-                        setSelectedLocation={setSelectedLocation}
-                        setVisibleCity={setVisibleCity}
-                      />
-                    )}
+                      <Text style={styles.subHeader}>Location</Text>
+                      {!visibleCity && (
+                        <Button
+                          title={"Select Location"}
+                          onPress={() => setVisibleCity(true)}
+                          buttonStyle={styles.button}
+                        />
+                      )}
+                      {visibleCity && (
+                        <CityPicker
+                          setSelectedLocation={setSelectedLocation}
+                          setVisibleCity={setVisibleCity}
+                        />
+                      )}
+                    </View>
                   </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
+  const height = useHeaderHeight();
   return (
-    <FlatList
-      decelerationRate={0.5}
-      data={[1]}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.toString()}
-      keyboardShouldPersistTaps="always"
-      scrollEventThrottle={16}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        { useNativeDriver: false }
-      )}
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={height }
+    >
+      <FlatList
+        decelerationRate={0.8}
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        keyboardShouldPersistTaps="always"
+        scrollEventThrottle={16}
+      />
+    </KeyboardAvoidingView>
   );
 };
 export default EditProfileCompany;

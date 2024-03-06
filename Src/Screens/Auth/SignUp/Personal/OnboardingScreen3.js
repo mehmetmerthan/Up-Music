@@ -4,12 +4,15 @@ import {
   FlatList,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../../../../Styles/OnBoardingStyle";
 import Experiences from "../../../../Components/Experiences";
 import AddExperience from "../../../../Components/AddExperiences";
+import { useHeaderHeight } from "@react-navigation/elements";
 const OnboardingScreen3 = ({ route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [experiences, setExperiences] = useState([]);
@@ -35,13 +38,15 @@ const OnboardingScreen3 = ({ route }) => {
   }
   function renderItem() {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <AddExperience
             setExperiences={setExperiences}
             experiences={experiences}
           />
-          <Experiences experiencesData={experiences} />
+          {experiences.length > 0 && (
+            <Experiences experiencesData={experiences} />
+          )}
           <View style={styles.pageViewContainer}>
             <View style={styles.pageViewEmpty} />
             <View style={styles.pageViewEmpty} />
@@ -56,14 +61,21 @@ const OnboardingScreen3 = ({ route }) => {
       </TouchableWithoutFeedback>
     );
   }
+  const height = useHeaderHeight();
   return (
-    <FlatList
-      decelerationRate={0.5}
-      data={[1]}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.toString()}
-      keyboardShouldPersistTaps="always"
-    />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={height + 20}
+    >
+      <FlatList
+        decelerationRate={0.8}
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        keyboardShouldPersistTaps="always"
+      />
+    </KeyboardAvoidingView>
   );
 };
 

@@ -245,17 +245,20 @@ export default function MessageDetailScreen() {
   const height = useHeaderHeight();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}
+      edges={["right", "top", "left"]}
+    >
       <MemoizedHeaderBar />
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : null}
-        keyboardVerticalOffset={height }
+        keyboardVerticalOffset={height}
         enabled
       >
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
           <FlatList
-            decelerationRate={0.5}
+            decelerationRate={0.8}
             data={messages}
             renderItem={renderMessage}
             keyExtractor={(item) => item.id}

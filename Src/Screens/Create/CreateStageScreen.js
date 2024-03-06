@@ -1,4 +1,13 @@
-import { TextInput, Text, View, FlatList } from "react-native";
+import {
+  TextInput,
+  Text,
+  FlatList,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+} from "react-native";
 import { React, useState } from "react";
 import styles from "../../Styles/Create/CreatePostStyle";
 import Tag from "../../Components/Tag";
@@ -9,6 +18,7 @@ import UploadPost from "../../Utils/Uploads/uploadPost";
 import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
+import { useHeaderHeight } from "@react-navigation/elements";
 export default function CreateStageScreen() {
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
@@ -45,63 +55,69 @@ export default function CreateStageScreen() {
       setLoading(false);
     }
   }
+  const height = useHeaderHeight();
   function renderItem() {
     return (
-      <View>
-        <MediaPickerImageComponent />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="Write something about your stage"
-          value={text}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Text style={styles.header}>Set Price</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <TextInput
-          style={styles.priceInput}
-          onChangeText={setPrice}
-          placeholder="20$ per hour"
-          value={price}
-          keyboardType="numeric"
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <LocationPicker setSelectedLocation={setSelectedLocation} />
-        <Text style={styles.header}>Select Categories</Text>
-        <Divider inset={true} insetType="middle" orientation="vertical" />
-        <Tag
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          tagData={StyleTags}
-        />
-        <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-        <Button
-          title="Share"
-          loading={isLoading}
-          buttonStyle={{
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
-          titleStyle={{ color: "white" }}
-          containerStyle={{
-            marginHorizontal: 70,
-            marginVertical: 10,
-          }}
-          onPress={submitPost}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <MediaPickerImageComponent />
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            placeholder="Write something about your stage"
+            value={text}
+          />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <Text style={styles.header}>Set Price</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <TextInput
+            style={styles.priceInput}
+            onChangeText={setPrice}
+            placeholder="20$ per hour"
+            value={price}
+            keyboardType="numeric"
+          />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <LocationPicker setSelectedLocation={setSelectedLocation} />
+          <Text style={styles.header}>Select Categories</Text>
+          <Divider inset={true} insetType="middle" orientation="vertical" />
+          <Tag
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            tagData={StyleTags}
+          />
+          <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
+          <Button
+            title="Share"
+            loading={isLoading}
+            buttonStyle={{
+              borderColor: "#ccc",
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+            titleStyle={{ color: "white" }}
+            containerStyle={{
+              marginHorizontal: 70,
+              marginVertical: 10,
+            }}
+            onPress={submitPost}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
   return (
-    <View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={height + 20}
+    >
       <FlatList
-      decelerationRate={0.5}
+        decelerationRate={0.8}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}
         keyboardShouldPersistTaps="always"
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }

@@ -1,13 +1,17 @@
 import React from "react";
-import { View, TouchableOpacity, Image, Text } from "react-native";
+import { View, Image, Text, ScrollView } from "react-native";
 import styles from "../../Styles/Create/CreateStyle";
 import { useNavigation } from "@react-navigation/native";
+import TouchableScale from "react-native-touchable-scale";
 const CreateScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
           onPress={() => navigation.navigate("CreateStageScreen")}
         >
@@ -21,8 +25,11 @@ const CreateScreen = () => {
           <Text style={styles.decsriptionText}>
             (For event organizers and venue owners)
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
           onPress={() => navigation.navigate("CreateEventScreen")}
         >
@@ -36,10 +43,13 @@ const CreateScreen = () => {
           <Text style={styles.decsriptionText}>
             (Festivals, concerts, party, etc.)
           </Text>
-        </TouchableOpacity>
+        </TouchableScale>
       </View>
       <View style={styles.row}>
-        <TouchableOpacity
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
           onPress={() => navigation.navigate("CreateBandForMusicianScreen")}
         >
@@ -51,8 +61,11 @@ const CreateScreen = () => {
             Looking for musicians for your band?
           </Text>
           <Text style={styles.decsriptionText}>(For bands)</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
           onPress={() => navigation.navigate("CreateMusicianForBandScreen")}
         >
@@ -64,12 +77,17 @@ const CreateScreen = () => {
             Looking for a band to join ?
           </Text>
           <Text style={styles.decsriptionText}>(For musicians)</Text>
-        </TouchableOpacity>
+        </TouchableScale>
       </View>
       <View style={styles.row}>
-        <TouchableOpacity
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
-          onPress={() => navigation.navigate("CreateMusicianForCollaborateScreen")}
+          onPress={() =>
+            navigation.navigate("CreateMusicianForCollaborateScreen")
+          }
         >
           <Image
             source={require("../../../assets/images/Create/create-stage.png")}
@@ -81,8 +99,11 @@ const CreateScreen = () => {
           <Text style={styles.decsriptionText}>
             (Agreement, collaborations, helping)
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
+          friction={90}
+          tension={100}
+          activeScale={0.95}
           style={styles.column}
           onPress={() => navigation.navigate("CreateVisualArtistScreen")}
         >
@@ -90,13 +111,15 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/create-job-notice.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>Looking for a visual artist ?</Text>
+          <Text style={styles.decsriptionText}>
+            Looking for a visual artist ?
+          </Text>
           <Text style={styles.decsriptionText}>
             (Photographer, director, graphicer, etc. )
           </Text>
-        </TouchableOpacity>
+        </TouchableScale>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default CreateScreen;

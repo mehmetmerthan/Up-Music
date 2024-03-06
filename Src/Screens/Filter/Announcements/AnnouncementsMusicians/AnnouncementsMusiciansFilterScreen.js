@@ -188,7 +188,7 @@ export default function AnnouncementsMusiciansFilterScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}

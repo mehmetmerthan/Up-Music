@@ -67,7 +67,7 @@ export default function StagesScreen() {
   };
   return (
     <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
       data={items}
       renderItem={({ item, index }) => (
         <PostCompany item={item} index={index} />

@@ -12,16 +12,22 @@ Project Description
 
 ### In Progress
 
-- [ ] mesaj kalvye ios  
+- [ ] butonların çift tıklanmasını kontrol et  
+- [ ] mesaj slinirken bekleme göster  
+- [ ] edit profil titreşim sorunu  
 - [ ] mesaj basıılı tutma bug düzenle  
 - [ ] cafe ismi bug  
+- [ ] profil geç yüklenme sorunu  
 - [ ] titreşimli bildirim ios  
+- [ ] dil eklentisi  
+- [ ] theme araştır  
 - [ ] veritabanı s3 sil  
 - [ ] kullancılar kaydet ve onayla  
 - [ ] test et  
 
 ### Done ✓
 
+- [x] mesaj kalvye ios  
 - [x] password alanını düzenle  
 - [x] şifreyu unuttum ve settings alanınıd düzenle  
 - [x] instrumentalist eklenmiyor  

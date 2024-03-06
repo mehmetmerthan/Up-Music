@@ -124,7 +124,7 @@ export default function SpotifySearch({
         onChangeText={(text) => setSearchQuery(text)}
       />
       <FlatList
-      decelerationRate={0.5}
+      decelerationRate={0.8}
         style={styles.list}
         data={searchResults}
         keyExtractor={(item) => item.id}

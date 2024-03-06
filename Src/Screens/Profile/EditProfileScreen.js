@@ -1,5 +1,15 @@
-import { React, useState, useRef, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Animated } from "react-native";
+import { React, useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "../../Styles/UserProfileStyle";
@@ -11,6 +21,7 @@ import {
 } from "@expo/vector-icons";
 import { Button, Chip } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useHeaderHeight } from "@react-navigation/elements";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
 import StyleTags from "../../../Constants/Data/StyleTags";
@@ -159,36 +170,6 @@ const EditPorfileScreen = () => {
     }
     setSelectedRoleTags([]);
   }
-  const scrollY = useRef(new Animated.Value(0)).current;
-
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [250, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageOpacity = scrollY.interpolate({
-    inputRange: [10, 300],
-    outputRange: [1, 0.5],
-    extrapolate: "clamp",
-  });
-
-  const imageTranslateY = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [0, -250],
-    extrapolate: "clamp",
-  });
-
-  const imageScale = scrollY.interpolate({
-    inputRange: [-50, 250],
-    outputRange: [1, 1.5],
-    extrapolate: "clamp",
-  });
-  const borderRadius = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [60, 0],
-    extrapolate: "clamp",
-  });
   const [image, setImage] = useState(null);
   useEffect(() => {
     if (imagePP) {
@@ -199,328 +180,303 @@ const EditPorfileScreen = () => {
   }, [imagePP, userData?.key_pp]);
   function renderItem() {
     return (
-      <View>
-        <Animated.View
-          style={[styles.userProfileTop, { height: headerHeight }]}
-        >
-          {image && (
-            <Animated.Image
-              source={{ uri: image }}
-              style={[
-                styles.profileImage,
-                {
-                  opacity: imageOpacity,
-                  transform: [
-                    { translateY: imageTranslateY },
-                    { scaleX: imageScale },
-                    { scaleY: imageScale },
-                  ],
-                  borderBottomLeftRadius: borderRadius,
-                  borderBottomRightRadius: borderRadius,
-                },
-              ]}
-            />
-          )}
-          <Animated.View
-            style={[
-              styles.profileNameContainer,
-              {
-                opacity: imageOpacity,
-                transform: [
-                  { translateY: imageTranslateY },
-                  { scaleX: imageScale },
-                  { scaleY: imageScale },
-                ],
-              },
-            ]}
-          >
-            <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
-            {userData?.city && (
-              <View style={styles.userProfileInfoLocation}>
-                <EvilIcons
-                  name="location"
-                  size={20}
-                  color="rgba(255, 255, 255, 0.5)"
-                />
-                <Text style={styles.userProfileInfoLocationText}>
-                  {userData?.city}, {userData?.country}
-                </Text>
-              </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <View style={styles.userProfileTop}>
+            {image && (
+              <Image source={{ uri: image }} style={styles.profileImage} />
             )}
-          </Animated.View>
-          <MaterialCommunityIcons
-            name="circle-edit-outline"
-            size={50}
-            color="#008000"
-            style={{
-              position: "absolute",
-              right: 15,
-              bottom: -100,
-            }}
-            onPress={OpenGalleryPP}
-          />
-        </Animated.View>
-        <View style={styles.userProfileBody}>
-          <View style={styles.flexB}>
-            <Button
-              buttonStyle={styles.buttonSave}
-              onPress={saveProfile}
-              title="Save"
-              loading={isLoading}
-            />
-            <Button
-              buttonStyle={styles.buttonEdit}
-              onPress={() => navigation.navigate("ProfileScreen")}
-              title="Cancel"
-              type="outline"
-              titleStyle={styles.buttonTextEdit}
+            <View style={styles.profileNameContainer}>
+              <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
+              {userData?.city && (
+                <View style={styles.userProfileInfoLocation}>
+                  <EvilIcons
+                    name="location"
+                    size={20}
+                    color="rgba(255, 255, 255, 0.5)"
+                  />
+                  <Text style={styles.userProfileInfoLocationText}>
+                    {userData?.city}, {userData?.country}
+                  </Text>
+                </View>
+              )}
+            </View>
+            <MaterialCommunityIcons
+              name="circle-edit-outline"
+              size={50}
+              color="#008000"
+              style={{
+                position: "absolute",
+                right: 15,
+                bottom: -100,
+              }}
+              onPress={OpenGalleryPP}
             />
           </View>
-          <Text style={styles.errorText}>{error}</Text>
-          <View style={styles.divider} />
-          <View style={styles.grid}>
-            <View style={styles.gridContent}>
-              <View style={styles.gridItem}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                    Info
-                  </Text>
-                  <View style={styles.sectionContent}>
-                    <Text style={styles.subHeader}>Name</Text>
-                    <TextInput
-                      style={styles.input}
-                      onChangeText={(text) => {
-                        formik.handleChange("name")(text);
-                        formik.handleSubmit();
+          <View style={styles.userProfileBody}>
+            <View style={styles.flexB}>
+              <Button
+                buttonStyle={styles.buttonSave}
+                onPress={saveProfile}
+                title="Save"
+                loading={isLoading}
+              />
+              <Button
+                buttonStyle={styles.buttonEdit}
+                onPress={() => navigation.navigate("ProfileScreen")}
+                title="Cancel"
+                type="outline"
+                titleStyle={styles.buttonTextEdit}
+              />
+            </View>
+            <Text style={styles.errorText}>{error}</Text>
+            <View style={styles.divider} />
+            <View style={styles.grid}>
+              <View style={styles.gridContent}>
+                <View style={styles.gridItem}>
+                  <View style={styles.section}>
+                    <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                      Info
+                    </Text>
+                    <View style={styles.sectionContent}>
+                      <Text style={styles.subHeader}>Name</Text>
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => {
+                          formik.handleChange("name")(text);
+                          formik.handleSubmit();
+                        }}
+                        onBlur={() => {
+                          formik.handleBlur("name");
+                          formik.handleSubmit();
+                        }}
+                        value={formik.values.name}
+                        multiline={false}
+                        maxLength={50}
+                        placeholder="your name"
+                        onSubmitEditing={formik.handleSubmit}
+                      />
+                      <Text style={styles.subHeader}>About</Text>
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => {
+                          formik.handleChange("about")(text);
+                          formik.handleSubmit();
+                        }}
+                        value={formik.values.about}
+                        onBlur={() => {
+                          formik.handleBlur("about");
+                          formik.handleSubmit();
+                        }}
+                        multiline={true}
+                        maxLength={1000}
+                        placeholder="Write something about yourself"
+                        onSubmitEditing={formik.handleSubmit}
+                      />
+                      <Text style={styles.subHeader}>Location</Text>
+                      {!visibleCity && (
+                        <Button
+                          title={"Select Location"}
+                          onPress={() => setVisibleCity(true)}
+                          buttonStyle={styles.button}
+                        />
+                      )}
+                      {visibleCity && (
+                        <CityPicker
+                          setSelectedLocation={setSelectedLocation}
+                          setVisibleCity={setVisibleCity}
+                        />
+                      )}
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.divider} />
+                <View style={styles.gridItem}>
+                  <View style={styles.section}>
+                    <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                      Music Styles
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        marginHorizontal: 10,
+                        marginTop: 5,
                       }}
-                      onBlur={() => {
-                        formik.handleBlur("name");
-                        formik.handleSubmit();
-                      }}
-                      value={formik.values.name}
-                      multiline={false}
-                      maxLength={50}
-                      placeholder="your name"
-                      onSubmitEditing={formik.handleSubmit}
-                    />
-                    <Text style={styles.subHeader}>About</Text>
-                    <TextInput
-                      style={styles.input}
-                      onChangeText={(text) => {
-                        formik.handleChange("about")(text);
-                        formik.handleSubmit();
-                      }}
-                      value={formik.values.about}
-                      onBlur={() => {
-                        formik.handleBlur("about");
-                        formik.handleSubmit();
-                      }}
-                      multiline={true}
-                      maxLength={1000}
-                      placeholder="Write something about yourself"
-                      onSubmitEditing={formik.handleSubmit}
-                    />
-                    <Text style={styles.subHeader}>Location</Text>
-                    {!visibleCity && (
+                    >
+                      {userMusicStyles?.map((item, index) => (
+                        <Chip
+                          key={index}
+                          title={item}
+                          titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                          buttonStyle={{ borderColor: "#000000" }}
+                          type="outline"
+                          containerStyle={{
+                            marginVertical: 5,
+                            marginHorizontal: 5,
+                          }}
+                          style={{ backgroundColor: "#ccc" }}
+                          icon={
+                            <AntDesign
+                              name="closecircle"
+                              size={14}
+                              color="black"
+                              style={styles.tagIcon}
+                              onPress={() => handleMusicStyleRemove(item)}
+                            />
+                          }
+                          iconRight
+                        />
+                      ))}
+                      <Chip
+                        iconRight
+                        title={"add"}
+                        icon={
+                          <MaterialIcons
+                            name="add-circle-outline"
+                            size={18}
+                            color="#ccc"
+                            style={styles.tagIconAdd}
+                          />
+                        }
+                        onPress={() => {
+                          setVisibleStyleTag(true);
+                        }}
+                        titleStyle={{ color: "#1c1c1c", color: "#ccc" }}
+                        buttonStyle={{ backgroundColor: "#008000" }}
+                      />
+                    </View>
+                    {visibleStyleTag && (
+                      <Tag
+                        tagData={withoutMusicStyles}
+                        selectedTags={selectedStyleTags}
+                        setSelectedTags={setSelectedStyleTags}
+                      />
+                    )}
+                    {visibleStyleTag && (
                       <Button
-                        title={"Select Location"}
-                        onPress={() => setVisibleCity(true)}
+                        title={"Save"}
+                        onPress={saveStyle}
                         buttonStyle={styles.button}
                       />
                     )}
-                    {visibleCity && (
-                      <CityPicker
-                        setSelectedLocation={setSelectedLocation}
-                        setVisibleCity={setVisibleCity}
-                      />
-                    )}
                   </View>
                 </View>
-              </View>
-              <View style={styles.divider} />
-              <View style={styles.gridItem}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                    Music Styles
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                      marginHorizontal: 10,
-                      marginTop: 5,
-                    }}
-                  >
-                    {userMusicStyles?.map((item, index) => (
-                      <Chip
-                        key={index}
-                        title={item}
-                        titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                        buttonStyle={{ borderColor: "#000000" }}
-                        type="outline"
-                        containerStyle={{
-                          marginVertical: 5,
-                          marginHorizontal: 5,
-                        }}
-                        style={{ backgroundColor: "#ccc" }}
-                        icon={
-                          <AntDesign
-                            name="closecircle"
-                            size={14}
-                            color="black"
-                            style={styles.tagIcon}
-                            onPress={() => handleMusicStyleRemove(item)}
-                          />
-                        }
-                        iconRight
-                      />
-                    ))}
+                <View style={styles.divider} />
+                <Text style={styles.sectionHeadingText} numberOfLines={1}>
+                  Roles
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    marginHorizontal: 10,
+                    marginTop: 5,
+                  }}
+                >
+                  {userRoles?.map((item, index) => (
                     <Chip
-                      iconRight
-                      title={"add"}
+                      key={index}
+                      title={item}
+                      titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
+                      buttonStyle={{ borderColor: "#000000" }}
+                      type="outline"
+                      containerStyle={{
+                        marginVertical: 5,
+                        marginHorizontal: 5,
+                      }}
+                      style={{ backgroundColor: "#ccc" }}
                       icon={
-                        <MaterialIcons
-                          name="add-circle-outline"
-                          size={18}
-                          color="#ccc"
-                          style={styles.tagIconAdd}
+                        <AntDesign
+                          name="closecircle"
+                          size={14}
+                          color="black"
+                          style={styles.tagIcon}
+                          onPress={() => handleRoleRemove(item)}
                         />
                       }
-                      onPress={() => {
-                        setVisibleStyleTag(true);
-                      }}
-                      titleStyle={{ color: "#1c1c1c", color: "#ccc" }}
-                      buttonStyle={{ backgroundColor: "#008000" }}
+                      iconRight
                     />
-                  </View>
-                  {visibleStyleTag && (
-                    <Tag
-                      tagData={withoutMusicStyles}
-                      selectedTags={selectedStyleTags}
-                      setSelectedTags={setSelectedStyleTags}
-                    />
-                  )}
-                  {visibleStyleTag && (
-                    <Button
-                      title={"Save"}
-                      onPress={saveStyle}
-                      buttonStyle={styles.button}
-                    />
-                  )}
-                </View>
-              </View>
-              <View style={styles.divider} />
-              <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                Roles
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  marginHorizontal: 10,
-                  marginTop: 5,
-                }}
-              >
-                {userRoles?.map((item, index) => (
+                  ))}
                   <Chip
-                    key={index}
-                    title={item}
-                    titleStyle={{ color: "#3c3c3c", fontSize: 12 }}
-                    buttonStyle={{ borderColor: "#000000" }}
-                    type="outline"
-                    containerStyle={{
-                      marginVertical: 5,
-                      marginHorizontal: 5,
-                    }}
-                    style={{ backgroundColor: "#ccc" }}
+                    iconRight
+                    title={"add"}
                     icon={
-                      <AntDesign
-                        name="closecircle"
-                        size={14}
-                        color="black"
-                        style={styles.tagIcon}
-                        onPress={() => handleRoleRemove(item)}
+                      <MaterialIcons
+                        name="add-circle-outline"
+                        size={18}
+                        color="#ccc"
+                        style={styles.tagIconAdd}
                       />
                     }
-                    iconRight
+                    onPress={() => {
+                      setVisibleRoleTag(true);
+                    }}
+                    titleStyle={{ color: "#1c1c1c", color: "#ccc" }}
+                    buttonStyle={{ backgroundColor: "#008000" }}
                   />
-                ))}
-                <Chip
-                  iconRight
-                  title={"add"}
-                  icon={
-                    <MaterialIcons
-                      name="add-circle-outline"
-                      size={18}
-                      color="#ccc"
-                      style={styles.tagIconAdd}
-                    />
-                  }
-                  onPress={() => {
-                    setVisibleRoleTag(true);
-                  }}
-                  titleStyle={{ color: "#1c1c1c", color: "#ccc" }}
-                  buttonStyle={{ backgroundColor: "#008000" }}
-                />
+                </View>
+                {visibleRoleTag && (
+                  <Tag
+                    tagData={withoutRoles}
+                    selectedTags={selectedRoleTags}
+                    setSelectedTags={setSelectedRoleTags}
+                  />
+                )}
+                {visibleRoleTag && (
+                  <Button
+                    title={"Save"}
+                    onPress={saveRole}
+                    buttonStyle={styles.button}
+                  />
+                )}
               </View>
-              {visibleRoleTag && (
-                <Tag
-                  tagData={withoutRoles}
-                  selectedTags={selectedRoleTags}
-                  setSelectedTags={setSelectedRoleTags}
-                />
-              )}
-              {visibleRoleTag && (
-                <Button
-                  title={"Save"}
-                  onPress={saveRole}
-                  buttonStyle={styles.button}
-                />
-              )}
             </View>
-          </View>
-          <View style={styles.divider} />
-          {experiences && (
-            <>
-              <Text style={styles.sectionHeadingText}>Experiences</Text>
-              <Experiences
-                experiencesData={experiences}
-                accessory={true}
-                onDeleteExperience={handleDeleteExperience}
+            <View style={styles.divider} />
+            {experiences && (
+              <>
+                <Text style={styles.sectionHeadingText}>Experiences</Text>
+                <Experiences
+                  experiencesData={experiences}
+                  accessory={true}
+                  onDeleteExperience={handleDeleteExperience}
+                />
+              </>
+            )}
+            {!visibleExperience && (
+              <Button
+                title={"Add Experience"}
+                onPress={() => setVisibleExperience(true)}
+                buttonStyle={styles.button}
               />
-            </>
-          )}
-          {!visibleExperience && (
-            <Button
-              title={"Add Experience"}
-              onPress={() => setVisibleExperience(true)}
-              buttonStyle={styles.button}
-            />
-          )}
-          {visibleExperience && (
-            <AddExperience
-              experiences={experiences}
-              setExperiences={setExperiences}
-              setVisibleExperience={setVisibleExperience}
-            />
-          )}
+            )}
+            {visibleExperience && (
+              <AddExperience
+                experiences={experiences}
+                setExperiences={setExperiences}
+                setVisibleExperience={setVisibleExperience}
+              />
+            )}
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
+  const height = useHeaderHeight();
   return (
-    <FlatList
-      decelerationRate={0.5}
-      data={[1]}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.toString()}
-      keyboardShouldPersistTaps="always"
-      scrollEventThrottle={16}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        { useNativeDriver: false }
-      )}
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={height}
+    >
+      <FlatList
+        decelerationRate={0.8}
+        data={[1]}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        keyboardShouldPersistTaps="always"
+        scrollEventThrottle={16}
+      />
+    </KeyboardAvoidingView>
   );
 };
 export default EditPorfileScreen;
