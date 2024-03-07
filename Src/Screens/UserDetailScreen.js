@@ -1,15 +1,9 @@
 import { React, useEffect, useState, useRef } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  Animated,
-} from "react-native";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import styles from "../Styles/UserProfileStyle";
-import { EvilIcons } from "@expo/vector-icons";
-import { Chip, Button } from "@rneui/themed";
-import { API, Storage, Auth } from "aws-amplify";
+import { EvilIcons, FontAwesome } from "@expo/vector-icons";
+import { Chip, Button, Image, Skeleton } from "@rneui/themed";
+import { API, Storage } from "aws-amplify";
 import Experiences from "../Components/Experiences";
 import Post from "../Components/PostComponents/Post";
 import { ScrollView } from "react-native-virtualized-view";
@@ -21,6 +15,8 @@ const UserDetailScreen = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
   const [currentUserId, setCurrentUserId] = useState("");
+  const [urlLoading, setUrlLoading] = useState(true);
+  const [url, setUrl] = useState(null);
   const route = useRoute();
   const { userId } = route?.params || "";
   const navigation = useNavigation();
@@ -30,108 +26,60 @@ const UserDetailScreen = () => {
       query: getUser,
       variables: { id: userId },
     });
-    let userItem = item?.data?.getUser;
-
+    const userItem = item?.data?.getUser;
     const res = await getUserId();
+    setUserData(userItem);
     setCurrentUserId(res);
-    try {
-      let s3Link = null;
-      if (userItem?.key_pp) {
-        s3Link = await Storage.get(userItem?.key_pp, {
+    setLoading(false);
+    if (userItem?.key_pp) {
+      try {
+        const s3Link = await Storage.get(userItem?.key_pp, {
           validateObjectExistence: true,
         });
+        if (s3Link) {
+          setUrl(s3Link);
+        }
+      } catch (error) {
+        console.log("S3 error", error);
+      } finally {
+        setUrlLoading(false);
       }
-      if (s3Link) {
-        userItem.key_pp = s3Link;
-      } else {
-        userItem.key_pp = null;
-      }
-    } catch (error) {
-      console.log("S3 error", error);
-    } finally {
-      setUserData(userItem);
-      setLoading(false);
+    } else {
+      setUrlLoading(false);
     }
   }
   useEffect(() => {
     getUserAtt();
   }, []);
-  const scrollY = useRef(new Animated.Value(0)).current;
-
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [250, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageOpacity = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [1, 0],
-    extrapolate: "clamp",
-  });
-
-  const imageTranslateY = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [0, -250],
-    extrapolate: "clamp",
-  });
-
-  const imageScale = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [1, 1.5],
-    extrapolate: "clamp",
-  });
-  const borderRadius = scrollY.interpolate({
-    inputRange: [0, 250],
-    outputRange: [40, 0],
-    extrapolate: "clamp",
-  });
   return (
     <>
       {loading ? (
-        <ActivityIndicator size={"large"} />
+        <ActivityIndicator
+          size={"large"}
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+        />
       ) : (
-        <ScrollView
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: false }
-          )}
-        >
-          <Animated.View
-            style={[styles.userProfileTop, { height: headerHeight }]}
-          >
-            {userData?.key_pp && (
-              <Animated.Image
-                source={{ uri: userData?.key_pp }}
-                style={[
-                  styles.profileImage,
-                  {
-                    opacity: imageOpacity,
-                    transform: [
-                      { translateY: imageTranslateY },
-                      { scaleX: imageScale },
-                      { scaleY: imageScale },
-                    ],
-                    borderBottomLeftRadius: borderRadius,
-                    borderBottomRightRadius: borderRadius,
-                  },
-                ]}
+        <ScrollView scrollEventThrottle={16}>
+          <View style={styles.userProfileTop}>
+            {!urlLoading && url ? (
+              <Image
+                source={{ uri: url }}
+                PlaceholderContent={<Skeleton width={"100%"} height={300} />}
+                style={{ resizeMode: "cover" }}
+                containerStyle={{
+                  width: "100%",
+                  height: 300,
+                  resizeMode: "cover",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                }}
               />
+            ) : urlLoading ? (
+              <Skeleton width={"100%"} height={300} />
+            ) : (
+              <FontAwesome name="user-circle-o" size={300} color="#000000" />
             )}
-            <Animated.View
-              style={[
-                styles.profileNameContainer,
-                {
-                  opacity: imageOpacity,
-                  transform: [
-                    { translateY: imageTranslateY },
-                    { scaleX: imageScale },
-                    { scaleY: imageScale },
-                  ],
-                },
-              ]}
-            >
+            <View style={styles.profileNameContainer}>
               <Text style={styles.userProfileInfoName}>{userData.name}</Text>
               {userData?.country && (
                 <View style={styles.userProfileInfoLocation}>
@@ -145,8 +93,8 @@ const UserDetailScreen = () => {
                   </Text>
                 </View>
               )}
-            </Animated.View>
-          </Animated.View>
+            </View>
+          </View>
           <View style={styles.userProfileBody}>
             {userId !== currentUserId && (
               <View style={styles.flexB}>
@@ -226,7 +174,7 @@ const UserDetailScreen = () => {
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText}>Announcments</Text>
             <FlatList
-      decelerationRate={0.8}
+              decelerationRate={0.8}
               data={userData?.posts?.items}
               renderItem={({ item }) => <Post item={item} />}
               keyExtractor={(item) => item.id}

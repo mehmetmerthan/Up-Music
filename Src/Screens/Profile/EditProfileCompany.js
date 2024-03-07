@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   FlatList,
-  Image,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -14,8 +13,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHeaderHeight } from "@react-navigation/elements";
 import styles from "../../Styles/UserProfileStyle";
-import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Button } from "@rneui/themed";
+import {
+  EvilIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
+import { Button, Image, Skeleton } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
@@ -31,6 +34,7 @@ const validationSchema = yup.object().shape({
 const EditProfileCompany = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
+  const { url } = route?.params || null;
   const [name, onChangeName] = useState(userData?.name);
   const [selectedLocation, setSelectedLocation] = useState({});
   const [visibleCity, setVisibleCity] = useState(false);
@@ -88,16 +92,29 @@ const EditProfileCompany = () => {
     if (imagePP) {
       setImage(imagePP);
     } else {
-      setImage(userData?.key_pp);
+      setImage(url);
     }
-  }, [imagePP, userData?.key_pp]);
+  }, [imagePP, url]);
   function renderItem() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <View style={styles.userProfileTop}>
-            {image && (
-              <Image source={{ uri: image }} style={styles.profileImage} />
+            {image ? (
+              <Image
+                source={{ uri: image }}
+                PlaceholderContent={<Skeleton width={"100%"} height={300} />}
+                style={{ resizeMode: "cover" }}
+                containerStyle={{
+                  width: "100%",
+                  height: 300,
+                  resizeMode: "cover",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                }}
+              />
+            ) : (
+              <FontAwesome name="user-circle-o" size={300} color="#000000" />
             )}
             <View style={styles.profileNameContainer}>
               <Text style={styles.userProfileInfoName}>{userData?.name}</Text>
@@ -198,7 +215,7 @@ const EditProfileCompany = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}
-      keyboardVerticalOffset={height }
+      keyboardVerticalOffset={height}
     >
       <FlatList
         decelerationRate={0.8}

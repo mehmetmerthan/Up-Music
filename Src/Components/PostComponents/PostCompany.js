@@ -1,8 +1,8 @@
-import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import { React, useEffect, useState, memo } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Skeleton } from "@rneui/themed";
+import { Button, Skeleton, Image } from "@rneui/themed";
 import { Storage } from "aws-amplify";
 import { getUserId } from "../../Utils/getUser";
 import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
@@ -44,7 +44,7 @@ const PostCompany = memo(({ item }) => {
   }
   useEffect(() => {
     getS3Url();
-  }, []);
+  }, [item?.key_pp]);
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -53,18 +53,21 @@ const PostCompany = memo(({ item }) => {
             <Skeleton width={"auto"} height={260} style={styles.skeleton} />
           ) : (
             <>
-              {imgUrl && (
+              {imgUrl ? (
                 <Image
-                  style={{
-                    backgroundColor: "transparent",
+                  source={{ uri: imgUrl }}
+                  PlaceholderContent={<Skeleton width={"100%"} height={250} />}
+                  style={{ resizeMode: "cover" }}
+                  containerStyle={{
                     width: "100%",
-                    height: 260,
+                    height: 250,
                     resizeMode: "cover",
                     borderBottomLeftRadius: 20,
                     borderBottomRightRadius: 20,
                   }}
-                  source={{ uri: imgUrl }}
                 />
+              ) : (
+                <FontAwesome name="user-circle-o" size={200} color="#000000" />
               )}
             </>
           )}

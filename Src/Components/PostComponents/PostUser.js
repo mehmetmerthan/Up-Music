@@ -1,9 +1,9 @@
-import { SafeAreaView, View, Text, Pressable, Image } from "react-native";
+import { SafeAreaView, View, Text, Pressable } from "react-native";
 import { React, useEffect, useState, memo } from "react";
 import styles from "../../Styles/userPostStyle";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Chip, Skeleton } from "@rneui/themed";
+import { Chip, Skeleton, Image } from "@rneui/themed";
 import Experieces from "../Experiences";
 import { Storage } from "aws-amplify";
 const PostUser = memo(({ item }) => {
@@ -39,18 +39,21 @@ const PostUser = memo(({ item }) => {
             <Skeleton width={"auto"} height={260} style={styles.skeleton} />
           ) : (
             <>
-              {imgUrl && (
+              {imgUrl ? (
                 <Image
-                  style={{
-                    backgroundColor: "transparent",
+                  source={{ uri: imgUrl }}
+                  PlaceholderContent={<Skeleton width={"100%"} height={250} />}
+                  style={{ resizeMode: "cover" }}
+                  containerStyle={{
                     width: "100%",
-                    height: 260,
+                    height: 250,
                     resizeMode: "cover",
                     borderBottomLeftRadius: 20,
                     borderBottomRightRadius: 20,
                   }}
-                  source={{ uri: imgUrl }}
                 />
+              ) : (
+                <FontAwesome name="user-circle-o" size={200} color="#000000" />
               )}
             </>
           )}

@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   FlatList,
-  Image,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -18,8 +17,9 @@ import {
   AntDesign,
   MaterialIcons,
   MaterialCommunityIcons,
+  FontAwesome,
 } from "@expo/vector-icons";
-import { Button, Chip } from "@rneui/themed";
+import { Button, Chip, Image, Skeleton } from "@rneui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import useMedia from "../../Components/PickerComponents/useMedia";
@@ -45,6 +45,7 @@ const validationSchema = yup.object().shape({
 const EditPorfileScreen = () => {
   const route = useRoute();
   const { userData } = route?.params || {};
+  const { url } = route?.params || null;
   const withoutUserRoleData = RoleTags?.filter(
     (role) => !userData?.tag_roles?.includes(role)
   );
@@ -175,16 +176,29 @@ const EditPorfileScreen = () => {
     if (imagePP) {
       setImage(imagePP);
     } else {
-      setImage(userData?.key_pp);
+      setImage(url);
     }
-  }, [imagePP, userData?.key_pp]);
+  }, [imagePP, url]);
   function renderItem() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <View style={styles.userProfileTop}>
-            {image && (
-              <Image source={{ uri: image }} style={styles.profileImage} />
+            {image ? (
+              <Image
+                source={{ uri: image }}
+                PlaceholderContent={<Skeleton width={"100%"} height={300} />}
+                style={{ resizeMode: "cover" }}
+                containerStyle={{
+                  width: "100%",
+                  height: 300,
+                  resizeMode: "cover",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                }}
+              />
+            ) : (
+              <FontAwesome name="user-circle-o" size={300} color="#000000" />
             )}
             <View style={styles.profileNameContainer}>
               <Text style={styles.userProfileInfoName}>{userData?.name}</Text>

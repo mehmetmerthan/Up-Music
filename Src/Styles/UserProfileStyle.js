@@ -31,8 +31,10 @@ const styles = StyleSheet.create({
   },
   profileImage: {
     width: "100%",
-    height: 260,
+    height: 300,
     resizeMode: "cover",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   userProfileInfoName: {
     color: "#f1f1f1",

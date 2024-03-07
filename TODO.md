@@ -12,12 +12,10 @@ Project Description
 
 ### In Progress
 
+- [ ] cafe ismi bug  
 - [ ] butonların çift tıklanmasını kontrol et  
 - [ ] mesaj slinirken bekleme göster  
-- [ ] edit profil titreşim sorunu  
 - [ ] mesaj basıılı tutma bug düzenle  
-- [ ] cafe ismi bug  
-- [ ] profil geç yüklenme sorunu  
 - [ ] titreşimli bildirim ios  
 - [ ] dil eklentisi  
 - [ ] theme araştır  
@@ -27,6 +25,9 @@ Project Description
 
 ### Done ✓
 
+- [x] fotoğrafları kontrol et yoksa yerine birşey koy. plaeholder  
+- [x] profil geç yüklenme sorunu  
+- [x] edit profil titreşim sorunu  
 - [x] mesaj kalvye ios  
 - [x] password alanını düzenle  
 - [x] şifreyu unuttum ve settings alanınıd düzenle  

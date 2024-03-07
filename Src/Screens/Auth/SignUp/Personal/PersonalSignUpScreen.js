@@ -121,6 +121,7 @@ const PersonalSignUpScreen = ({ route }) => {
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
+                autoCapitalize="none"
               />
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
@@ -133,6 +134,7 @@ const PersonalSignUpScreen = ({ route }) => {
                 onBlur={handleBlur("password")}
                 value={values.password}
                 secureTextEntry
+                autoCapitalize="none"
               />
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
@@ -145,6 +147,7 @@ const PersonalSignUpScreen = ({ route }) => {
                 onBlur={handleBlur("confirmPassword")}
                 value={values.confirmPassword}
                 secureTextEntry
+                autoCapitalize="none"
               />
               {touched.confirmPassword && errors.confirmPassword && (
                 <Text style={styles.errorText}>{errors.confirmPassword}</Text>

@@ -29,22 +29,22 @@ export function S3ImageAvatar(props) {
   }, [imageKey, mediaUrl]);
   return (
     <>
-      {loading ? (
-        <Skeleton
-          circle
-          width={size}
-          height={size}
-          style={{
-            borderRadius: size / 2,
-          }}
-        />
-      ) : mediaUrl ? (
+      {!loading && mediaUrl ? (
         <Avatar
           rounded
           size={size}
           source={{ uri: mediaUrl }}
           containerStyle={{
             backgroundColor: "transparent",
+          }}
+        />
+      ) : loading ? (
+        <Skeleton
+          circle
+          width={size}
+          height={size}
+          style={{
+            borderRadius: size / 2,
           }}
         />
       ) : (
