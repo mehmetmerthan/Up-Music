@@ -2,7 +2,7 @@ import { messagesByDate } from "./Queries/messageQueries";
 import { listMessages } from "../graphql/queries";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as Notifications from "expo-notifications";
-
+import { useNavigationContainerRef } from "@react-navigation/native";
 export async function fetchUnreadMessages({ setUnreadCount }) {
   try {
     const user = await Auth.currentAuthenticatedUser();

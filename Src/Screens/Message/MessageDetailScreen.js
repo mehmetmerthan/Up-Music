@@ -110,7 +110,7 @@ export default function MessageDetailScreen() {
     } catch (error) {
       console.log(error);
     }
-    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
+    scrollViewRef.current.scrollToEnd({ animated: true });
     setRefreshing(false);
   }
 
@@ -134,10 +134,6 @@ export default function MessageDetailScreen() {
     setLoading(false);
     return () => subscription.unsubscribe();
   }, [messages, senderId, receiverId]);
-
-  const handleInputFocus = () => {
-    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-  };
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
   };
@@ -191,9 +187,6 @@ export default function MessageDetailScreen() {
       </View>
     );
   };
-  function rightIcon() {
-    return <Icon type="font-awesome" name="send" onPress={sendMessage} />;
-  }
   useEffect(() => {
     async function fetchUser() {
       const { userItem } = await getUserAttributesForMessageSender({
@@ -253,7 +246,21 @@ export default function MessageDetailScreen() {
   );
 
   const height = useHeaderHeight();
-
+  const handleInputFocus = () => {
+    setTimeout(() => {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }, 300);
+  };
+  const rightIcon = (
+    <Pressable onPress={sendMessage} >
+      <Icon
+        name="send"
+        size={35}
+        color="#2089dc"
+        style={{ marginRight: 10 }}
+      />
+    </Pressable>
+  );
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}
@@ -266,26 +273,27 @@ export default function MessageDetailScreen() {
         enabled
       >
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-          <FlatList
-            decelerationRate={0.8}
-            data={messages}
-            renderItem={renderMessage}
-            keyExtractor={(item) => item.id}
-            ref={scrollViewRef}
-            onContentSizeChange={() =>
-              scrollViewRef.current.scrollToOffset({
-                offset: 0,
-                animated: true,
-              })
-            }
-            ListFooterComponent={
-              refreshing &&
-              !messages.length > 0 && (
-                <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
-              )
-            }
-            ListHeaderComponent={MemoizedHeaderBar}
-          />
+          <>
+            <View style={{ top: 0, left: 0, right: 0 }}>
+              {MemoizedHeaderBar}
+            </View>
+            <FlatList
+              decelerationRate={0.8}
+              data={messages}
+              renderItem={renderMessage}
+              keyExtractor={(item) => item.id}
+              ref={scrollViewRef}
+              onContentSizeChange={() =>
+                scrollViewRef.current.scrollToEnd({ animated: true })
+              }
+              ListFooterComponent={
+                refreshing &&
+                !messages.length > 0 && (
+                  <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+                )
+              }
+            />
+          </>
         </TouchableWithoutFeedback>
         <Input
           clearButtonMode="always"

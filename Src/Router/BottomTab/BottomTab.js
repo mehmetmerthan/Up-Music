@@ -15,18 +15,23 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
-function BottomTab({ screenIndex }) {
+function BottomTab({ screenName }) {
   const navigation = useNavigation();
   const [unreadCount, setUnreadCount] = useState(null);
   const notificationListener = useRef();
   const responseListener = useRef();
   useEffect(() => {
+    getPermission();
     const onCreateMessageSubscription = API.graphql(
       graphqlOperation(subscriptions.onCreateMessage)
     ).subscribe({
       next: () => {
         fetchUnreadMessages({ setUnreadCount });
-        if (screenIndex !== 1) {
+        console.log(screenName);
+        if (
+          screenName !== "MessageDetailScreen" &&
+          screenName !== "MessageScreen"
+        ) {
           fetchLastMessage();
         }
       },
@@ -46,8 +51,7 @@ function BottomTab({ screenIndex }) {
       },
     });
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-      });
+      Notifications.addNotificationReceivedListener((notification) => {});
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         navigation.navigate("MessageDetailScreen", {
@@ -64,7 +68,7 @@ function BottomTab({ screenIndex }) {
       Notifications.removeNotificationSubscription(responseListener.current);
       onCreateMessageSubscription.unsubscribe();
     };
-  }, []);
+  }, [screenName]);
   useEffect(() => {
     fetchUnreadMessages({ setUnreadCount });
   }, [unreadCount]);
@@ -75,6 +79,16 @@ function BottomTab({ screenIndex }) {
       shouldSetBadge: true,
     }),
   });
+  async function getPermission() {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+    }
+  }
   return (
     <Tab.Navigator>
       <Tab.Screen

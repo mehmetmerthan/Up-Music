@@ -192,7 +192,11 @@ export default function MessageScreen() {
         }
         ViewComponent={LinearGradient}
       >
-        <S3ImageAvatar size={42} imageKey={item.message.receiver.key_pp} />
+        {item.message.sender.id === userId ? (
+          <S3ImageAvatar size={42} imageKey={item?.message?.receiver.key_pp} />
+        ) : (
+          <S3ImageAvatar size={42} imageKey={item?.message?.sender.key_pp} />
+        )}
         <ListItem.Content>
           <ListItem.Title style={styles.username}>
             {item.message.sender.id === userId
