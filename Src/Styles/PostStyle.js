@@ -76,12 +76,16 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
+    flexWrap: "wrap",
+    marginVertical: 10,
+    padding: 10,
   },
   locationText: {
     fontWeight: "300",
     fontSize: 14,
     letterSpacing: 1,
     textTransform: "uppercase",
+    flexShrink: 1,
   },
   placeText: {
     marginLeft: 20,
@@ -90,6 +94,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     textAlign: "center",
+    flexShrink: 1,
   },
   column: {
     flexDirection: "column",

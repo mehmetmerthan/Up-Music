@@ -57,7 +57,7 @@ export default function MessageScreen() {
           },
           {
             userMessagesSentId: { eq: res },
-            hasMessagesReceiver: { eq: true },
+            hasMessagesSender: { eq: true },
           },
         ],
       },
@@ -108,31 +108,34 @@ export default function MessageScreen() {
     setLoadingUpdate(true);
     try {
       const deletePromises = messages.map(async (message) => {
-        if (
-          message?.key_file &&
-          !message?.hasMessagesReceiver &&
-          !message?.hasMMessagesSender
-        ) {
-          try {
-            await Storage.remove(message.key_file);
-          } catch (error) {
-            console.log(error);
-          }
+        console.log(message);
+        if (message?.sender?.id !== userId) {
+          console.log("message");
+          return await API.graphql(
+            graphqlOperation(mutations.updateMessage, {
+              input: {
+                id: message.id,
+                hasMessagesReceiver: false,
+              },
+            })
+          );
+        } else {
+          return await API.graphql(
+            graphqlOperation(mutations.updateMessage, {
+              input: {
+                id: message.id,
+                hasMessagesSender: false,
+              },
+            })
+          );
         }
-        return await API.graphql(
-          graphqlOperation(mutations.deleteMessage, {
-            input: {
-              id: message.id,
-            },
-          })
-        );
       });
       await Promise.all(deletePromises);
-      fetchMessages();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingUpdate(false);
     }
-    setLoadingUpdate(false);
   }
   const navigation = useNavigation();
   const RenderMessage = ({ item }) => {
@@ -211,9 +214,11 @@ export default function MessageScreen() {
 
   return (
     <View style={styles.container}>
-      {!loadingUpdate ? (
+      {loadingUpdate ? (
+        <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
+      ) : (
         <FlatList
-      decelerationRate={0.8}
+          decelerationRate={0.8}
           data={groupedMessages}
           renderItem={({ item }) => <RenderMessage item={item} />}
           keyExtractor={(item) => item.message.id}
@@ -224,8 +229,6 @@ export default function MessageScreen() {
             )
           }
         />
-      ) : (
-        <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
       )}
     </View>
   );

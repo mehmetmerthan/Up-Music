@@ -1,4 +1,3 @@
-import { React, useState, useRef, useEffect, memo } from "react";
 import {
   View,
   Text,
@@ -10,15 +9,16 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import {
+  getUserId,
+  getUserAttributesForMessageSender,
+} from "../../Utils/getUser";
+import { React, useState, useRef, useEffect, useMemo } from "react";
 import { Feather } from "@expo/vector-icons";
 import { Input, Divider, Icon } from "@rneui/themed";
 import styles from "../../Styles/Message/MessageDetailStyle";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/elements";
-import {
-  getUserId,
-  getUserAttributesForMessageSender,
-} from "../../Utils/getUser";
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "../../graphql/subscriptions";
 import * as mutations from "../../graphql/mutations";
@@ -26,6 +26,7 @@ import { messagesByDate } from "../../Utils/Queries/messageQueries";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import Media from "../../Components/Media";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function MessageDetailScreen() {
   const [text, onChangeText] = useState("");
   const [messages, setMessages] = useState([]);
@@ -37,8 +38,13 @@ export default function MessageDetailScreen() {
   const [senderAttributes, setSenderAttributes] = useState({});
   const scrollViewRef = useRef();
   const navigation = useNavigation();
+  const [loadingMessages, setLoadingMessages] = useState(false);
   async function sendMessage() {
     try {
+      setLoadingMessages(true);
+      if (text === "" || loadingMessages) {
+        return;
+      }
       await API.graphql(
         graphqlOperation(mutations.createMessage, {
           input: {
@@ -55,6 +61,8 @@ export default function MessageDetailScreen() {
       onChangeText("");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingMessages(false);
     }
   }
   async function fetchMessages() {
@@ -63,7 +71,7 @@ export default function MessageDetailScreen() {
     setReceiverId(res);
     const variables = {
       type: "message",
-      sortDirection: "DESC",
+      sortDirection: "ASC",
       filter: {
         or: [
           {
@@ -74,7 +82,7 @@ export default function MessageDetailScreen() {
           {
             userMessagesSentId: { eq: res },
             userMessagesReceivedId: { eq: senderId },
-            hasMessagesReceiver: { eq: true },
+            hasMessagesSender: { eq: true },
           },
         ],
       },
@@ -186,7 +194,6 @@ export default function MessageDetailScreen() {
   function rightIcon() {
     return <Icon type="font-awesome" name="send" onPress={sendMessage} />;
   }
-
   useEffect(() => {
     async function fetchUser() {
       const { userItem } = await getUserAttributesForMessageSender({
@@ -196,7 +203,6 @@ export default function MessageDetailScreen() {
     }
     fetchUser();
   }, [senderId]);
-
   const HeaderBar = () => (
     <View
       style={{
@@ -241,7 +247,11 @@ export default function MessageDetailScreen() {
       </View>
     </View>
   );
-  const MemoizedHeaderBar = memo(HeaderBar);
+  const MemoizedHeaderBar = useMemo(
+    () => <HeaderBar senderAttributes={senderAttributes} />,
+    [senderAttributes]
+  );
+
   const height = useHeaderHeight();
 
   return (
@@ -249,7 +259,6 @@ export default function MessageDetailScreen() {
       style={{ flex: 1, backgroundColor: " rgb(255, 255, 255)" }}
       edges={["right", "top", "left"]}
     >
-      <MemoizedHeaderBar />
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : null}
@@ -269,13 +278,13 @@ export default function MessageDetailScreen() {
                 animated: true,
               })
             }
-            inverted
             ListFooterComponent={
               refreshing &&
               !messages.length > 0 && (
                 <ActivityIndicator size={"large"} style={{ marginTop: 10 }} />
               )
             }
+            ListHeaderComponent={MemoizedHeaderBar}
           />
         </TouchableWithoutFeedback>
         <Input

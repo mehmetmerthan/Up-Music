@@ -11,23 +11,25 @@ const PostCompany = memo(({ item }) => {
   const [loading, setLoading] = useState(true);
   const [loadingApply, setLoadingApply] = useState(false);
   const [imgUrl, setImgUrl] = useState(null);
+  const [uId, setUId] = useState("");
   const navigation = useNavigation();
   async function navigateToAplly() {
     setLoadingApply(true);
-    const userId = await getUserId();
     if (item.user_type === USER_TYPES.COMPANY) {
       navigation.navigate("ApplyCompanyScreen", {
-        userId: userId,
+        userId: uId,
         companyId: item?.id,
       });
     } else if (item.user_type === USER_TYPES.VENUE) {
       navigation.navigate("MessageDetailScreen", {
-        senderId: userId,
+        senderId: item?.id,
       });
     }
     setLoadingApply(false);
   }
   async function getS3Url() {
+    const userId = await getUserId();
+    setUId(userId);
     setLoading(true);
     try {
       if (item?.key_pp && !imgUrl) {
@@ -90,23 +92,25 @@ const PostCompany = memo(({ item }) => {
               </View>
             )}
           </View>
-          <Button
-            radius={"md"}
-            buttonStyle={styles.applyButton}
-            onPress={navigateToAplly}
-            loading={loadingApply}
-          >
-            {item.user_type === USER_TYPES.COMPANY
-              ? "Send a file"
-              : item.user_type === USER_TYPES.VENUE
-              ? "Send message"
-              : null}
-            {item.user_type === USER_TYPES.COMPANY ? (
-              <Ionicons name="add" size={32} color="white" />
-            ) : item.user_type === USER_TYPES.VENUE ? (
-              <Entypo name="message" size={32} color="white" />
-            ) : null}
-          </Button>
+          {item.id !== uId && (
+            <Button
+              radius={"md"}
+              buttonStyle={styles.applyButton}
+              onPress={navigateToAplly}
+              loading={loadingApply}
+            >
+              {item.user_type === USER_TYPES.COMPANY
+                ? "Send a file"
+                : item.user_type === USER_TYPES.VENUE
+                ? "Send message"
+                : null}
+              {item.user_type === USER_TYPES.COMPANY ? (
+                <Ionicons name="add" size={32} color="white" />
+              ) : item.user_type === USER_TYPES.VENUE ? (
+                <Entypo name="message" size={32} color="white" />
+              ) : null}
+            </Button>
+          )}
         </View>
       </View>
     </SafeAreaView>
