@@ -5,7 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../../../../Styles/OnBoardingStyle";
 import { CityPicker } from "../../../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../../../Components/PickerComponents/useMedia";
+import { useTranslation } from "react-i18next";
 const OnboardingScreen2 = ({ route }) => {
+  const { t } = useTranslation();
   const { selectedStyleTags = [], selectedRoleTags = [] } = route?.params || {};
   const { MediaPickerImageComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
@@ -23,18 +25,18 @@ const OnboardingScreen2 = ({ route }) => {
   function renderItem() {
     return (
       <View style={styles.container}>
-        <Text style={styles.subText}>About?</Text>
+        <Text style={styles.subText}>{t("about")}</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
-          placeholder="I am a .."
+          placeholder={t("aboutPlaceholder")}
           value={text}
         />
         <Divider />
-        <Text style={styles.subText}>Where are you living?</Text>
+        <Text style={styles.subText}>{t("livingPlace")}</Text>
         <CityPicker setSelectedLocation={setSelectedLocation} />
         <Divider />
-        <Text style={styles.subText}>Select a profile picture</Text>
+        <Text style={styles.subText}>{t("selectPP")}</Text>
         <MediaPickerImageComponent />
         <View style={styles.pageViewContainer}>
           <View style={styles.pageViewEmpty} />
@@ -43,7 +45,7 @@ const OnboardingScreen2 = ({ route }) => {
         </View>
         <Divider />
         <Button
-          title={"Next"}
+          title={t("next")}
           buttonStyle={styles.button}
           onPress={navigateToNextScreen}
         />

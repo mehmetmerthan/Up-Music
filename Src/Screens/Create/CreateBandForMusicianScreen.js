@@ -19,7 +19,9 @@ import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTranslation } from "react-i18next";
 export default function CreateBandForMusicianScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
@@ -29,7 +31,7 @@ export default function CreateBandForMusicianScreen() {
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about the band");
+      alert(t("fillBandFields"));
       return;
     }
     try {
@@ -61,20 +63,20 @@ export default function CreateBandForMusicianScreen() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-          <Text style={styles.header}>Write something about the group</Text>
+          <Text style={styles.header}>{t("fillBandFields")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Searching a drummer for a rock band"
+            placeholder={t("bandPlaceholder")}
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select group location</Text>
+          <Text style={styles.header}>{t("bandLocation")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select the musicians existing</Text>
+          <Text style={styles.header}>{t("selectMusicianExisting")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             tagData={RoleTags}
@@ -82,7 +84,7 @@ export default function CreateBandForMusicianScreen() {
             setSelectedTags={setSelectedRoleExisting}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select the musicians needed</Text>
+          <Text style={styles.header}>{t("selectMusicianNeeded")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             tagData={RoleTags}
@@ -90,7 +92,7 @@ export default function CreateBandForMusicianScreen() {
             setSelectedTags={setSelectedRoleTags}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select music styles</Text>
+          <Text style={styles.header}>{t("selectMusicStyle")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             tagData={StyleTags}

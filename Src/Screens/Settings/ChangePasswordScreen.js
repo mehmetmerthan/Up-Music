@@ -7,7 +7,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import { Auth } from "aws-amplify";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 const ChangePasswordScreen = () => {
+  const { t } = useTranslation();
   const [showPasswordOld, setShowPasswordOld] = useState(false);
   const [showPasswordNew, setShowPasswordNew] = useState(false);
   const [error, setError] = useState(null);
@@ -20,20 +22,17 @@ const ChangePasswordScreen = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    oldPassword: Yup.string().required("Old password is required"),
+    oldPassword: Yup.string().required(t("oldPasswordRequired")),
     newPassword: Yup.string()
-      .min(8, "password must be least 8 characters")
-      .matches(/[A-Z]/, "password must contain at least one uppercase letter")
-      .matches(/[a-z]/, "password must contain at least one lowercase letter")
-      .matches(/[0-9]/, "password must contain at least one number")
-      .matches(
-        /[^A-Za-z0-9]/,
-        "password must contain at least one special character"
-      )
-      .required("password is required"),
+      .min(8, t("passwordLength"))
+      .matches(/[A-Z]/, t("passwordContainUppercase"))
+      .matches(/[a-z]/, t("passwordContainLowercase"))
+      .matches(/[0-9]/, t("passwordContainNumber"))
+      .matches(/[^A-Za-z0-9]/, t("passwordContainSpecial"))
+      .required(t("passwordRequired")),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      .oneOf([Yup.ref("newPassword"), null], t("passwordNotMatch"))
+      .required(t("confirmPasswordRequired")),
   });
 
   const handleChangePassword = async (values) => {
@@ -73,14 +72,14 @@ const ChangePasswordScreen = () => {
         }) => (
           <View style={styles.subContainer}>
             <View style={styles.inputGroup}>
-              <Text style={styles.subText}>Old password</Text>
+              <Text style={styles.subText}>Old {t("password")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("oldPassword")}
                   onBlur={handleBlur("oldPassword")}
                   value={values.oldPassword}
-                  placeholder="Old Password"
+                  placeholder={t("oldPassword")}
                   secureTextEntry={!showPasswordOld}
                   autoCapitalize="none"
                 />
@@ -105,14 +104,14 @@ const ChangePasswordScreen = () => {
               {touched.oldPassword && errors.oldPassword && (
                 <Text style={styles.error}>{errors.oldPassword}</Text>
               )}
-              <Text style={styles.subText}>New password</Text>
+              <Text style={styles.subText}>New {t("password")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("newPassword")}
                   onBlur={handleBlur("newPassword")}
                   value={values.newPassword}
-                  placeholder="New Password"
+                  placeholder={t("newPassword")}
                   secureTextEntry={!showPasswordNew}
                   autoCapitalize="none"
                 />
@@ -137,14 +136,14 @@ const ChangePasswordScreen = () => {
               {touched.newPassword && errors.newPassword && (
                 <Text style={styles.error}>{errors.newPassword}</Text>
               )}
-              <Text style={styles.subText}>Confirm new password</Text>
+              <Text style={styles.subText}>{t("confirmNewPassword")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("confirmPassword")}
                   onBlur={handleBlur("confirmPassword")}
                   value={values.confirmPassword}
-                  placeholder="Confirm New Password"
+                  placeholder={t("confirmNewPassword")}
                   secureTextEntry={!showPasswordNew}
                   autoCapitalize="none"
                 />
@@ -175,7 +174,7 @@ const ChangePasswordScreen = () => {
             )}
             <Button
               onPress={handleSubmit}
-              title="Change Password"
+              title={t("changePassword")}
               buttonStyle={styles.button}
               loading={loading}
             />

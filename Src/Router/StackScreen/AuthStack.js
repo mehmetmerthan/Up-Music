@@ -16,7 +16,9 @@ import OnboardingScreen3 from "../../Screens/Auth/SignUp/Personal/OnboardingScre
 import BottomTab from "../BottomTab/BottomTab";
 import VenueGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/VenueGetDetailsScreen";
 import CompanyGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/CompanyGetDetailsScreen";
+import { useTranslation } from "react-i18next";
 export default function AuthStack() {
+  const { t } = useTranslation();
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator
@@ -46,98 +48,98 @@ export default function AuthStack() {
         name="CompanySignUpScreen"
         component={CompanySignUpScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="VenueSignUpScreen"
         component={VenueSignUpScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="VenueGetDetailsScreen"
         component={VenueGetDetailsScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="CompanyGetDetailsScreen"
         component={CompanyGetDetailsScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="PersonalSignUpScreen"
         component={PersonalSignUpScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="SelectionScreen"
         component={SelectionScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="EnterpriseSelectionScreen"
         component={EnterpriseSelectionScreen}
         options={{
-          title: "SignUp",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="SignInScreen"
         component={SignInScreen}
         options={{
-          title: "SignIn",
+          title: t("signUp"),
         }}
       />
       <Stack.Screen
         name="VerifyEmailScreen"
         component={VerifyEmailScreen}
         options={{
-          title: "Verify Email",
+          title: t("verifyEmail"),
         }}
       />
       <Stack.Screen
         name="ForgotPassScreen"
         component={ForgotPassScreen}
         options={{
-          title: "Forgot Password",
+          title: t("forgotPassword"),
         }}
       />
       <Stack.Screen
         name="ForgotPassVerifyScreen"
         component={ForgotPassVerifyScreen}
         options={{
-          title: "Forgot Password Verify",
+          title: t("forgotPasswordVerify"),
         }}
       />
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
-        options={{ title: "Welcome !" }}
+        options={{ title: "welcome" }}
       />
       <Stack.Screen
         name="OnboardingScreen1"
         component={OnboardingScreen1}
-        options={{ title: "Something" }}
+        options={{ title: t("completeProfile") }}
       />
       <Stack.Screen
         name="OnboardingScreen2"
         component={OnboardingScreen2}
-        options={{ title: "Tell about yourself" }}
+        options={{ title: t("tellAboutYourself") }}
       />
       <Stack.Screen
         name="OnboardingScreen3"
         component={OnboardingScreen3}
-        options={{ title: "Have an any eperience ?" }}
+        options={{ title: t("haveExperience") }}
       />
       <Stack.Screen
         name="BottomTab"

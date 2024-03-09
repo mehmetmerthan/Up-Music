@@ -7,7 +7,9 @@ import StyleTags from "../../../../../Constants/Data/StyleTags";
 import RoleTags from "../../../../../Constants/Data/RoleTags";
 import styles from "../../../../Styles/OnBoardingStyle";
 import { Divider } from "@rneui/themed";
+import { useTranslation } from "react-i18next";
 const OnboardingScreen1 = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
@@ -23,14 +25,14 @@ const OnboardingScreen1 = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.subText}>Select you music styles</Text>
+        <Text style={styles.subText}>{t("selectStyle")}</Text>
         <Tag
           tagData={StyleTags}
           selectedTags={selectedStyleTags}
           setSelectedTags={setSelectedStyleTags}
         />
         <Divider />
-        <Text style={styles.subText}>Select you roles</Text>
+        <Text style={styles.subText}>{t("selectRole")}</Text>
         <Tag
           tagData={RoleTags}
           selectedTags={selectedRoleTags}
@@ -42,7 +44,7 @@ const OnboardingScreen1 = () => {
           <View style={styles.pageViewEmpty} />
         </View>
         <Button
-          title="Next"
+          title={t("next")}
           onPress={navigateToNextScreen}
           buttonStyle={styles.button}
           loading={isLoading}

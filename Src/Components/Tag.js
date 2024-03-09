@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import { Chip } from "@rneui/themed";
+import { useTranslation } from "react-i18next";
 const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const maxDisplayedItems = 10;
   const filteredData = tagData
@@ -26,7 +28,7 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
         onChangeText={(text) => {
           onChangeText(text);
         }}
-        placeholder="Search ..."
+        placeholder={t("search")}
         value={text}
       />
       <View style={styles.searchArea}>

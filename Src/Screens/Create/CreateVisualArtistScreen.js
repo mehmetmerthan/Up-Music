@@ -19,7 +19,9 @@ import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTranslation } from "react-i18next";
 export default function CreateVisualArtistScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
@@ -28,7 +30,7 @@ export default function CreateVisualArtistScreen() {
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something");
+      alert(t("fillVisualArtistFields"));
       return;
     }
     try {
@@ -57,20 +59,20 @@ export default function CreateVisualArtistScreen() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-          <Text style={styles.header}>Write something</Text>
+          <Text style={styles.header}>{t("fillVisualArtistFields")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Searching a photographer for my album cover."
+            placeholder={t("visualArtistPlaceholder")}
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select a location</Text>
+          <Text style={styles.header}>{t("selectLocation")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select the musicians needed</Text>
+          <Text style={styles.header}>{t("selectMusicianNeeded")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             tagData={RoleTags}
@@ -78,7 +80,7 @@ export default function CreateVisualArtistScreen() {
             setSelectedTags={setSelectedRoleTags}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select music styles</Text>
+          <Text style={styles.header}>{t("selectMusicStyle")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             tagData={StyleTags}
@@ -87,7 +89,7 @@ export default function CreateVisualArtistScreen() {
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
-            title="Create visual artist notice"
+            title={t("createVisualArtistNotice")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

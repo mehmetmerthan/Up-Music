@@ -6,7 +6,9 @@ import uploadApply from "../../Utils/Uploads/uploadApply";
 import * as DocumentPicker from "expo-document-picker";
 import { useNavigation } from "@react-navigation/native";
 import Media from "../../Components/Media";
+import { useTranslation } from "react-i18next";
 export default function ApplyCompanyScreen({ route }) {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
@@ -14,7 +16,7 @@ export default function ApplyCompanyScreen({ route }) {
   const navigation = useNavigation();
   async function applyToCompany() {
     if (text === "") {
-      return alert("Please write something about your apply");
+      return alert(t("fillApplyFields"));
     }
     setLoading(true);
     try {
@@ -44,10 +46,7 @@ export default function ApplyCompanyScreen({ route }) {
         const fileSizeInMB = asset.size / (1024 * 1024);
         const roundedFileSizeInMB = Math.round(fileSizeInMB);
         if (roundedFileSizeInMB > 50) {
-          Alert.alert(
-            "File size limit exceeded",
-            "Please select a file smaller than 50MB."
-          );
+          Alert.alert(t("fileSizeExceeded"), t("fileSizeExceededMessage"));
           return;
         }
         setFile(asset);
@@ -61,10 +60,10 @@ export default function ApplyCompanyScreen({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.subText}> Write something about your apply</Text>
+        <Text style={styles.subText}> {t("fillApplyFields")}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Name"
+          placeholder={t("applyPlaceholder")}
           onChangeText={onChangeText}
           value={text}
         />
@@ -75,7 +74,7 @@ export default function ApplyCompanyScreen({ route }) {
               buttonStyle={styles.addFileButton}
               onPress={filePicker}
             >
-              Add file
+              {t("addFile")}
               <AntDesign name="addfile" size={30} color="white" />
             </Button>
             <Text style={styles.mbText}>50MB</Text>
@@ -84,7 +83,7 @@ export default function ApplyCompanyScreen({ route }) {
         </View>
       </View>
       <Button
-        title={"Apply"}
+        title={t("apply")}
         onPress={applyToCompany}
         buttonStyle={styles.buttonRegister}
         loading={loading}

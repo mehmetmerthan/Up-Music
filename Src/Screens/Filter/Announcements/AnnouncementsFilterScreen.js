@@ -10,7 +10,8 @@ import StyleTags from "../../../../Constants/Data/StyleTags";
 import RoleTags from "../../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function AnnouncementsFilterScreen() {
+import { useTranslation } from "react-i18next";
+export default function AnnouncementsFilterScreen(){
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedRoleTagsNeeded, setSelectedRoleTagsNeeded] = useState([]);
@@ -24,6 +25,7 @@ export default function AnnouncementsFilterScreen() {
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
   const [expandedRoleTagsNeeded, setExpandedRoleTagsNeeded] = useState(false);
   const navigation = useNavigation();
+  const { t } = useTranslation();
   function submitFilter() {
     setLoading(true);
     const filter = {
@@ -79,7 +81,7 @@ export default function AnnouncementsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Country</ListItem.Title>
+              <ListItem.Title>{t("country")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCountry}
@@ -93,7 +95,7 @@ export default function AnnouncementsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>City</ListItem.Title>
+              <ListItem.Title>{t("city")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCity}
@@ -107,7 +109,7 @@ export default function AnnouncementsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Style Tags</ListItem.Title>
+              <ListItem.Title>{t("style")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedStyleTags}
@@ -125,7 +127,7 @@ export default function AnnouncementsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Role Tags</ListItem.Title>
+              <ListItem.Title>{t("role")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedRoleTags}
@@ -143,7 +145,7 @@ export default function AnnouncementsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Role Tags Needed</ListItem.Title>
+              <ListItem.Title>{t("musicianNeeded")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedRoleTagsNeeded}
@@ -159,7 +161,7 @@ export default function AnnouncementsFilterScreen() {
           />
         </ListItem.Accordion>
         <Button
-          title="Filter"
+          title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
@@ -171,7 +173,7 @@ export default function AnnouncementsFilterScreen() {
           onPress={submitFilter}
         />
         <Button
-          title={"Reset"}
+          title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,

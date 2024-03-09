@@ -7,28 +7,28 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
 import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
-const validationSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: yup
-    .string()
-    .min(8, "password must be least 8 characters")
-    .matches(/[A-Z]/, "password must contain at least one uppercase letter")
-    .matches(/[a-z]/, "password must contain at least one lowercase letter")
-    .matches(/[0-9]/, "password must contain at least one number")
-    .matches(
-      /[^A-Za-z0-9]/,
-      "password must contain at least one special character"
-    )
-    .required("password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
-});
+import { useTranslation } from "react-i18next";
+
 const PersonalSignUpScreen = ({ route }) => {
+  const { t } = useTranslation();
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(t("nameRequired")),
+    email: yup
+      .string()
+      .email(t("entervalidemail"))
+      .required(t("emailRequired")),
+    password: yup
+      .string()
+      .min(8, t("passwordLength"))
+      .matches(/[A-Z]/, t("passwordContainUppercase"))
+      .matches(/[a-z]/, t("passwordContainLowercase"))
+      .matches(/[0-9]/, t("passwordContainNumber"))
+      .matches(/[^A-Za-z0-9]/, t("passwordContainSpecial"))
+      .required(t("passwordRequired")),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], t("passwordNotMatch")),
+  });
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
@@ -70,7 +70,7 @@ const PersonalSignUpScreen = ({ route }) => {
       setError(error);
       if (error.code === "UsernameExistsException") {
         setError(null);
-        return alert("Username already exists");
+        return alert(t("userExist"));
       }
     }
     setLoading(false);
@@ -82,7 +82,7 @@ const PersonalSignUpScreen = ({ route }) => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-      <Text style={styles.headerText}>Register</Text>
+      <Text style={styles.headerText}>{t("register")}</Text>
       <Formik
         initialValues={{
           name: "",
@@ -103,10 +103,10 @@ const PersonalSignUpScreen = ({ route }) => {
         }) => (
           <View>
             <View style={styles.container}>
-              <Text style={styles.subText}> Artist name</Text>
+              <Text style={styles.subText}>{t("artistName")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Name"
+                placeholder={t("artistName")}
                 onChangeText={handleChange("name")}
                 onBlur={handleBlur("name")}
                 value={values.name}
@@ -114,10 +114,10 @@ const PersonalSignUpScreen = ({ route }) => {
               {touched.name && errors.name && (
                 <Text style={styles.errorText}>{errors.name}</Text>
               )}
-              <Text style={styles.subText}> Email</Text>
+              <Text style={styles.subText}> {t("email")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder={t("email")}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -126,10 +126,10 @@ const PersonalSignUpScreen = ({ route }) => {
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
-              <Text style={styles.subText}> Password</Text>
+              <Text style={styles.subText}> {t("password")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder={t("password")}
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 value={values.password}
@@ -139,10 +139,10 @@ const PersonalSignUpScreen = ({ route }) => {
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
-              <Text style={styles.subText}> Password confirm</Text>
+              <Text style={styles.subText}> {t("confirmPassword")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Confirm Password"
+                placeholder={t("confirmPassword")}
                 onChangeText={handleChange("confirmPassword")}
                 onBlur={handleBlur("confirmPassword")}
                 value={values.confirmPassword}
@@ -158,14 +158,14 @@ const PersonalSignUpScreen = ({ route }) => {
               loading={loading}
               onPress={handleSubmit}
               buttonStyle={styles.buttonRegister}
-              title={"SignUp"}
+              title={t("signUp")}
               titleStyle={styles.buttonTextRegister}
             />
           </View>
         )}
       </Formik>
       <Button
-        title={"Have an account?"}
+        title={t("haveAccount")}
         buttonStyle={styles.button}
         titleStyle={styles.buttonText}
         onPress={navigateToSignIn}

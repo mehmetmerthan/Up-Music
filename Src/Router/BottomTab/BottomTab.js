@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MessageStack from "../StackScreen/MessageStack";
 import CreateStackScreen from "../StackScreen/CreateStack";
-import NotificationStackScreen from "../StackScreen/NotificationStack";
+import NotificationScreen from "../../Screens/Notification/NotificationScreen";
 import ProfileStackScreen from "../StackScreen/ProfileStack";
 import HomeStack from "../StackScreen/HomeStack/HomeStack";
 import { API, graphqlOperation } from "aws-amplify";
@@ -27,7 +27,6 @@ function BottomTab({ screenName }) {
     ).subscribe({
       next: () => {
         fetchUnreadMessages({ setUnreadCount });
-        console.log(screenName);
         if (
           screenName !== "MessageDetailScreen" &&
           screenName !== "MessageScreen"
@@ -124,7 +123,7 @@ function BottomTab({ screenName }) {
       />
       <Tab.Screen
         name="Notification"
-        component={NotificationStackScreen}
+        component={NotificationScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons

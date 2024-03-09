@@ -14,8 +14,10 @@ import MessageDetailScreen from "../../../Screens/Message/MessageDetailScreen";
 import CompaniesScreen from "../../../Screens/Home/CompaniesScreen";
 import ApplyCompanyScreen from "../../../Screens/Home/ApplyCompanyScreen";
 import MessageScreen from "../../../Screens/Message/MessageScreen";
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 const HomeStack = () => {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -23,7 +25,7 @@ const HomeStack = () => {
         component={HomeScreen}
         options={{
           headerShown: true,
-          title: "Home",
+          title: t("home"),
           headerLeft: () => null,
         }}
       />
@@ -32,7 +34,7 @@ const HomeStack = () => {
         component={CompaniesScreen}
         options={{
           headerShown: true,
-          title: "Companies",
+          title: t("companies"),
         }}
       />
       <Stack.Screen
@@ -40,7 +42,7 @@ const HomeStack = () => {
         component={ApplyCompanyScreen}
         options={{
           headerShown: true,
-          title: "Apply",
+          title: t("apply"),
         }}
       />
       <Stack.Screen
@@ -56,7 +58,7 @@ const HomeStack = () => {
         component={StagesScreen}
         options={{
           headerShown: true,
-          title: "Stages",
+          title: t("stage"),
           headerRight: () => <HeaderRight screenName={"StagesFilterScreen"} />,
         }}
       />
@@ -65,7 +67,7 @@ const HomeStack = () => {
         component={EventsScreen}
         options={{
           headerShown: true,
-          title: "Events",
+          title: t("event"),
           headerRight: () => <HeaderRight screenName={"EventsFilterScreen"} />,
         }}
       />
@@ -81,28 +83,28 @@ const HomeStack = () => {
         name="EventsFilterScreen"
         component={EventsFilterScreen}
         options={{
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
         name="StagesFilterScreen"
         component={StagesFilterScreen}
         options={{
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
         name="UserDetailScreen"
         component={UserDetailScreen}
         options={{
-          title: "User Detail",
+          title: t("userDetail"),
         }}
       />
       <Stack.Screen
         name="MessageScreen"
         component={MessageScreen}
         options={{
-          title: "Messages",
+          title: t("message"),
           headerShown: false,
         }}
       />
@@ -110,7 +112,7 @@ const HomeStack = () => {
         name="MessageDetailScreen"
         component={MessageDetailScreen}
         options={{
-          title: "Message",
+          title: t("message"),
           headerShown: false,
         }}
       />

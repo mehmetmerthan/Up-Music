@@ -5,7 +5,9 @@ import { Auth, API } from "aws-amplify";
 import { useNavigation } from "@react-navigation/native";
 import * as mutations from "../../graphql/mutations";
 import { listPostsIds } from "../../Utils/Queries/postQueries";
+import { useTranslation } from "react-i18next";
 export default function SettingsScreen() {
+  const { t } = useTranslation();
   const [isLoadingReload, setIsLoadingReload] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,46 +61,46 @@ export default function SettingsScreen() {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <Button
-          title={"Change Password"}
+          title={t("changePassword")}
           onPress={() => navigation.navigate("ChangePasswordScreen")}
           buttonStyle={styles.buttonProperty}
         />
         <Button
-          title={"Sign Out"}
+          title={t("signOut")}
           onPress={handleSignOut}
           loading={isLoadingReload}
           buttonStyle={styles.buttonProperty}
         />
         <Button
-          title={"Read Privacy Policy"}
+          title={t("readPolicy")}
           onPress={() => navigation.navigate("PolicyScreen")}
           buttonStyle={styles.buttonProperty}
           type="outline"
         />
       </View>
       <Button
-        title={"Contact Us"}
+        title={t("contact")}
         onPress={() => console.log("Contact Us")}
         buttonStyle={styles.buttonProperty}
         type="outline"
       />
       <Button
-        title={"Delete Account"}
+        title={t("deleteAccount")}
         onPress={() => setVisible(true)}
         buttonStyle={styles.buttonProperty}
         color={"#ff5757ff"}
       />
       <Dialog isVisible={visible} onDismiss={() => setVisible(false)}>
         <Dialog.Title title="Delete Account" />
-        <Text> Are you sure you want to delete your account?</Text>
+        <Text>{t("deleteAccountAlert")}</Text>
         <Dialog.Actions>
           <Dialog.Button
-            title={"Cancel"}
+            title={t("cancel")}
             onPress={() => setVisible(false)}
             disabled={loading}
           />
           <Dialog.Button
-            title={"Delete Account"}
+            title={t("deleteAccount")}
             onPress={handleDeleteAccount}
             loading={loading}
           />

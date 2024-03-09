@@ -9,7 +9,9 @@ import { Audio, Video, ResizeMode } from "expo-av";
 import Slider from "@react-native-community/slider";
 import { AntDesign } from "@expo/vector-icons";
 import { Storage } from "aws-amplify";
+import { useTranslation } from "react-i18next";
 export default function Media({ uri, type, fileKey }) {
+  const { t } = useTranslation();
   const [url, setUrl] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function Media({ uri, type, fileKey }) {
           ) : type === "video/mp4" && url ? (
             <VideoComponent uri={url} />
           ) : (
-            <Text>File type not supported</Text>
+            <Text>{t("fileNotSupported")}</Text>
           )}
         </>
       )}

@@ -10,9 +10,10 @@ import AnnouncementsStagesScreen from "../../../../Screens/Home/Announcements/An
 import AnnouncementsVisualArtistsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsVisualArtistsFilterScreen";
 import AnnouncementsBandsFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsBandsFilterScreen";
 import AnnouncementsStagesFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsStagesFilterScreen";
-
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 export default function AnnouncementsStack() {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -20,7 +21,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsScreen}
         options={{
           headerShown: true,
-          title: "Announcements",
+          title: t("announcement"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsFilterScreen" />
           ),
@@ -39,7 +40,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsVisualArtistsScreen}
         options={{
           headerShown: true,
-          title: "Visual Artists",
+          title: t("visualArtist"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsVisualArtistsFilterScreen" />
           ),
@@ -50,7 +51,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsBandsScreen}
         options={{
           headerShown: true,
-          title: "Bands",
+          title: t("band"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsBandsFilterScreen" />
           ),
@@ -61,7 +62,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsStagesScreen}
         options={{
           headerShown: true,
-          title: "Stages",
+          title: t("stage"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsStagesFilterScreen" />
           ),
@@ -72,7 +73,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
 
@@ -81,7 +82,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsVisualArtistsFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -89,7 +90,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsBandsFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -97,7 +98,7 @@ export default function AnnouncementsStack() {
         component={AnnouncementsStagesFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
     </Stack.Navigator>

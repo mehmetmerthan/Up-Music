@@ -13,8 +13,10 @@ import PhotographerFilterScreen from "../../../../Screens/Filter/Profiles/Visual
 import VideographyFilterScreen from "../../../../Screens/Filter/Profiles/Visual/VideographyFilterScreen";
 import VisualFilterScreen from "../../../../Screens/Filter/Profiles/Visual/VisualFilterScreen";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 export default function VisualStack() {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -22,10 +24,8 @@ export default function VisualStack() {
         component={VisualScreen}
         options={{
           headerShown: true,
-          title: "Visual",
-          headerRight: () => (
-            <HeaderRight screenName="VisualFilterScreen" />
-          ),
+          title: t("visual"),
+          headerRight: () => <HeaderRight screenName="VisualFilterScreen" />,
         }}
       />
       <Stack.Screen
@@ -33,10 +33,8 @@ export default function VisualStack() {
         component={DirectorScreen}
         options={{
           headerShown: true,
-          title: "Director",
-          headerRight: () => (
-            <HeaderRight screenName="DirectorFilterScreen" />
-          ),
+          title: t("director"),
+          headerRight: () => <HeaderRight screenName="DirectorFilterScreen" />,
         }}
       />
       <Stack.Screen
@@ -44,10 +42,8 @@ export default function VisualStack() {
         component={EditorScreen}
         options={{
           headerShown: true,
-          title: "Editor",
-          headerRight: () => (
-            <HeaderRight screenName="EditorFilterScreen" />
-          ),
+          title: t("editor"),
+          headerRight: () => <HeaderRight screenName="EditorFilterScreen" />,
         }}
       />
       <Stack.Screen
@@ -55,10 +51,8 @@ export default function VisualStack() {
         component={GraphicerScreen}
         options={{
           headerShown: true,
-          title: "Graphicer",
-          headerRight: () => (
-            <HeaderRight screenName="GraphicerFilterScreen" />
-          ),
+          title: t("graphicer"),
+          headerRight: () => <HeaderRight screenName="GraphicerFilterScreen" />,
         }}
       />
       <Stack.Screen
@@ -66,7 +60,7 @@ export default function VisualStack() {
         component={PhotographerScreen}
         options={{
           headerShown: true,
-          title: "Photographer",
+          title: t("photographer"),
           headerRight: () => (
             <HeaderRight screenName="PhotographerFilterScreen" />
           ),
@@ -77,7 +71,7 @@ export default function VisualStack() {
         component={VideographyScreen}
         options={{
           headerShown: true,
-          title: "Videography",
+          title: t("videography"),
           headerRight: () => (
             <HeaderRight screenName="VideographyFilterScreen" />
           ),
@@ -88,7 +82,7 @@ export default function VisualStack() {
         component={DirectorFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -96,7 +90,7 @@ export default function VisualStack() {
         component={EditorFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -104,7 +98,7 @@ export default function VisualStack() {
         component={GraphicerFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -112,7 +106,7 @@ export default function VisualStack() {
         component={PhotographerFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -120,7 +114,7 @@ export default function VisualStack() {
         component={VideographyFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -128,7 +122,7 @@ export default function VisualStack() {
         component={VisualFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
     </Stack.Navigator>

@@ -12,12 +12,13 @@ import {
   Keyboard,
   Text,
 } from "react-native";
-
+import { useTranslation } from "react-i18next";
 export default function SpotifySearch({
   setSelectedSong,
   spotifySong,
   setSpotifySong,
 }) {
+  const { t } = useTranslation();
   const base64Credentials = btoa(`${clientId}:${clientSecret}`);
   const accessTokenEndpoint = "https://accounts.spotify.com/api/token";
   const searchEndpoint = "https://api.spotify.com/v1/search";
@@ -119,7 +120,7 @@ export default function SpotifySearch({
       )}
       <TextInput
         style={styles.input}
-        placeholder="Search song from Spotify"
+        placeholder={t("SearchFromSpotify")}
         value={searchQuery}
         onChangeText={(text) => setSearchQuery(text)}
       />

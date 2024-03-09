@@ -15,21 +15,10 @@ import { Button } from "@rneui/themed";
 import signIn from "../../../Utils/Auth/SignIn";
 import { Auth } from "aws-amplify";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
-const phoneRegExp = /^\+\d{12}$/;
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Email or phone number is required")
-    .test("is-valid", "Invalid email or phone number", function (value) {
-      return yup.string().email().isValidSync(value) || phoneRegExp.test(value);
-    }),
-  password: yup
-    .string()
-    .min(8, "password must be least 8 characters")
-    .required("password is required"),
-});
 const SignInScreen = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
@@ -64,6 +53,21 @@ const SignInScreen = () => {
     setLoading(false);
     navigation.navigate("BottomTab");
   };
+  const phoneRegExp = /^\+\d{12}$/;
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .required(t("emailOrPhoneRequired"))
+      .test("is-valid", t("invalidEmailOrPhone"), function (value) {
+        return (
+          yup.string().email().isValidSync(value) || phoneRegExp.test(value)
+        );
+      }),
+    password: yup
+      .string()
+      .min(8, t("passwordLength"))
+      .required(t("passwordRequired")),
+  });
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.scrollContainer}
@@ -91,10 +95,10 @@ const SignInScreen = () => {
         }) => (
           <View>
             <View style={styles.container}>
-              <Text style={styles.subText}> Email</Text>
+              <Text style={styles.subText}> {t("emailOrPhone")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Email or phone number"
+                placeholder={t("emailOrPhone")}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -103,11 +107,11 @@ const SignInScreen = () => {
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
-              <Text style={styles.subText}> Password</Text>
+              <Text style={styles.subText}> {t("password")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Password"
+                  placeholder={t("password")}
                   onChangeText={handleChange("password")}
                   onBlur={handleBlur("password")}
                   value={values.password}
@@ -141,7 +145,7 @@ const SignInScreen = () => {
                   navigation.navigate("ForgotPassScreen");
                 }}
               >
-                <Text> Forgot password ?</Text>
+                <Text> {t("forgotPassword")}</Text>
               </Pressable>
             </View>
             {error && <Text style={styles.errorText}>{error}</Text>}

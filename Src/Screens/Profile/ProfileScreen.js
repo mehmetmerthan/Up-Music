@@ -12,7 +12,9 @@ import { useRoute } from "@react-navigation/native";
 import { Storage } from "aws-amplify";
 import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 import { FontAwesome } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 const ProfileScreen = () => {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState({});
   const [loadingButton, setLoadingButton] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -106,7 +108,7 @@ const ProfileScreen = () => {
           <View style={styles.userProfileBody}>
             <View style={styles.flexB}>
               <Button
-                title="Edit Profile"
+                title={t("editProfile")}
                 titleStyle={styles.buttonTextEdit}
                 onPress={editProfile}
                 type="outline"
@@ -114,7 +116,7 @@ const ProfileScreen = () => {
                 loading={loadingButton}
               />
               <Button
-                title={"Settings"}
+                title={t("settings")}
                 onPress={() => navigation.navigate("SettingsStack")}
                 buttonStyle={styles.buttonSettings}
               />
@@ -123,12 +125,10 @@ const ProfileScreen = () => {
             {userData?.about && (
               <>
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                  About
+                  {t("about")}
                 </Text>
                 <View style={styles.sectionContent}>
-                  <Text style={styles.typography}>
-                    {userData?.about ? userData?.about : "No description"}
-                  </Text>
+                  <Text style={styles.typography}>{userData?.about}</Text>
                 </View>
                 <View style={styles.divider} />
               </>
@@ -136,7 +136,7 @@ const ProfileScreen = () => {
             {userData?.tag_styles?.length > 0 && (
               <>
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                  Music Styles
+                  {t("musicStyles")}
                 </Text>
                 <View
                   style={{
@@ -167,7 +167,7 @@ const ProfileScreen = () => {
               <>
                 <View style={styles.divider} />
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                  Roles
+                  {t("roles")}
                 </Text>
                 <View
                   style={{
@@ -197,7 +197,7 @@ const ProfileScreen = () => {
             {userData?.experiences?.length > 0 && (
               <>
                 <View style={styles.divider} />
-                <Text style={styles.sectionHeadingText}>Experiences</Text>
+                <Text style={styles.sectionHeadingText}>{t("experience")}</Text>
                 <Experiences experiencesData={userData?.experiences} />
               </>
             )}
@@ -205,7 +205,9 @@ const ProfileScreen = () => {
             {userData?.posts?.items?.length > 0 && (
               <>
                 <View style={styles.divider} />
-                <Text style={styles.sectionHeadingText}>Announcments</Text>
+                <Text style={styles.sectionHeadingText}>
+                  {t("announcment")}
+                </Text>
               </>
             )}
             <FlatList

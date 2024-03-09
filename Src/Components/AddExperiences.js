@@ -1,14 +1,5 @@
 import { React, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableWithoutFeedback,
-  Keyboard,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, Text, FlatList, TextInput } from "react-native";
 import { Button, Divider } from "@rneui/themed";
 import styles from "../Styles/OnBoardingStyle";
 import Tag from "./Tag";
@@ -16,11 +7,13 @@ import StyleTags from "../../Constants/Data/StyleTags";
 import RoleTags from "../../Constants/Data/RoleTags";
 import SpotifySearch from "./SpotifySearch";
 import { isEmpty } from "lodash";
+import { useTranslation } from "react-i18next";
 const AddExperience = ({
   setExperiences,
   experiences,
   setVisibleExperience,
 }) => {
+  const { t } = useTranslation();
   const [selectedExperienceRoleTags, setSelectedExperienceRoleTags] = useState(
     []
   );
@@ -40,15 +33,15 @@ const AddExperience = ({
       return;
     }
     if (aboutExperience === "") {
-      alert("Please fill in the about experience field");
+      alert(t("addExperienceAlertAbout"));
       return;
     }
     if (selectedExperienceRoleTags.length === 0) {
-      alert("Please select at least one role tag");
+      alert(t("addExperienceAlertRoles"));
       return;
     }
     if (selectedExperienceStyleTags.length === 0) {
-      alert("Please select at least one style tag");
+      alert(t("addExperienceAlertStyles"));
       return;
     }
     const newExperience = {
@@ -81,7 +74,7 @@ const AddExperience = ({
   function renderItem() {
     return (
       <View style={styles.container}>
-        <Text style={styles.subText}>Tell us about your experience</Text>
+        <Text style={styles.subText}>{t("tellUsExperience")}</Text>
         <TextInput
           style={styles.input}
           placeholder="About your experience"
@@ -89,21 +82,21 @@ const AddExperience = ({
           value={aboutExperience}
         />
         <Divider />
-        <Text style={styles.subText}>Experience in which role?</Text>
+        <Text style={styles.subText}>{t("experienceWhichRole")}</Text>
         <Tag
           tagData={RoleTags}
           selectedTags={selectedExperienceRoleTags}
           setSelectedTags={setSelectedExperienceRoleTags}
         />
         <Divider />
-        <Text style={styles.subText}>Experience in which style?</Text>
+        <Text style={styles.subText}>{t("experienceWhichStyle")}</Text>
         <Tag
           tagData={StyleTags}
           selectedTags={selectedExperienceStyleTags}
           setSelectedTags={setSelectedExperienceStyleTags}
         />
         <Divider />
-        <Text style={styles.subText}>Experience in which song?</Text>
+        <Text style={styles.subText}>{t("experienceWhichSong")}</Text>
         <SpotifySearch
           setSelectedSong={setSelectedSong}
           setSpotifySong={setSpotifySong}
@@ -111,7 +104,7 @@ const AddExperience = ({
         />
         <Divider />
         <Button
-          title={"Complete experience"}
+          title={t("completeExperience")}
           onPress={addExperience}
           buttonStyle={styles.button}
         />

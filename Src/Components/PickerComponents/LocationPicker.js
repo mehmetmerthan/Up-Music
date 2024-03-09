@@ -3,7 +3,9 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { View, Text } from "react-native";
 import styles from "../../Styles/Picker/LocationPickerStyle";
 import { GOOGLE_PLACES_API_KEY } from "../../../Constants/Keys/API_KEY";
+import { useTranslation } from "react-i18next";
 export function LocationPicker({ setSelectedLocation }) {
+  const { t } = useTranslation();
   const [location, setLocation] = useState(null);
   function handleLocationSelect(data) {
     const num = data.terms.length;
@@ -24,7 +26,7 @@ export function LocationPicker({ setSelectedLocation }) {
       )}
       <GooglePlacesAutocomplete
         styles={{ textInput: styles.locationInputPlace }}
-        placeholder="Hard Rock Cafe, London"
+        placeholder={t("searchPlace")}
         fetchDetails={false}
         onPress={(data = null) => handleLocationSelect(data)}
         query={{
@@ -38,6 +40,7 @@ export function LocationPicker({ setSelectedLocation }) {
 }
 
 export function CountryPicker({ setSelectedLocation }) {
+  const { t } = useTranslation();
   const [location, setLocation] = useState(null);
   function handleLocationSelect(data) {
     setLocation(data?.description);
@@ -49,7 +52,7 @@ export function CountryPicker({ setSelectedLocation }) {
       <>
         <GooglePlacesAutocomplete
           styles={{ textInput: styles.locationInput }}
-          placeholder="Search a Country"
+          placeholder={t("searchCountry")}
           fetchDetails={true}
           onPress={(data = null) => handleLocationSelect(data)}
           query={{
@@ -63,6 +66,7 @@ export function CountryPicker({ setSelectedLocation }) {
   );
 }
 export function CityPicker({ setSelectedLocation }) {
+  const { t } = useTranslation();
   const [location, setLocation] = useState(null);
   async function handleLocationSelect(data) {
     const num = data.terms.length;
@@ -85,7 +89,7 @@ export function CityPicker({ setSelectedLocation }) {
       <>
         <GooglePlacesAutocomplete
           styles={{ textInput: styles.locationInput }}
-          placeholder="Search a City"
+          placeholder={t("searchCity")}
           fetchDetails={true}
           onPress={(data = null) => handleLocationSelect(data)}
           query={{

@@ -2,8 +2,10 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function VisualHeader() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -11,12 +13,12 @@ export default function VisualHeader() {
           <Chip
             type="outline"
             containerStyle={styles.chip}
-            title={"Visual"}
+            title={t("visual")}
             size="lg"
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Director"}
+            title={t("director")}
             size="lg"
             onPress={() => {
               {
@@ -26,7 +28,7 @@ export default function VisualHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Editor"}
+            title={t("editor")}
             size="lg"
             onPress={() => {
               {
@@ -36,7 +38,7 @@ export default function VisualHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Graphicer"}
+            title={t("graphicer")}
             size="lg"
             onPress={() => {
               {
@@ -46,7 +48,7 @@ export default function VisualHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Photographer"}
+            title={t("photographer")}
             size="lg"
             onPress={() => {
               {
@@ -56,7 +58,7 @@ export default function VisualHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Videography"}
+            title={t("videography")}
             size="lg"
             onPress={() => {
               {

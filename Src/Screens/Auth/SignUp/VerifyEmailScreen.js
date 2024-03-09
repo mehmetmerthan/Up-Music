@@ -7,13 +7,14 @@ import { useNavigation } from "@react-navigation/native";
 import { confirmSignUp, resendSignUp } from "../../../Utils/Auth/confirmSignUp";
 import { Button } from "@rneui/themed";
 import { Auth } from "aws-amplify";
-const validationSchema = yup.object().shape({
-  code: yup.string().required("code is required"),
-});
+import { useTranslation } from "react-i18next";
+
 const VerifyEmailScreen = ({ route }) => {
-  const {
-    email,
-  } = route?.params || {};
+  const { t } = useTranslation();
+  const validationSchema = yup.object().shape({
+    code: yup.string().required(t("codeRequired")),
+  });
+  const { email } = route?.params || {};
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
@@ -91,7 +92,7 @@ const VerifyEmailScreen = ({ route }) => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-      <Text style={styles.headerText}>Register</Text>
+      <Text style={styles.headerText}>{t("register")}</Text>
       <Formik
         initialValues={{ code: "" }}
         onSubmit={handleRegistration}
@@ -107,11 +108,11 @@ const VerifyEmailScreen = ({ route }) => {
         }) => (
           <View>
             <View style={styles.container}>
-              <Text style={styles.subText}> verify code</Text>
+              <Text style={styles.subText}> {t("verifyCode")}</Text>
               <View style={styles.containerRow}>
                 <TextInput
                   style={styles.input}
-                  placeholder="code"
+                  placeholder={t("code")}
                   onChangeText={handleChange("code")}
                   onBlur={handleBlur("code")}
                   value={values.code}
@@ -124,7 +125,7 @@ const VerifyEmailScreen = ({ route }) => {
                   <>
                     <TextInput
                       style={styles.input}
-                      placeholder="Confirm Password"
+                      placeholder={t("confirmPassword")}
                       onChangeText={(text) => setConfirmPassword(text)}
                       value={confirmPassword}
                       secureTextEntry
@@ -133,7 +134,7 @@ const VerifyEmailScreen = ({ route }) => {
                       buttonStyle={styles.button}
                       onPress={sendTosignIn}
                       loading={loading}
-                      title={"Confirm password"}
+                      title={t("confirmPassword")}
                       titleStyle={styles.buttonText}
                     />
                   </>
@@ -146,7 +147,7 @@ const VerifyEmailScreen = ({ route }) => {
               buttonStyle={styles.button}
               onPress={handleSubmit}
               loading={loading}
-              title={"Send"}
+              title={t("send")}
               titleStyle={styles.buttonText}
               disabled={passwordVisible}
             />
@@ -154,7 +155,7 @@ const VerifyEmailScreen = ({ route }) => {
               buttonStyle={styles.buttonRe}
               onPress={handleResend}
               title={
-                buttonVisible ? "Resend code" : `Resend code (${countdown}s)`
+                buttonVisible ? t("resend") : `${t("resend")} (${countdown}s)`
               }
               titleStyle={styles.buttonTextRe}
               disabled={!buttonVisible || passwordVisible}

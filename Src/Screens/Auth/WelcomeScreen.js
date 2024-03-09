@@ -3,7 +3,9 @@ import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import styles from "../../Styles/WelcomeStyle";
+import { useTranslation } from "react-i18next";
 const WelcomeScreen = () => {
+  const { t } = useTranslation();
   const [isLoadingLeft, setIsLoadingLeft] = useState(false);
   const [isLoadingRight, setIsLoadingRight] = useState(false);
   const navigation = useNavigation();
@@ -24,14 +26,14 @@ const WelcomeScreen = () => {
         style={styles.image}
       />
       <View style={styles.buttonContainer}>
-      <Button
-          title="SignUp"
+        <Button
+          title={t("signUp")}
           onPress={navigateToNextScreen}
           buttonStyle={styles.buttonSignUp}
           loading={isLoadingRight}
         />
         <Button
-          title="SignIn"
+          title={t("signIn")}
           onPress={navigateToSignIn}
           buttonStyle={styles.buttonSignIn}
           type="outline"

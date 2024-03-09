@@ -24,14 +24,17 @@ import useMedia from "../../Components/PickerComponents/useMedia";
 import UploadUser from "../../Utils/Uploads/uploadUser";
 import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import { isEqual, isEmpty } from "lodash";
-const validationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .max(50, "Name must be less than 50")
-    .required("Name is required"),
-});
+import { useTranslation } from "react-i18next";
 
 const EditProfileCompany = () => {
+  const { t } = useTranslation();
+  const validationSchema = yup.object().shape({
+    name: yup
+      .string()
+      .max(50, t("nameMax"))
+      .required(t("nameRequired"))
+      .min(3, t("nameMin")),
+  });
   const route = useRoute();
   const { userData } = route?.params || {};
   const { url } = route?.params || null;
@@ -49,7 +52,7 @@ const EditProfileCompany = () => {
     if (isLoading) return;
 
     if (name === "") {
-      return alert("Name is required");
+      return alert(t("nameRequired"));
     }
 
     setIsLoading(true);
@@ -81,7 +84,7 @@ const EditProfileCompany = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (!values.name) {
-        formik.setFieldError("name", "Name is required");
+        formik.setFieldError("name", t("nameRequired"));
       } else {
         onChangeName(values.name);
       }
@@ -148,13 +151,13 @@ const EditProfileCompany = () => {
               <Button
                 buttonStyle={styles.buttonSave}
                 onPress={saveProfile}
-                title="Save"
+                title={t("save")}
                 loading={isLoading}
               />
               <Button
                 buttonStyle={styles.buttonEdit}
                 onPress={() => navigation.navigate("ProfileScreen")}
-                title="Cancel"
+                title={t("cancel")}
                 type="outline"
                 titleStyle={styles.buttonTextEdit}
               />
@@ -166,10 +169,10 @@ const EditProfileCompany = () => {
                 <View style={styles.gridItem}>
                   <View style={styles.section}>
                     <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                      Info
+                      {t("info")}
                     </Text>
                     <View style={styles.sectionContent}>
-                      <Text style={styles.subHeader}>Name</Text>
+                      <Text style={styles.subHeader}>{t("name")}</Text>
                       <TextInput
                         style={styles.input}
                         onChangeText={(text) => {
@@ -183,14 +186,14 @@ const EditProfileCompany = () => {
                         value={formik.values.name}
                         multiline={false}
                         maxLength={50}
-                        placeholder="your name"
+                        placeholder={t("namePlaceholder")}
                         onSubmitEditing={formik.handleSubmit}
                       />
 
-                      <Text style={styles.subHeader}>Location</Text>
+                      <Text style={styles.subHeader}>{t("location")}</Text>
                       {!visibleCity && (
                         <Button
-                          title={"Select Location"}
+                          title={t("selectLocation")}
                           onPress={() => setVisibleCity(true)}
                           buttonStyle={styles.button}
                         />

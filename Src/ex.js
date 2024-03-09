@@ -1,46 +1,26 @@
-import { View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import React from "react";
-import { Button } from "@rneui/themed";
-import * as Notifications from "expo-notifications";
-export default function Ex() {
-  async function onPress() {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status !== "granted") {
-        return;
-      }
-    }
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "message title",
-        body: "message body",
-        data: { data: "data" },
-      },
-      trigger: null,
-    });
-  }
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-      shouldSetBadge: true,
-    }),
-  });
+import { useTranslation } from "react-i18next";
+export default function ex() {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = () => {
+    const newLanguage = i18n.language === "en" ? "tr" : "en";
+    i18n.changeLanguage(newLanguage);
+  };
   return (
     <View style={styles.container}>
-      <Button title={"Press"} onPress={onPress} buttonStyle={styles.button} />
+      <Text style={styles.text}>{t("welcome")}</Text>
+      <Button title={t("buttonText")} onPress={changeLanguage} />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
-  button: {
-    margin: 10,
+  text: {
+    fontSize: 20,
   },
 });

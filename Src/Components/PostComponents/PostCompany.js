@@ -7,7 +7,9 @@ import { Storage } from "aws-amplify";
 import { getUserId } from "../../Utils/getUser";
 import { USER_TYPES } from "../../../Constants/Enums/UserTypes";
 import { Entypo } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 const PostCompany = memo(({ item }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [loadingApply, setLoadingApply] = useState(false);
   const [imgUrl, setImgUrl] = useState(null);
@@ -100,9 +102,9 @@ const PostCompany = memo(({ item }) => {
               loading={loadingApply}
             >
               {item.user_type === USER_TYPES.COMPANY
-                ? "Send a file"
+                ? t("sendFile")
                 : item.user_type === USER_TYPES.VENUE
-                ? "Send message"
+                ? t("sendMessage")
                 : null}
               {item.user_type === USER_TYPES.COMPANY ? (
                 <Ionicons name="add" size={32} color="white" />

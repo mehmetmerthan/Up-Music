@@ -11,7 +11,9 @@ import { useRoute } from "@react-navigation/native";
 import { getUser } from "../Utils/Queries/userQueries";
 import { useNavigation } from "@react-navigation/native";
 import { getUserId } from "../Utils/getUser";
+import { useTranslation } from "react-i18next";
 const UserDetailScreen = () => {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
   const [currentUserId, setCurrentUserId] = useState("");
@@ -99,7 +101,7 @@ const UserDetailScreen = () => {
             {userId !== currentUserId && (
               <View style={styles.flexB}>
                 <Button
-                  title={"Message"}
+                  title={t("message")}
                   onPress={() =>
                     navigation.navigate("MessageDetailScreen", {
                       senderId: userId,
@@ -111,7 +113,7 @@ const UserDetailScreen = () => {
             )}
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              About
+              {t("about")}
             </Text>
             <View style={styles.sectionContent}>
               <Text style={styles.typography}>
@@ -120,7 +122,7 @@ const UserDetailScreen = () => {
             </View>
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              Music Styles
+              {t("musicStyles")}
             </Text>
             <View
               style={{
@@ -144,7 +146,7 @@ const UserDetailScreen = () => {
             </View>
             <View style={styles.divider} />
             <Text style={styles.sectionHeadingText} numberOfLines={1}>
-              Roles
+              {t("role")}
             </Text>
             <View
               style={{
@@ -167,12 +169,12 @@ const UserDetailScreen = () => {
               ))}
             </View>
             <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText}>Experiences</Text>
+            <Text style={styles.sectionHeadingText}>{t("experience")}</Text>
             {userData?.experiences?.length > 0 && (
               <Experiences experiencesData={userData?.experiences} />
             )}
             <View style={styles.divider} />
-            <Text style={styles.sectionHeadingText}>Announcments</Text>
+            <Text style={styles.sectionHeadingText}>{t("announcment")}</Text>
             <FlatList
               decelerationRate={0.8}
               data={userData?.posts?.items}

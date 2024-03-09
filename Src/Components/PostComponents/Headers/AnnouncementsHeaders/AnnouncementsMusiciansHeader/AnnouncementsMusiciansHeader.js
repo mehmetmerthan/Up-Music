@@ -2,7 +2,9 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function AnnouncementsStagesHeader() {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   return (
     <View>
@@ -11,12 +13,12 @@ export default function AnnouncementsStagesHeader() {
           <Chip
             type="outline"
             containerStyle={styles.chip}
-            title={"Stages"}
+            title={t("stage")}
             size="lg"
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Collaboration"}
+            title={t("collaboration")}
             size="lg"
             onPress={() => {
               {
@@ -26,7 +28,7 @@ export default function AnnouncementsStagesHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Join Group"}
+            title={t("joinGroup")}
             size="lg"
             onPress={() => {
               {

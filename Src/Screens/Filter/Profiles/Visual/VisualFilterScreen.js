@@ -7,7 +7,8 @@ import {
 } from "../../../../Components/PickerComponents/LocationPicker";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function VisualFilterScreen() {
+import { useTranslation } from "react-i18next";
+export default function VisualFilterScreen(){
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ export default function VisualFilterScreen() {
   const [expandedCountry, setExpandedCountry] = useState(false);
   const [expandedCity, setExpandedCity] = useState(false);
   const navigation = useNavigation();
+  const { t } = useTranslation();
   function submitFilter() {
     setLoading(true);
     const filter = {
@@ -49,7 +51,7 @@ export default function VisualFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Country</ListItem.Title>
+              <ListItem.Title>{t("country")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCountry}
@@ -63,7 +65,7 @@ export default function VisualFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>City</ListItem.Title>
+              <ListItem.Title>{t("city")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCity}
@@ -75,7 +77,7 @@ export default function VisualFilterScreen() {
           <CityPicker setSelectedLocation={setSelectedCity} />
         </ListItem.Accordion>
         <Button
-          title="Filter"
+          title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
@@ -87,7 +89,7 @@ export default function VisualFilterScreen() {
           onPress={submitFilter}
         />
         <Button
-          title={"Reset"}
+          title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,

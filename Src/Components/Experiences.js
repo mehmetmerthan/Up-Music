@@ -3,11 +3,13 @@ import { React } from "react";
 import { Avatar, Divider } from "@rneui/themed";
 import { AntDesign } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
+import { useTranslation } from "react-i18next";
 export default function Experiences({
   experiencesData,
   accessory = false,
   onDeleteExperience,
 }) {
+  const { t } = useTranslation();
   return (
     <View style={styles.containerList}>
       <Swiper
@@ -48,7 +50,7 @@ export default function Experiences({
               <Text style={styles.aboutText}>{experience?.about}</Text>
               {experience?.tag_roles?.length > 0 && (
                 <>
-                  <Text style={styles.sub}>Role</Text>
+                  <Text style={styles.sub}>{"role"}</Text>
                   <Divider insetType="middle" />
                 </>
               )}
@@ -63,7 +65,7 @@ export default function Experiences({
               </View>
               {experience?.tag_styles?.length > 0 && (
                 <>
-                  <Text style={styles.sub}>Style</Text>
+                  <Text style={styles.sub}>{t("style")}</Text>
                   <Divider insetType="middle" />
                 </>
               )}

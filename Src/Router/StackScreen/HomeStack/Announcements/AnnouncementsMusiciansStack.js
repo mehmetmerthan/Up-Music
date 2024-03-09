@@ -7,9 +7,11 @@ import AnnouncementsCollaborationFilterScreen from "../../../../Screens/Filter/A
 import AnnouncementsJoinGroupFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsMusicians/AnnouncementsJoinGroupFilterScreen";
 import AnnouncementsMusiciansScreen from "../../../../Screens/Home/Announcements/AnnouncementsMusicians/AnnouncementsMusiciansScreen";
 import AnnouncementsMusiciansFilterScreen from "../../../../Screens/Filter/Announcements/AnnouncementsMusicians/AnnouncementsMusiciansFilterScreen";
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 
 export default function AnnouncementsMusiciansStack() {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -17,7 +19,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsMusiciansScreen}
         options={{
           headerShown: true,
-          title: "Musicians",
+          title: t("musician"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsMusiciansFilterScreen" />
           ),
@@ -28,7 +30,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsCollaborationScreen}
         options={{
           headerShown: true,
-          title: "Musicians",
+          title: t("musician"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsCollaborationFilterScreen" />
           ),
@@ -39,7 +41,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsJoinGroupScreen}
         options={{
           headerShown: true,
-          title: "Musicians",
+          title: t("musician"),
           headerRight: () => (
             <HeaderRight screenName="AnnouncementsJoinGroupFilterScreen" />
           ),
@@ -50,7 +52,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsCollaborationFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -58,7 +60,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsJoinGroupFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+         title: t("filter"),
         }}
       />
 
@@ -67,7 +69,7 @@ export default function AnnouncementsMusiciansStack() {
         component={AnnouncementsMusiciansFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+         title: t("filter"),
         }}
       />
     </Stack.Navigator>

@@ -7,7 +7,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import { Auth } from "aws-amplify";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 const ForgotPassVerifyScreen = ({ route }) => {
+  const { t } = useTranslation();
   const [showPasswordNew, setShowPasswordNew] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,20 +21,17 @@ const ForgotPassVerifyScreen = ({ route }) => {
   };
 
   const validationSchema = Yup.object().shape({
-    code: Yup.string().required("Code is required"),
+    code: Yup.string().required(t("codeRequired")),
     newPassword: Yup.string()
-      .min(8, "password must be least 8 characters")
-      .matches(/[A-Z]/, "password must contain at least one uppercase letter")
-      .matches(/[a-z]/, "password must contain at least one lowercase letter")
-      .matches(/[0-9]/, "password must contain at least one number")
-      .matches(
-        /[^A-Za-z0-9]/,
-        "password must contain at least one special character"
-      )
-      .required("password is required"),
+      .min(8, t("passwordLength"))
+      .matches(/[A-Z]/, t("passwordContainUppercase"))
+      .matches(/[a-z]/, t("passwordContainLowercase"))
+      .matches(/[0-9]/, t("passwordContainNumber"))
+      .matches(/[^A-Za-z0-9]/, t("passwordContainSpecial"))
+      .required(t("passwordRequired")),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      .oneOf([Yup.ref("newPassword"), null], t("passwordNotMatch"))
+      .required(t("confirmPasswordRequired")),
   });
   const email = route.params?.email;
   const handleChangePassword = async (values) => {
@@ -68,32 +67,29 @@ const ForgotPassVerifyScreen = ({ route }) => {
           <View style={styles.subContainer}>
             <View style={styles.inputGroup}>
               {error && <Text style={styles.baseError}>{error}</Text>}
-              <Text style={styles.header}>
-                {" "}
-                Enter the code sent to your email
-              </Text>
-              <Text style={styles.subText}>Code</Text>
+              <Text style={styles.header}> {t("enterCode")}</Text>
+              <Text style={styles.subText}>{t("code")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("code")}
                   onBlur={handleBlur("code")}
                   value={values.code}
-                  placeholder="Code"
+                  placeholder={t("code")}
                   keyboardType="numeric"
                 />
               </View>
               {touched.code && errors.code && (
                 <Text style={styles.error}>{errors.code}</Text>
               )}
-              <Text style={styles.subText}>New password</Text>
+              <Text style={styles.subText}>{t("newPassword")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("newPassword")}
                   onBlur={handleBlur("newPassword")}
                   value={values.newPassword}
-                  placeholder="New Password"
+                  placeholder={t("newPassword")}
                   secureTextEntry={!showPasswordNew}
                   autoCapitalize="none"
                 />
@@ -118,14 +114,14 @@ const ForgotPassVerifyScreen = ({ route }) => {
               {touched.newPassword && errors.newPassword && (
                 <Text style={styles.error}>{errors.newPassword}</Text>
               )}
-              <Text style={styles.subText}>Confirm new password</Text>
+              <Text style={styles.subText}>{t("confirmNewPassword")}</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange("confirmPassword")}
                   onBlur={handleBlur("confirmPassword")}
                   value={values.confirmPassword}
-                  placeholder="Confirm New Password"
+                  placeholder={t("confirmNewPassword")}
                   secureTextEntry={!showPasswordNew}
                   autoCapitalize="none"
                 />
@@ -153,7 +149,7 @@ const ForgotPassVerifyScreen = ({ route }) => {
             </View>
             <Button
               onPress={handleSubmit}
-              title="Change Password"
+              title={t("changePassword")}
               buttonStyle={styles.button}
               loading={loading}
             />

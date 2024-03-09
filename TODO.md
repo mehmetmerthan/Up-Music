@@ -12,7 +12,6 @@ Project Description
 
 ### In Progress
 
-- [ ] titreşimli bildirim ios  
 - [ ] dil eklentisi  
 - [ ] theme araştır  
 - [ ] veritabanı s3 sil  
@@ -21,4 +20,5 @@ Project Description
 
 ### Done ✓
 
+- [x] titreşimli bildirim ios  
 

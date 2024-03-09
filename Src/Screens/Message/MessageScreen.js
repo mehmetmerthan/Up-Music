@@ -11,7 +11,9 @@ import { S3ImageAvatar } from "../../Components/S3Media";
 import TouchableScale from "react-native-touchable-scale";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function MessageScreen() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState([]);
   const [groupedMessages, setGroupedMessages] = useState([]);
   const [userId, setUserId] = useState("");
@@ -108,7 +110,6 @@ export default function MessageScreen() {
     setLoadingUpdate(true);
     try {
       const deletePromises = messages.map(async (message) => {
-        console.log(message);
         if (message?.sender?.id !== userId) {
           console.log("message");
           return await API.graphql(
@@ -204,7 +205,8 @@ export default function MessageScreen() {
               : item.message.sender.name}
           </ListItem.Title>
           <ListItem.Subtitle>
-            {item.message.sender.id === userId && "you:"} {item.message.content}{" "}
+            {item.message.sender.id === userId && t("you")}{" "}
+            {item.message.content}{" "}
             {item.unreadCount > 0 && `(${item.unreadCount})`}
           </ListItem.Subtitle>
         </ListItem.Content>

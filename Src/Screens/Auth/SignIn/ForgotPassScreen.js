@@ -5,13 +5,10 @@ import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import { Button } from "@rneui/themed";
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-});
+import { useTranslation } from "react-i18next";
+
 const ForgotPassScreen = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
@@ -33,6 +30,12 @@ const ForgotPassScreen = () => {
       setLoading(false);
     }
   };
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email(t("entervalidemail"))
+      .required(t("emailRequired")),
+  });
   return (
     <View style={styles.container}>
       <Formik
@@ -51,11 +54,11 @@ const ForgotPassScreen = () => {
           <View style={styles.innerContainer}>
             <View style={styles.subContainer}>
               {error && <Text style={styles.baseError}>{error}</Text>}
-              <Text style={styles.header}>Enter your email</Text>
-              <Text style={styles.subText}> Email</Text>
+              <Text style={styles.header}>{t("enterEmail")}</Text>
+              <Text style={styles.subText}> {("email")}</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder={t("email")}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -69,7 +72,7 @@ const ForgotPassScreen = () => {
               loading={loading}
               onPress={handleSubmit}
               buttonStyle={styles.button}
-              title={"Next"}
+              title={t("next")}
             />
           </View>
         )}

@@ -9,7 +9,6 @@ import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import Ex from "../ex";
 import { LogBox } from "react-native";
-import { set } from "lodash";
 export default function Router() {
   const [redirect, setRedirect] = useState(null);
   const [screenName, setScreenName] = useState("");

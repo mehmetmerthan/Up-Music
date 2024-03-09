@@ -22,7 +22,9 @@ import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 export default function CreateEventScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
@@ -31,7 +33,7 @@ export default function CreateEventScreen() {
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about your event");
+      alert(t("fillEventFields"));
       return;
     }
     try {
@@ -97,13 +99,13 @@ export default function CreateEventScreen() {
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Write something"
+            placeholder={t("eventPlaceholder")}
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <LocationPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select Categories</Text>
+          <Text style={styles.header}>{t("selectMusicStyle")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             selectedTags={selectedStyleTags}
@@ -112,7 +114,7 @@ export default function CreateEventScreen() {
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Button
-            title="Share"
+            title={t("share")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

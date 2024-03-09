@@ -19,7 +19,9 @@ import RoleTags from "../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTranslation } from "react-i18next";
 export default function CreateMusicianForBandScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
@@ -28,7 +30,7 @@ export default function CreateMusicianForBandScreen() {
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about yourself");
+      alert(t("tellAboutYourself"));
       return;
     }
     try {
@@ -58,20 +60,20 @@ export default function CreateMusicianForBandScreen() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-          <Text style={styles.header}>Tell about yourself</Text>
+          <Text style={styles.header}>{t("tellAboutYourself")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="I am a musician..."
+            placeholder={t("musicianPlaceholder")}
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select your location</Text>
+          <Text style={styles.header}>{t("musicianLocation")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>What kind of musician are you ?</Text>
+          <Text style={styles.header}>{"musicianRole"}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             selectedTags={selectedRoleTags}
@@ -79,7 +81,7 @@ export default function CreateMusicianForBandScreen() {
             tagData={RoleTags}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Select music styles</Text>
+          <Text style={styles.header}>{t("selectMusicStyle")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             selectedTags={selectedStyleTags}
@@ -88,7 +90,7 @@ export default function CreateMusicianForBandScreen() {
           />
           <Divider orientation="vertical" />
           <Button
-            title="Share"
+            title={t("share")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

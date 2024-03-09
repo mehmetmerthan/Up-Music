@@ -6,7 +6,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Chip, Skeleton, Image } from "@rneui/themed";
 import Experieces from "../Experiences";
 import { Storage } from "aws-amplify";
+import { useTranslation } from "react-i18next";
 const PostUser = memo(({ item }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [imgUrl, setImgUrl] = useState(null);
   const navigation = useNavigation();
@@ -94,7 +96,9 @@ const PostUser = memo(({ item }) => {
         )}
         {item?.tag_Styles?.length > 0 && (
           <View style={styles.sectionRole}>
-            <Text style={styles.sectionHeadingTextRole}>Music Styles</Text>
+            <Text style={styles.sectionHeadingTextRole}>
+              {t("musicStyles")}
+            </Text>
             <View style={styles.tagsContainer}>
               {item?.tag_styles?.map((style, styleIndex) => (
                 <Chip

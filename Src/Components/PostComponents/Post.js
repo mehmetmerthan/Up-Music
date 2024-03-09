@@ -5,8 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { S3ImageAvatar, S3PostMedia } from "../S3Media";
 import { Chip } from "@rneui/themed";
+import { useTranslation } from "react-i18next";
 
 const Post = memo(({ item }) => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   function navigateToUserDetail() {
     navigation.navigate("UserDetailScreen", { userId: item?.owner?.id });
@@ -40,7 +42,7 @@ const Post = memo(({ item }) => {
         {item?.price && <Text style={styles.textPrice}>{item?.price}"$"</Text>}
         {item?.tag_styles?.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionHeadingText}>Music Styles</Text>
+            <Text style={styles.sectionHeadingText}>{t("musicStyles")}</Text>
             <View style={styles.tagsContainer}>
               {item?.tag_styles?.map((style, styleIndex) => (
                 <Chip
@@ -56,7 +58,7 @@ const Post = memo(({ item }) => {
         )}
         {item?.tag_instruments?.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.tagsContainer}>Musician Needed</Text>
+            <Text style={styles.tagsContainer}>{t("musicianNeeded")}</Text>
             {item?.tag_roles_needed?.map((musician, musicianIndex) => (
               <Chip
                 key={musicianIndex}
@@ -70,7 +72,9 @@ const Post = memo(({ item }) => {
         )}
         {item?.tag_roles?.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionHeadingText}>Musician Existing</Text>
+            <Text style={styles.sectionHeadingText}>
+              {t("musicianExisting")}
+            </Text>
             <View style={styles.tagsContainer}>
               {item?.tag_roles?.map((musician, musicianIndex) => (
                 <Chip
@@ -86,7 +90,9 @@ const Post = memo(({ item }) => {
         )}
         {item?.tag_roles?.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionHeadingText}>Instruments Played</Text>
+            <Text style={styles.sectionHeadingText}>
+              {t("instrumentsPlayed")}
+            </Text>
             <View style={styles.tagsContainer}>
               {item?.tag_roles?.map((musician, musicianIndex) => (
                 <Chip

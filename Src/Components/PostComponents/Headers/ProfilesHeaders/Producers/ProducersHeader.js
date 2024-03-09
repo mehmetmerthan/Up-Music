@@ -2,7 +2,9 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function ProducersHeader() {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   return (
     <View>
@@ -11,12 +13,12 @@ export default function ProducersHeader() {
           <Chip
             type="outline"
             containerStyle={styles.chip}
-            title={"Producers"}
+            title={t("producer")}
             size="lg"
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Beatmaker"}
+            title={t("beatmaker")}
             size="lg"
             onPress={() => {
               {
@@ -26,7 +28,7 @@ export default function ProducersHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Composer"}
+            title={t("composer")}
             size="lg"
             onPress={() => {
               {
@@ -36,7 +38,7 @@ export default function ProducersHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Mixing"}
+            title={t("mixing")}
             size="lg"
             onPress={() => {
               {
@@ -46,7 +48,7 @@ export default function ProducersHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Songwriter"}
+            title={t("songwriter")}
             size="lg"
             onPress={() => {
               {

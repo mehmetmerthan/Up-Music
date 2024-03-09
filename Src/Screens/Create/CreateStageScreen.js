@@ -19,7 +19,9 @@ import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { POST_TYPES } from "../../../Constants/Enums/PostTypes";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTranslation } from "react-i18next";
 export default function CreateStageScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [price, setPrice] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ export default function CreateStageScreen() {
   const navigation = useNavigation();
   async function submitPost() {
     if (text === "") {
-      alert("Please write something about your stage");
+      alert(t("fillStageFields"));
       return;
     }
     try {
@@ -64,22 +66,22 @@ export default function CreateStageScreen() {
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            placeholder="Write something about your stage"
+            placeholder={t("fillStageFields")}
             value={text}
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>Set Price</Text>
+          <Text style={styles.header}>{t("setPrice")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <TextInput
             style={styles.priceInput}
             onChangeText={setPrice}
-            placeholder="20$ per hour"
+            placeholder={t("setPricePlaceholder")}
             value={price}
             keyboardType="numeric"
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <LocationPicker setSelectedLocation={setSelectedLocation} />
-          <Text style={styles.header}>Select Categories</Text>
+          <Text style={styles.header}>{t("selectMusicStyle")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             selectedTags={selectedTags}
@@ -88,7 +90,7 @@ export default function CreateStageScreen() {
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Button
-            title="Share"
+            title={t("share")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

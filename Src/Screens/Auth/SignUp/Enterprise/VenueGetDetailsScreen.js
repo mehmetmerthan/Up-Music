@@ -5,13 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../../../../Styles/OnBoardingStyle";
 import { LocationPicker } from "../../../../Components/PickerComponents/LocationPicker";
 import useMedia from "../../../../Components/PickerComponents/useMedia";
+import { useTranslation } from "react-i18next";
 const VenueGetDetailsScreen = () => {
+  const { t } = useTranslation();
   const { MediaPickerImageComponent, image } = useMedia();
   const [selectedLocation, setSelectedLocation] = useState({});
   const navigation = useNavigation();
   function navigateToNextScreen() {
     if (!selectedLocation || !image) {
-      return alert("Please fill all the fields");
+      return alert(t("fillFields"));
     }
     navigation.navigate("VenueSignUpScreen", {
       selectedLocation: selectedLocation,
@@ -21,14 +23,14 @@ const VenueGetDetailsScreen = () => {
   function renderItem() {
     return (
       <View style={styles.container}>
-        <Text style={styles.subText}>Select your place</Text>
+        <Text style={styles.subText}>{t("selectPlace")}</Text>
         <LocationPicker setSelectedLocation={setSelectedLocation} />
         <Divider />
-        <Text style={styles.subText}>Select your place picture</Text>
+        <Text style={styles.subText}>{t("selectPicture")}</Text>
         <MediaPickerImageComponent />
         <Divider />
         <Button
-          title={"Next"}
+          title={t("next")}
           buttonStyle={styles.button}
           onPress={navigateToNextScreen}
         />

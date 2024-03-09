@@ -2,7 +2,9 @@ import { View, StyleSheet, Text } from "react-native";
 import { React, useState } from "react";
 import { CheckBox, Divider } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function SelectionScreen() {
+  const { t } = useTranslation();
   const [checkedPersonal, setCheckedPersonal] = useState(false);
   const [checkedEnterprise, setCheckedEnterprise] = useState(false);
   const navigation = useNavigation();
@@ -26,12 +28,12 @@ export default function SelectionScreen() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Select your account type</Text>
+      <Text style={styles.headerText}>{t("selectAccountType")}</Text>
       <View style={styles.checkBoxGroup}>
         <CheckBox
           checked={checkedPersonal}
           onPress={handlePersonal}
-          title={"Personal"}
+          title={t("personal")}
           containerStyle={styles.checkBoxContainer}
           size={30}
           style={styles.checkBox}
@@ -39,9 +41,7 @@ export default function SelectionScreen() {
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Text style={styles.descriptionText}>
-          Musicians, Bands, Producers, and more
-        </Text>
+        <Text style={styles.descriptionText}>{t("personelExample")}</Text>
         <Divider
           width={1}
           style={{ marginVertical: 5 }}
@@ -52,7 +52,7 @@ export default function SelectionScreen() {
         <CheckBox
           checked={checkedEnterprise}
           onPress={handleEnterprise}
-          title={"Enterprise"}
+          title={t("enterprise")}
           containerStyle={styles.checkBoxContainer}
           size={30}
           style={styles.checkBox}
@@ -60,9 +60,7 @@ export default function SelectionScreen() {
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Text style={styles.descriptionText}>
-          Companies, Venue owner, and more
-        </Text>
+        <Text style={styles.descriptionText}>{t("enterpriseExample")}</Text>
         <Divider
           width={1}
           style={{ marginVertical: 5 }}
@@ -77,7 +75,7 @@ export default function SelectionScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:150,
+    marginTop: 150,
     padding: 16,
   },
   checkBoxGroup: {

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, ActivityIndicator } from "react-native";
+import { Image } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Avatar } from "@rneui/themed";
 import { Storage } from "aws-amplify";
@@ -102,5 +102,3 @@ export function S3PostMedia(props) {
     </>
   );
 }
-
-const styles = StyleSheet.create({});

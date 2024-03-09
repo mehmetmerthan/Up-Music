@@ -13,7 +13,9 @@ import styles from "../../../../Styles/OnBoardingStyle";
 import Experiences from "../../../../Components/Experiences";
 import AddExperience from "../../../../Components/AddExperiences";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTranslation } from "react-i18next";
 const OnboardingScreen3 = ({ route }) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [experiences, setExperiences] = useState([]);
   const {
@@ -53,7 +55,7 @@ const OnboardingScreen3 = ({ route }) => {
             <View style={styles.pageViewFill} />
           </View>
           <Button
-            title={"Next"}
+            title={t("next")}
             buttonStyle={styles.button}
             onPress={navigateToNextScreen}
           />

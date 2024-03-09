@@ -3,7 +3,9 @@ import { View, Image, Text, ScrollView } from "react-native";
 import styles from "../../Styles/Create/CreateStyle";
 import { useNavigation } from "@react-navigation/native";
 import TouchableScale from "react-native-touchable-scale";
+import { useTranslation } from "react-i18next";
 const CreateScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
@@ -19,11 +21,9 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/create-stage.png")}
             style={styles.icon}
           />
+          <Text style={styles.decsriptionText}>{t("createStage")}</Text>
           <Text style={styles.decsriptionText}>
-            Looking for musicians for the stage ?
-          </Text>
-          <Text style={styles.decsriptionText}>
-            (For event organizers and venue owners)
+            {t("createStageDescription")}
           </Text>
         </TouchableScale>
         <TouchableScale
@@ -37,11 +37,9 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/create-event.png")}
             style={styles.icon}
           />
+          <Text style={styles.decsriptionText}>{t("createEvent")}</Text>
           <Text style={styles.decsriptionText}>
-            Want to create a new event ?
-          </Text>
-          <Text style={styles.decsriptionText}>
-            (Festivals, concerts, party, etc.)
+            {t("createEventDescription")}
           </Text>
         </TouchableScale>
       </View>
@@ -57,10 +55,10 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/group-search-notice.png")}
             style={styles.icon}
           />
+          <Text style={styles.decsriptionText}>{t("createBand")}</Text>
           <Text style={styles.decsriptionText}>
-            Looking for musicians for your band?
+            {t("createBandDescription")}
           </Text>
-          <Text style={styles.decsriptionText}>(For bands)</Text>
         </TouchableScale>
         <TouchableScale
           friction={90}
@@ -73,10 +71,11 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/musician-search-notice.png")}
             style={styles.icon}
           />
+          <Text style={styles.decsriptionText}>{t("createMusician")}</Text>
           <Text style={styles.decsriptionText}>
-            Looking for a band to join ?
+            {" "}
+            {t("createMusicianDescription")}
           </Text>
-          <Text style={styles.decsriptionText}>(For musicians)</Text>
         </TouchableScale>
       </View>
       <View style={styles.row}>
@@ -94,10 +93,10 @@ const CreateScreen = () => {
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
-            Looking for a musician to collaborate with ?
+            {t("createMusicianForCollaborate")}
           </Text>
           <Text style={styles.decsriptionText}>
-            (Agreement, collaborations, helping)
+            {t("createMusicianForCollaborateDescription")}
           </Text>
         </TouchableScale>
         <TouchableScale
@@ -111,11 +110,9 @@ const CreateScreen = () => {
             source={require("../../../assets/images/Create/create-job-notice.png")}
             style={styles.icon}
           />
+          <Text style={styles.decsriptionText}>{t("createVisualArtist")}</Text>
           <Text style={styles.decsriptionText}>
-            Looking for a visual artist ?
-          </Text>
-          <Text style={styles.decsriptionText}>
-            (Photographer, director, graphicer, etc. )
+            {t("createVisualArtistDescription")}
           </Text>
         </TouchableScale>
       </View>

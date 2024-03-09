@@ -6,10 +6,10 @@ import {
   CityPicker,
   CountryPicker,
 } from "../../../Components/PickerComponents/LocationPicker";
-import StyleTags from "../../../../Constants/Data/StyleTags";
 import RoleTags from "../../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
+import { useTranslation } from "react-i18next";
 export default function AnnouncementsVisualArtistsFilterScreen() {
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -20,6 +20,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
   const [expandedCity, setExpandedCity] = useState(false);
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
   const navigation = useNavigation();
+  const { t } = useTranslation();
   function submitFilter() {
     setLoading(true);
     const filter = {
@@ -63,7 +64,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Country</ListItem.Title>
+              <ListItem.Title>{t("country")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCountry}
@@ -77,7 +78,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>City</ListItem.Title>
+              <ListItem.Title>{t("city")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCity}
@@ -91,7 +92,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Role Tags</ListItem.Title>
+              <ListItem.Title>{t("role")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedRoleTags}
@@ -107,7 +108,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
           />
         </ListItem.Accordion>
         <Button
-          title="Filter"
+          title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
@@ -119,7 +120,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
           onPress={submitFilter}
         />
         <Button
-          title={"Reset"}
+          title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
@@ -137,7 +138,7 @@ export default function AnnouncementsVisualArtistsFilterScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-      decelerationRate={0.8}
+        decelerationRate={0.8}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}

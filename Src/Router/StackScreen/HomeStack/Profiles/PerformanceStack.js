@@ -7,8 +7,10 @@ import SingerFilterScreen from "../../../../Screens/Filter/Profiles/Performance/
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 import DjScreen from "../../../../Screens/Home/Profiles/Performance/DjScreen";
 import DjFilterScreen from "../../../../Screens/Filter/Profiles/Performance/DjFilterScreen";
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 export default function PerformanceStack() {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -16,7 +18,7 @@ export default function PerformanceStack() {
         component={PerformanceScreen}
         options={{
           headerShown: true,
-          title: "Performance",
+          title: t("performance"),
           headerRight: () => (
             <HeaderRight screenName="PerformanceFilterScreen" />
           ),
@@ -27,7 +29,7 @@ export default function PerformanceStack() {
         component={SingerScreen}
         options={{
           headerShown: true,
-          title: "Publicist",
+          title: t("publicist"),
           headerRight: () => <HeaderRight screenName="SingerFilterScreen" />,
         }}
       />
@@ -36,7 +38,7 @@ export default function PerformanceStack() {
         component={DjScreen}
         options={{
           headerShown: true,
-          title: "Dj",
+          title: t("dj"),
           headerRight: () => <HeaderRight screenName="DjFilterScreen" />,
         }}
       />
@@ -45,7 +47,7 @@ export default function PerformanceStack() {
         component={DjFilterScreen}
         options={{
           headerShown: true,
-          title: "filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -53,7 +55,7 @@ export default function PerformanceStack() {
         component={PerformanceFilterScreen}
         options={{
           headerShown: true,
-          title: "filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -61,7 +63,7 @@ export default function PerformanceStack() {
         component={SingerFilterScreen}
         options={{
           headerShown: false,
-          title: "filter",
+          title: t("filter"),
         }}
       />
     </Stack.Navigator>

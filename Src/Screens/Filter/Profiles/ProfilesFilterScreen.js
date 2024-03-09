@@ -10,7 +10,8 @@ import StyleTags from "../../../../Constants/Data/StyleTags";
 import RoleTags from "../../../../Constants/Data/RoleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
-export default function ProfilesFilterScreen() {
+import { useTranslation } from "react-i18next";
+export default function ProfilesFilterScreen(){
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedRoleTags, setSelectedRoleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -22,6 +23,7 @@ export default function ProfilesFilterScreen() {
   const [expandedStyleTags, setExpandedStyleTags] = useState(false);
   const [expandedRoleTags, setExpandedRoleTags] = useState(false);
   const navigation = useNavigation();
+  const { t } = useTranslation();
   function submitFilter() {
     setLoading(true);
     const filter = {
@@ -69,7 +71,7 @@ export default function ProfilesFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Country</ListItem.Title>
+              <ListItem.Title>{t("country")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCountry}
@@ -83,7 +85,7 @@ export default function ProfilesFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>City</ListItem.Title>
+              <ListItem.Title>{t("city")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedCity}
@@ -97,7 +99,7 @@ export default function ProfilesFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Style Tags</ListItem.Title>
+              <ListItem.Title>{t("style")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedStyleTags}
@@ -115,7 +117,7 @@ export default function ProfilesFilterScreen() {
         <ListItem.Accordion
           content={
             <ListItem.Content>
-              <ListItem.Title>Role Tags</ListItem.Title>
+              <ListItem.Title>{t("role")}</ListItem.Title>
             </ListItem.Content>
           }
           isExpanded={expandedRoleTags}
@@ -131,7 +133,7 @@ export default function ProfilesFilterScreen() {
           />
         </ListItem.Accordion>
         <Button
-          title="Filter"
+          title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
@@ -143,7 +145,7 @@ export default function ProfilesFilterScreen() {
           onPress={submitFilter}
         />
         <Button
-          title={"Reset"}
+          title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
@@ -161,7 +163,7 @@ export default function ProfilesFilterScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-      decelerationRate={0.8}
+        decelerationRate={0.8}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}

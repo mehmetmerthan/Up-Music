@@ -26,8 +26,10 @@ import { messagesByDate } from "../../Utils/Queries/messageQueries";
 import { S3ImageAvatar } from "../../Components/S3Media";
 import Media from "../../Components/Media";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 export default function MessageDetailScreen() {
+  const { t } = useTranslation();
   const [text, onChangeText] = useState("");
   const [messages, setMessages] = useState([]);
   const route = useRoute();
@@ -252,13 +254,8 @@ export default function MessageDetailScreen() {
     }, 300);
   };
   const rightIcon = (
-    <Pressable onPress={sendMessage} >
-      <Icon
-        name="send"
-        size={35}
-        color="#2089dc"
-        style={{ marginRight: 10 }}
-      />
+    <Pressable onPress={sendMessage}>
+      <Icon name="send" size={35} color="#2089dc" style={{ marginRight: 10 }} />
     </Pressable>
   );
   return (
@@ -299,7 +296,7 @@ export default function MessageDetailScreen() {
           clearButtonMode="always"
           inputContainerStyle={styles.input}
           onChangeText={onChangeText}
-          placeholder="Write here..."
+          placeholder={t("writeHere")}
           value={text}
           rightIcon={rightIcon}
           onFocus={handleInputFocus}

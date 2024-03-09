@@ -8,8 +8,10 @@ import React from "react";
 import HeaderRight from "../../../../Components/PostComponents/Headers/HeaderRight";
 import InstrumentalistScreen from "../../../../Screens/Home/Profiles/InstrumentalistScreen";
 import InstrumentalistFilterScreen from "../../../../Screens/Filter/Profiles/InstrumentalistFilterScreen";
+import { useTranslation } from "react-i18next";
 const Stack = createStackNavigator();
 export default function ProfilesStack() {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -17,7 +19,7 @@ export default function ProfilesStack() {
         component={ProfilesScreen}
         options={{
           headerShown: true,
-          title: "Profiles",
+          title: t("profiles"),
           headerRight: () => <HeaderRight screenName="ProfilesFilterScreen" />,
         }}
       />
@@ -26,7 +28,7 @@ export default function ProfilesStack() {
         component={InstrumentalistScreen}
         options={{
           headerShown: true,
-          title: "Instrumentalist",
+          title: t("instrumentalist"),
           headerRight: () => (
             <HeaderRight screenName="InstrumentalistFilterScreen" />
           ),
@@ -61,7 +63,7 @@ export default function ProfilesStack() {
         component={ProfilesFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
       <Stack.Screen
@@ -69,7 +71,7 @@ export default function ProfilesStack() {
         component={InstrumentalistFilterScreen}
         options={{
           headerShown: true,
-          title: "Filter",
+          title: t("filter"),
         }}
       />
     </Stack.Navigator>

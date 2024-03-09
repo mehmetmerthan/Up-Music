@@ -3,7 +3,9 @@ import { React, useState } from "react";
 import styles from "../../Styles/Picker/MediaPickerStyle";
 import { Divider, Avatar } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";
+import { useTranslation } from "react-i18next";
 export default function useMedia() {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   async function MediaPickerImage() {
     try {
@@ -36,7 +38,7 @@ export default function useMedia() {
   function MediaPickerImageComponent() {
     return (
       <SafeAreaView>
-        <Text style={styles.header}>Choose an image</Text>
+        <Text style={styles.header}>{t("chooseImage")}</Text>
         <Divider inset={true} insetType="middle" orientation="vertical" />
         {image ? (
           <Avatar

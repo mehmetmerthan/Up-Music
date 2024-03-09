@@ -2,7 +2,9 @@ import { Chip } from "@rneui/themed";
 import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function UserProfileHeaderHeader() {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   return (
     <View>
@@ -10,7 +12,7 @@ export default function UserProfileHeaderHeader() {
         <View style={styles.chipContainer}>
           <Chip
             buttonStyle={styles.chip}
-            title={"Performance"}
+            title={t("performance")}
             size="lg"
             onPress={() => {
               {
@@ -20,7 +22,7 @@ export default function UserProfileHeaderHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Instrumentalist"}
+            title={t("instrumentalist")}
             size="lg"
             onPress={() => {
               {
@@ -30,7 +32,7 @@ export default function UserProfileHeaderHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Producers"}
+            title={t("producer")}
             size="lg"
             onPress={() => {
               {
@@ -40,7 +42,7 @@ export default function UserProfileHeaderHeader() {
           />
           <Chip
             buttonStyle={styles.chip}
-            title={"Visual"}
+            title={t("visual")}
             size="lg"
             onPress={() => {
               {

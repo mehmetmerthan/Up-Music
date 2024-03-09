@@ -2,7 +2,9 @@ import { View, StyleSheet, Text } from "react-native";
 import { React, useState } from "react";
 import { CheckBox, Divider } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function VenueSelectionScreen() {
+  const { t } = useTranslation();
   const [checkedCompany, setCheckedCompany] = useState(false);
   const [checkedVenue, setCheckedVenue] = useState(false);
   const navigation = useNavigation();
@@ -26,7 +28,7 @@ export default function VenueSelectionScreen() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Select your account type</Text>
+      <Text style={styles.headerText}>{t("selectAccountType")}</Text>
       <View style={styles.checkBoxGroup}>
         <CheckBox
           checked={checkedCompany}
@@ -39,9 +41,7 @@ export default function VenueSelectionScreen() {
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Text style={styles.descriptionText}>
-          Music companies, Record Labels, etc.
-        </Text>
+        <Text style={styles.descriptionText}>{t("companyExample")}</Text>
         <Divider
           width={1}
           style={{ marginVertical: 5 }}
@@ -51,7 +51,7 @@ export default function VenueSelectionScreen() {
         <CheckBox
           checked={checkedVenue}
           onPress={handleVenue}
-          title={"Venue"}
+          title={t("venue")}
           containerStyle={styles.checkBoxContainer}
           size={30}
           style={styles.checkBox}
@@ -59,9 +59,7 @@ export default function VenueSelectionScreen() {
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Text style={styles.descriptionText}>
-          Venue owner, Event organizer, etc.
-        </Text>
+        <Text style={styles.descriptionText}>{t("venueExample")}</Text>
         <Divider
           width={1}
           style={{ marginVertical: 5 }}

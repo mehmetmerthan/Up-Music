@@ -31,18 +31,22 @@ import { CityPicker } from "../../Components/PickerComponents/LocationPicker";
 import Experiences from "../../Components/Experiences";
 import { isEqual } from "lodash";
 import AddExperience from "../../Components/AddExperiences";
-const validationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .max(50, "Name must be less than 50")
-    .required("Name is required"),
-  about: yup
-    .string()
-    .max(1000, "About must be less than 1000")
-    .required("About is required"),
-});
+import { useTranslation } from "react-i18next";
 
 const EditPorfileScreen = () => {
+  const { t } = useTranslation();
+  const validationSchema = yup.object().shape({
+    name: yup
+      .string()
+      .max(50, t("nameSizeMax"))
+      .required(t("nameRequired"))
+      .min(3, t("nameSizeMin")),
+    about: yup
+      .string()
+      .max(500, t("aboutSizeMax"))
+      .required(t("aboutRequired"))
+      .min(10, t("aboutSizeMin")),
+  });
   const route = useRoute();
   const { userData } = route?.params || {};
   const { url } = route?.params || null;
@@ -82,11 +86,11 @@ const EditPorfileScreen = () => {
   async function saveProfile() {
     setIsLoading(true);
     if (userMusicStyles.length === 0) {
-      setError("Please select at least one music style");
+      setError(t("selectLeastOneStyle"));
       return;
     }
     if (userRoles.length === 0) {
-      setError("Please select at least one role");
+      setError(t("selectLeastOneRole"));
       return;
     }
     if (formik.errors.name) {
@@ -123,7 +127,7 @@ const EditPorfileScreen = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (!values.name) {
-        formik.setFieldError("name", "Name is required");
+        formik.setFieldError("name", t("nameRequired"));
       } else {
         onChangeName(values.name);
         onChangeText(values.about);
@@ -232,13 +236,13 @@ const EditPorfileScreen = () => {
               <Button
                 buttonStyle={styles.buttonSave}
                 onPress={saveProfile}
-                title="Save"
+                title={t("save")}
                 loading={isLoading}
               />
               <Button
                 buttonStyle={styles.buttonEdit}
                 onPress={() => navigation.navigate("ProfileScreen")}
-                title="Cancel"
+                title={t("cancel")}
                 type="outline"
                 titleStyle={styles.buttonTextEdit}
               />
@@ -250,10 +254,10 @@ const EditPorfileScreen = () => {
                 <View style={styles.gridItem}>
                   <View style={styles.section}>
                     <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                      Info
+                      {t("info")}
                     </Text>
                     <View style={styles.sectionContent}>
-                      <Text style={styles.subHeader}>Name</Text>
+                      <Text style={styles.subHeader}>{t("name")}</Text>
                       <TextInput
                         style={styles.input}
                         onChangeText={(text) => {
@@ -267,10 +271,10 @@ const EditPorfileScreen = () => {
                         value={formik.values.name}
                         multiline={false}
                         maxLength={50}
-                        placeholder="your name"
+                        placeholder={t("namePlaceholder")}
                         onSubmitEditing={formik.handleSubmit}
                       />
-                      <Text style={styles.subHeader}>About</Text>
+                      <Text style={styles.subHeader}>{"about"}</Text>
                       <TextInput
                         style={styles.input}
                         onChangeText={(text) => {
@@ -284,13 +288,13 @@ const EditPorfileScreen = () => {
                         }}
                         multiline={true}
                         maxLength={1000}
-                        placeholder="Write something about yourself"
+                        placeholder={t("tellAboutYourself")}
                         onSubmitEditing={formik.handleSubmit}
                       />
-                      <Text style={styles.subHeader}>Location</Text>
+                      <Text style={styles.subHeader}>{t("location")}</Text>
                       {!visibleCity && (
                         <Button
-                          title={"Select Location"}
+                          title={t("selectLocation")}
                           onPress={() => setVisibleCity(true)}
                           buttonStyle={styles.button}
                         />
@@ -308,7 +312,7 @@ const EditPorfileScreen = () => {
                 <View style={styles.gridItem}>
                   <View style={styles.section}>
                     <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                      Music Styles
+                      {t("musicStyles")}
                     </Text>
                     <View
                       style={{
@@ -344,7 +348,7 @@ const EditPorfileScreen = () => {
                       ))}
                       <Chip
                         iconRight
-                        title={"add"}
+                        title={t("add")}
                         icon={
                           <MaterialIcons
                             name="add-circle-outline"
@@ -369,7 +373,7 @@ const EditPorfileScreen = () => {
                     )}
                     {visibleStyleTag && (
                       <Button
-                        title={"Save"}
+                        title={t("save")}
                         onPress={saveStyle}
                         buttonStyle={styles.button}
                       />
@@ -378,7 +382,7 @@ const EditPorfileScreen = () => {
                 </View>
                 <View style={styles.divider} />
                 <Text style={styles.sectionHeadingText} numberOfLines={1}>
-                  Roles
+                  {t("role")}
                 </Text>
                 <View
                   style={{
@@ -414,7 +418,7 @@ const EditPorfileScreen = () => {
                   ))}
                   <Chip
                     iconRight
-                    title={"add"}
+                    title={t("add")}
                     icon={
                       <MaterialIcons
                         name="add-circle-outline"
@@ -438,18 +442,14 @@ const EditPorfileScreen = () => {
                   />
                 )}
                 {visibleRoleTag && (
-                  <Button
-                    title={"Save"}
-                    onPress={saveRole}
-                    buttonStyle={styles.button}
-                  />
+                  <Button onPress={saveRole} buttonStyle={styles.button} />
                 )}
               </View>
             </View>
             <View style={styles.divider} />
             {experiences && (
               <>
-                <Text style={styles.sectionHeadingText}>Experiences</Text>
+                <Text style={styles.sectionHeadingText}>{t("experience")}</Text>
                 <Experiences
                   experiencesData={experiences}
                   accessory={true}
@@ -459,7 +459,7 @@ const EditPorfileScreen = () => {
             )}
             {!visibleExperience && (
               <Button
-                title={"Add Experience"}
+                title={t("addExperience")}
                 onPress={() => setVisibleExperience(true)}
                 buttonStyle={styles.button}
               />
