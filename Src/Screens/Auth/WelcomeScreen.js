@@ -11,7 +11,7 @@ const WelcomeScreen = () => {
   const navigation = useNavigation();
   function navigateToNextScreen() {
     setIsLoadingRight(true);
-    navigation.navigate("SelectionScreen");
+    navigation.navigate("SelectionLanguageScreen");
     setIsLoadingRight(false);
   }
   function navigateToSignIn() {

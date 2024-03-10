@@ -1,13 +1,13 @@
 import { React, useState } from "react";
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { View, TextInput, StyleSheet, Text, Pressable } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "@rneui/themed";
+import { Button, Dialog } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
 import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 import { useTranslation } from "react-i18next";
-
+import Policy from "../Policy";
 const CompanySignUpScreen = ({ route }) => {
   const { t } = useTranslation();
   const validationSchema = yup.object().shape({
@@ -31,6 +31,8 @@ const CompanySignUpScreen = ({ route }) => {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   function navigateToSignIn() {
     setLoading2(true);
@@ -121,12 +123,27 @@ const CompanySignUpScreen = ({ route }) => {
               )}
             </View>
             {error && <Text style={styles.errorText}>{error.message}</Text>}
+            <Pressable onPress={() => setVisible(true)}>
+              <Text style={styles.policyText}>{t("clickPolicy")}</Text>
+            </Pressable>
+            <Dialog
+              isVisible={visible}
+              onBackdropPress={() => setVisible(false)}
+              onDismiss={() => setVisible(false)}
+            >
+              <Policy
+                setChecked={setChecked}
+                checked={checked}
+                setVisible={setVisible}
+              />
+            </Dialog>
             <Button
               loading={loading}
               onPress={handleSubmit}
               buttonStyle={styles.buttonRegister}
               title={t("signUp")}
               titleStyle={styles.buttonTextRegister}
+              disabled={!checked}
             />
           </View>
         )}
@@ -147,6 +164,13 @@ const styles = StyleSheet.create({
   containerLabel: {
     flex: 1,
     padding: 10,
+  },
+  policyText: {
+    fontSize: 16,
+    fontWeight: "400",
+    marginVertical: 16,
+    marginLeft: 12,
+    textAlign: "left",
   },
   errorText: {
     color: "#ff0000c5",

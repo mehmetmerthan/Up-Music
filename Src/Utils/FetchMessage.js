@@ -27,6 +27,14 @@ export async function fetchUnreadMessages({ setUnreadCount }) {
 }
 
 export async function fetchLastMessage() {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+      priority: "high",
+    }),
+  });
   const user = await Auth.currentAuthenticatedUser();
   const userId = user.attributes.sub;
   try {

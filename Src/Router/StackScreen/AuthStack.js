@@ -16,6 +16,7 @@ import OnboardingScreen3 from "../../Screens/Auth/SignUp/Personal/OnboardingScre
 import BottomTab from "../BottomTab/BottomTab";
 import VenueGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/VenueGetDetailsScreen";
 import CompanyGetDetailsScreen from "../../Screens/Auth/SignUp/Enterprise/CompanyGetDetailsScreen";
+import SelectionLanguageScreen from "../../Screens/Auth/SignUp/SelectionLanguageScreen";
 import { useTranslation } from "react-i18next";
 export default function AuthStack() {
   const { t } = useTranslation();
@@ -84,6 +85,13 @@ export default function AuthStack() {
         component={SelectionScreen}
         options={{
           title: t("signUp"),
+        }}
+      />
+      <Stack.Screen
+        name="SelectionLanguageScreen"
+        component={SelectionLanguageScreen}
+        options={{
+          title: t("selectLanguage"),
         }}
       />
       <Stack.Screen

@@ -67,6 +67,7 @@
   "selectRole": "Lütfen rolünüzü seçin",
   "livingPlace": "Nerede yaşıyorsunuz?",
   "selectPP": "Profil resmi seç",
+  "selectLanguage": "Dil seç",
 
   "sendFile": "Dosya gönder",
   "sendMessage": "Mesaj gönder",
@@ -148,6 +149,8 @@
   "register": "Kayıt Ol",
   "haveAccount": "Zaten hesabınız var mı?",
   "emailOrPhone": "E-posta veya telefon numarası",
+  "clickPolicy": "Lütfen 'Gizlilik Politikası'nı okuyun ve kabul edin",
+  "acceptPolicy": "Gizlilik Politikasını Kabul Ediyorum",
 
   "aboutPlaceholder": "Kendinizden bahsedin",
   "applyPlaceholder": "Başvurunuz hakkında bilgi verin",
@@ -187,5 +190,8 @@
   "musicianExample": "Şarkıcılar, Müzisyenler, vb.",
   "enterpriseExample": "Müzik şirketleri, Kayıt Firmaları, vb.",
   "personal": "Kişisel",
-  "enterprise": "Kurumsal"
+  "enterprise": "Kurumsal",
+  "language": "Dil",
+  "darkMode": "Karanlık Mod",
+  "lightMode": "Aydınlık Mod"
 }

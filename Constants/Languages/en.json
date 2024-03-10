@@ -67,6 +67,7 @@
   "selectRole": "Please select your role",
   "livingPlace": "Where do you live?",
   "selectPP": "Select Profile Picture",
+  "selectLanguage": "Select Language",
 
   "sendFile": "Send a file",
   "sendMessage": "Send a message",
@@ -148,6 +149,8 @@
   "register": "Register",
   "haveAccount": "Already have an account?",
   "emailOrPhone": "Email or phone number",
+  "clickPolicy": "Please click and accept policy",
+  "acceptPolicy": "Accept Privacy Policy",
 
   "aboutPlaceholder": "Tell us about yourself",
   "applyPlaceholder": "Tell us about your apply",
@@ -187,5 +190,8 @@
   "musicianExample": "  Singers, Musicians, etc.",
   "enterpriseExample": "  Music companies, Record Labels, etc.",
   "personal": "Personal",
-  "enterprise": "Enterprise"
+  "enterprise": "Enterprise",
+  "language": "Language",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode"
 }

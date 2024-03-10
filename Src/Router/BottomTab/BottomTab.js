@@ -71,13 +71,6 @@ function BottomTab({ screenName }) {
   useEffect(() => {
     fetchUnreadMessages({ setUnreadCount });
   }, [unreadCount]);
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-      shouldSetBadge: true,
-    }),
-  });
   async function getPermission() {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();

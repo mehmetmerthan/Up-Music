@@ -1,4 +1,4 @@
-import { View, DevSettings, StyleSheet, Text } from "react-native";
+import { View, DevSettings, StyleSheet, Text, Image } from "react-native";
 import { React, useState } from "react";
 import { Button, Dialog } from "@rneui/themed";
 import { Auth, API } from "aws-amplify";
@@ -6,11 +6,31 @@ import { useNavigation } from "@react-navigation/native";
 import * as mutations from "../../graphql/mutations";
 import { listPostsIds } from "../../Utils/Queries/postQueries";
 import { useTranslation } from "react-i18next";
+import DropDownPicker from "react-native-dropdown-picker";
 export default function SettingsScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isLoadingReload, setIsLoadingReload] = useState(false);
+  const [isLoadingChangeLanguage, setIsLoadingChangeLanguage] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(i18n.language);
+  const [items, setItems] = useState([
+    {
+      label: "English",
+      value: "en",
+      icon: () => (
+        <Image source={require("../../../assets/images/Flag/uk16.png")} />
+      ),
+    },
+    {
+      label: "Türkçe",
+      value: "tr",
+      icon: () => (
+        <Image source={require("../../../assets/images/Flag/tur16.png")} />
+      ),
+    },
+  ]);
   const navigation = useNavigation();
   async function handleSignOut() {
     setIsLoadingReload(true);
@@ -57,9 +77,30 @@ export default function SettingsScreen() {
     DevSettings.reload();
     setLoading(false);
   }
+  function handleLanguageChange(item) {
+    setIsLoadingChangeLanguage(true);
+    i18n.changeLanguage(item.value);
+    setIsLoadingChangeLanguage(false);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
+        <Text style={styles.text}>{t("language")}</Text>
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          style={styles.dropdown}
+          containerStyle={styles.dropdownContainer}
+          onSelectItem={(item) => {
+            handleLanguageChange(item);
+          }}
+          loading={isLoadingChangeLanguage}
+          mode="BADGE"
+        />
         <Button
           title={t("changePassword")}
           onPress={() => navigation.navigate("ChangePasswordScreen")}
@@ -124,5 +165,28 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 50,
     borderRadius: 10,
+  },
+  dropdownContainer: {
+    height: 40,
+    width: 200,
+    marginVertical: 20,
+    alignContent: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dropdown: {
+    backgroundColor: "transparent",
+    borderColor: "#919191",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "300",
+    alignSelf: "center",
+  },
+  switch: {
+    justifyContent: "center",
+    alignSelf: "center",
+    marginVertical: 20,
   },
 });
