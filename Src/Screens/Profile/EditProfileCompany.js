@@ -196,6 +196,7 @@ const EditProfileCompany = () => {
                           title={t("selectLocation")}
                           onPress={() => setVisibleCity(true)}
                           buttonStyle={styles.button}
+                          color={"black"}
                         />
                       )}
                       {visibleCity && (

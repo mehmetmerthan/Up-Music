@@ -17,7 +17,7 @@ const CreateStack = () => {
         name="CreateScreen"
         component={CreateScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
           headerLeft: () => null,
         }}
       />
@@ -25,42 +25,42 @@ const CreateStack = () => {
         name="CreateEventScreen"
         component={CreateEventScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
         }}
       />
       <Stack.Screen
         name="CreateBandForMusicianScreen"
         component={CreateBandForMusicianScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
         }}
       />
       <Stack.Screen
         name="CreateMusicianForBandScreen"
         component={CreateMusicianForBandScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
         }}
       />
       <Stack.Screen
         name="CreateMusicianForCollaborateScreen"
         component={CreateMusicianForCollaborateScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
         }}
       />
       <Stack.Screen
         name="CreateStageScreen"
         component={CreateStageScreen}
         options={{
-          title: "Create Stage",
+          title: t("create"),
         }}
       />
       <Stack.Screen
         name="CreateVisualArtistScreen"
         component={CreateVisualArtistScreen}
         options={{
-          title: t("Create"),
+          title: t("create"),
         }}
       />
     </Stack.Navigator>

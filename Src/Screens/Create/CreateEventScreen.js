@@ -114,6 +114,7 @@ export default function CreateEventScreen() {
           />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
           <Button
+            color={"black"}
             title={t("share")}
             loading={isLoading}
             buttonStyle={{

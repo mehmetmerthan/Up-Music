@@ -73,6 +73,7 @@ const ForgotPassScreen = () => {
               onPress={handleSubmit}
               buttonStyle={styles.button}
               title={t("next")}
+              color={"black"}
             />
           </View>
         )}

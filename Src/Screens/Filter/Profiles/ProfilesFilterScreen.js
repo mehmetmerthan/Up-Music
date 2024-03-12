@@ -133,10 +133,12 @@ export default function ProfilesFilterScreen(){
           />
         </ListItem.Accordion>
         <Button
+          color={"black"}
           title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 70,
@@ -145,10 +147,12 @@ export default function ProfilesFilterScreen(){
           onPress={submitFilter}
         />
         <Button
+          color={"black"}
           title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 100,
@@ -156,6 +160,7 @@ export default function ProfilesFilterScreen(){
           }}
           onPress={reset}
           type="outline"
+          titleStyle={{ color: "black" }}
         />
       </View>
     );

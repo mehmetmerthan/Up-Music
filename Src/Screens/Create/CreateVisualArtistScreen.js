@@ -89,6 +89,7 @@ export default function CreateVisualArtistScreen() {
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
+            color={"black"}
             title={t("createVisualArtistNotice")}
             loading={isLoading}
             buttonStyle={{

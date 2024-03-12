@@ -177,6 +177,7 @@ const ChangePasswordScreen = () => {
               title={t("changePassword")}
               buttonStyle={styles.button}
               loading={loading}
+              color={"black"}
             />
           </View>
         )}

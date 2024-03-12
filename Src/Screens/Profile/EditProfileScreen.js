@@ -274,7 +274,7 @@ const EditPorfileScreen = () => {
                         placeholder={t("namePlaceholder")}
                         onSubmitEditing={formik.handleSubmit}
                       />
-                      <Text style={styles.subHeader}>{"about"}</Text>
+                      <Text style={styles.subHeader}>{t("about")}</Text>
                       <TextInput
                         style={styles.input}
                         onChangeText={(text) => {
@@ -297,6 +297,7 @@ const EditPorfileScreen = () => {
                           title={t("selectLocation")}
                           onPress={() => setVisibleCity(true)}
                           buttonStyle={styles.button}
+                          color={"black"}
                         />
                       )}
                       {visibleCity && (
@@ -462,6 +463,7 @@ const EditPorfileScreen = () => {
                 title={t("addExperience")}
                 onPress={() => setVisibleExperience(true)}
                 buttonStyle={styles.button}
+                color={"black"}
               />
             )}
             {visibleExperience && (

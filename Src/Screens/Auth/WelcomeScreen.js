@@ -21,16 +21,19 @@ const WelcomeScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../../../assets/Design.png")}
-        style={styles.image}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={styles.image}
+        />
+      </View>
       <View style={styles.buttonContainer}>
         <Button
           title={t("signUp")}
           onPress={navigateToNextScreen}
           buttonStyle={styles.buttonSignUp}
           loading={isLoadingRight}
+          color={"black"}
         />
         <Button
           title={t("signIn")}
@@ -38,6 +41,7 @@ const WelcomeScreen = () => {
           buttonStyle={styles.buttonSignIn}
           type="outline"
           loading={isLoadingLeft}
+          titleStyle={{ color: "black" }}
         />
       </View>
     </View>

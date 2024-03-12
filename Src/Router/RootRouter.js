@@ -9,7 +9,10 @@ import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import Ex from "../ex";
 import { LogBox } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 export default function Router() {
+  const { i18n } = useTranslation();
   const [redirect, setRedirect] = useState(null);
   const [screenName, setScreenName] = useState("");
   const [isReady, setIsReady] = useState(false);
@@ -29,9 +32,19 @@ export default function Router() {
     LogBox.ignoreLogs(["new NativeEventEmitter"]);
     LogBox.ignoreAllLogs();
     listenToAutoSignInEvent();
+    getLang();
   }, []);
   const navigationRef = useNavigationContainerRef();
-
+  async function getLang() {
+    try {
+      const value = await AsyncStorage.getItem("selectedLang");
+      if (value !== null) {
+        i18n.changeLanguage(value);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <NavigationContainer
       ref={navigationRef}

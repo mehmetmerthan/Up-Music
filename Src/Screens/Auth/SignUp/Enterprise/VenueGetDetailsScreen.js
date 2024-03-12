@@ -33,6 +33,7 @@ const VenueGetDetailsScreen = () => {
           title={t("next")}
           buttonStyle={styles.button}
           onPress={navigateToNextScreen}
+          color={"black"}
         />
       </View>
     );

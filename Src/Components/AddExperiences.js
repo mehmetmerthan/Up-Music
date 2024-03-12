@@ -107,6 +107,7 @@ const AddExperience = ({
           title={t("completeExperience")}
           onPress={addExperience}
           buttonStyle={styles.button}
+          color={"black"}
         />
       </View>
     );

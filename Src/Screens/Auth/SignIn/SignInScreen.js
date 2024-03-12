@@ -27,7 +27,7 @@ const SignInScreen = () => {
   function navigateToSignUp() {
     setLoading2(true);
     setError(null);
-    navigation.navigate("SelectionScreen");
+    navigation.navigate("SelectionLanguageScreen");
     setLoading2(false);
   }
   const handleRegistration = async (values) => {
@@ -76,7 +76,7 @@ const SignInScreen = () => {
       extraScrollHeight={50}
     >
       <Image
-        source={require("../../../../assets/Design.png")}
+        source={require("../../../../assets/logo.png")}
         style={styles.image}
       />
 
@@ -154,17 +154,18 @@ const SignInScreen = () => {
               loading={loading}
               onPress={handleSubmit}
               buttonStyle={styles.buttonRegister}
-              title={"LogIn"}
+              title={t("signIn")}
               titleStyle={styles.buttonTextRegister}
+              color={"black"}
             />
           </View>
         )}
       </Formik>
       <Button
         loading={loading2}
-        title={"Create new account"}
-        buttonStyle={styles.button}
-        titleStyle={styles.buttonText}
+        title={t("createAccount")}
+        buttonStyle={[styles.button, { borderColor: "black" }]}
+        titleStyle={[styles.buttonText, { color: "black" }]}
         onPress={navigateToSignUp}
         type="outline"
       />
@@ -240,9 +241,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 300,
-    resizeMode: "cover",
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
+    resizeMode: "contain",
   },
 });
 

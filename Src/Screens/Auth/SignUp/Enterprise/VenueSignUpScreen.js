@@ -156,7 +156,10 @@ const VenueSignUpScreen = ({ route }) => {
         titleStyle={styles.buttonText}
         onPress={navigateToSignIn}
         type="outline"
+          titleStyle={{ color: "black" }}
         loading={loading2}
+        disabledStyle={{ backgroundColor: "#d4d4d47e" }}
+        color={"black"}
       />
     </View>
   );

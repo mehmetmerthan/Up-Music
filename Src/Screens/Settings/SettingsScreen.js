@@ -7,6 +7,7 @@ import * as mutations from "../../graphql/mutations";
 import { listPostsIds } from "../../Utils/Queries/postQueries";
 import { useTranslation } from "react-i18next";
 import DropDownPicker from "react-native-dropdown-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const [isLoadingReload, setIsLoadingReload] = useState(false);
@@ -77,9 +78,10 @@ export default function SettingsScreen() {
     DevSettings.reload();
     setLoading(false);
   }
-  function handleLanguageChange(item) {
+  async function handleLanguageChange(item) {
     setIsLoadingChangeLanguage(true);
     i18n.changeLanguage(item.value);
+    await AsyncStorage.setItem("selectedLang", item.value);
     setIsLoadingChangeLanguage(false);
   }
   return (
@@ -105,25 +107,29 @@ export default function SettingsScreen() {
           title={t("changePassword")}
           onPress={() => navigation.navigate("ChangePasswordScreen")}
           buttonStyle={styles.buttonProperty}
+          color={"black"}
         />
         <Button
           title={t("signOut")}
           onPress={handleSignOut}
           loading={isLoadingReload}
           buttonStyle={styles.buttonProperty}
+          color={"black"}
         />
         <Button
           title={t("readPolicy")}
           onPress={() => navigation.navigate("PolicyScreen")}
-          buttonStyle={styles.buttonProperty}
+          buttonStyle={[styles.buttonProperty, { borderColor: "black" }]}
           type="outline"
+          titleStyle={{ color: "black" }}
         />
       </View>
       <Button
         title={t("contact")}
         onPress={() => console.log("Contact Us")}
-        buttonStyle={styles.buttonProperty}
+        buttonStyle={[styles.buttonProperty, { borderColor: "black" }]}
         type="outline"
+        titleStyle={{ color: "black" }}
       />
       <Button
         title={t("deleteAccount")}

@@ -48,6 +48,7 @@ const OnboardingScreen1 = () => {
           onPress={navigateToNextScreen}
           buttonStyle={styles.button}
           loading={isLoading}
+          color={"black"}
         />
       </View>
     </ScrollView>

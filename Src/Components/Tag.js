@@ -36,7 +36,7 @@ const Tag = ({ tagData, selectedTags, setSelectedTags }) => {
           {filteredData?.map((item, index) => (
             <Chip
               key={index}
-              title={item}
+              title={t(`${item}`)}
               titleStyle={{
                 color: selectedTags.includes(item) ? "#e3e3e3" : "#464646",
               }}

@@ -93,10 +93,10 @@ const CreateScreen = () => {
             style={styles.icon}
           />
           <Text style={styles.decsriptionText}>
-            {t("createMusicianForCollaborate")}
+            {t("createCollaboration")}
           </Text>
           <Text style={styles.decsriptionText}>
-            {t("createMusicianForCollaborateDescription")}
+            {t("createCollaborationDescription")}
           </Text>
         </TouchableScale>
         <TouchableScale

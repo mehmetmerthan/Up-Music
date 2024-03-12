@@ -161,10 +161,12 @@ export default function AnnouncementsBandsFilterScreen(){
           />
         </ListItem.Accordion>
         <Button
+          color={"black"}
           title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 70,
@@ -173,10 +175,12 @@ export default function AnnouncementsBandsFilterScreen(){
           onPress={submitFilter}
         />
         <Button
+          color={"black"}
           title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 100,
@@ -184,6 +188,7 @@ export default function AnnouncementsBandsFilterScreen(){
           }}
           onPress={reset}
           type="outline"
+          titleStyle={{ color: "black" }}
         />
       </View>
     );

@@ -89,7 +89,8 @@ export default function CreateMusicianForCollaborateScreen() {
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
-            title="Create group"
+            color={"black"}
+            title={t("share")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

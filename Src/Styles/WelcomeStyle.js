@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomColor: "#838383",
   },
+  imageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
   subText: {
     fontSize: 20,
     fontWeight: "300",
@@ -57,6 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "80%",
     alignSelf: "center",
+    borderColor: "black",
   },
   buttonSignUp: {
     borderRadius: 8,
@@ -65,9 +71,8 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 400,
-    resizeMode: "cover",
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
+    resizeMode: "contain",
+    marginLeft: 30,
   },
   input: {
     height: 40,

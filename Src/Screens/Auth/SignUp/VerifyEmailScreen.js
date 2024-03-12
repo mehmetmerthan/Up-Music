@@ -136,6 +136,7 @@ const VerifyEmailScreen = ({ route }) => {
                       loading={loading}
                       title={t("confirmPassword")}
                       titleStyle={styles.buttonText}
+                      color={"black"}
                     />
                   </>
                 )}
@@ -150,6 +151,7 @@ const VerifyEmailScreen = ({ route }) => {
               title={t("send")}
               titleStyle={styles.buttonText}
               disabled={passwordVisible}
+              color={"black"}
             />
             <Button
               buttonStyle={styles.buttonRe}

@@ -2,15 +2,24 @@ import { View, StyleSheet, Text, Pressable, Image } from "react-native";
 import { React } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function SelectionLanguageScreen() {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem("selectedLang", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.imagesContainer}>
         <Pressable
-          onPress={() => {
+          onPress={async () => {
             i18n.changeLanguage("en");
+            await storeData("en");
             navigation.navigate("SelectionScreen");
           }}
         >
@@ -20,8 +29,9 @@ export default function SelectionLanguageScreen() {
           />
         </Pressable>
         <Pressable
-          onPress={() => {
+          onPress={async () => {
             i18n.changeLanguage("tr");
+            await storeData("tr");
             navigation.navigate("SelectionScreen");
           }}
         >

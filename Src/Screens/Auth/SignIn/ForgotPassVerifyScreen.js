@@ -152,6 +152,7 @@ const ForgotPassVerifyScreen = ({ route }) => {
               title={t("changePassword")}
               buttonStyle={styles.button}
               loading={loading}
+              color={"black"}
             />
           </View>
         )}

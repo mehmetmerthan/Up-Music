@@ -41,7 +41,7 @@ export default function SelectionScreen() {
           checkedColor="green"
           uncheckedColor="white"
         />
-        <Text style={styles.descriptionText}>{t("personelExample")}</Text>
+        <Text style={styles.descriptionText}>{t("personalExample")}</Text>
         <Divider
           width={1}
           style={{ marginVertical: 5 }}

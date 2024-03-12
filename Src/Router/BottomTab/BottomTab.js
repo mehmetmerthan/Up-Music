@@ -14,8 +14,10 @@ import {
 } from "../../Utils/FetchMessage";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 const Tab = createBottomTabNavigator();
 function BottomTab({ screenName }) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const [unreadCount, setUnreadCount] = useState(null);
   const notificationListener = useRef();
@@ -91,6 +93,7 @@ function BottomTab({ screenName }) {
             <AntDesign name="home" color={color} size={size} />
           ),
           headerShown: false,
+          title: t("home"),
         }}
       />
       <Tab.Screen
@@ -102,6 +105,7 @@ function BottomTab({ screenName }) {
           ),
           headerShown: false,
           tabBarBadge: unreadCount,
+          title: t("message"),
         }}
       />
       <Tab.Screen
@@ -112,6 +116,7 @@ function BottomTab({ screenName }) {
             <Ionicons name="create-outline" color={color} size={size} />
           ),
           headerShown: false,
+          title: t("create"),
         }}
       />
       <Tab.Screen
@@ -126,6 +131,7 @@ function BottomTab({ screenName }) {
             />
           ),
           headerShown: false,
+          title: t("notification"),
         }}
       />
       <Tab.Screen

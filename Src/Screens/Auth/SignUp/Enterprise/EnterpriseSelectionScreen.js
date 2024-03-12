@@ -33,7 +33,7 @@ export default function VenueSelectionScreen() {
         <CheckBox
           checked={checkedCompany}
           onPress={handleCompany}
-          title={"Company"}
+          title={t("company")}
           containerStyle={styles.checkBoxContainer}
           size={30}
           style={styles.checkBox}

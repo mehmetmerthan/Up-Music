@@ -101,7 +101,8 @@ export default function CreateBandForMusicianScreen() {
           />
           <Divider style={{ borderWidth: 0.5 }} orientation="vertical" />
           <Button
-            title="Create group"
+            color={"black"}
+            title={t("createGroup")}
             loading={isLoading}
             buttonStyle={{
               borderColor: "#ccc",

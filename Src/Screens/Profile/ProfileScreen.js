@@ -118,7 +118,8 @@ const ProfileScreen = () => {
               <Button
                 title={t("settings")}
                 onPress={() => navigation.navigate("SettingsStack")}
-                buttonStyle={styles.buttonSettings}
+                buttonStyle={[styles.buttonSettings, { borderColor: "black" }]}
+                color={"black"}
               />
             </View>
             <View style={styles.divider} />

@@ -10,7 +10,7 @@ import StyleTags from "../../../Constants/Data/StyleTags";
 import { useNavigation } from "@react-navigation/native";
 import { ListItem } from "@rneui/themed";
 import { useTranslation } from "react-i18next";
-export default function EventsFilterScreen(){
+export default function EventsFilterScreen() {
   const [selectedStyleTags, setSelectedStyleTags] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -106,10 +106,12 @@ export default function EventsFilterScreen(){
           />
         </ListItem.Accordion>
         <Button
+          color={"black"}
           title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 70,
@@ -118,10 +120,12 @@ export default function EventsFilterScreen(){
           onPress={submitFilter}
         />
         <Button
+          color={"black"}
           title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 100,
@@ -129,6 +133,7 @@ export default function EventsFilterScreen(){
           }}
           onPress={reset}
           type="outline"
+          titleStyle={{ color: "black" }}
         />
       </View>
     );
@@ -136,7 +141,7 @@ export default function EventsFilterScreen(){
   return (
     <View style={styles.container}>
       <FlatList
-      decelerationRate={0.8}
+        decelerationRate={0.8}
         data={[1]}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}

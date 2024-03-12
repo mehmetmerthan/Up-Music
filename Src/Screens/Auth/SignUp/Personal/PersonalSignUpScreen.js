@@ -178,6 +178,8 @@ const PersonalSignUpScreen = ({ route }) => {
               title={t("signUp")}
               titleStyle={styles.buttonTextRegister}
               disabled={!checked}
+              disabledStyle={{ backgroundColor: "#d4d4d47e" }}
+              color={"black"}
             />
           </View>
         )}

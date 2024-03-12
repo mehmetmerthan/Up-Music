@@ -132,7 +132,7 @@ export default function AuthStack() {
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
-        options={{ title: "welcome" }}
+        options={{ title: t("welcome") }}
       />
       <Stack.Screen
         name="OnboardingScreen1"

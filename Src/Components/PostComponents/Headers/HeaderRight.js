@@ -8,7 +8,7 @@ export default function HeaderRight({ screenName }) {
   const navigation = useNavigation();
   return (
     <Ionicons
-      name={t("filter")}
+      name={"filter"}
       size={24}
       style={styles.headerRight}
       color="black"

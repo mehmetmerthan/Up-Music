@@ -73,7 +73,7 @@ export default function CreateMusicianForBandScreen() {
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <CityPicker setSelectedLocation={setSelectedLocation} />
           <Divider orientation="vertical" style={{ borderWidth: 0.5 }} />
-          <Text style={styles.header}>{"musicianRole"}</Text>
+          <Text style={styles.header}>{t("musicianRole")}</Text>
           <Divider inset={true} insetType="middle" orientation="vertical" />
           <Tag
             selectedTags={selectedRoleTags}
@@ -90,6 +90,7 @@ export default function CreateMusicianForBandScreen() {
           />
           <Divider orientation="vertical" />
           <Button
+            color={"black"}
             title={t("share")}
             loading={isLoading}
             buttonStyle={{

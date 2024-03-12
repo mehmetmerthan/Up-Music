@@ -144,6 +144,8 @@ const CompanySignUpScreen = ({ route }) => {
               title={t("signUp")}
               titleStyle={styles.buttonTextRegister}
               disabled={!checked}
+              disabledStyle={{ backgroundColor: "#d4d4d47e" }}
+              color={"black"}
             />
           </View>
         )}
@@ -154,6 +156,7 @@ const CompanySignUpScreen = ({ route }) => {
         titleStyle={styles.buttonText}
         onPress={navigateToSignIn}
         type="outline"
+          titleStyle={{ color: "black" }}
         loading={loading2}
       />
     </View>

@@ -134,10 +134,12 @@ export default function PerformanceFilterScreen() {
           />
         </ListItem.Accordion>
         <Button
+          color={"black"}
           title={t("filter")}
           loading={isLoading}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 70,
@@ -146,10 +148,12 @@ export default function PerformanceFilterScreen() {
           onPress={submitFilter}
         />
         <Button
+          color={"black"}
           title={t("reset")}
           loading={isLoadingReset}
           buttonStyle={{
             borderRadius: 10,
+            borderColor: "black",
           }}
           containerStyle={{
             marginHorizontal: 100,
@@ -157,6 +161,7 @@ export default function PerformanceFilterScreen() {
           }}
           onPress={reset}
           type="outline"
+          titleStyle={{ color: "black" }}
         />
       </View>
     );

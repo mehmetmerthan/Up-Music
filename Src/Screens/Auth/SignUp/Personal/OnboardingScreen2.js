@@ -48,6 +48,7 @@ const OnboardingScreen2 = ({ route }) => {
           title={t("next")}
           buttonStyle={styles.button}
           onPress={navigateToNextScreen}
+          color={"black"}
         />
       </View>
     );
