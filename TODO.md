@@ -6,19 +6,15 @@ Project Description
 
 ### Todo
 
-- [ ] son ui değişikliklerini yap  
 - [ ] apk build al ve test et  
 - [ ] stres testi yap  
 
 ### In Progress
 
-- [ ] dil eklentisi  
-- [ ] theme araştır  
-- [ ] veritabanı s3 sil  
 - [ ] kullancılar kaydet ve onayla  
+- [ ] error fetching items hatasını tespit et  
 - [ ] test et  
 
 ### Done ✓
 
-- [x] titreşimli bildirim ios  
 

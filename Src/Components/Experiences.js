@@ -108,12 +108,14 @@ const styles = StyleSheet.create({
   tagContainer: {
     flexDirection: "row",
     marginTop: 5,
+    flexWrap: "wrap",
   },
   tag: {
     backgroundColor: "#ccc",
     padding: 5,
     borderRadius: 5,
     marginRight: 5,
+    marginBottom: 5,
   },
   sub: {
     fontStyle: "italic",
