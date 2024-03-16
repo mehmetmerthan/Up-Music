@@ -11,6 +11,8 @@ Project Description
 
 ### In Progress
 
+- [ ] Edit roles da instrumentalist seçme kontrol et  
+- [ ] Swipper düzelt  
 - [ ] kullancılar kaydet ve onayla  
 - [ ] error fetching items hatasını tespit et  
 - [ ] test et  

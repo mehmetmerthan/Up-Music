@@ -225,8 +225,8 @@ const EditPorfileScreen = () => {
               color="#008000"
               style={{
                 position: "absolute",
-                right: 15,
-                bottom: -100,
+                right: 30,
+                bottom: -10,
               }}
               onPress={OpenGalleryPP}
             />

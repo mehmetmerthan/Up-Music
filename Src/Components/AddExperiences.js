@@ -30,18 +30,7 @@ const AddExperience = ({
       isEmpty(selectedSong)
     ) {
       setVisibleExperience && setVisibleExperience(false);
-      return;
-    }
-    if (aboutExperience === "") {
-      alert(t("addExperienceAlertAbout"));
-      return;
-    }
-    if (selectedExperienceRoleTags.length === 0) {
-      alert(t("addExperienceAlertRoles"));
-      return;
-    }
-    if (selectedExperienceStyleTags.length === 0) {
-      alert(t("addExperienceAlertStyles"));
+      alert(t("addExperienceAlert"));
       return;
     }
     const newExperience = {

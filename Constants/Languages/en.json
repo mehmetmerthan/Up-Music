@@ -91,9 +91,7 @@
   "resend": "Resend Code",
   "createGroup": "Create group",
 
-  "addExperienceAlertAbout": "Please fill in the about experience field",
-  "addExperienceAlertRoles": "Please select at least one role tag",
-  "addExperienceAlertStyles": "Please select at least one music style",
+  "addExperienceAlert": "Please fill in the section in experience field",
   "fileSizeExceeded": "File size limit exceeded",
   "fileSizeExceededMessage": "Please select a file smaller than 50MB.",
   "fileNotSupported": "File type not supported",
@@ -222,6 +220,7 @@
   "Flutist": "Flutist",
   "Violinist": "Violinist",
   "Violist": "Violist",
+  "Vocalist": "Vocalist",
   "Cellist": "Cellist",
   "Contrabassist": "Contrabassist",
   "Composer": "Composer",

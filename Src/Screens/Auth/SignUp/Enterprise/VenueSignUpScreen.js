@@ -7,6 +7,7 @@ import { Button, Dialog } from "@rneui/themed";
 import signUp from "../../../../Utils/Auth/SignUp";
 import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 import Policy from "../Policy";
 const VenueSignUpScreen = ({ route }) => {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ const VenueSignUpScreen = ({ route }) => {
   const [error, setError] = useState(null);
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
   function navigateToSignIn() {
     setLoading2(true);
@@ -100,26 +102,66 @@ const VenueSignUpScreen = ({ route }) => {
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
               <Text style={styles.subText}> {t("password")}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={t("password")}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t("password")}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
+              </View>
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
               <Text style={styles.subText}> {t("confirmPassword")}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={t("confirmPassword")}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                value={values.confirmPassword}
-                secureTextEntry
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t("confirmPassword")}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
+              </View>
               {touched.confirmPassword && errors.confirmPassword && (
                 <Text style={styles.errorText}>{errors.confirmPassword}</Text>
               )}
@@ -156,7 +198,6 @@ const VenueSignUpScreen = ({ route }) => {
         titleStyle={styles.buttonText}
         onPress={navigateToSignIn}
         type="outline"
-          titleStyle={{ color: "black" }}
         loading={loading2}
         disabledStyle={{ backgroundColor: "#d4d4d47e" }}
         color={"black"}
@@ -210,6 +251,10 @@ const styles = StyleSheet.create({
   },
   buttonTextRegister: {
     color: "#fff",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

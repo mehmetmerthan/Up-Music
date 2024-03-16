@@ -18,13 +18,15 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateStageScreen")}
         >
           <Image
-            source={require("../../../assets/images/Create/create-stage.png")}
+            source={require("../../../assets/images/Create/createStage.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>{t("createStage")}</Text>
-          <Text style={styles.decsriptionText}>
-            {t("createStageDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>{t("createStage")}</Text>
+            <Text style={styles.decsriptionText}>
+              {t("createStageDescription")}
+            </Text>
+          </View>
         </TouchableScale>
         <TouchableScale
           friction={90}
@@ -34,13 +36,15 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateEventScreen")}
         >
           <Image
-            source={require("../../../assets/images/Create/create-event.png")}
+            source={require("../../../assets/images/Create/createEvent.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>{t("createEvent")}</Text>
-          <Text style={styles.decsriptionText}>
-            {t("createEventDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>{t("createEvent")}</Text>
+            <Text style={styles.decsriptionText}>
+              {t("createEventDescription")}
+            </Text>
+          </View>
         </TouchableScale>
       </View>
       <View style={styles.row}>
@@ -52,13 +56,15 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateBandForMusicianScreen")}
         >
           <Image
-            source={require("../../../assets/images/Create/group-search-notice.png")}
+            source={require("../../../assets/images/Create/createBand.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>{t("createBand")}</Text>
-          <Text style={styles.decsriptionText}>
-            {t("createBandDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>{t("createBand")}</Text>
+            <Text style={styles.decsriptionText}>
+              {t("createBandDescription")}
+            </Text>
+          </View>
         </TouchableScale>
         <TouchableScale
           friction={90}
@@ -68,14 +74,16 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateMusicianForBandScreen")}
         >
           <Image
-            source={require("../../../assets/images/Create/musician-search-notice.png")}
+            source={require("../../../assets/images/Create/createMusician.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>{t("createMusician")}</Text>
-          <Text style={styles.decsriptionText}>
-            {" "}
-            {t("createMusicianDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>{t("createMusician")}</Text>
+            <Text style={styles.decsriptionText}>
+              {" "}
+              {t("createMusicianDescription")}
+            </Text>
+          </View>
         </TouchableScale>
       </View>
       <View style={styles.row}>
@@ -89,15 +97,17 @@ const CreateScreen = () => {
           }
         >
           <Image
-            source={require("../../../assets/images/Create/create-stage.png")}
+            source={require("../../../assets/images/Create/createCollabroation.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>
-            {t("createCollaboration")}
-          </Text>
-          <Text style={styles.decsriptionText}>
-            {t("createCollaborationDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>
+              {t("createCollaboration")}
+            </Text>
+            <Text style={styles.decsriptionText}>
+              {t("createCollaborationDescription")}
+            </Text>
+          </View>
         </TouchableScale>
         <TouchableScale
           friction={90}
@@ -107,13 +117,17 @@ const CreateScreen = () => {
           onPress={() => navigation.navigate("CreateVisualArtistScreen")}
         >
           <Image
-            source={require("../../../assets/images/Create/create-job-notice.png")}
+            source={require("../../../assets/images/Create/createVisual.png")}
             style={styles.icon}
           />
-          <Text style={styles.decsriptionText}>{t("createVisualArtist")}</Text>
-          <Text style={styles.decsriptionText}>
-            {t("createVisualArtistDescription")}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.decsriptionText}>
+              {t("createVisualArtist")}
+            </Text>
+            <Text style={styles.decsriptionText}>
+              {t("createVisualArtistDescription")}
+            </Text>
+          </View>
         </TouchableScale>
       </View>
     </ScrollView>

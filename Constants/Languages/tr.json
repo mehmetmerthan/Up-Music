@@ -91,9 +91,7 @@
   "resend": "Kodu Tekrar Gönder",
   "createGroup": "Grup Oluştur",
 
-  "addExperienceAlertAbout": "Lütfen deneyim hakkında alanı doldurun",
-  "addExperienceAlertRoles": "Lütfen en az bir rol etiketi seçin",
-  "addExperienceAlertStyles": "Lütfen en az bir müzik tarzı seçin",
+  "addExperienceAlert": "Lütfen bir alanı doldurun",
   "fileSizeExceeded": "Dosya boyutu limiti aşıldı",
   "fileSizeExceededMessage": "Lütfen 50 MB'den küçük bir dosya seçin.",
   "fileNotSupported": "Dosya türü desteklenmiyor",
@@ -222,6 +220,7 @@
   "Flutist": "Flütçü",
   "Violinist": "Keman Virtüözü",
   "Violist": "Viyolacı",
+  "Vocalist": "Vokalist",
   "Cellist": "Çellist",
   "Contrabassist": "Kontrbasçı",
   "Composer": "Besteci",

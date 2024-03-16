@@ -24,6 +24,7 @@ const RoleTags = [
   "Flutist",
 
   "Violinist",
+  "Vocalist",
   "Violist",
   "Cellist",
   "Contrabassist",

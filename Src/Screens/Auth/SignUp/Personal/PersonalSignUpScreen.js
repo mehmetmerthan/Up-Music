@@ -9,14 +9,14 @@ import signUp from "../../../../Utils/Auth/SignUp";
 import { USER_TYPES } from "../../../../../Constants/Enums/UserTypes";
 import { useTranslation } from "react-i18next";
 import Policy from "../Policy";
-
+import { Ionicons } from "@expo/vector-icons";
 const PersonalSignUpScreen = ({ route }) => {
   const { t } = useTranslation();
   const validationSchema = yup.object().shape({
     name: yup.string().required(t("nameRequired")),
     email: yup
       .string()
-      .email(t("entervalidemail"))
+      // .email(t("entervalidemail"))
       .required(t("emailRequired")),
     password: yup
       .string()
@@ -35,6 +35,7 @@ const PersonalSignUpScreen = ({ route }) => {
   const [error, setError] = useState(null);
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     selectedStyleTags = [],
     selectedRoleTags = [],
@@ -130,28 +131,66 @@ const PersonalSignUpScreen = ({ route }) => {
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
               <Text style={styles.subText}> {t("password")}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={t("password")}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry
-                autoCapitalize="none"
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t("password")}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
+              </View>
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
               )}
               <Text style={styles.subText}> {t("confirmPassword")}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={t("confirmPassword")}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                value={values.confirmPassword}
-                secureTextEntry
-                autoCapitalize="none"
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t("confirmPassword")}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                />
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  )}
+                </Pressable>
+              </View>
               {touched.confirmPassword && errors.confirmPassword && (
                 <Text style={styles.errorText}>{errors.confirmPassword}</Text>
               )}
@@ -256,6 +295,10 @@ const styles = StyleSheet.create({
   },
   buttonTextRegister: {
     color: "#fff",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

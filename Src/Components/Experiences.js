@@ -46,38 +46,43 @@ export default function Experiences({
                   />
                 )}
               </View>
-              <Divider />
-              <Text style={styles.aboutText}>{experience?.about}</Text>
+              {experience?.about && (
+                <>
+                  {" "}
+                  <Divider />
+                  <Text style={styles.aboutText}>{experience?.about}</Text>
+                </>
+              )}
               {experience?.tag_roles?.length > 0 && (
                 <>
                   <Text style={styles.sub}>{"role"}</Text>
                   <Divider insetType="middle" />
+                  <View style={styles.tagContainer}>
+                    {experience?.tag_roles?.map((role, index) => {
+                      return (
+                        <Text key={index} style={styles.tag}>
+                          {role}
+                        </Text>
+                      );
+                    })}
+                  </View>
                 </>
               )}
-              <View style={styles.tagContainer}>
-                {experience?.tag_roles?.map((role, index) => {
-                  return (
-                    <Text key={index} style={styles.tag}>
-                      {role}
-                    </Text>
-                  );
-                })}
-              </View>
               {experience?.tag_styles?.length > 0 && (
                 <>
                   <Text style={styles.sub}>{t("style")}</Text>
                   <Divider insetType="middle" />
+                  <View style={styles.tagContainer}>
+                    {experience?.tag_styles?.map((style, index) => {
+                      return (
+                        <Text key={index} style={styles.tag}>
+                          {style}
+                        </Text>
+                      );
+                    })}
+                  </View>
                 </>
               )}
-              <View style={styles.tagContainer}>
-                {experience?.tag_styles?.map((style, index) => {
-                  return (
-                    <Text key={index} style={styles.tag}>
-                      {style}
-                    </Text>
-                  );
-                })}
-              </View>
             </View>
           );
         })}
